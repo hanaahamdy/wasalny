@@ -9,8 +9,8 @@ import '../../../../core/navigation/navigator.dart';
 import '../../../../core/network/network_service.dart';
 import '../../../../core/shared/cubits/base_url/base_url_cubit.dart';
 import '../../../../core/shared/cubits/user_cubit/user_cubit.dart';
+import '../../../logic/auth/presentation/imports/view_imports.dart';
 import '../../../logic/home/presentation/imports/view_imports.dart';
-import '../../intro/presentation/imports/view_imports.dart';
 
 part '../cubit/splash_state.dart';
 part '../cubit/splash_cubit.dart';

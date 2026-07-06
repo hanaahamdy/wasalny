@@ -2,7 +2,7 @@ part of 'config_imports.dart';
 
 class AppColors {
   static const Color main = Color(0xFF1C1C1C);
-  static const Color primary = Color(0xFF474747);
+  static const Color primary = Color(0xFF2B3289);
   static const Color secondary = Color(0xFF292929);
   static const Color third = Color(0xFF1F2A37);
   static const Color forth = Color(0xFF583D82);
@@ -17,6 +17,7 @@ class AppColors {
   static const Color border = Color(0xFFC5C6C9);
   static const Color activeBorder = Color(0xFF583D82);
   static const Color error = Color(0xFFE34D4D);
+  static const Color fieldFillColor = Color(0xFFF7F7F8);
 
   static const Color grey1 = Color(0xffDFDFDF);
   static const Color grey2 = Color(0xFFC7C7C7);

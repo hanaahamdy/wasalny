@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../features/logic/auth/presentation/imports/view_imports.dart';
 import '../../features/settings/splash/imports/view_imports.dart';
 import 'named_routes.dart';
 import 'page_router/imports_page_router_builder.dart';
@@ -10,23 +11,25 @@ class RouterGenerator {
   static final PageRouterBuilder _pageRouter = PageRouterBuilder();
 
   static Route<dynamic> getRoute(RouteSettings settings) {
-    final namedRoute =
-        NamedRoutes.values.firstWhere((e) => e.routeName == settings.name);
+    final namedRoute = NamedRoutes.values.firstWhere(
+      (e) => e.routeName == settings.name,
+    );
     return switch (namedRoute) {
       NamedRoutes.splash => _pageRouter.build(
-          const SplashScreen(),
-          settings: settings,
-        ),
+        const SplashScreen(),
+        settings: settings,
+      ),
+      NamedRoutes.login => _pageRouter.build(
+        const LoginScreen(),
+        settings: settings,
+      ),
     };
   }
 
   static Route<dynamic> undefineRoute() {
     return MaterialPageRoute(
-      builder: (_) => const Scaffold(
-        body: Center(
-          child: Text('No route exists here ! '),
-        ),
-      ),
+      builder: (_) =>
+          const Scaffold(body: Center(child: Text('No route exists here ! '))),
     );
   }
 }

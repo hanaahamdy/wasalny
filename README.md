@@ -38,7 +38,7 @@
 
 ## App Bundle :
 
--com.aait.cleansolution
+-com.aait.arenza
 or
 
 - com.cs.flutter_base

@@ -75,7 +75,7 @@ class LoadingButton extends StatelessWidget {
         padding: EdgeInsets.zero,
         width: width ?? MediaQuery.sizeOf(context).width,
         minWidth: 46.h,
-        height: height ?? 46.h,
+        height: height ?? 50.h,
         // color:gradient != null ? null:  isDissabled ? AppColors.grey2 : color ?? AppColors.primaryColor,
         borderRadius: borderRadius ?? AppSize.sH12,
         disabledColor: color ?? AppColors.primary,

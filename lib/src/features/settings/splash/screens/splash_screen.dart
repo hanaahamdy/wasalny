@@ -34,9 +34,8 @@ class _SplashViewState extends State<_SplashView> {
         width: context.width,
         height: context.height,
         padding: EdgeInsets.all(AppPadding.pH20),
-        decoration: const BoxDecoration(gradient: AppColors.gradient),
-        child: AppAssets.svg.appSvg.appLogo.image(
-          width: context.width * .3,
+        child: AppAssets.svg.appSvg.appLogoPng.image(
+          width: context.width * .2,
           height: context.height * .16,
         ),
       ),

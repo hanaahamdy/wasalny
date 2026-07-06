@@ -49,7 +49,7 @@ class CustomTextFiled extends StatelessWidget {
     this.maxLines,
     this.fillColor,
     this.inputFormatters,
-    this.hasBorder = true,
+    this.hasBorder = false,
     this.readOnly = false,
     this.isPassword = false,
     this.isOptional = false,
@@ -65,7 +65,7 @@ class CustomTextFiled extends StatelessWidget {
       children: [
         if (title != null) ...[
           if (isOptional) ...[
-            Text(title!, style: const TextStyle().setMainTextColor.s13.regular),
+            Text(title!, style: const TextStyle().setMainTextColor.s13.medium),
           ] else ...[
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -81,7 +81,7 @@ class CustomTextFiled extends StatelessWidget {
                 ),
                 Text(
                   title!,
-                  style: const TextStyle().setMainTextColor.s13.regular,
+                  style: const TextStyle().setMainTextColor.s14.medium,
                 ),
               ],
             ),
@@ -106,8 +106,8 @@ class CustomTextFiled extends StatelessWidget {
           onSubmitted: onSubmitted,
           onTap: onTap,
           fillColor: readOnly && fillColor == null
-              ? AppColors.border
-              : (fillColor ?? AppColors.border),
+              ? AppColors.fieldFillColor
+              : (fillColor ?? AppColors.fieldFillColor),
           action: textInputAction,
           onChanged: onChanged,
           validator: validator,

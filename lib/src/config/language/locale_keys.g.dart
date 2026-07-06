@@ -619,4 +619,7 @@ abstract class LocaleKeys {
   static const String _noOptionsFound = 'no_options_found';
   static String get noOptionsFound => _noOptionsFound.tr();
 
+  static const String _loginSubtitle = 'login_subtitle';
+  static String get loginSubtitle => _loginSubtitle.tr();
+
 }

@@ -20,11 +20,7 @@ Future<void> initUserData(BuildContext context) async {
   Future.delayed(
     const Duration(milliseconds: ConstantManager.splashTimer),
   ).then((value) async {
-    final result = await UserCubit.instance.init();
-    if (result) {
-      Go.to(const HomeScreen());
-    } else {
-      Go.to(const IntroScreen());
-    }
+    await UserCubit.instance.init();
+    Go.to(const LoginScreen());
   });
 }

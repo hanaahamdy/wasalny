@@ -31,7 +31,7 @@
     </queries>
 
     <application
-        android:label="Flutter_Base"
+        android:label="arenza"
         android:name="${applicationName}"
         android:enableOnBackInvokedCallback="true"
         android:icon="@mipmap/ic_launcher">

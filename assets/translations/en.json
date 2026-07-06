@@ -204,5 +204,6 @@
   "data_updating_now_come_later": "Data is currently being updated, please come back later",
   "select_an_option": "Select an option",
   "no_result_found": "No Result Found",
-  "no_options_found": "No Options Found"
+  "no_options_found": "No Options Found",
+  "login_subtitle": "Please log in to browse the app"
 }

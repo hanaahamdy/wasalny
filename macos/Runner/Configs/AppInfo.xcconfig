@@ -8,7 +8,7 @@
 PRODUCT_NAME = appp
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.aait.cleansolution
+PRODUCT_BUNDLE_IDENTIFIER = com.aait.arenza
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2025 com.example. All rights reserved.

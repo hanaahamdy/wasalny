@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "301593055481",
-    "project_id": "clean-solution-d7088",
-    "storage_bucket": "clean-solution-d7088.firebasestorage.app"
+    "project_number": "194862880924",
+    "project_id": "arenza-cbbb1",
+    "storage_bucket": "arenza-cbbb1.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:301593055481:android:507756286b025f56cfd228",
+        "mobilesdk_app_id": "1:194862880924:android:f224e61daa94d5738a3559",
         "android_client_info": {
-          "package_name": "com.aait.cleansolution"
+          "package_name": "com.aait.arenza"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCmhJf3Vb1xbX-A7gcOzzSLXST0e1vb-nQ"
+          "current_key": "AIzaSyDWgSKTnVukao1P4chhhftb5LXSaK_Vwqc"
         }
       ],
       "services": {

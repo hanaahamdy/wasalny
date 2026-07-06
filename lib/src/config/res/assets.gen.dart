@@ -114,14 +114,18 @@ class $AssetsSvgAppSvgGen {
   const $AssetsSvgAppSvgGen();
 
   /// File path: assets/svg/app_svg/app_logo.png
-  AssetGenImage get appLogo =>
+  AssetGenImage get appLogoPng =>
       const AssetGenImage('assets/svg/app_svg/app_logo.png');
+
+  /// File path: assets/svg/app_svg/app_logo.svg
+  SvgGenImage get appLogoSvg =>
+      const SvgGenImage('assets/svg/app_svg/app_logo.svg');
 
   /// File path: assets/svg/app_svg/home.svg
   SvgGenImage get home => const SvgGenImage('assets/svg/app_svg/home.svg');
 
   /// List of all assets
-  List<dynamic> get values => [appLogo, home];
+  List<dynamic> get values => [appLogoPng, appLogoSvg, home];
 }
 
 class $AssetsSvgBaseSvgGen {
