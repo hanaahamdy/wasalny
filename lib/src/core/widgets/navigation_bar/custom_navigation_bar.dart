@@ -1,8 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../../../config/res/config_imports.dart';
-import '../../extensions/text_style_extensions.dart';
-import 'animated_button.dart';
 import 'navigation_bar_entity.dart';
 
 class CustomNavigationBar extends StatefulWidget {
@@ -59,13 +58,42 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
   Widget _buildTab(NavigationBarEntity tab, int index) {
     context.locale;
     final isActive = _selectedIndex == index;
-    return Semantics(
-      child: AnimatedButton(
-        icon: tab.icon,
-        text: Text(tab.text, style: const TextStyle().setWhiteColor.s13.medium),
-        active: isActive,
-        color: const Color(0xff5C40C2),
-        onPressed: () => _handleTabPress(index),
+    final color = isActive ? const Color(0xFF3BB885) : const Color(0xFF424242);
+
+    return Expanded(
+      child: Semantics(
+        selected: isActive,
+        button: true,
+        label: tab.text,
+        child: InkWell(
+          onTap: () => _handleTabPress(index),
+          child: SizedBox(
+            height: AppSize.sH60,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(
+                  tab.icon,
+                  width: AppSize.sH22,
+                  height: AppSize.sH22,
+                  // ignore: deprecated_member_use
+                  color: color,
+                ),
+                SizedBox(height: AppSize.sH6),
+                Text(
+                  tab.text,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: color,
+                    fontSize: FontSizeManager.s12,
+                    fontWeight: FontWeightManager.regular,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -74,20 +102,25 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
   Widget build(BuildContext context) {
     context.locale;
     return Container(
-      height: AppSize.sH60,
-      padding: EdgeInsets.all(AppPadding.pH8),
+      height: AppSize.sH85,
+      padding: EdgeInsets.fromLTRB(
+        AppPadding.pW8,
+        AppPadding.pH8,
+        AppPadding.pW8,
+        AppPadding.pH10,
+      ),
       decoration: const BoxDecoration(
-        color: AppColors.scaffoldBackground,
+        color: AppColors.white,
         boxShadow: [
           BoxShadow(
-            color: AppColors.grey1,
-            blurRadius: 0,
-            offset: Offset(1, -.5),
+            color: Color(0x26000000),
+            blurRadius: 15,
+            offset: Offset(0, -4),
           ),
         ],
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: widget.tabs
             .asMap()

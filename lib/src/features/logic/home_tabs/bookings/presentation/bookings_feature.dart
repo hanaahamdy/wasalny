@@ -1,0 +1,31 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../../config/language/locale_keys.g.dart';
+import '../../../../../config/res/config_imports.dart';
+import '../../../../../core/navigation/navigator.dart';
+import '../../../../../core/widgets/buttons/default_button.dart';
+
+part 'cubits/bookings_cubit.dart';
+part 'data/fake_bookings_api.dart';
+part 'entity/booking_entities.dart';
+part 'view/bookings_view.dart';
+part 'view/booking_details_view.dart';
+part 'view/wallet_view.dart';
+part 'widgets/booking_card.dart';
+part 'widgets/booking_details_action_bar.dart';
+part 'widgets/booking_details_booked_at_card.dart';
+part 'widgets/booking_details_body.dart';
+part 'widgets/booking_details_code_card.dart';
+part 'widgets/booking_details_card.dart';
+part 'widgets/booking_details_hero.dart';
+part 'widgets/booking_details_round_back_button.dart';
+part 'widgets/booking_details_services_grid.dart';
+part 'widgets/payment_summary_card.dart';
+part 'widgets/booking_filter_tabs.dart';
+part 'widgets/booking_header.dart';
+part 'widgets/booking_info_row.dart';
+part 'widgets/rating_sheet.dart';

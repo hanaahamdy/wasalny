@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import '../../../../../config/res/config_imports.dart';
 import '../../../../../core/notification/notification_service.dart';
 import '../../../../../core/widgets/navigation_bar/navigation_bar.dart';
+import '../../../home_tabs/bookings/presentation/bookings_feature.dart';
 import '../../../home_tabs/more_tab/presentation/imports/view_imports.dart';
+import '../../../home_tabs/stadiums/presentation/stadiums_feature.dart';
 import '../../entity/home_params.dart';
 
 part '../view/home_screen.dart';

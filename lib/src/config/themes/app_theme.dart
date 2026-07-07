@@ -15,6 +15,10 @@ class AppTheme {
         modalBackgroundColor: AppColors.white,
         surfaceTintColor: Colors.transparent,
       ),
+      appBarTheme: const AppBarTheme(
+        backgroundColor: AppColors.scaffoldBackground,
+          foregroundColor: AppColors.white
+      ),
       scaffoldBackgroundColor: AppColors.scaffoldBackground,
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: AppColors.white,
@@ -40,7 +44,6 @@ class AppTheme {
         selectionColor: AppColors.primary.withValues(alpha: 0.2),
         selectionHandleColor: AppColors.primary,
       ),
-      appBarTheme: const AppBarTheme(foregroundColor: AppColors.white),
       iconTheme: const IconThemeData(color: AppColors.white),
       inputDecorationTheme: const InputDecorationTheme(
         prefixIconColor: AppColors.border,

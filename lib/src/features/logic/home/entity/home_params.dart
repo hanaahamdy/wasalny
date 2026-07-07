@@ -1,4 +1,4 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import '../../../../config/language/locale_keys.g.dart';
 import '../../../../config/res/assets.gen.dart';
 import '../../../../config/res/config_imports.dart';
@@ -17,11 +17,9 @@ class HomeParams {
   String visitorDesc(int value) {
     switch (value) {
       case 1:
-        return LocaleKeys.home;
+        return LocaleKeys.bookings;
       case 2:
-        return LocaleKeys.home;
-      case 3:
-        return LocaleKeys.home;
+        return LocaleKeys.wallet;
       default:
         return ConstantManager.emptyText;
     }
@@ -31,7 +29,7 @@ class HomeParams {
     if (UserCubit.instance.isUserLoggedIn) {
       selectedIndexNotifier.value = value;
     } else {
-      if (value == 0 || value == 4) {
+      if (value == 0 || value == 3) {
         selectedIndexNotifier.value = value;
       } else {
         visitorDialog(visitorDesc(value));
@@ -45,19 +43,15 @@ class HomeParams {
       icon: AppAssets.svg.appSvg.home.path,
     ),
     NavigationBarEntity(
-      text: LocaleKeys.home,
+      text: LocaleKeys.bookings,
       icon: AppAssets.svg.appSvg.home.path,
     ),
     NavigationBarEntity(
-      text: LocaleKeys.home,
+      text: LocaleKeys.wallet,
       icon: AppAssets.svg.appSvg.home.path,
     ),
     NavigationBarEntity(
-      text: LocaleKeys.home,
-      icon: AppAssets.svg.appSvg.home.path,
-    ),
-    NavigationBarEntity(
-      text: LocaleKeys.home,
+      text: LocaleKeys.more,
       icon: AppAssets.svg.appSvg.home.path,
     ),
   ];

@@ -8,14 +8,12 @@ class _HomeBody extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (index) {
       case 0:
-        return const SizedBox.shrink();
+        return const StadiumsHomeView();
       case 1:
-        return const SizedBox.shrink();
+        return const BookingsView();
       case 2:
-        return const SizedBox.shrink();
+        return const WalletView();
       case 3:
-        return const SizedBox.shrink();
-      case 4:
         return const MoreTabView();
 
       default:

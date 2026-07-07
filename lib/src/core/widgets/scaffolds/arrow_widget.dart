@@ -1,6 +1,4 @@
-import 'dart:math' as math;
 import 'package:flutter/material.dart';
-import '../../../config/res/assets.gen.dart';
 import '../../../config/res/config_imports.dart';
 import '../../extensions/context_extension.dart';
 import '../../extensions/text_style_extensions.dart';
@@ -24,19 +22,25 @@ class ArrowWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final arrowSize = height ?? width ?? AppSize.sH35;
+
     return Row(
       mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
-
       children: [
-        Transform(
+        Container(
+          width: width ?? arrowSize,
+          height: height ?? arrowSize,
+          decoration: const BoxDecoration(
+            color: AppColors.primary,
+            shape: BoxShape.circle,
+          ),
           alignment: Alignment.center,
-          transform: context.isRight
-              ? Matrix4.rotationY(math.pi)
-              : Matrix4.rotationX(math.pi),
-          child: AppAssets.svg.baseSvg.arrowBack
-              .svg(width: width ?? AppSize.sH35, height: height ?? AppSize.sH35)
-              .onClick(onTap: onTap ?? () => Go.back()),
-        ),
+          child: Icon(
+            context.isRight ? Icons.arrow_forward : Icons.arrow_back,
+            color: AppColors.white,
+            size: arrowSize * 0.58,
+          ),
+        ).onClick(onTap: onTap ?? () => Go.back()),
       ],
     );
   }
