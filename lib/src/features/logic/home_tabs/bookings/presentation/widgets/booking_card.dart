@@ -252,10 +252,7 @@ class _PriceBlock extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          LocaleKeys.bookingsPoundsAmount.replaceFirst(
-            '{amount}',
-            '${booking.total}',
-          ),
+          LocaleKeys.bookingsPoundsAmount(amount: '${booking.total}'),
           style: TextStyle(
             color: AppColors.bookingPriceGreen,
             fontSize: 17.sp,

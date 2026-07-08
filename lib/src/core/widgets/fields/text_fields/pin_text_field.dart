@@ -8,61 +8,50 @@ import '../../../helpers/validators.dart';
 import '../../custom_widget_validator.dart';
 
 class CustomPinTextField extends StatelessWidget {
-  final ValueChanged<String>? onCompleted;
   final TextEditingController controller;
+  final FocusNode focusNode;
+  final bool hasError;
+
   const CustomPinTextField({
-    super.key,
     required this.controller,
-    this.onCompleted,
+    required this.focusNode,
+    required this.hasError,
   });
 
   @override
   Widget build(BuildContext context) {
-    final defaultPinTheme = PinTheme(
-      width: AppSize.sH50,
-      height: AppSize.sH50,
-      textStyle: const TextStyle().setMainTextColor.s12.regular,
+    final defaultTheme = PinTheme(
+      width: 62,
+      height: 62,
+      textStyle: const TextStyle().setMainTextColor.s18.medium,
       decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(AppCircular.r10),
-        border: Border.all(color: AppColors.border),
+        color: AppColors.fieldFillColor,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.transparent),
       ),
     );
-    final focusedPinTheme = defaultPinTheme.copyDecorationWith(
-      border: Border.all(color: const Color(0xffC09B30)),
-    );
-    final errorPinTheme = defaultPinTheme.copyDecorationWith(
-      border: Border.all(color: AppColors.error),
-    );
+
     return Directionality(
       textDirection: TextDirection.ltr,
-      child: CustomWidgetValidator(
-        validator: Validators.validateEmpty,
-        builder: (state) {
-          return Center(
-            child: Pinput(
-              length: ConstantManager.pinCodeFieldsCount,
-              controller: controller,
-              keyboardType: TextInputType.number,
-              autofocus: true,
-              forceErrorState: state.hasError,
-              focusedPinTheme: focusedPinTheme,
-              defaultPinTheme: defaultPinTheme,
-              errorPinTheme: errorPinTheme,
-              onCompleted: onCompleted,
-              closeKeyboardWhenCompleted: true,
-              errorTextStyle: const TextStyle().setErrorColor.s10.regular,
-              mainAxisAlignment: MainAxisAlignment.center,
-
-              pinAnimationType: PinAnimationType.scale,
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              textInputAction: TextInputAction.done,
-              onChanged: (value) => state.didChange(value),
-              validator: (value) => Validators.validateEmpty(value),
-            ),
-          );
-        },
+      child: Pinput(
+        controller: controller,
+        focusNode: focusNode,
+        length: ConstantManager.pinCodeFieldsCount,
+        autofocus: false,
+        keyboardType: TextInputType.number,
+        textInputAction: TextInputAction.done,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+        defaultPinTheme: defaultTheme,
+        focusedPinTheme: defaultTheme.copyDecorationWith(
+          border: Border.all(color: AppColors.primary),
+        ),
+        submittedPinTheme: defaultTheme,
+        errorPinTheme: defaultTheme.copyDecorationWith(
+          border: Border.all(color: AppColors.error),
+        ),
+        forceErrorState: hasError,
       ),
-    ).marginSymmetric(vertical: AppMargin.mH18);
+    );
   }
 }

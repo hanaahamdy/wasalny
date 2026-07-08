@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../config/res/config_imports.dart';
 import '../../../extensions/text_style_extensions.dart';
@@ -81,9 +82,7 @@ class _DefaultTextFieldState extends State<DefaultTextField> {
 
   @override
   void initState() {
-    if (widget.isPassword != null) {
-      _isSecure = true;
-    }
+    _isSecure = widget.isPassword == true;
     super.initState();
   }
 
@@ -129,12 +128,14 @@ class _DefaultTextFieldState extends State<DefaultTextField> {
         filled: widget.filled,
         suffixText: widget.suffixText,
         prefixIcon: widget.prefixIcon,
-        suffixIcon: widget.suffixIcon,
+        suffixIcon: _buildSuffixIcon(),
         prefix: widget.prefixWidget,
         errorStyle: const TextStyle().setErrorColor.s12.regular,
         fillColor: widget.fillColor ?? Colors.white,
         hintText: widget.title,
         label: isLabel ? Text(widget.label!) : null,
+
+        suffixIconConstraints: BoxConstraints(minWidth: 20.w, minHeight: 20.h),
         labelStyle: isLabel
             ? const TextStyle().setSecondryColor.s12.medium
             : null,
@@ -162,6 +163,23 @@ class _DefaultTextFieldState extends State<DefaultTextField> {
           borderSide: const BorderSide(color: AppColors.error),
         ),
       ),
+    );
+  }
+
+  Widget? _buildSuffixIcon() {
+    if (widget.suffixIcon == null) return null;
+
+    final suffixIcon = Padding(
+      padding: EdgeInsets.only(left: AppPadding.pW12),
+      child: widget.suffixIcon,
+    );
+
+    if (widget.isPassword != true) return suffixIcon;
+
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () => setState(() => _isSecure = !_isSecure),
+      child: suffixIcon,
     );
   }
 }

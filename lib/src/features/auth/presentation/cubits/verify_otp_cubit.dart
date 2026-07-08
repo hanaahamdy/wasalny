@@ -10,7 +10,6 @@ abstract class VerifyOtpCubit extends AsyncCubit<BaseModel?> {
       OtpPurpose.login => _LoginVerifyOtpCubit(),
       OtpPurpose.loginMarketer => _LoginVerifyOtpCubit(),
       OtpPurpose.register => _RegisterVerifyOtpCubit(),
-      OtpPurpose.registerMarketer => _RegisterVerifyOtpCubit(),
       OtpPurpose.resetPassword => _ResetPasswordVerifyOtpCubit(),
       OtpPurpose.changePhone => _ChangePhoneVerifyOtpCubit(),
       OtpPurpose.confirmNewPhone => _ConfirmNewPhoneVerifyOtpCubit(),
@@ -70,8 +69,18 @@ class _ChangePhoneVerifyOtpCubit extends VerifyOtpCubit {
 class _ConfirmNewPhoneVerifyOtpCubit extends VerifyOtpCubit {
   @override
   Future<void> verify({required String phone, required String otp}) async {
-    // Confirm-new-phone can be executed through ChangePhoneNumberCubit
-    // from the OTP body when the endpoint is available.
+    await executeAsync(
+      operation: () async => baseCrudUseCase.call(
+        CrudBaseParams<BaseModel?>(
+          api: ApiConstants.changeEmailVerifyCode,
+          body: {'phone': phone, 'code': otp},
+          httpRequestType: HttpRequestType.post,
+          isFromData: true,
+          mapper: (json) => BaseModel.fromJson(json),
+        ),
+      ),
+      successEmitter: (_) => Go.back(true),
+    );
   }
 }
 
@@ -81,33 +90,34 @@ extension on VerifyOtpCubit {
     required String otp,
     void Function(BaseModel? success)? successEmitter,
   }) async {
-    await executeAsync(
-      operation: () async => baseCrudUseCase.call(
-        CrudBaseParams<BaseModel?>(
-          api: ApiConstants.verifyAccount,
-          body: {
-            'phone': phone,
-            'code': otp,
-            'device_id': NotificationService.deviceToken,
-            'device_type': Helpers.getDeviceType(),
-            'project_name': ConstantManager.appName,
-          },
-          httpRequestType: HttpRequestType.post,
-          isFromData: true,
-          mapper: (json) => BaseModel.fromJson(
-            json,
-            jsonToModel: (j) {
-              final data = j['data'];
-              if (data is Map<String, dynamic>) {
-                return UserModel.fromJson(data);
-              }
-              return null;
-            },
-          ),
-        ),
-      ),
-      successEmitter: successEmitter,
-    );
+    Go.to(const HomeScreen());
+    // await executeAsync(
+    //   operation: () async => baseCrudUseCase.call(
+    //     CrudBaseParams<BaseModel?>(
+    //       api: ApiConstants.verifyAccount,
+    //       body: {
+    //         'phone': phone,
+    //         'code': otp,
+    //         'device_id': NotificationService.deviceToken,
+    //         'device_type': Helpers.getDeviceType(),
+    //         'project_name': ConstantManager.appName,
+    //       },
+    //       httpRequestType: HttpRequestType.post,
+    //       isFromData: true,
+    //       mapper: (json) => BaseModel.fromJson(
+    //         json,
+    //         jsonToModel: (j) {
+    //           final data = j['data'];
+    //           if (data is Map<String, dynamic>) {
+    //             return UserModel.fromJson(data);
+    //           }
+    //           return null;
+    //         },
+    //       ),
+    //     ),
+    //   ),
+    //   successEmitter: successEmitter,
+    // );
   }
 
   Future<void> _handleAuthenticatedUser(BaseModel? success) async {
@@ -123,7 +133,6 @@ extension on VerifyOtpCubit {
       Go.offAll(const LoginScreen());
       return;
     }
-
     await UserCubit.instance.setUserLoggedIn(
       user: user,
       token: user.token ?? ConstantManager.emptyText,

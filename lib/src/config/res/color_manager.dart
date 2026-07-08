@@ -13,6 +13,12 @@ class AppColors {
   static const Color transparent = Colors.transparent;
   static const Color buttonColor = Color(0xFF583D82);
   static const Color buttonText = Color(0xffF7F7F8);
+  static const Color authLinkText = Color(0xff003D31);
+  static const Color avatarBackground = Color(0xffEFEFEF);
+  static const Color avatarIcon = Color(0xff344955);
+  static const Color avatarCameraIcon = Color(0xff7A9691);
+  static const Color phoneCountryBadge = Color(0xff006C35);
+  static const Color signUpLoginLinkText = Color(0xff012B1F);
 
   static const Color scaffoldBackground = Color(0xffFFFFFF);
   static const Color border = Color(0xFFC5C6C9);

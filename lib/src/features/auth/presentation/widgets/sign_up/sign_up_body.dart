@@ -18,6 +18,8 @@ class _SignUpBodyState extends State<_SignUpBody> {
 
   @override
   Widget build(BuildContext context) {
+    final registerState = context.watch<RegisterCubit>().state;
+
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Form(
@@ -51,92 +53,159 @@ class _SignUpBodyState extends State<_SignUpBody> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const _AvatarPicker(),
+                    ValueListenableBuilder<File?>(
+                      valueListenable: params.avatarImageNotifier,
+                      builder: (context, image, _) {
+                        return _AvatarPicker(
+                          image: image,
+                          onImagePicked: (image) {
+                            params.avatarImageNotifier.value = image;
+                          },
+                        );
+                      },
+                    ),
                     AppSize.sH24.szH,
                     CustomPhoneField(
                       controller: params.phoneController,
                       textInputAction: TextInputAction.next,
                       title: LocaleKeys.phoneNumber,
-                      countryCodeAtStart: true,
                     ),
                     AppSize.sH20.szH,
-                    _SignUpSelectField(
-                      title: 'النوع',
-                      value: params.type,
+                    CustomTextFiled(
+                      title: LocaleKeys.signUpType,
+                      hint: params.type,
+                      controller: null,
+                      textInputType: TextInputType.text,
+                      textInputAction: TextInputAction.next,
+                      validator: null,
                       onTap: () {},
+                      readOnly: true,
+                      borderRadius: BorderRadius.circular(16),
+                      suffixIcon: const Icon(
+                        Icons.keyboard_arrow_down_rounded,
+                        color: AppColors.hintText,
+                        size: 24,
+                      ),
                     ),
                     AppSize.sH20.szH,
-                    _SignUpSelectField(
-                      title: 'الجنس',
+                    AppDropdown<String>(
+                      label: LocaleKeys.signUpGender,
+                      hint: params.gender,
                       value: params.gender,
-                      onTap: () {},
-                    ),
-                    AppSize.sH20.szH,
-                    _SignUpInputField(
-                      title: 'الاسم بالكامل',
-                      hint: 'ادخل الاسم',
-                      controller: params.fullNameController,
-                      textInputAction: TextInputAction.next,
-                      validator: (value) => Validators.validateEmpty(
+                      items: params.genderOptions,
+                      itemAsString: (item) => item,
+                      onChanged: (value) {
+                        if (value == null) return;
+                        setState(() {
+                          params.gender = value;
+                        });
+                      },
+                      borderRadius: BorderRadius.circular(16),
+                      validator: (value) => Validators.validateDropDown(
                         value,
-                        fieldTitle: 'الاسم بالكامل',
+                        fieldTitle: LocaleKeys.signUpGender,
                       ),
                     ),
                     AppSize.sH20.szH,
-                    _SignUpInputField(
-                      title: 'العمر او تاريخ الميلاد',
-                      hint: 'ادخل العمر   او اختر من القائمة',
-                      controller: params.birthDateController,
-                      textInputType: TextInputType.datetime,
-                      textInputAction: TextInputAction.next,
-                      prefixIcon: Icons.edit_calendar_outlined,
-                      validator: (value) => Validators.validateEmpty(
+                    AppDropdown<String>(
+                      label: LocaleKeys.signUpFullName,
+                      hint: LocaleKeys.signUpEnterName,
+                      value: params.fullNameController.text.isEmpty
+                          ? null
+                          : params.fullNameController.text,
+                      items: params.fullNameOptions,
+                      itemAsString: (item) => item,
+                      onChanged: (value) {
+                        params.fullNameController.text = value ?? '';
+                      },
+                      borderRadius: BorderRadius.circular(16),
+                      validator: (value) => Validators.validateDropDown(
                         value,
-                        fieldTitle: 'العمر او تاريخ الميلاد',
+                        fieldTitle: LocaleKeys.signUpFullName,
                       ),
                     ),
                     AppSize.sH20.szH,
-                    _SignUpInputField(
-                      title: 'البريد الالكتروني',
-                      hint: 'ادخل البريد',
+                    AppDropdown<String>(
+                      label: LocaleKeys.signUpBirthDate,
+                      hint: LocaleKeys.signUpBirthDateHint,
+                      value: params.birthDateController.text.isEmpty
+                          ? null
+                          : params.birthDateController.text,
+                      items: params.birthDateOptions,
+                      itemAsString: (item) => item,
+                      onChanged: (value) {
+                        params.birthDateController.text = value ?? '';
+                      },
+                      borderRadius: BorderRadius.circular(16),
+                      validator: (value) => Validators.validateDropDown(
+                        value,
+                        fieldTitle: LocaleKeys.signUpBirthDate,
+                      ),
+                    ),
+                    AppSize.sH20.szH,
+                    CustomTextFiled(
+                      title: LocaleKeys.email,
+                      hint: LocaleKeys.signUpEnterEmail,
                       controller: params.emailController,
                       textInputType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
+                      borderRadius: BorderRadius.circular(16),
                       validator: (value) => Validators.validateEmail(
                         value,
                         fieldTitle: LocaleKeys.email,
                       ),
                     ),
                     AppSize.sH20.szH,
-                    _SignUpInputField(
-                      title: 'الموقع',
-                      hint: 'تحديد الموقع',
+                    LocationTextField(
                       controller: params.locationController,
-                      textInputAction: TextInputAction.next,
-                      prefixIcon: Icons.location_on_outlined,
-                      validator: (value) =>
-                          Validators.validateEmpty(value, fieldTitle: 'الموقع'),
+                      onLocationSelected: (_) {},
                     ),
                     AppSize.sH20.szH,
-                    _SignUpSelectField(
-                      title: 'المدينة',
-                      value: params.city ?? 'تحديد المدينة',
-                      onTap: () {},
+                    AppDropdown<String>(
+                      label: LocaleKeys.signUpCity,
+                      hint: params.city ?? LocaleKeys.signUpSelectCity,
+                      value: params.city,
+                      items: params.cityOptions,
+                      itemAsString: (item) => item,
+                      onChanged: (value) {
+                        setState(() {
+                          params.city = value;
+                          params.district = null;
+                        });
+                      },
+                      borderRadius: BorderRadius.circular(16),
+                      validator: (value) => Validators.validateDropDown(
+                        value,
+                        fieldTitle: LocaleKeys.signUpCity,
+                      ),
                     ),
                     AppSize.sH20.szH,
-                    _SignUpSelectField(
-                      title: 'الحي',
-                      value: params.district ?? 'تحديد الحي',
-                      onTap: () {},
+                    AppDropdown<String>(
+                      label: LocaleKeys.signUpDistrict,
+                      hint: params.district ?? LocaleKeys.signUpSelectDistrict,
+                      value: params.district,
+                      items: params.districtOptions,
+                      itemAsString: (item) => item,
+                      onChanged: (value) {
+                        setState(() {
+                          params.district = value;
+                        });
+                      },
+                      borderRadius: BorderRadius.circular(16),
+                      validator: (value) => Validators.validateDropDown(
+                        value,
+                        fieldTitle: LocaleKeys.signUpDistrict,
+                      ),
                     ),
                     AppSize.sH20.szH,
-                    _SignUpInputField(
+                    CustomTextFiled(
                       title: LocaleKeys.password,
-                      hint: 'ادخل كلمة المرور',
+                      hint: LocaleKeys.pleaseEnterYourPassword,
                       controller: params.passwordController,
                       textInputType: TextInputType.visiblePassword,
                       textInputAction: TextInputAction.next,
-                      prefixIcon: Icons.lock_outline,
+                      borderRadius: BorderRadius.circular(16),
+                      suffixIcon: AppAssets.svg.baseSvg.circlePassword.svg(),
                       isPassword: true,
                       validator: (value) => Validators.validatePassword(
                         value,
@@ -144,14 +213,16 @@ class _SignUpBodyState extends State<_SignUpBody> {
                       ),
                     ),
                     AppSize.sH20.szH,
-                    _SignUpInputField(
+                    CustomTextFiled(
+                      isPassword: true,
                       title: LocaleKeys.confirmPassword,
-                      hint: 'ادخل كلمة المرور',
+                      hint: LocaleKeys.pleaseEnterYourPassword,
                       controller: params.confirmPasswordController,
                       textInputType: TextInputType.visiblePassword,
                       textInputAction: TextInputAction.done,
-                      prefixIcon: Icons.lock_outline,
-                      isPassword: true,
+                      borderRadius: BorderRadius.circular(16),
+
+                      suffixIcon: AppAssets.svg.baseSvg.circlePassword.svg(),
                       validator: (value) => Validators.validatePasswordConfirm(
                         value,
                         params.passwordController.text,
@@ -159,12 +230,15 @@ class _SignUpBodyState extends State<_SignUpBody> {
                       ),
                     ),
                     AppSize.sH18.szH,
-                    _TermsRow(
-                      isChecked: params.acceptedTerms,
-                      onChanged: () {
-                        setState(() {
-                          params.acceptedTerms = !params.acceptedTerms;
-                        });
+                    ValueListenableBuilder<bool>(
+                      valueListenable: params.acceptedTermsNotifier,
+                      builder: (context, acceptedTerms, _) {
+                        return _TermsRow(
+                          isChecked: acceptedTerms,
+                          onChanged: () {
+                            params.acceptedTermsNotifier.value = !acceptedTerms;
+                          },
+                        );
                       },
                     ),
                     AppSize.sH16.szH,
@@ -173,9 +247,9 @@ class _SignUpBodyState extends State<_SignUpBody> {
                       height: AppSize.sH56,
                       borderRadius: AppCircular.infinity,
                       color: AppColors.primary,
-                      onTap: () async {
-                        params.validate();
-                      },
+                      isDissabled: registerState.isLoading,
+                      onTap: () =>
+                          context.read<RegisterCubit>().register(params),
                     ),
                     AppSize.sH22.szH,
                     const _LoginLink(),

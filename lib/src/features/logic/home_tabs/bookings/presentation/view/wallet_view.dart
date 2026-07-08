@@ -244,10 +244,11 @@ class _WalletActionCard extends StatelessWidget {
               ),
               SizedBox(height: 5.h),
               Text(
-                LocaleKeys.bookingsRechargeSummary
-                    .replaceFirst('{amount}', '${wallet.lastRecharge}')
-                    .replaceFirst('{currency}', LocaleKeys.bookingsPound)
-                    .replaceFirst('{date}', wallet.lastRechargeDate),
+                LocaleKeys.bookingsRechargeSummary(
+                  amount: '${wallet.lastRecharge}',
+                  currency: LocaleKeys.bookingsPound,
+                  date: wallet.lastRechargeDate,
+                ),
                 style: TextStyle(
                   color: AppColors.black,
                   fontSize: 12.sp,

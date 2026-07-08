@@ -22,9 +22,8 @@ class _PaymentSummaryCard extends StatelessWidget {
           SizedBox(height: 16.h),
           _BookingInfoRow(
             label: LocaleKeys.stadiumsHourPrice,
-            value: LocaleKeys.bookingsPoundsAmount.replaceFirst(
-              '{amount}',
-              '${booking.hourPrice}',
+            value: LocaleKeys.bookingsPoundsAmount(
+              amount: '${booking.hourPrice}',
             ),
           ),
           _BookingInfoRow(
@@ -33,10 +32,7 @@ class _PaymentSummaryCard extends StatelessWidget {
           ),
           _BookingInfoRow(
             label: LocaleKeys.bookingsTotal,
-            value: LocaleKeys.bookingsPoundsAmount.replaceFirst(
-              '{amount}',
-              '${booking.total}',
-            ),
+            value: LocaleKeys.bookingsPoundsAmount(amount: '${booking.total}'),
             valueColor: AppColors.bookingSuccessGreen,
           ),
           Divider(height: 26.h, color: AppColors.bookingDivider),

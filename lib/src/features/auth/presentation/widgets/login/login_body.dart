@@ -19,7 +19,6 @@ class _LoginBodyState extends State<_LoginBody> {
   @override
   Widget build(BuildContext context) {
     final state = context.watch<LoginCubit>().state;
-
     return Form(
       key: params.formKey,
       child: SingleChildScrollView(
@@ -36,7 +35,7 @@ class _LoginBodyState extends State<_LoginBody> {
             20.szH,
             Container(
               padding: EdgeInsets.symmetric(
-                horizontal: AppPadding.pW24,
+                horizontal: AppPadding.pW12,
                 vertical: AppPadding.pH16,
               ),
               decoration: BoxDecoration(
@@ -52,10 +51,10 @@ class _LoginBodyState extends State<_LoginBody> {
                     controller: params.phoneController,
                     textInputAction: TextInputAction.next,
                     showTitle: false,
-                    countryCodeAtStart: false,
                   ),
                   AppSize.sH18.szH,
                   CustomTextFiled(
+                    suffixIcon: AppAssets.svg.baseSvg.circlePassword.svg(),
                     controller: params.passwordController,
                     hint: LocaleKeys.pleaseEnterYourPassword,
                     title: LocaleKeys.password,
@@ -113,7 +112,7 @@ class _LoginBodyState extends State<_LoginBody> {
                         child: Text(
                           LocaleKeys.register,
                           style: const TextStyle()
-                              .setColor(const Color(0xff003D31))
+                              .setColor(AppColors.authLinkText)
                               .s13
                               .bold,
                         ),

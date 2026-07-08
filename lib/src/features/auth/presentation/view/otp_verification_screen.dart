@@ -3,13 +3,10 @@ part of '../imports/view_imports.dart';
 class OtpVerificationScreen extends StatelessWidget {
   final String phone;
   final OtpPurpose purpose;
-  final ProviderRegistrationType? registrationType;
-
   const OtpVerificationScreen({
     super.key,
     required this.phone,
     this.purpose = OtpPurpose.register,
-    this.registrationType,
   });
 
   @override
@@ -20,18 +17,14 @@ class OtpVerificationScreen extends StatelessWidget {
         BlocProvider(create: (_) => ResendCodeCubit()),
       ],
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         appBar: AppBar(
           backgroundColor: AppColors.white,
           automaticallyImplyLeading: true,
         ),
         backgroundColor: AppColors.white,
         body: SafeArea(
-          child: _OtpBody(
-            phone: phone,
-            purpose: purpose,
-            registrationType: registrationType,
-          ),
+          child: _OtpBody(phone: phone, purpose: purpose),
         ),
       ),
     );

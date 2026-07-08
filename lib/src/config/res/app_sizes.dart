@@ -70,6 +70,7 @@ class AppSize {
   static double sH12 = 12.0.h;
   static double sH14 = 14.0.h;
   static double sH16 = 16.0.h;
+  static double sH17 = 17.0.h;
   static double sH18 = 18.0.h;
   static double sH20 = 20.0.h;
   static double sH22 = 22.0.h;
@@ -81,12 +82,16 @@ class AppSize {
   static double sH40 = 40.0.h;
   static double sH44 = 44.0.h;
   static double sH45 = 45.0.h;
+  static double sH48 = 48.0.h;
   static double sH50 = 50.0.h;
   static double sH55 = 55.0.h;
   static double sH56 = 56.0.h;
   static double sH60 = 60.0.h;
   static double sH70 = 70.0.h;
+  static double sH78 = 78.0.h;
   static double sH85 = 85.0.h;
+  static double sH100 = 100.0.h;
+  static double sH120 = 120.0.h;
 
   // VALUES FOR WIDTH
   static double sW0 = 0.0.w;
@@ -103,12 +108,15 @@ class AppSize {
   static double sW20 = 20.0.w;
   static double sW25 = 25.0.w;
   static double sW27 = 27.0.w;
+  static double sW28 = 28.0.w;
   static double sW30 = 30.0.w;
   static double sW40 = 40.0.w;
   static double sW50 = 50.0.w;
   static double sW60 = 60.0.w;
   static double sW70 = 70.0.w;
   static double sW74 = 74.0.w;
+  static double sW100 = 100.0.w;
+  static double sW120 = 120.0.w;
 }
 
 class FontSizeManager {

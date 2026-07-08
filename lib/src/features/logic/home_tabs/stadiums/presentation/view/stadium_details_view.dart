@@ -90,11 +90,9 @@ class _StadiumDetailsViewState extends State<StadiumDetailsView> {
                             Expanded(
                               child: _InfoTile(
                                 title: LocaleKeys.stadiumsHourPrice,
-                                value: LocaleKeys.stadiumsRiyalAmount
-                                    .replaceFirst(
-                                      '{amount}',
-                                      '${stadium.price}',
-                                    ),
+                                value: LocaleKeys.stadiumsRiyalAmount(
+                                  amount: '${stadium.price}',
+                                ),
                                 icon: Icons.attach_money,
                               ),
                             ),

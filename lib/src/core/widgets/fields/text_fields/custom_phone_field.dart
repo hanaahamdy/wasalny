@@ -13,7 +13,7 @@ class CustomPhoneField extends StatelessWidget {
   final String? title;
   final String? hint;
   final bool showTitle;
-  final bool countryCodeAtStart;
+
   final CrossAxisAlignment crossAxisAlignment;
   final TextAlign titleTextAlign;
   final TextStyle? titleStyle;
@@ -26,7 +26,6 @@ class CustomPhoneField extends StatelessWidget {
     this.title,
     this.hint,
     this.showTitle = true,
-    this.countryCodeAtStart = true,
     this.crossAxisAlignment = CrossAxisAlignment.stretch,
     this.titleTextAlign = TextAlign.right,
     this.titleStyle,
@@ -52,9 +51,7 @@ class CustomPhoneField extends StatelessWidget {
       ),
     );
 
-    final children = countryCodeAtStart
-        ? <Widget>[const CustomCountryCodeBox(), AppSize.sW10.szW, field]
-        : <Widget>[field, AppSize.sW10.szW, const CustomCountryCodeBox()];
+    final children = <Widget>[field, AppSize.sW10.szW, const CustomCountryCodeBox()];
 
     return Column(
       crossAxisAlignment: crossAxisAlignment,
@@ -87,9 +84,9 @@ class CustomCountryCodeBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: AppSize.sW74,
-      height: AppSize.sH50,
+      height: AppSize.sH48,
       decoration: BoxDecoration(
-        color: const Color(0xffF7F7F8),
+        color: AppColors.fieldFillColor,
         borderRadius: BorderRadius.circular(AppCircular.r20),
       ),
       child: Column(
@@ -101,7 +98,7 @@ class CustomCountryCodeBox extends StatelessWidget {
             width: AppSize.sW27,
             height: AppSize.sH18,
             decoration: BoxDecoration(
-              color: const Color(0xff006C35),
+              color: AppColors.phoneCountryBadge,
               borderRadius: BorderRadius.circular(AppCircular.r2),
             ),
             alignment: Alignment.center,

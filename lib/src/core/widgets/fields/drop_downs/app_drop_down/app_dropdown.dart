@@ -277,7 +277,7 @@ class _AppDropdownState<T> extends State<AppDropdown<T>> {
                       decoration: BoxDecoration(
                         color: widget.readonly
                             ? AppColors.grey2.withOpacity(0.3)
-                            : widget.fillColor ?? AppColors.white,
+                            : widget.fillColor ?? AppColors.fieldFillColor,
                         borderRadius:
                             widget.borderRadius ?? BorderRadius.circular(12.r),
                         border: Border.all(

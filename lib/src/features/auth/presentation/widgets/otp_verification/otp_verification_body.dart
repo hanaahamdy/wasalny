@@ -3,13 +3,7 @@ part of '../../imports/view_imports.dart';
 class _OtpBody extends StatefulWidget {
   final String phone;
   final OtpPurpose purpose;
-  final ProviderRegistrationType? registrationType;
-
-  const _OtpBody({
-    required this.phone,
-    required this.purpose,
-    this.registrationType,
-  });
+  const _OtpBody({required this.phone, required this.purpose});
 
   @override
   State<_OtpBody> createState() => _OtpBodyState();
@@ -17,7 +11,6 @@ class _OtpBody extends StatefulWidget {
 
 class _OtpBodyState extends State<_OtpBody> {
   static const int _resendDurationInSeconds = 59;
-
   final TextEditingController _pinController = TextEditingController();
   final FocusNode _pinFocusNode = FocusNode();
   Timer? _timer;
@@ -40,8 +33,6 @@ class _OtpBodyState extends State<_OtpBody> {
   @override
   Widget build(BuildContext context) {
     final verifyState = context.watch<VerifyOtpCubit>().state;
-    final changePhoneState = context.watch<ChangePhoneNumberCubit>().state;
-    final isLoading = verifyState.isLoading || changePhoneState.isLoading;
 
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -49,15 +40,15 @@ class _OtpBodyState extends State<_OtpBody> {
         padding: EdgeInsets.symmetric(
           horizontal: AppPadding.pW24,
           vertical: AppPadding.pH14,
+
         ),
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             _OtpHeader(
-              title: _title,
-              description:
-                  '${LocaleKeys.pleaseEnterTheCodeSentTo} ${widget.phone}',
+              title: widget.purpose.title,
+              description: widget.purpose.description(widget.phone),
             ),
             AppSize.sH18.szH,
             Container(
@@ -80,10 +71,10 @@ class _OtpBodyState extends State<_OtpBody> {
                 children: [
                   const _OtpIllustration(),
                   AppSize.sH28.szH,
-                  _OtpPinField(
+                  CustomPinTextField(
                     controller: _pinController,
                     focusNode: _pinFocusNode,
-                    hasError: verifyState.isError || changePhoneState.isError,
+                    hasError: verifyState.isError,
                   ),
                   AppSize.sH28.szH,
                   _OtpResendSection(
@@ -97,7 +88,7 @@ class _OtpBodyState extends State<_OtpBody> {
                     height: AppSize.sH56,
                     borderRadius: AppCircular.infinity,
                     color: AppColors.primary,
-                    isDissabled: isLoading,
+                    isDissabled: verifyState.isLoading,
                     onTap: _verify,
                   ),
                 ],
@@ -108,11 +99,6 @@ class _OtpBodyState extends State<_OtpBody> {
       ),
     );
   }
-
-  String get _title => switch (widget.purpose) {
-    OtpPurpose.resetPassword => LocaleKeys.forgotPassword,
-    _ => LocaleKeys.phoneNumberVerification,
-  };
 
   String get _timerText {
     final minutes = _remainingSeconds ~/ 60;
@@ -128,14 +114,6 @@ class _OtpBodyState extends State<_OtpBody> {
         context: context,
         baseStatus: BaseStatus.error,
         message: LocaleKeys.emptyOtpRequired,
-      );
-      return;
-    }
-
-    if (widget.purpose == OtpPurpose.confirmNewPhone) {
-      await context.read<ChangePhoneNumberCubit>().confirmNewPhone(
-        phone: widget.phone,
-        otp: otp,
       );
       return;
     }
@@ -202,55 +180,6 @@ class _OtpIllustration extends StatelessWidget {
           'assets/svg/base_svg/otp_verification.png',
           fit: BoxFit.contain,
         ),
-      ),
-    );
-  }
-}
-
-class _OtpPinField extends StatelessWidget {
-  final TextEditingController controller;
-  final FocusNode focusNode;
-  final bool hasError;
-
-  const _OtpPinField({
-    required this.controller,
-    required this.focusNode,
-    required this.hasError,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final defaultTheme = PinTheme(
-      width: 62,
-      height: 62,
-      textStyle: const TextStyle().setMainTextColor.s18.medium,
-      decoration: BoxDecoration(
-        color: AppColors.fieldFillColor,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.transparent),
-      ),
-    );
-
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: Pinput(
-        controller: controller,
-        focusNode: focusNode,
-        length: ConstantManager.pinCodeFieldsCount,
-        autofocus: true,
-        keyboardType: TextInputType.number,
-        textInputAction: TextInputAction.done,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-        defaultPinTheme: defaultTheme,
-        focusedPinTheme: defaultTheme.copyDecorationWith(
-          border: Border.all(color: AppColors.primary),
-        ),
-        submittedPinTheme: defaultTheme,
-        errorPinTheme: defaultTheme.copyDecorationWith(
-          border: Border.all(color: AppColors.error),
-        ),
-        forceErrorState: hasError,
       ),
     );
   }

@@ -5,9 +5,13 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: AppColors.scaffoldBackground,
-      body: SafeArea(child: _SignUpBody()),
+    return BlocProvider(
+      create: (context) => RegisterCubit(),
+      child: Scaffold(
+        appBar: AppBar(),
+        backgroundColor: AppColors.scaffoldBackground,
+        body: const SafeArea(child: _SignUpBody()),
+      ),
     );
   }
 }

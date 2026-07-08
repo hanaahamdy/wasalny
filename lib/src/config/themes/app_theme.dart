@@ -11,13 +11,18 @@ class AppTheme {
       hoverColor: Colors.transparent,
       splashColor: Colors.transparent,
       fontFamily: ConstantManager.fontFamily,
+      iconButtonTheme: _appBarIconButtonTheme(
+        iconColor: AppColors.primary,
+        backgroundColor: AppColors.fieldFillColor,
+      ),
       bottomSheetTheme: const BottomSheetThemeData(
         modalBackgroundColor: AppColors.white,
         surfaceTintColor: Colors.transparent,
       ),
       appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.scaffoldBackground,
-          foregroundColor: AppColors.white
+        foregroundColor: AppColors.white,
+        iconTheme: IconThemeData(color: AppColors.primary),
       ),
       scaffoldBackgroundColor: AppColors.scaffoldBackground,
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -56,6 +61,10 @@ class AppTheme {
       primarySwatch: AppColorsWithDarkMode.primary.toMaterialColor(),
       primaryColor: AppColorsWithDarkMode.primary,
       useMaterial3: true,
+      iconButtonTheme: _appBarIconButtonTheme(
+        iconColor: AppColorsWithDarkMode.primary,
+        backgroundColor: AppColorsWithDarkMode.white,
+      ),
       bottomSheetTheme: const BottomSheetThemeData(
         modalBackgroundColor: AppColorsWithDarkMode.white,
       ),
@@ -81,10 +90,28 @@ class AppTheme {
       dialogTheme: const DialogThemeData(surfaceTintColor: Colors.transparent),
       appBarTheme: const AppBarTheme(
         foregroundColor: AppColorsWithDarkMode.white,
+        iconTheme: IconThemeData(color: AppColorsWithDarkMode.primary),
       ),
       iconTheme: const IconThemeData(color: AppColorsWithDarkMode.white),
       inputDecorationTheme: const InputDecorationTheme(
         prefixIconColor: AppColorsWithDarkMode.border,
+      ),
+    );
+  }
+
+  static IconButtonThemeData _appBarIconButtonTheme({
+    required Color iconColor,
+    required Color backgroundColor,
+  }) {
+    return IconButtonThemeData(
+      style: IconButton.styleFrom(
+        foregroundColor: iconColor,
+        backgroundColor: backgroundColor,
+        fixedSize: Size(AppSize.sW40, AppSize.sH40),
+        padding: EdgeInsets.zero,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppCircular.r12),
+        ),
       ),
     );
   }

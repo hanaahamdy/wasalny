@@ -126,10 +126,7 @@ class _FakeStadiumApi {
     return BookingSummary(
       type: LocaleKeys.stadiumsIndividualBooking,
       dateTime: LocaleKeys.stadiumsBookingFakeDatetime,
-      price: LocaleKeys.stadiumsRiyalAmount.replaceFirst(
-        '{amount}',
-        '${stadium.price - 50}',
-      ),
+      price: LocaleKeys.stadiumsRiyalAmount(amount: '${stadium.price - 50}'),
       payment: LocaleKeys.stadiumsOnlinePayment,
     );
   }

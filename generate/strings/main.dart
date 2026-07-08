@@ -101,12 +101,18 @@ Future<Map<String, dynamic>> generateJsonTranslate({
             keyNames.original,
             extractVariables(valueStr),
           );
-          buffer.write('  "${keyNames.snakeCase}": "$englishWithVars"');
+          buffer.write(
+            '  ${json.encode(keyNames.snakeCase)}: ${json.encode(englishWithVars)}',
+          );
         } else {
-          buffer.write('  "${keyNames.snakeCase}": "${keyNames.original}"');
+          buffer.write(
+            '  ${json.encode(keyNames.snakeCase)}: ${json.encode(keyNames.original)}',
+          );
         }
       } else {
-        buffer.write('  "${keyNames.snakeCase}": "$valueStr"');
+        buffer.write(
+          '  ${json.encode(keyNames.snakeCase)}: ${json.encode(valueStr)}',
+        );
       }
       if (counter < jsonMap.length - 1) {
         buffer.write(',');

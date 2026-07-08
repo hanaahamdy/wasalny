@@ -257,6 +257,9 @@ abstract class LocaleKeys {
   static const String _appPhoneValidation = 'app_phone_validation';
   static String get appPhoneValidation => _appPhoneValidation.tr();
 
+  static const String _activationCode = 'activation_code';
+  static String get activationCode => _activationCode.tr();
+
   static const String _photoLibrary = 'photo_library';
   static String get photoLibrary => _photoLibrary.tr();
 
@@ -276,6 +279,9 @@ abstract class LocaleKeys {
       'please_enter_the_verification_code_sent_to_your_mobile_phone';
   static String get pleaseEnterTheVerificationCodeSentToYourMobilePhone =>
       _pleaseEnterTheVerificationCodeSentToYourMobilePhone.tr();
+
+  static const String _registerOtpDescription = 'register_otp_description';
+  static String get registerOtpDescription => _registerOtpDescription.tr();
 
   static const String _pleaseEnterYourConfirmPassword =
       'please_enter_your_confirm_password';
@@ -676,6 +682,82 @@ abstract class LocaleKeys {
   static const String _signUpSubtitle = 'sign_up_subtitle';
   static String get signUpSubtitle => _signUpSubtitle.tr();
 
+  static const String _signUpProfilePicture = 'sign_up_profile_picture';
+  static String get signUpProfilePicture => _signUpProfilePicture.tr();
+
+  static const String _signUpOptional = 'sign_up_optional';
+  static String get signUpOptional => _signUpOptional.tr();
+
+  static const String _signUpTermsAgreement = 'sign_up_terms_agreement';
+  static String get signUpTermsAgreement => _signUpTermsAgreement.tr();
+
+  static const String _signUpAlreadyHaveAccount =
+      'sign_up_already_have_account';
+  static String get signUpAlreadyHaveAccount => _signUpAlreadyHaveAccount.tr();
+
+  static const String _signUpType = 'sign_up_type';
+  static String get signUpType => _signUpType.tr();
+
+  static const String _signUpPlayer = 'sign_up_player';
+  static String get signUpPlayer => _signUpPlayer.tr();
+
+  static const String _signUpGender = 'sign_up_gender';
+  static String get signUpGender => _signUpGender.tr();
+
+  static const String _signUpMale = 'sign_up_male';
+  static String get signUpMale => _signUpMale.tr();
+
+  static const String _signUpFemale = 'sign_up_female';
+  static String get signUpFemale => _signUpFemale.tr();
+
+  static const String _signUpFullName = 'sign_up_full_name';
+  static String get signUpFullName => _signUpFullName.tr();
+
+  static const String _signUpEnterName = 'sign_up_enter_name';
+  static String get signUpEnterName => _signUpEnterName.tr();
+
+  static const String _signUpNewPlayer = 'sign_up_new_player';
+  static String get signUpNewPlayer => _signUpNewPlayer.tr();
+
+  static const String _signUpTeamMember = 'sign_up_team_member';
+  static String get signUpTeamMember => _signUpTeamMember.tr();
+
+  static const String _signUpBirthDate = 'sign_up_birth_date';
+  static String get signUpBirthDate => _signUpBirthDate.tr();
+
+  static const String _signUpBirthDateHint = 'sign_up_birth_date_hint';
+  static String get signUpBirthDateHint => _signUpBirthDateHint.tr();
+
+  static const String _signUpAgeUnder18 = 'sign_up_age_under_18';
+  static String get signUpAgeUnder18 => _signUpAgeUnder18.tr();
+
+  static const String _signUpAge18To25 = 'sign_up_age_18_to_25';
+  static String get signUpAge18To25 => _signUpAge18To25.tr();
+
+  static const String _signUpAge26To35 = 'sign_up_age_26_to_35';
+  static String get signUpAge26To35 => _signUpAge26To35.tr();
+
+  static const String _signUpAgeOver35 = 'sign_up_age_over_35';
+  static String get signUpAgeOver35 => _signUpAgeOver35.tr();
+
+  static const String _signUpEnterEmail = 'sign_up_enter_email';
+  static String get signUpEnterEmail => _signUpEnterEmail.tr();
+
+  static const String _signUpSelectLocation = 'sign_up_select_location';
+  static String get signUpSelectLocation => _signUpSelectLocation.tr();
+
+  static const String _signUpCity = 'sign_up_city';
+  static String get signUpCity => _signUpCity.tr();
+
+  static const String _signUpSelectCity = 'sign_up_select_city';
+  static String get signUpSelectCity => _signUpSelectCity.tr();
+
+  static const String _signUpDistrict = 'sign_up_district';
+  static String get signUpDistrict => _signUpDistrict.tr();
+
+  static const String _signUpSelectDistrict = 'sign_up_select_district';
+  static String get signUpSelectDistrict => _signUpSelectDistrict.tr();
+
   static const String _loginSubtitle = 'login_subtitle';
   static String get loginSubtitle => _loginSubtitle.tr();
 
@@ -817,7 +899,8 @@ abstract class LocaleKeys {
   static String get stadiumsPricePerHour => _stadiumsPricePerHour.tr();
 
   static const String _stadiumsRiyalAmount = 'stadiums_riyal_amount';
-  static String get stadiumsRiyalAmount => _stadiumsRiyalAmount.tr();
+  static String stadiumsRiyalAmount({required String amount}) =>
+      _stadiumsRiyalAmount.tr(namedArgs: {'amount': amount});
 
   static const String _stadiumsFootball = 'stadiums_football';
   static String get stadiumsFootball => _stadiumsFootball.tr();
@@ -941,7 +1024,8 @@ abstract class LocaleKeys {
   static String get bookingsSampleDuration => _bookingsSampleDuration.tr();
 
   static const String _bookingsPoundsAmount = 'bookings_pounds_amount';
-  static String get bookingsPoundsAmount => _bookingsPoundsAmount.tr();
+  static String bookingsPoundsAmount({required String amount}) =>
+      _bookingsPoundsAmount.tr(namedArgs: {'amount': amount});
 
   static const String _bookingsVodafoneCash = 'bookings_vodafone_cash';
   static String get bookingsVodafoneCash => _bookingsVodafoneCash.tr();
@@ -1004,7 +1088,13 @@ abstract class LocaleKeys {
   static String get bookingsLastRecharge => _bookingsLastRecharge.tr();
 
   static const String _bookingsRechargeSummary = 'bookings_recharge_summary';
-  static String get bookingsRechargeSummary => _bookingsRechargeSummary.tr();
+  static String bookingsRechargeSummary({
+    required String amount,
+    required String currency,
+    required String date,
+  }) => _bookingsRechargeSummary.tr(
+    namedArgs: {'amount': amount, 'currency': currency, 'date': date},
+  );
 
   static const String _bookingsWalletLastRechargeDate =
       'bookings_wallet_last_recharge_date';
@@ -1016,4 +1106,15 @@ abstract class LocaleKeys {
 
   static const String _bookingsPound = 'bookings_pound';
   static String get bookingsPound => _bookingsPound.tr();
+
+  static const String _locationHere = 'location_here';
+  static String get locationHere => _locationHere.tr();
+
+  static const String _locationServicesDisabled = 'location_services_disabled';
+  static String get locationServicesDisabled => _locationServicesDisabled.tr();
+
+  static const String _pleaseEnableLocationServicesInSettings =
+      'please_enable_location_services_in_settings';
+  static String get pleaseEnableLocationServicesInSettings =>
+      _pleaseEnableLocationServicesInSettings.tr();
 }
