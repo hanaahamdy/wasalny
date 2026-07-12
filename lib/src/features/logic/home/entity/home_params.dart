@@ -26,33 +26,34 @@ class HomeParams {
   }
 
   void updateNavValue(int value) {
-    if (UserCubit.instance.isUserLoggedIn) {
-      selectedIndexNotifier.value = value;
-    } else {
-      if (value == 0 || value == 3) {
-        selectedIndexNotifier.value = value;
-      } else {
-        visitorDialog(visitorDesc(value));
-      }
-    }
+    selectedIndexNotifier.value = value;
+    // if (UserCubit.instance.isUserLoggedIn) {
+    //   selectedIndexNotifier.value = value;
+    // } else {
+    //   if (value == 0 || value == 3) {
+    //     selectedIndexNotifier.value = value;
+    //   } else {
+    //     visitorDialog(visitorDesc(value));
+    //   }
+    // }
   }
 
   List<NavigationBarEntity> get navTabs => [
     NavigationBarEntity(
       text: LocaleKeys.home,
-      icon: AppAssets.svg.appSvg.home.path,
+      icon: AppAssets.svg.baseSvg.home.path,
     ),
     NavigationBarEntity(
       text: LocaleKeys.bookings,
-      icon: AppAssets.svg.appSvg.home.path,
+      icon: AppAssets.svg.baseSvg.bookingIcon.path,
     ),
     NavigationBarEntity(
       text: LocaleKeys.wallet,
-      icon: AppAssets.svg.appSvg.home.path,
+      icon: AppAssets.svg.baseSvg.wallet.path,
     ),
     NavigationBarEntity(
       text: LocaleKeys.more,
-      icon: AppAssets.svg.appSvg.home.path,
+      icon: AppAssets.svg.baseSvg.more.path,
     ),
   ];
 }

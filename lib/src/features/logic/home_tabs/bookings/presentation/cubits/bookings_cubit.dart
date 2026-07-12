@@ -57,11 +57,3 @@ class BookingsCubit extends Cubit<BookingsState> {
     emit(state.copyWith(selectedStatus: status));
   }
 }
-
-class WalletCubit extends Cubit<WalletEntity?> {
-  WalletCubit() : super(null);
-
-  Future<void> loadWallet() async {
-    emit(await _FakeBookingsApi.getWallet());
-  }
-}

@@ -120,14 +120,16 @@ class _BookingCard extends StatelessWidget {
                   SizedBox(height: 14.h),
                   Row(
                     children: [
-                      _PriceBlock(booking: booking),
-                      const Spacer(),
-                      _IconText(icon: Icons.schedule, label: booking.time),
-                      SizedBox(width: 18.w),
                       _IconText(
                         icon: Icons.calendar_month_outlined,
                         label: booking.date,
                       ),
+
+                      SizedBox(width: 18.w),
+                      _IconText(icon: Icons.schedule, label: booking.time),
+                      const Spacer(),
+                      _PriceBlock(booking: booking),
+
                     ],
                   ),
                   if (booking.isMatch) ...[
@@ -195,6 +197,11 @@ class _SmallChip extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
+          if (icon != null) ...[
+
+            Icon(icon, color: textColor ?? AppColors.white, size: 12.r),
+            SizedBox(width: 5.w),
+          ],
           Text(
             label,
             maxLines: 1,
@@ -205,10 +212,7 @@ class _SmallChip extends StatelessWidget {
               fontWeight: FontWeight.w700,
             ),
           ),
-          if (icon != null) ...[
-            SizedBox(width: 5.w),
-            Icon(icon, color: textColor ?? AppColors.white, size: 12.r),
-          ],
+
         ],
       ),
     );

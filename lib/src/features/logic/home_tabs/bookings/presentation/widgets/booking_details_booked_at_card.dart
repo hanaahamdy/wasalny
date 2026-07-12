@@ -14,8 +14,14 @@ class _BookedAtCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.r),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          Icon(
+            Icons.access_time_rounded,
+            color: AppColors.primary,
+            size: 16.r,
+          ),
+          SizedBox(width: 8.w),
           Flexible(
             child: Text(
               '${LocaleKeys.bookingsBookedAt}: $bookedAt',
@@ -27,12 +33,8 @@ class _BookedAtCard extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(width: 8.w),
-          Icon(
-            Icons.event_available_outlined,
-            color: AppColors.primary,
-            size: 16.r,
-          ),
+
+
         ],
       ),
     );

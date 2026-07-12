@@ -7,7 +7,14 @@ class _NotificationBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return PaginatedListWidget<NotificationsCubit, NotificationEntity>(
       skeletonItemCount: 10,
-      config: PaginatedListConfig(padding: EdgeInsets.all(AppPadding.pH10)),
+      config: PaginatedListConfig(
+        padding: EdgeInsets.fromLTRB(
+          AppPadding.pW16,
+          AppPadding.pH16,
+          AppPadding.pW16,
+          AppPadding.pH20,
+        ),
+      ),
       skeletonBuilder: (context) =>
           _NotificationCardWidget(NotificationEntity.initail()),
       itemBuilder: (context, item, index) => _NotificationCardWidget(item),

@@ -27,9 +27,7 @@ class ProfileInfoWithIconsWidget extends StatelessWidget {
         if (profileIconAppear == ProfileIconAppearEnum.main) ...[
           const _ProfileIconsWidget(),
         ] else ...[
-          AppAssets.svg.appSvg.home.svg().onClick(
-            onTap: () => Go.to(const SettingsScreen()),
-          ),
+          AppAssets.svg.appSvg.home.svg().onClick(onTap: () {}),
         ],
       ],
     );

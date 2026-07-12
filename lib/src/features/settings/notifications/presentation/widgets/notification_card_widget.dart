@@ -7,62 +7,73 @@ class _NotificationCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(AppPadding.pH10),
-      margin: EdgeInsets.symmetric(vertical: AppMargin.mH4),
+      constraints: BoxConstraints(minHeight: 96.h),
+      padding: EdgeInsets.all(AppPadding.pH16),
+      margin: EdgeInsets.only(bottom: AppMargin.mH16),
       decoration: BoxDecoration(
-        border: Border.all(color: AppColors.border),
-        borderRadius: BorderRadius.circular(AppCircular.r5),
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(AppCircular.r15),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.notificationCardShadow,
+            offset: Offset.zero,
+            blurRadius: 27.r,
+          ),
+        ],
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: AppMargin.mW8,
+        textDirection: TextDirection.rtl,
         children: [
-          AppAssets.svg.baseSvg.notifications.svg(
-            width: AppSize.sW40,
-            height: AppSize.sH40,
+          Container(
+            width: 44.w,
+            height: AppSize.sH44,
+            decoration: BoxDecoration(
+              color: AppColors.authTabSelected,
+              borderRadius: BorderRadius.circular(AppCircular.r12),
+            ),
+            alignment: Alignment.center,
+            child: Icon(
+              Icons.notifications_active_rounded,
+              color: AppColors.white,
+              size: 22.r,
+            ),
           ),
+          SizedBox(width: AppMargin.mW12),
           Expanded(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: AppMargin.mH6,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  notificationEntity.body,
-                  style: const TextStyle().setMainTextColor.s11.regular,
+                  notificationEntity.title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.right,
+                  style: const TextStyle().setMainTextColor.s14.medium,
                 ),
+                SizedBox(height: AppMargin.mH4),
+                Text(
+                  notificationEntity.body,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.right,
+                  style: const TextStyle()
+                      .setColor(AppColors.notificationText)
+                      .s12
+                      .regular,
+                ),
+                SizedBox(height: AppMargin.mH6),
                 Text(
                   notificationEntity.createdAt,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.right,
                   style: const TextStyle()
-                      .setColor(const Color(0xff7B7B7B))
-                      .s10
+                      .setColor(AppColors.notificationTimeText)
+                      .s12
                       .regular,
                 ),
               ],
-            ),
-          ),
-          BlocProvider(
-            create: (context) =>
-                DeleteNotificationCubit(context.read<NotificationsCubit>()),
-            child: Builder(
-              builder: (context) {
-                return Skeleton.ignore(
-                  child: AppAssets.svg.baseSvg.deleteAll
-                      .svg(width: AppSize.sW25, height: AppSize.sH25)
-                      .onClick(
-                        onTap: () {
-                          final cubit = context.read<DeleteNotificationCubit>();
-                          deleteNotifications(
-                            cubit: cubit,
-                            title: LocaleKeys.deleteNotification,
-                            onTap: () async => await cubit
-                                .deleteOneNotification(notificationEntity),
-                          );
-                        },
-                      ),
-                );
-              },
             ),
           ),
         ],

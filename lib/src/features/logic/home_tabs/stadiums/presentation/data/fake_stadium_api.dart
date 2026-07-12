@@ -58,8 +58,11 @@ class _FakeStadiumApi {
       rating: 4.8,
       imageUrl:
           'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=900&q=80',
-      detailImageUrl:
-          'https://images.unsplash.com/photo-1540379708242-14a809bef941?auto=format&fit=crop&w=1200&q=80',
+      detailImageUrls: const [
+        'https://images.unsplash.com/photo-1540379708242-14a809bef941?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1200&q=80',
+      ],
       description: LocaleKeys.stadiumsNakheelDescription,
       openHours: LocaleKeys.stadiumsNakheelHours,
       services: _services,
@@ -73,8 +76,11 @@ class _FakeStadiumApi {
       rating: 4.8,
       imageUrl:
           'https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=900&q=80',
-      detailImageUrl:
-          'https://images.unsplash.com/photo-1522778034537-20a2486be803?auto=format&fit=crop&w=1200&q=80',
+      detailImageUrls: const [
+        'https://images.unsplash.com/photo-1522778034537-20a2486be803?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1200&q=80',
+      ],
       description: LocaleKeys.stadiumsFaisaliahDescription,
       openHours: LocaleKeys.stadiumsFaisaliahHours,
       services: _services,
@@ -88,8 +94,11 @@ class _FakeStadiumApi {
       rating: 4.7,
       imageUrl:
           'https://images.unsplash.com/photo-1577223625816-7546f13df25d?auto=format&fit=crop&w=900&q=80',
-      detailImageUrl:
-          'https://images.unsplash.com/photo-1556056504-5c7696c4c28d?auto=format&fit=crop&w=1200&q=80',
+      detailImageUrls: const [
+        'https://images.unsplash.com/photo-1556056504-5c7696c4c28d?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1577223625816-7546f13df25d?auto=format&fit=crop&w=1200&q=80',
+        'https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=1200&q=80',
+      ],
       description: LocaleKeys.stadiumsOasisDescription,
       openHours: LocaleKeys.stadiumsOasisHours,
       services: _services,
@@ -113,6 +122,23 @@ class _FakeStadiumApi {
               stadium.sport.contains(normalized),
         )
         .toList();
+  }
+
+  static Future<List<Stadium>> searchStadiumsBySport(
+    String sport, [
+    String? query,
+  ]) async {
+    await Future<void>.delayed(const Duration(milliseconds: 350));
+    final normalized = query?.trim();
+    return _stadiums.where((stadium) {
+      final matchesSport = stadium.sport == sport;
+      if (!matchesSport) return false;
+      if (normalized == null || normalized.isEmpty) return true;
+
+      return stadium.name.contains(normalized) ||
+          stadium.location.contains(normalized) ||
+          stadium.sport.contains(normalized);
+    }).toList();
   }
 
   static Future<Stadium> getStadium(int id) async {

@@ -11,10 +11,7 @@ class AppTheme {
       hoverColor: Colors.transparent,
       splashColor: Colors.transparent,
       fontFamily: ConstantManager.fontFamily,
-      iconButtonTheme: _appBarIconButtonTheme(
-        iconColor: AppColors.primary,
-        backgroundColor: AppColors.fieldFillColor,
-      ),
+      iconButtonTheme: _appBarIconButtonTheme(iconColor: AppColors.primary),
       bottomSheetTheme: const BottomSheetThemeData(
         modalBackgroundColor: AppColors.white,
         surfaceTintColor: Colors.transparent,
@@ -63,7 +60,6 @@ class AppTheme {
       useMaterial3: true,
       iconButtonTheme: _appBarIconButtonTheme(
         iconColor: AppColorsWithDarkMode.primary,
-        backgroundColor: AppColorsWithDarkMode.white,
       ),
       bottomSheetTheme: const BottomSheetThemeData(
         modalBackgroundColor: AppColorsWithDarkMode.white,
@@ -101,12 +97,11 @@ class AppTheme {
 
   static IconButtonThemeData _appBarIconButtonTheme({
     required Color iconColor,
-    required Color backgroundColor,
   }) {
     return IconButtonThemeData(
       style: IconButton.styleFrom(
         foregroundColor: iconColor,
-        backgroundColor: backgroundColor,
+        backgroundColor: AppColors.transparent,
         fixedSize: Size(AppSize.sW40, AppSize.sH40),
         padding: EdgeInsets.zero,
         shape: RoundedRectangleBorder(

@@ -6,6 +6,8 @@ class ResendCodeCubit extends AsyncCubit<BaseModel?> {
   Future<void> resend({required String phone, required OtpPurpose purpose}) {
     final api = switch (purpose) {
       OtpPurpose.resetPassword => ApiConstants.forgetReSendCode,
+      OtpPurpose.confirmNewPhone => ApiConstants.changeEmailReSendCode,
+      OtpPurpose.changePhone => ApiConstants.changeEmailReSendCode,
       _ => ApiConstants.verifyAccountResendCode,
     };
 

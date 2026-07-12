@@ -6,9 +6,17 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.locale;
-    return DefaultScaffold(
-      title: LocaleKeys.settingsTitle,
-      body: const _SettingsTabBody(),
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: AppColors.bookingHeaderGreen,
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.dark,
+      ),
+      child: Scaffold(
+        backgroundColor: AppColors.subtleBackground,
+        appBar: CustomAppbar(title: LocaleKeys.moreGeneralSettings),
+        body: const _SettingsTabBody(),
+      ),
     );
   }
 }

@@ -83,6 +83,7 @@ flutter:
     - assets/svg/base_svg/
     - assets/svg/app_svg/
     - assets/fonts/
+    - assets/images/
     - assets/lottie/ 
     - assets/translations/
 

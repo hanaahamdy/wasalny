@@ -14,7 +14,7 @@ class _LoginLink extends StatelessWidget {
       ),
       child: RichText(
         textAlign: TextAlign.center,
-        textDirection: TextDirection.rtl,
+        textDirection: ui.TextDirection.rtl,
         text: TextSpan(
           style: context.textStyle,
           children: [

@@ -42,20 +42,21 @@ class _RegisterVerifyOtpCubit extends VerifyOtpCubit {
 class _ResetPasswordVerifyOtpCubit extends VerifyOtpCubit {
   @override
   Future<void> verify({required String phone, required String otp}) async {
-    await executeAsync(
-      operation: () async => baseCrudUseCase.call(
-        CrudBaseParams<BaseModel?>(
-          api: ApiConstants.forgetCheckCode,
-          body: {'phone': phone, 'code': otp},
-          httpRequestType: HttpRequestType.post,
-          isFromData: true,
-          mapper: (json) => BaseModel.fromJson(json),
-        ),
-      ),
-      successEmitter: (_) {
-        Go.to(const ResetPasswordScreen());
-      },
-    );
+    Go.to(ChangePasswordScreen(phone: phone));
+    // await executeAsync(
+    //   operation: () async => baseCrudUseCase.call(
+    //     CrudBaseParams<BaseModel?>(
+    //       api: ApiConstants.forgetCheckCode,
+    //       body: {'phone': phone, 'code': otp},
+    //       httpRequestType: HttpRequestType.post,
+    //       isFromData: true,
+    //       mapper: (json) => BaseModel.fromJson(json),
+    //     ),
+    //   ),
+    //   successEmitter: (_) {
+    //     Go.to(const ResetPasswordScreen());
+    //   },
+    // );
   }
 }
 
@@ -69,18 +70,19 @@ class _ChangePhoneVerifyOtpCubit extends VerifyOtpCubit {
 class _ConfirmNewPhoneVerifyOtpCubit extends VerifyOtpCubit {
   @override
   Future<void> verify({required String phone, required String otp}) async {
-    await executeAsync(
-      operation: () async => baseCrudUseCase.call(
-        CrudBaseParams<BaseModel?>(
-          api: ApiConstants.changeEmailVerifyCode,
-          body: {'phone': phone, 'code': otp},
-          httpRequestType: HttpRequestType.post,
-          isFromData: true,
-          mapper: (json) => BaseModel.fromJson(json),
-        ),
-      ),
-      successEmitter: (_) => Go.back(true),
-    );
+    // await executeAsync(
+    //   operation: () async => baseCrudUseCase.call(
+    //     CrudBaseParams<BaseModel?>(
+    //       api: ApiConstants.changeEmailVerifyCode,
+    //       body: {'phone': phone, 'code': otp},
+    //       httpRequestType: HttpRequestType.post,
+    //       isFromData: true,
+    //       mapper: (json) => BaseModel.fromJson(json),
+    //     ),
+    //   ),
+    //   successEmitter: (_) => Go.back(true),
+    // );
+    successDialog(context: Go.context, title: LocaleKeys.theMobilePhoneNumberHasBeenUpdatedSuccessfully,afterSuccess: () => Go.backToInitial());
   }
 }
 

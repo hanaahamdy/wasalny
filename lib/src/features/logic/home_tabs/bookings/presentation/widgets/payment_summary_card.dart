@@ -9,7 +9,7 @@ class _PaymentSummaryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return _DetailsCard(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             LocaleKeys.bookingsPaymentSummary,
@@ -38,30 +38,19 @@ class _PaymentSummaryCard extends StatelessWidget {
           Divider(height: 26.h, color: AppColors.bookingDivider),
           Row(
             children: [
-              _SmallChip(
-                label: booking.isPaid
-                    ? LocaleKeys.bookingsPaid
-                    : LocaleKeys.bookingsUnpaid,
-                color: booking.isPaid
-                    ? AppColors.bookingSuccessGreen
-                    : AppColors.bookingPendingYellow,
-                icon: booking.isPaid ? Icons.check_circle : Icons.schedule,
-              ),
-              const Spacer(),
-              Flexible(
-                child: Text(
-                  booking.paymentMethod,
-                  textAlign: TextAlign.right,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    color: AppColors.black,
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w700,
-                  ),
+              Icon(Icons.account_balance_wallet_outlined, size: 18.r,color: AppColors.black,),
+              SizedBox(width: 8.w),
+              Text(
+                booking.paymentMethod,
+                textAlign: TextAlign.right,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: AppColors.black,
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
-              SizedBox(width: 8.w),
-              Icon(Icons.account_balance_wallet_outlined, size: 18.r),
+
             ],
           ),
         ],

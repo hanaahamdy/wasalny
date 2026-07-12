@@ -39,17 +39,17 @@ class _BookingDetailsHero extends StatelessWidget {
           Positioned(
             top: 58.h,
             right: 24.w,
-            child: const _RoundBackButton(onTap: Go.back),
+            child: const RoundBackButton(onTap: Go.back),
           ),
           Positioned(
             left: 24.w,
             right: 24.w,
             bottom: 18.h,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     _SmallChip(
                       label: booking.status.label,
@@ -74,8 +74,14 @@ class _BookingDetailsHero extends StatelessWidget {
                 ),
                 SizedBox(height: 8.h),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    Icon(
+                      Icons.location_on_outlined,
+                      color: AppColors.white,
+                      size: 16.r,
+                    ),
+                    SizedBox(width: 6.w),
                     Flexible(
                       child: Text(
                         booking.location,
@@ -86,12 +92,6 @@ class _BookingDetailsHero extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                    ),
-                    SizedBox(width: 6.w),
-                    Icon(
-                      Icons.location_on_outlined,
-                      color: AppColors.white,
-                      size: 16.r,
                     ),
                   ],
                 ),

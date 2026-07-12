@@ -4,23 +4,24 @@ import '../../../config/res/config_imports.dart';
 import '../../../core/extensions/context_extension.dart';
 import '../../../core/extensions/text_style_extensions.dart';
 import '../../../core/navigation/navigator.dart';
-import '../pickers/custom_dialog.dart';
+import '../../extensions/widgets/sized_box_helper.dart';
+import '../pickers/default_bottom_sheet.dart';
 
 Future<dynamic> successDialog({
   required BuildContext context,
   required String title,
   String? desc,
   bool activeTimer = true,
+  VoidCallback? afterSuccess,
 }) {
-  return showCustomDialog(
-    context,
-    barrierDismissible: false,
+  return showDefaultBottomSheet(
+    context: context,
     child: SuccessDialogBody(
       title: title,
       desc: desc,
       activeTimer: activeTimer,
+      afterSuccess: afterSuccess,
     ),
-    margin: EdgeInsets.all(AppMargin.mH40),
   );
 }
 
@@ -28,12 +29,14 @@ class SuccessDialogBody extends StatefulWidget {
   final String title;
   final bool activeTimer;
   final String? desc;
+  final VoidCallback? afterSuccess;
 
   const SuccessDialogBody({
     super.key,
     required this.title,
     required this.desc,
     required this.activeTimer,
+    required this.afterSuccess,
   });
 
   @override
@@ -44,8 +47,10 @@ class SuccessDialogBodyState extends State<SuccessDialogBody> {
   @override
   void initState() {
     if (widget.activeTimer) {
-      Future.delayed(const Duration(seconds: 2)).then((value) {
+      Future.delayed(const Duration(seconds: 3)).then((value) {
+        if (!mounted) return;
         Go.back();
+        widget.afterSuccess?.call();
       });
     }
 
@@ -62,14 +67,16 @@ class SuccessDialogBodyState extends State<SuccessDialogBody> {
       children: [
         Center(
           child: AppAssets.lottie.successfullOrder.lottie(
-            width: context.width * .3,
+            width: context.width * .36,
+            height: context.height * .14,
             fit: BoxFit.contain,
           ),
         ),
+        AppSize.sH8.szH,
         Text(
           widget.title,
           textAlign: TextAlign.center,
-          style: const TextStyle().setMainTextColor.s13.regular,
+          style: const TextStyle().setMainTextColor.s15.medium,
         ),
 
         if (widget.desc != null) ...[

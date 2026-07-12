@@ -35,12 +35,11 @@ class _OtpBodyState extends State<_OtpBody> {
     final verifyState = context.watch<VerifyOtpCubit>().state;
 
     return Directionality(
-      textDirection: TextDirection.rtl,
+      textDirection: ui.TextDirection.rtl,
       child: SingleChildScrollView(
         padding: EdgeInsets.symmetric(
           horizontal: AppPadding.pW24,
           vertical: AppPadding.pH14,
-
         ),
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: Column(
@@ -202,7 +201,7 @@ class _OtpResendSection extends StatelessWidget {
       children: [
         Text(
           timerText,
-          textDirection: TextDirection.ltr,
+          textDirection: ui.TextDirection.ltr,
           style: const TextStyle()
               .setColor(const Color(0xFF474747))
               .s16

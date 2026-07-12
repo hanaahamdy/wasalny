@@ -9,6 +9,7 @@ class _ContactUsBody extends StatefulWidget {
 
 class _ContactUsBodyState extends State<_ContactUsBody> {
   final ContactUsParams params = ContactUsParams();
+
   @override
   void dispose() {
     params.dispose();
@@ -20,63 +21,107 @@ class _ContactUsBodyState extends State<_ContactUsBody> {
     final cubit = context.read<ContactUsCubit>();
     return Form(
       key: params.formKey,
-      child:
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: AppMargin.mH10,
-                  children: [
-                    if (!UserCubit.instance.isUserLoggedIn) ...[
-                      CustomTextFiled(
-                        controller: params.fullNameController,
-                        hint: LocaleKeys.fullNameLabel,
-                        title: LocaleKeys.fullNameLabel,
-                        textInputType: TextInputType.text,
-                        textInputAction: TextInputAction.next,
-                        validator: (value) => Validators.validateEmpty(
-                          value,
-                          fieldTitle: LocaleKeys.fullNameLabel,
-                        ),
-                      ),
-                      CustomTextFiled(
-                        controller: params.phoneController,
-                        hint: LocaleKeys.phoneNumber,
-                        title: LocaleKeys.phoneNumber,
-                        textInputType: TextInputType.phone,
-                        textInputAction: TextInputAction.next,
-                        validator: (value) => Validators.validatePhone(
-                          value,
-                          fieldTitle: LocaleKeys.phoneNumber,
-                        ),
-                      ),
-                    ],
-                    CustomTextFiled(
-                      hint: LocaleKeys.messageHint,
-                      title: LocaleKeys.messageLabel,
-                      isOptional: true,
-                      controller: params.messageController,
-                      maxLines: ConstantManager.maxLines,
-                      textInputType: TextInputType.multiline,
-                      textInputAction: TextInputAction.newline,
-                      validator: (value) => Validators.validateEmpty(value),
+      child: Column(
+        children: [
+
+          Expanded(
+            child: SingleChildScrollView(
+              padding: EdgeInsets.fromLTRB(
+                AppPadding.pW24,
+                AppPadding.pH18,
+                AppPadding.pW24,
+                AppPadding.pH20,
+              ),
+              child: Container(
+                width: double.infinity,
+                constraints: BoxConstraints(minHeight: 679.h),
+                padding: EdgeInsets.fromLTRB(
+                  AppPadding.pW16,
+                  AppPadding.pH28,
+                  AppPadding.pW16,
+                  AppPadding.pH28,
+                ),
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(24.r),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.contactCardShadow,
+                      blurRadius: 62.r,
+                      offset: Offset.zero,
                     ),
                   ],
                 ),
+                child: CustomTextFiled(
+                  hint: LocaleKeys.messageHint,
+                  title: LocaleKeys.messageLabel,
+                  isOptional: true,
+                  controller: params.messageController,
+                  maxLines: ConstantManager.maxLines,
+                  textInputType: TextInputType.multiline,
+                  textInputAction: TextInputAction.newline,
+                  fillColor: AppColors.fieldFillColor,
+                  hasBorder: false,
+                  borderRadius: BorderRadius.circular(16.r),
+                  suffixIcon: Icon(
+                    Icons.keyboard_arrow_down_rounded,
+                    color: AppColors.hintText,
+                    size: 24.r,
+                  ),
+                  validator: (value) => Validators.validateEmpty(value),
+                ),
               ),
-              LoadingButton(
-                title: LocaleKeys.sendBtn,
-                onTap: () async => await cubit.contactUs(params),
-              ),
-            ],
-          ).paddingSymmetric(
-            vertical: AppPadding.pH16,
-            horizontal: AppPadding.pW14,
+            ),
           ),
+          _ContactUsBottomBar(
+            onSend: () async => await cubit.contactUs(params),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+class _ContactUsBottomBar extends StatelessWidget {
+  final Future<void> Function() onSend;
+
+  const _ContactUsBottomBar({required this.onSend});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 91.h,
+      width: double.infinity,
+      padding: EdgeInsets.fromLTRB(
+        AppPadding.pW24,
+        AppPadding.pH16,
+        AppPadding.pW24,
+        AppPadding.pH18,
+      ),
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        border: const Border(
+          top: BorderSide(color: AppColors.contactBottomBarBorder),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.contactBottomBarShadow,
+            blurRadius: 6.r,
+            offset: Offset(0, -4.h),
+          ),
+        ],
+      ),
+      child: LoadingButton(
+        title: LocaleKeys.sendBtn,
+        color: AppColors.primary,
+        textColor: AppColors.white,
+        height: 56.h,
+        borderRadius: 50.r,
+        fontSize: 16.sp,
+        fontWeight: FontWeight.w500,
+        onTap: onSend,
+      ),
     );
   }
 }

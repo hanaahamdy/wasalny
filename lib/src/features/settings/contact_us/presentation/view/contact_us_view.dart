@@ -7,9 +7,17 @@ class ContactUsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => injector<ContactUsCubit>(),
-      child: DefaultScaffold(
-        title: LocaleKeys.contactUs,
-        body: const _ContactUsBody(),
+      child:  AnnotatedRegion<SystemUiOverlayStyle>(
+        value: const SystemUiOverlayStyle(
+          statusBarColor: AppColors.authTabSelected,
+          statusBarIconBrightness: Brightness.light,
+          statusBarBrightness: Brightness.dark,
+        ),
+        child: Scaffold(
+          appBar: CustomAppbar(title: LocaleKeys.contactUs),
+          backgroundColor: AppColors.scaffoldBackground,
+          body: const _ContactUsBody(),
+        ),
       ),
     );
   }

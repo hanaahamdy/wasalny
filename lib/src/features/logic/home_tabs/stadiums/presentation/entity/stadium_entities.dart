@@ -29,7 +29,7 @@ class Stadium {
   final int price;
   final double rating;
   final String imageUrl;
-  final String detailImageUrl;
+  final List<String> detailImageUrls;
   final String description;
   final String openHours;
   final List<StadiumService> services;
@@ -42,11 +42,13 @@ class Stadium {
     required this.price,
     required this.rating,
     required this.imageUrl,
-    required this.detailImageUrl,
+    required this.detailImageUrls,
     required this.description,
     required this.openHours,
     required this.services,
   });
+
+  String get detailImageUrl => detailImageUrls.first;
 }
 
 class BookingSummary {

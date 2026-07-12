@@ -1,8 +1,9 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
- import 'package:injectable/injectable.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter/services.dart';
+import 'package:injectable/injectable.dart';
 import 'package:multiple_result/multiple_result.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 import '../../../../../config/language/locale_keys.g.dart';
 import '../../../../../config/res/assets.gen.dart';
 import '../../../../../config/res/config_imports.dart';
@@ -21,8 +22,6 @@ import '../../../../../core/widgets/buttons/loading_button.dart';
 import '../../../../../core/widgets/custom_messages.dart';
 import '../../../../../core/widgets/handling_views/empty_widget.dart';
 import '../../../../../core/widgets/pickers/default_bottom_sheet.dart';
-import '../../../../../core/widgets/scaffolds/default_scaffold.dart'
-    show DefaultScaffold;
 import '../../../../../core/widgets/tools/pagination/imports/pagination_imports.dart';
 import '../../entity/notification_entity.dart';
 import '../../../../../core/notification/notification_service.dart';

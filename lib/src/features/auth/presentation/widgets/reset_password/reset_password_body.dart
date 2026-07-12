@@ -22,8 +22,8 @@ class _ResetPasswordBodyState extends State<_ResetPasswordBody> {
       key: params.formKey,
       child: SingleChildScrollView(
         padding: EdgeInsets.symmetric(
-          horizontal: AppPadding.pW24,
-          vertical: AppPadding.pH14,
+          horizontal: AppPadding.pW20,
+          vertical: AppPadding.pH16,
         ),
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: Column(
@@ -53,34 +53,12 @@ class _ResetPasswordBodyState extends State<_ResetPasswordBody> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Center(child: _LoginLogo()),
-                  AppSize.sH30.szH,
-                  CustomTextFiled(
-                    title: LocaleKeys.newPassword,
-                    hint: LocaleKeys.pleaseEnterYourPassword,
-                    controller: params.passwordController,
-                    textInputType: TextInputType.visiblePassword,
-                    textInputAction: TextInputAction.next,
-                    isPassword: true,
-                    borderRadius: BorderRadius.circular(24),
-                    validator: (value) => Validators.validatePassword(
-                      value,
-                      fieldTitle: LocaleKeys.newPassword,
-                    ),
-                  ),
-                  AppSize.sH20.szH,
-                  CustomTextFiled(
-                    title: LocaleKeys.confirmPassword,
-                    hint: LocaleKeys.pleaseEnterYourPassword,
-                    controller: params.confirmPasswordController,
-                    textInputType: TextInputType.visiblePassword,
+                  AppSize.sH40.szH,
+                  CustomPhoneField(
+                    controller: params.phoneController,
                     textInputAction: TextInputAction.done,
-                    isPassword: true,
-                    borderRadius: BorderRadius.circular(24),
-                    validator: (value) => Validators.validatePasswordConfirm(
-                      value,
-                      params.passwordController.text,
-                      fieldTitle: LocaleKeys.confirmPassword,
-                    ),
+                    title: LocaleKeys.phoneNumber,
+                    hint: LocaleKeys.pleaseEnterYourPhoneNumber,
                   ),
                   AppSize.sH24.szH,
                   LoadingButton(
@@ -89,7 +67,14 @@ class _ResetPasswordBodyState extends State<_ResetPasswordBody> {
                     borderRadius: AppCircular.infinity,
                     color: AppColors.primary,
                     onTap: () async {
-                      params.validate();
+                      if (!params.validate()) return;
+
+                      await Go.to(
+                        OtpVerificationScreen(
+                          phone: params.phoneController.text.trim(),
+                          purpose: OtpPurpose.resetPassword,
+                        ),
+                      );
                     },
                   ),
                 ],
@@ -111,9 +96,8 @@ class _ResetPasswordHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          LocaleKeys.forgotPassword,
-
-          style: const TextStyle().setMainTextColor.s20.bold,
+          LocaleKeys.forgotPassword.replaceAll('؟', '').replaceAll('?', ''),
+          style: const TextStyle().setMainTextColor.s20.semiBold,
         ),
         AppSize.sH10.szH,
         Text(

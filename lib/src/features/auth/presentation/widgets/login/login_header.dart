@@ -25,17 +25,21 @@ class _LoginHeader extends StatelessWidget {
           ),
         ),
         AppSize.sW12.szW,
-        Container(
-          width: AppSize.sW40,
-          height: AppSize.sH40,
-          decoration: BoxDecoration(
-            color: AppColors.white,
+        Material(
+          color: AppColors.white,
+          borderRadius: BorderRadius.circular(AppCircular.r8),
+          child: InkWell(
+            onTap: () => LanguagePickerSheet.show(context),
             borderRadius: BorderRadius.circular(AppCircular.r8),
-          ),
-          child: Icon(
-            Icons.translate,
-            color: AppColors.primary,
-            size: AppSize.sH22,
+            child: SizedBox(
+              width: AppSize.sW40,
+              height: AppSize.sH40,
+              child: Icon(
+                Icons.translate,
+                color: AppColors.primary,
+                size: AppSize.sH22,
+              ),
+            ),
           ),
         ),
       ],

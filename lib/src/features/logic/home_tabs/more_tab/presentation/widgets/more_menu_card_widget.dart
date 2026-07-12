@@ -1,122 +1,131 @@
-part of '../imports/view_imports.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../../../config/language/locale_keys.g.dart';
+import '../../../../../../config/res/config_imports.dart';
+import '../../../../../../core/extensions/widgets/sized_box_helper.dart';
+import '../../../../../../core/extensions/widgets/widget_extension.dart';
+import '../../../../../../core/navigation/navigator.dart';
+import '../../../../../settings/profile/presentation/imports/view_imports.dart';
+import '../../entity/more_menu_item_entity.dart';
 
 class MoreMenuCardWidget extends StatelessWidget {
   final MoreItemEntity menuItem;
+  final bool showDivider;
+  final EdgeInsetsGeometry? padding;
 
-  const MoreMenuCardWidget({super.key, required this.menuItem});
+  const MoreMenuCardWidget({
+    super.key,
+    required this.menuItem,
+    this.showDivider = false,
+    this.padding,
+  });
 
   @override
   Widget build(BuildContext context) {
     context.locale;
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.border,
-        border: Border.all(color: AppColors.border),
-        borderRadius: BorderRadius.circular(AppCircular.r2),
-      ),
-      margin: EdgeInsets.symmetric(vertical: AppMargin.mH4),
-      padding: EdgeInsets.symmetric(
-        horizontal: AppPadding.pW10,
-        vertical: menuItem.useSwitch
-            ? ConstantManager.zeroAsDouble
-            : AppPadding.pH6,
-      ),
+    final onTap = menuItem.title == LocaleKeys.profile
+        ? () => Go.to(const ProfileView())
+        : menuItem.onTap;
 
+    return Container(
+      height: 67.h,
+      padding: padding,
+      decoration: BoxDecoration(
+        border: showDivider
+            ? Border(
+                bottom: BorderSide(color: AppColors.moreDivider, width: 1.h),
+              )
+            : null,
+      ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
-        spacing: AppMargin.mW8,
         children: [
-          if (menuItem.icon.contains('.svg')) ...[
-            SvgPicture.asset(
-              menuItem.icon,
-              width: AppSize.sH35,
-              height: AppSize.sH35,
-            ),
-          ] else ...[
-            Image.asset(
-              menuItem.icon,
-              width: AppSize.sH35,
-              height: AppSize.sH35,
-            ),
-          ],
+          _MoreMenuIcon(menuItem: menuItem),
+          12.szW,
           Expanded(
-            child: Text(
-              menuItem.title,
-              style: const TextStyle().setMainTextColor.s13.regular,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  menuItem.title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.right,
+                  style: TextStyle(
+                    color: AppColors.black,
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                if (menuItem.subtitle.isNotEmpty) ...[
+                  SizedBox(height: 5.h),
+                  Text(
+                    menuItem.subtitle,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.right,
+                    style: TextStyle(
+                      color: AppColors.hintText,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ],
+              ],
             ),
           ),
-          if (menuItem.useSwitch) ...[
-            const _SwitchNotifyWidget(),
-          ] else ...[
-            if (!menuItem.disableArrow) ...[
-              Transform(
-                alignment: Alignment.center,
-                transform: context.isRight
-                    ? Matrix4.rotationY(math.pi)
-                    : Matrix4.rotationX(math.pi),
-                child: AppAssets.svg.baseSvg.arrowBack.svg(
-                  width: AppSize.sH16,
-                  height: AppSize.sH16,
-                ),
-              ),
-            ],
-          ],
+          _MoreMenuTrailing(menuItem: menuItem),
         ],
       ),
-    ).onClick(onTap: menuItem.onTap);
+    ).onClick(onTap: menuItem.useSwitch ? null : onTap);
   }
 }
 
-class _SwitchNotifyWidget extends StatefulWidget {
-  const _SwitchNotifyWidget();
+class _MoreMenuIcon extends StatelessWidget {
+  final MoreItemEntity menuItem;
 
-  @override
-  State<_SwitchNotifyWidget> createState() => _SwitchNotifyWidgetState();
-}
-
-class _SwitchNotifyWidgetState extends State<_SwitchNotifyWidget> {
-  final ValueNotifier<bool> switchNotifier = ValueNotifier<bool>(
-    UserCubit.instance.user.allowNotify,
-  );
-
-  @override
-  void dispose() {
-    switchNotifier.dispose();
-    super.dispose();
-  }
+  const _MoreMenuIcon({required this.menuItem});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => NotifiyCubit(),
-      child: Builder(
-        builder: (context) {
-          final cubit = context.read<NotifiyCubit>();
-          return ValueListenableBuilder(
-            valueListenable: switchNotifier,
-            builder: (context, value, child) {
-              return BlocBuilder<NotifiyCubit, AsyncState<BaseModel?>>(
-                builder: (context, state) {
-                  if (state.isLoading) {
-                    return const Center(
-                      child: LoadingIndicator(color: AppColors.main),
-                    );
-                  } else {
-                    return Switch(
-                      value: value,
-                      onChanged: (value) async {
-                        switchNotifier.value = value;
-                        await cubit.switchNotifiy(switchNotifier);
-                      },
-                    );
-                  }
-                },
-              );
-            },
-          );
-        },
+    return Container(
+      width: 36.r,
+      height: 36.r,
+      decoration: BoxDecoration(
+        color: menuItem.iconBackgroundColor,
+        borderRadius: BorderRadius.circular(12.r),
       ),
+      child: Icon(menuItem.iconData, color: menuItem.iconColor, size: 19.r),
+    );
+  }
+}
+
+class _MoreMenuTrailing extends StatelessWidget {
+  final MoreItemEntity menuItem;
+
+  const _MoreMenuTrailing({required this.menuItem});
+
+  @override
+  Widget build(BuildContext context) {
+    if (menuItem.useSwitch) {
+      return Switch(
+        value: true,
+        activeColor: AppColors.white,
+        activeTrackColor: AppColors.primary,
+        inactiveThumbColor: AppColors.white,
+        inactiveTrackColor: AppColors.border,
+        onChanged: (_) {},
+      );
+    }
+
+    if (menuItem.disableArrow) return const SizedBox.shrink();
+
+    return Padding(
+      padding: EdgeInsetsDirectional.only(start: 14.w),
+      child: Icon(Icons.chevron_right, color: AppColors.border, size: 22.r),
     );
   }
 }

@@ -18,7 +18,7 @@ class _BookingInfoRow extends StatelessWidget {
       child: Row(
         children: [
           Text(
-            value,
+            label,
             style: TextStyle(
               color: valueColor ?? AppColors.black,
               fontSize: 12.sp,
@@ -27,7 +27,7 @@ class _BookingInfoRow extends StatelessWidget {
           ),
           const Spacer(),
           Text(
-            label,
+            value,
             style: TextStyle(
               color: AppColors.hintText,
               fontSize: 12.sp,

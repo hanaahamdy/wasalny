@@ -21,7 +21,7 @@ class _SignUpBodyState extends State<_SignUpBody> {
     final registerState = context.watch<RegisterCubit>().state;
 
     return Directionality(
-      textDirection: TextDirection.rtl,
+      textDirection: ui.TextDirection.rtl,
       child: Form(
         key: params.formKey,
         child: SingleChildScrollView(

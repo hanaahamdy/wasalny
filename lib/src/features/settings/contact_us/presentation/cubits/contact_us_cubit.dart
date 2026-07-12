@@ -5,7 +5,7 @@ class ContactUsCubit extends AsyncCubit<BaseModel?> {
   ContactUsCubit() : super(null);
 
   Future<void> contactUs(ContactUsParams params) async {
-    if (params.validate()) return;
+    if (!params.validate()) return;
     await executeAsync(
       operation: () async => baseCrudUseCase.call(
         CrudBaseParams(

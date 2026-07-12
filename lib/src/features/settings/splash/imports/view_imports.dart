@@ -10,6 +10,7 @@ import '../../../../core/network/network_service.dart';
 import '../../../../core/shared/cubits/base_url/base_url_cubit.dart';
 import '../../../../core/shared/cubits/user_cubit/user_cubit.dart';
 import '../../../auth/presentation/imports/view_imports.dart';
+import '../../../logic/home/presentation/imports/view_imports.dart';
 
 part '../cubit/splash_state.dart';
 part '../cubit/splash_cubit.dart';

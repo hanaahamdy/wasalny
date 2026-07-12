@@ -1,8 +1,11 @@
 part of '../../imports/view_imports.dart';
 
 Future logOut() async {
-  return showDefaultBottomSheet(
-    child: BlocProvider(
+  return showModalBottomSheet(
+    context: Go.context,
+    isScrollControlled: true,
+    backgroundColor: AppColors.transparent,
+    builder: (context) => BlocProvider(
       create: (context) => injector<LogOutCubit>(),
       child: const _LogOutBody(),
     ),
@@ -14,55 +17,92 @@ class _LogOutBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      spacing: AppMargin.mH4,
-      children: [
-        Center(
-          child: AppAssets.lottie.wait.lottie(
-            width: context.width * .5,
-            height: context.height * .14,
-            fit: BoxFit.cover,
+    return Padding(
+      padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom),
+      child: Container(
+        width: double.infinity,
+        padding: EdgeInsets.only(
+          left: AppPadding.pW24,
+          right: AppPadding.pW24,
+          top: AppPadding.pH8,
+          bottom:
+              AppSize.sH40 +
+              (ScreenUtil().bottomBarHeight == 0
+                  ? AppSize.sH0
+                  : ScreenUtil().bottomBarHeight),
+        ),
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(AppCircular.r20),
           ),
         ),
-        AppSize.sH16.szH,
-        Text(
-          LocaleKeys.logout,
-          style: const TextStyle().setMainTextColor.s15.medium,
-        ),
-        Text(
-          LocaleKeys.warning,
-          style: const TextStyle().setSecondryColor.s11.regular,
-        ),
-        AppSize.sH10.szH,
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          spacing: AppMargin.mW14,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Expanded(
-              child: LoadingButton(
-                height: AppSize.sH40,
-                title: LocaleKeys.confirm,
-                color: AppColors.error,
-                onTap: () async => context.read<LogOutCubit>().logout(),
+            Container(
+              width: AppSize.sW60,
+              height: AppSize.sH4,
+              decoration: BoxDecoration(
+                color: AppColors.changePhoneSheetHandle,
+                borderRadius: BorderRadius.circular(AppCircular.r40),
               ),
             ),
-            Expanded(
-              child: LoadingButton(
-                height: AppSize.sH40,
-                title: LocaleKeys.cancel,
-                color: AppColors.white,
-                textColor: AppColors.main,
-                borderSide: const BorderSide(color: AppColors.border),
-                onTap: () async => Go.back(),
+            AppSize.sH24.szH,
+            Icon(
+              Icons.logout_rounded,
+              color: AppColors.logoutDialogDanger,
+              size: AppSize.sH48,
+            ),
+            AppSize.sH20.szH,
+            Text(
+              LocaleKeys.logout,
+              textAlign: TextAlign.center,
+              style: const TextStyle().setMainTextColor.s18.medium.setHeight(
+                24 / 18,
               ),
+            ),
+            AppSize.sH16.szH,
+            Text(
+              LocaleKeys.logoutConfirmationMessage,
+              textAlign: TextAlign.center,
+              style: const TextStyle().setHintColor.s16.regular.setHeight(
+                24 / 16,
+              ),
+            ),
+            AppSize.sH24.szH,
+            Row(
+              textDirection: ui.TextDirection.ltr,
+              spacing: AppMargin.mW8,
+              children: [
+                Expanded(
+                  child: LoadingButton(
+                    height: AppSize.sH56,
+                    title: LocaleKeys.logout,
+                    color: AppColors.white,
+                    textColor: AppColors.logoutDialogDanger,
+                    borderRadius: AppCircular.r40,
+                    borderSide: const BorderSide(
+                      color: AppColors.logoutDialogDangerBorder,
+                    ),
+                    onTap: () async => context.read<LogOutCubit>().logout(),
+                  ),
+                ),
+                Expanded(
+                  child: LoadingButton(
+                    height: AppSize.sH56,
+                    title: LocaleKeys.back,
+                    color: AppColors.logoutDialogSecondaryButton,
+                    textColor: AppColors.logoutDialogSecondaryText,
+                    borderRadius: AppCircular.r40,
+                    onTap: () async => Go.back(),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
-      ],
+      ),
     );
   }
 }

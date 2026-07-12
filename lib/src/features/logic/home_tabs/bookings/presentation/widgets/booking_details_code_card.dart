@@ -9,10 +9,10 @@ class _BookingCodeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return _DetailsCard(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            LocaleKeys.bookingsBookingCode,
+            LocaleKeys.orderNumber,
             style: TextStyle(
               color: AppColors.black,
               fontSize: 13.sp,
@@ -22,15 +22,13 @@ class _BookingCodeCard extends StatelessWidget {
           SizedBox(height: 12.h),
           Container(
             width: double.infinity,
-            padding: EdgeInsets.symmetric(vertical: 16.h),
+            padding: EdgeInsets.symmetric(vertical: 16,horizontal: AppPadding.pW10),
             decoration: BoxDecoration(
               color: AppColors.bookingCodeBackground,
               borderRadius: BorderRadius.circular(14.r),
             ),
-            alignment: Alignment.center,
             child: Text(
               code,
-              textDirection: TextDirection.ltr,
               style: TextStyle(
                 color: AppColors.bookingCodeText,
                 fontSize: 20.sp,

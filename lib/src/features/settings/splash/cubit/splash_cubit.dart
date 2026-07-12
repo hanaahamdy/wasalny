@@ -21,6 +21,8 @@ Future<void> initUserData(BuildContext context) async {
     const Duration(milliseconds: ConstantManager.splashTimer),
   ).then((value) async {
     await UserCubit.instance.init();
-    Go.to(const LoginScreen());
+
+    Go.to(const HomeScreen());
+    // Go.to(const LoginScreen());
   });
 }

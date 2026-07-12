@@ -84,7 +84,7 @@ class _AvatarPicker extends StatelessWidget {
             ),
           ),
           RichText(
-            textDirection: TextDirection.rtl,
+            textDirection: ui.TextDirection.rtl,
             text: TextSpan(
               children: [
                 TextSpan(

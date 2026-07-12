@@ -29,10 +29,9 @@ class _StadiumSearchViewState extends State<StadiumSearchView> {
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
-          backgroundColor: const Color(0xFFFAFAFA),
+          appBar: CustomAppbar(title: LocaleKeys.stadiumsFeatured),
           body: Column(
             children: [
-              _GreenHeader(title: LocaleKeys.stadiumsFeatured),
               Padding(
                 padding: EdgeInsets.fromLTRB(24.w, 24.h, 24.w, 8.h),
                 child: _SearchBox(controller: _controller, onSearch: _search),

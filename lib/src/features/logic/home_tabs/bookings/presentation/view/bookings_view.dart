@@ -37,34 +37,7 @@ class _BookingsViewState extends State<BookingsView> {
                       ),
                     ),
                   ),
-                  if (state.isLoading)
-                    const SliverFillRemaining(
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          color: AppColors.primary,
-                        ),
-                      ),
-                    )
-                  else if (state.errorMessage != null)
-                    SliverFillRemaining(
-                      child: Center(child: Text(state.errorMessage!)),
-                    )
-                  else
-                    SliverPadding(
-                      padding: EdgeInsets.fromLTRB(24.w, 24.h, 24.w, 26.h),
-                      sliver: SliverList.separated(
-                        itemCount: state.filteredBookings.length,
-                        separatorBuilder: (_, _) => SizedBox(height: 16.h),
-                        itemBuilder: (context, index) {
-                          final booking = state.filteredBookings[index];
-                          return _BookingCard(
-                            booking: booking,
-                            onTap: () =>
-                                Go.to(BookingDetailsView(booking: booking)),
-                          );
-                        },
-                      ),
-                    ),
+                  _buildBookingsSliver(state),
                 ],
               );
             },
@@ -72,5 +45,30 @@ class _BookingsViewState extends State<BookingsView> {
         ),
       ),
     );
+  }
+
+  Widget _buildBookingsSliver(BookingsState state) {
+    return switch ((state.isLoading, state.errorMessage)) {
+      (true, _) => const SliverFillRemaining(
+        child: Center(child: LoadingIndicator(color: AppColors.primary)),
+      ),
+      (_, final message?) => SliverFillRemaining(
+        child: Center(child: Text(message)),
+      ),
+      _ => SliverPadding(
+        padding: EdgeInsets.fromLTRB(24.w, 24.h, 24.w, 26.h),
+        sliver: SliverList.separated(
+          itemCount: state.filteredBookings.length,
+          separatorBuilder: (_, _) => SizedBox(height: 16.h),
+          itemBuilder: (context, index) {
+            final booking = state.filteredBookings[index];
+            return _BookingCard(
+              booking: booking,
+              onTap: () => Go.to(BookingDetailsView(booking: booking)),
+            );
+          },
+        ),
+      ),
+    };
   }
 }

@@ -38,6 +38,9 @@ abstract class LocaleKeys {
   static const String _changePhone = 'change_phone';
   static String get changePhone => _changePhone.tr();
 
+  static const String _saveChanges = 'save_changes';
+  static String get saveChanges => _saveChanges.tr();
+
   static const String _dataUpdatedSuccessfully = 'data_updated_successfully';
   static String get dataUpdatedSuccessfully => _dataUpdatedSuccessfully.tr();
 
@@ -462,6 +465,11 @@ abstract class LocaleKeys {
   static const String _logout = 'logout';
   static String get logout => _logout.tr();
 
+  static const String _logoutConfirmationMessage =
+      'logout_confirmation_message';
+  static String get logoutConfirmationMessage =>
+      _logoutConfirmationMessage.tr();
+
   static const String _introSkip = 'intro_skip';
   static String get introSkip => _introSkip.tr();
 
@@ -602,6 +610,19 @@ abstract class LocaleKeys {
   static const String _settingsEditProfile = 'settings_edit_profile';
   static String get settingsEditProfile => _settingsEditProfile.tr();
 
+  static const String _settingsEditProfileSubtitle =
+      'settings_edit_profile_subtitle';
+  static String get settingsEditProfileSubtitle =>
+      _settingsEditProfileSubtitle.tr();
+
+  static const String _settingsChangePhone = 'settings_change_phone';
+  static String get settingsChangePhone => _settingsChangePhone.tr();
+
+  static const String _settingsChangePhoneSubtitle =
+      'settings_change_phone_subtitle';
+  static String get settingsChangePhoneSubtitle =>
+      _settingsChangePhoneSubtitle.tr();
+
   static const String _settingsChangeEmail = 'settings_change_email';
   static String get settingsChangeEmail => _settingsChangeEmail.tr();
 
@@ -610,6 +631,11 @@ abstract class LocaleKeys {
 
   static const String _settingsNotifications = 'settings_notifications';
   static String get settingsNotifications => _settingsNotifications.tr();
+
+  static const String _settingsNotificationsAvailable =
+      'settings_notifications_available';
+  static String get settingsNotificationsAvailable =>
+      _settingsNotificationsAvailable.tr();
 
   static const String _settingsLanguages = 'settings_languages';
   static String get settingsLanguages => _settingsLanguages.tr();
@@ -640,6 +666,44 @@ abstract class LocaleKeys {
 
   static const String _moreOthersTitle = 'more_others_title';
   static String get moreOthersTitle => _moreOthersTitle.tr();
+
+  static const String _moreAccountTitle = 'more_account_title';
+  static String get moreAccountTitle => _moreAccountTitle.tr();
+
+  static const String _moreAboutAppTitle = 'more_about_app_title';
+  static String get moreAboutAppTitle => _moreAboutAppTitle.tr();
+
+  static const String _moreProfileSubtitle = 'more_profile_subtitle';
+  static String get moreProfileSubtitle => _moreProfileSubtitle.tr();
+
+  static const String _moreGeneralSettings = 'more_general_settings';
+  static String get moreGeneralSettings => _moreGeneralSettings.tr();
+
+  static const String _moreGeneralSettingsSubtitle =
+      'more_general_settings_subtitle';
+  static String get moreGeneralSettingsSubtitle =>
+      _moreGeneralSettingsSubtitle.tr();
+
+  static const String _moreMyTeam = 'more_my_team';
+  static String get moreMyTeam => _moreMyTeam.tr();
+
+  static const String _moreMyTeamSubtitle = 'more_my_team_subtitle';
+  static String get moreMyTeamSubtitle => _moreMyTeamSubtitle.tr();
+
+  static const String _moreContactSubtitle = 'more_contact_subtitle';
+  static String get moreContactSubtitle => _moreContactSubtitle.tr();
+
+  static const String _moreTermsPrivacy = 'more_terms_privacy';
+  static String get moreTermsPrivacy => _moreTermsPrivacy.tr();
+
+  static const String _moreTermsPrivacySubtitle = 'more_terms_privacy_subtitle';
+  static String get moreTermsPrivacySubtitle => _moreTermsPrivacySubtitle.tr();
+
+  static const String _moreAboutUs = 'more_about_us';
+  static String get moreAboutUs => _moreAboutUs.tr();
+
+  static const String _moreAboutUsSubtitle = 'more_about_us_subtitle';
+  static String get moreAboutUsSubtitle => _moreAboutUsSubtitle.tr();
 
   static const String _notificationsTitle = 'notifications_title';
   static String get notificationsTitle => _notificationsTitle.tr();
@@ -823,6 +887,11 @@ abstract class LocaleKeys {
   static const String _stadiumsBookingDateTime = 'stadiums_booking_date_time';
   static String get stadiumsBookingDateTime => _stadiumsBookingDateTime.tr();
 
+  static const String _stadiumsSelectBookingDateTime =
+      'stadiums_select_booking_date_time';
+  static String get stadiumsSelectBookingDateTime =>
+      _stadiumsSelectBookingDateTime.tr();
+
   static const String _stadiumsPrice = 'stadiums_price';
   static String get stadiumsPrice => _stadiumsPrice.tr();
 
@@ -853,6 +922,32 @@ abstract class LocaleKeys {
       'stadiums_create_team_subtitle';
   static String get stadiumsCreateTeamSubtitle =>
       _stadiumsCreateTeamSubtitle.tr();
+
+  static const String _createTeamSportType = 'create_team_sport_type';
+  static String get createTeamSportType => _createTeamSportType.tr();
+
+  static const String _createTeamSelectType = 'create_team_select_type';
+  static String get createTeamSelectType => _createTeamSelectType.tr();
+
+  static const String _createTeamName = 'create_team_name';
+  static String get createTeamName => _createTeamName.tr();
+
+  static const String _createTeamEnterName = 'create_team_enter_name';
+  static String get createTeamEnterName => _createTeamEnterName.tr();
+
+  static const String _createTeamExpectedPlayersCount =
+      'create_team_expected_players_count';
+  static String get createTeamExpectedPlayersCount =>
+      _createTeamExpectedPlayersCount.tr();
+
+  static const String _createTeamEnterCount = 'create_team_enter_count';
+  static String get createTeamEnterCount => _createTeamEnterCount.tr();
+
+  static const String _createTeamImage = 'create_team_image';
+  static String get createTeamImage => _createTeamImage.tr();
+
+  static const String _createTeamEnterImage = 'create_team_enter_image';
+  static String get createTeamEnterImage => _createTeamEnterImage.tr();
 
   static const String _stadiumsCreateMatch = 'stadiums_create_match';
   static String get stadiumsCreateMatch => _stadiumsCreateMatch.tr();
@@ -987,6 +1082,9 @@ abstract class LocaleKeys {
   static const String _stadiumsOnlinePayment = 'stadiums_online_payment';
   static String get stadiumsOnlinePayment => _stadiumsOnlinePayment.tr();
 
+  static const String _stadiumsCashAfterPlay = 'stadiums_cash_after_play';
+  static String get stadiumsCashAfterPlay => _stadiumsCashAfterPlay.tr();
+
   static const String _bookingsBookFieldTitle = 'bookings_book_field_title';
   static String get bookingsBookFieldTitle => _bookingsBookFieldTitle.tr();
 
@@ -1060,6 +1158,12 @@ abstract class LocaleKeys {
   static const String _bookingsRateStadium = 'bookings_rate_stadium';
   static String get bookingsRateStadium => _bookingsRateStadium.tr();
 
+  static const String _bookingsRatingLabel = 'bookings_rating_label';
+  static String get bookingsRatingLabel => _bookingsRatingLabel.tr();
+
+  static const String _bookingsCommentLabel = 'bookings_comment_label';
+  static String get bookingsCommentLabel => _bookingsCommentLabel.tr();
+
   static const String _bookingsRatingHint = 'bookings_rating_hint';
   static String get bookingsRatingHint => _bookingsRatingHint.tr();
 
@@ -1107,6 +1211,9 @@ abstract class LocaleKeys {
   static const String _bookingsPound = 'bookings_pound';
   static String get bookingsPound => _bookingsPound.tr();
 
+  static const String _bookingsRiyal = 'bookings_riyal';
+  static String get bookingsRiyal => _bookingsRiyal.tr();
+
   static const String _locationHere = 'location_here';
   static String get locationHere => _locationHere.tr();
 
@@ -1117,4 +1224,12 @@ abstract class LocaleKeys {
       'please_enable_location_services_in_settings';
   static String get pleaseEnableLocationServicesInSettings =>
       _pleaseEnableLocationServicesInSettings.tr();
+
+  static const String _orderNumber = 'order_number';
+  static String get orderNumber => _orderNumber.tr();
+
+  static const String _theMobilePhoneNumberHasBeenUpdatedSuccessfully =
+      'the_mobile_phone_number_has_been_updated_successfully';
+  static String get theMobilePhoneNumberHasBeenUpdatedSuccessfully =>
+      _theMobilePhoneNumberHasBeenUpdatedSuccessfully.tr();
 }

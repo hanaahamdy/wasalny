@@ -43,6 +43,21 @@ class $AssetsFontsGen {
   ];
 }
 
+class $AssetsImagesGen {
+  const $AssetsImagesGen();
+
+  /// File path: assets/images/profile_backgroung.png
+  AssetGenImage get profileBackgroung =>
+      const AssetGenImage('assets/images/profile_backgroung.png');
+
+  /// File path: assets/images/taem_logo.png
+  AssetGenImage get taemLogo =>
+      const AssetGenImage('assets/images/taem_logo.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [profileBackgroung, taemLogo];
+}
+
 class $AssetsLottieGen {
   const $AssetsLottieGen();
 
@@ -175,6 +190,10 @@ class $AssetsSvgBaseSvgGen {
   SvgGenImage get arrowDown =>
       const SvgGenImage('assets/svg/base_svg/arrow_down.svg');
 
+  /// File path: assets/svg/base_svg/booking_icon.svg
+  SvgGenImage get bookingIcon =>
+      const SvgGenImage('assets/svg/base_svg/booking_icon.svg');
+
   /// File path: assets/svg/base_svg/camera.svg
   SvgGenImage get camera => const SvgGenImage('assets/svg/base_svg/camera.svg');
 
@@ -214,6 +233,16 @@ class $AssetsSvgBaseSvgGen {
   SvgGenImage get dropDownClose =>
       const SvgGenImage('assets/svg/base_svg/drop_down_close.svg');
 
+  /// File path: assets/svg/base_svg/home.svg
+  SvgGenImage get home => const SvgGenImage('assets/svg/base_svg/home.svg');
+
+  /// File path: assets/svg/base_svg/home_card.svg
+  SvgGenImage get homeCard =>
+      const SvgGenImage('assets/svg/base_svg/home_card.svg');
+
+  /// File path: assets/svg/base_svg/more.svg
+  SvgGenImage get more => const SvgGenImage('assets/svg/base_svg/more.svg');
+
   /// File path: assets/svg/base_svg/notification_delete.svg
   SvgGenImage get notificationDelete =>
       const SvgGenImage('assets/svg/base_svg/notification_delete.svg');
@@ -241,9 +270,21 @@ class $AssetsSvgBaseSvgGen {
   AssetGenImage get otpVerification =>
       const AssetGenImage('assets/svg/base_svg/otp_verification.png');
 
+  /// File path: assets/svg/base_svg/payment_icon.svg
+  SvgGenImage get paymentIcon =>
+      const SvgGenImage('assets/svg/base_svg/payment_icon.svg');
+
+  /// File path: assets/svg/base_svg/policy_icon.svg
+  SvgGenImage get policyIcon =>
+      const SvgGenImage('assets/svg/base_svg/policy_icon.svg');
+
   /// File path: assets/svg/base_svg/profile.png
   AssetGenImage get profile =>
       const AssetGenImage('assets/svg/base_svg/profile.png');
+
+  /// File path: assets/svg/base_svg/replace_icon.svg
+  SvgGenImage get replaceIcon =>
+      const SvgGenImage('assets/svg/base_svg/replace_icon.svg');
 
   /// File path: assets/svg/base_svg/search.svg
   SvgGenImage get search => const SvgGenImage('assets/svg/base_svg/search.svg');
@@ -255,6 +296,13 @@ class $AssetsSvgBaseSvgGen {
   /// File path: assets/svg/base_svg/user_vector.svg
   SvgGenImage get userVector =>
       const SvgGenImage('assets/svg/base_svg/user_vector.svg');
+
+  /// File path: assets/svg/base_svg/wallet.svg
+  SvgGenImage get wallet => const SvgGenImage('assets/svg/base_svg/wallet.svg');
+
+  /// File path: assets/svg/base_svg/wallet_card.png
+  AssetGenImage get walletCard =>
+      const AssetGenImage('assets/svg/base_svg/wallet_card.png');
 
   /// List of all assets
   List<dynamic> get values => [
@@ -269,6 +317,7 @@ class $AssetsSvgBaseSvgGen {
     uploadDoted,
     arrowBack,
     arrowDown,
+    bookingIcon,
     camera,
     changeEmail,
     changePass,
@@ -279,6 +328,9 @@ class $AssetsSvgBaseSvgGen {
     deleteAll,
     dropDownArrowDown,
     dropDownClose,
+    home,
+    homeCard,
+    more,
     notificationDelete,
     notificationDialog,
     notificationEmpty,
@@ -286,10 +338,15 @@ class $AssetsSvgBaseSvgGen {
     notifications,
     notify,
     otpVerification,
+    paymentIcon,
+    policyIcon,
     profile,
+    replaceIcon,
     search,
     sessionsEmpty,
     userVector,
+    wallet,
+    walletCard,
   ];
 }
 
@@ -297,6 +354,7 @@ class AppAssets {
   const AppAssets._();
 
   static const $AssetsFontsGen fonts = $AssetsFontsGen();
+  static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsLottieGen lottie = $AssetsLottieGen();
   static const $AssetsSvgGen svg = $AssetsSvgGen();
   static const $AssetsTranslationsGen translations = $AssetsTranslationsGen();

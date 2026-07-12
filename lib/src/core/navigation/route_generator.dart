@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../features/auth/presentation/imports/view_imports.dart';
 import '../../features/logic/home_tabs/stadiums/presentation/stadiums_feature.dart';
 import '../../features/settings/splash/imports/view_imports.dart';
+import '../../features/settings/team/presentation/imports/view_imports.dart';
 import 'named_routes.dart';
 import 'page_router/imports_page_router_builder.dart';
 
@@ -32,6 +33,10 @@ class RouterGenerator {
           const SignUpScreen(),
           settings: settings,
         ),
+        NamedRoutes.team => _pageRouter.build(
+          const TeamTabView(),
+          settings: settings,
+        ),
         NamedRoutes.stadiumSearch => _pageRouter.build(
           const StadiumSearchView(),
           settings: settings,
@@ -41,7 +46,7 @@ class RouterGenerator {
           settings: settings,
         ),
         NamedRoutes.bookingSummary => _pageRouter.build(
-          BookingSummaryView(stadium: settings.arguments as Stadium),
+          BookingStadiumSummaryView(stadium: settings.arguments as Stadium),
           settings: settings,
         ),
       };
