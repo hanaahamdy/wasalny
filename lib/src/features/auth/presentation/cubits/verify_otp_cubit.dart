@@ -100,11 +100,6 @@ extension on VerifyOtpCubit {
     //       body: {
     //         'phone': phone,
     //         'code': otp,
-    //         'device_id': NotificationService.deviceToken,
-    //         'device_type': Helpers.getDeviceType(),
-    //         'project_name': ConstantManager.appName,
-    //       },
-    //       httpRequestType: HttpRequestType.post,
     //       isFromData: true,
     //       mapper: (json) => BaseModel.fromJson(
     //         json,
@@ -115,6 +110,11 @@ extension on VerifyOtpCubit {
     //           }
     //           return null;
     //         },
+    //         'device_id': NotificationService.deviceToken,
+    //         'device_type': Helpers.getDeviceType(),
+    //         'project_name': ConstantManager.appName,
+    //       },
+    //       httpRequestType: HttpRequestType.post,
     //       ),
     //     ),
     //   ),

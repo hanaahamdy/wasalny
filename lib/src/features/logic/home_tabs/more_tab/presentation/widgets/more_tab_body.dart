@@ -175,6 +175,7 @@ class _MoreLogoutButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.locale;
     return Container(
       height: 52.h,
       decoration: BoxDecoration(

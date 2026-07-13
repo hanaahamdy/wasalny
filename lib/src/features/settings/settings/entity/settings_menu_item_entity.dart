@@ -5,6 +5,7 @@ import '../../../../config/res/assets.gen.dart';
 import '../../../../config/res/config_imports.dart';
 import '../../../../core/navigation/navigator.dart';
 import '../../../logic/home_tabs/more_tab/entity/more_menu_item_entity.dart';
+import '../../../language/presentation/widgets/language_picker_sheet.dart';
 import '../../profile/presentation/imports/view_imports.dart';
 
 class SettingsItemEntity {
@@ -35,7 +36,7 @@ class SettingsItemEntity {
       iconData: Icons.shield_rounded,
       iconBackgroundColor: AppColors.settingsLanguageIconBackground,
       iconColor: AppColors.settingsLanguageIcon,
-      onTap: () {},
+      onTap: () => LanguagePickerSheet.show(Go.context),
     ),
     MoreItemEntity(
       title: LocaleKeys.settingsNotifications,

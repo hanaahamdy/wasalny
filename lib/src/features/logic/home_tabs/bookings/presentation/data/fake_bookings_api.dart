@@ -104,4 +104,23 @@ class _FakeBookingsApi {
     await Future<void>.delayed(const Duration(milliseconds: 350));
     return _bookings;
   }
+
+  static Future<List<CancelReasonEntity>> getCancelReasons() async {
+    await Future<void>.delayed(const Duration(milliseconds: 350));
+    return [
+      CancelReasonEntity(
+        id: 1,
+        title: LocaleKeys.bookingsCancelReasonUnavailable,
+      ),
+      CancelReasonEntity(
+        id: 2,
+        title: LocaleKeys.bookingsCancelReasonEmergency,
+      ),
+      CancelReasonEntity(
+        id: 3,
+        title: LocaleKeys.bookingsCancelReasonWrongTime,
+      ),
+      CancelReasonEntity(id: 4, title: LocaleKeys.bookingsCancelReasonOther),
+    ];
+  }
 }

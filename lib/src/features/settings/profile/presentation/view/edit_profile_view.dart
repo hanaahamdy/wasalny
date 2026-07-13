@@ -1,115 +1,220 @@
 part of '../imports/view_imports.dart';
 
-class EditProfileView extends StatelessWidget {
+class EditProfileView extends StatefulWidget {
   const EditProfileView({super.key});
+
+  @override
+  State<EditProfileView> createState() => _EditProfileViewState();
+}
+
+class _EditProfileViewState extends State<EditProfileView> {
+  late final TextEditingController _fullNameController;
+  late final TextEditingController _birthDateController;
+  late final TextEditingController _emailController;
+  late final TextEditingController _locationController;
+  String _type = LocaleKeys.signUpPlayer;
+  String _gender = LocaleKeys.signUpMale;
+  String? _city;
+  String? _district;
+
+  final List<String> _typeOptions = [LocaleKeys.signUpPlayer];
+  final List<String> _genderOptions = [
+    LocaleKeys.signUpMale,
+    LocaleKeys.signUpFemale,
+  ];
+  final List<String> _cityOptions = ['Riyadh', 'Jeddah', 'Cairo'];
+  final List<String> _districtOptions = [
+    'Al Nakheel District',
+    'Al Faisaliah District',
+    'Al Malqa District',
+    'Nasr City',
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    final user = UserCubit.instance.user;
+    _fullNameController = TextEditingController(text: user.fullName);
+    _birthDateController = TextEditingController();
+    _emailController = TextEditingController(text: user.email);
+    _locationController = TextEditingController();
+    _city = user.city.isEmpty ? null : user.city;
+  }
+
+  @override
+  void dispose() {
+    _fullNameController.dispose();
+    _birthDateController.dispose();
+    _emailController.dispose();
+    _locationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final user = UserCubit.instance.user;
 
-    return Directionality(
-      textDirection: ui.TextDirection.rtl,
-      child: Scaffold(
-        backgroundColor: AppColors.subtleBackground,
-        appBar: CustomAppbar(title: LocaleKeys.settingsEditProfile),
-        body: SingleChildScrollView(
-          padding: EdgeInsets.fromLTRB(24.w, 23.h, 24.w, 32.h),
-          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-          child: Column(
-            children: [
-              Container(
-                width: double.infinity,
-                padding: EdgeInsets.fromLTRB(16.w, 33.h, 16.w, 24.h),
-                decoration: BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: BorderRadius.circular(24.r),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.black.withValues(alpha: .05),
-                      blurRadius: 55.r,
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    _EditProfileAvatar(userImage: user.image),
-                    SizedBox(height: 24.h),
-                    _EditProfileField(
-                      label: LocaleKeys.signUpType,
-                      hint: LocaleKeys.signUpPlayer,
-                      icon: Icons.keyboard_arrow_down_rounded,
-                      readOnly: true,
-                    ),
-                    _EditProfileField(
-                      label: LocaleKeys.signUpGender,
-                      hint: LocaleKeys.signUpMale,
-                      icon: Icons.keyboard_arrow_down_rounded,
-                      readOnly: true,
-                    ),
-                    _EditProfileField(
-                      label: LocaleKeys.signUpFullName,
-                      hint: user.fullName.isEmpty
-                          ? LocaleKeys.signUpEnterName
-                          : user.fullName,
-                    ),
-                    _EditProfileField(
-                      label: LocaleKeys.signUpBirthDate,
-                      hint: LocaleKeys.signUpBirthDateHint,
-                      icon: Icons.date_range_outlined,
-                      readOnly: true,
-                    ),
-                    _EditProfileField(
-                      label: LocaleKeys.email,
-                      hint: user.email.isEmpty
-                          ? LocaleKeys.signUpEnterEmail
-                          : user.email,
-                      keyboardType: TextInputType.emailAddress,
-                    ),
-                    _EditProfileField(
-                      label: LocaleKeys.location,
-                      hint: LocaleKeys.signUpSelectLocation,
-                      icon: Icons.location_on_outlined,
-                      readOnly: true,
-                    ),
-                    _EditProfileField(
-                      label: LocaleKeys.signUpCity,
-                      hint: user.city.isEmpty
-                          ? LocaleKeys.signUpSelectCity
-                          : user.city,
-                      icon: Icons.keyboard_arrow_down_rounded,
-                      readOnly: true,
-                    ),
-                    _EditProfileField(
-                      label: LocaleKeys.signUpDistrict,
-                      hint: LocaleKeys.signUpSelectDistrict,
-                      icon: Icons.keyboard_arrow_down_rounded,
-                      readOnly: true,
-                      bottomSpacing: 0,
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 36.h),
-              TextButton(
-                onPressed: () =>
-                    showChangePasswordBottomSheet(context: context),
-                child: Text(
-                  LocaleKeys.changePassword,
-                  style: TextStyle(
-                    color: AppColors.black,
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.w700,
+    return Scaffold(
+      backgroundColor: AppColors.subtleBackground,
+      appBar: CustomAppbar(title: LocaleKeys.settingsEditProfile),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.fromLTRB(24.w, 23.h, 24.w, 32.h),
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.fromLTRB(16.w, 33.h, 16.w, 24.h),
+              decoration: BoxDecoration(
+                color: AppColors.white,
+                borderRadius: BorderRadius.circular(24.r),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.black.withValues(alpha: .05),
+                    blurRadius: 55.r,
                   ),
+                ],
+              ),
+              child: Column(
+                children: [
+                  _EditProfileAvatar(userImage: user.image),
+                  SizedBox(height: 24.h),
+                  AppDropdown<String>(
+                    label: LocaleKeys.signUpType,
+                    hint: LocaleKeys.signUpPlayer,
+                    value: _type,
+                    items: _typeOptions,
+                    itemAsString: (type) => type,
+                    onChanged: (value) {
+                      if (value == null) return;
+                      setState(() => _type = value);
+                    },
+                    height: 56.h,
+                    showSearchBox: false,
+                    borderRadius: BorderRadius.circular(16.r),
+                  ),
+                  SizedBox(height: 20.h),
+                  AppDropdown<String>(
+                    label: LocaleKeys.signUpGender,
+                    hint: LocaleKeys.signUpMale,
+                    value: _gender,
+                    items: _genderOptions,
+                    itemAsString: (gender) => gender,
+                    onChanged: (value) {
+                      if (value == null) return;
+                      setState(() => _gender = value);
+                    },
+                    height: 56.h,
+                    showSearchBox: false,
+                    borderRadius: BorderRadius.circular(16.r),
+                  ),
+                  SizedBox(height: 20.h),
+                  CustomTextFiled(
+                    title: LocaleKeys.signUpFullName,
+                    hint: LocaleKeys.signUpEnterName,
+                    controller: _fullNameController,
+                    textInputType: TextInputType.name,
+                    textInputAction: TextInputAction.next,
+                    borderRadius: BorderRadius.circular(16.r),
+                    validator: null,
+                    isOptional: true,
+                  ),
+                  SizedBox(height: 20.h),
+                  CustomTextFiled(
+                    title: LocaleKeys.signUpBirthDate,
+                    hint: LocaleKeys.signUpBirthDateHint,
+                    controller: _birthDateController,
+                    textInputType: TextInputType.datetime,
+                    textInputAction: TextInputAction.next,
+                    borderRadius: BorderRadius.circular(16.r),
+                    suffixIcon: Icon(
+                      Icons.date_range_outlined,
+                      color: AppColors.hintText,
+                      size: 24.r,
+                    ),
+                    readOnly: true,
+                    validator: null,
+                    isOptional: true,
+                  ),
+                  SizedBox(height: 20.h),
+                  CustomTextFiled(
+                    title: LocaleKeys.email,
+                    hint: LocaleKeys.signUpEnterEmail,
+                    controller: _emailController,
+                    textInputType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
+                    borderRadius: BorderRadius.circular(16.r),
+                    validator: null,
+                    isOptional: true,
+                  ),
+                  SizedBox(height: 20.h),
+                  CustomTextFiled(
+                    title: LocaleKeys.location,
+                    hint: LocaleKeys.signUpSelectLocation,
+                    controller: _locationController,
+                    textInputType: TextInputType.text,
+                    textInputAction: TextInputAction.next,
+                    borderRadius: BorderRadius.circular(16.r),
+                    suffixIcon: Icon(
+                      Icons.location_on_outlined,
+                      color: AppColors.hintText,
+                      size: 24.r,
+                    ),
+                    readOnly: true,
+                    validator: null,
+                    isOptional: true,
+                  ),
+                  SizedBox(height: 20.h),
+                  AppDropdown<String>(
+                    label: LocaleKeys.signUpCity,
+                    hint: LocaleKeys.signUpSelectCity,
+                    value: _city,
+                    items: _cityOptions,
+                    itemAsString: (city) => city,
+                    onChanged: (value) {
+                      setState(() {
+                        _city = value;
+                        _district = null;
+                      });
+                    },
+                    height: 56.h,
+                    showSearchBox: false,
+                    borderRadius: BorderRadius.circular(16.r),
+                  ),
+                  SizedBox(height: 20.h),
+                  AppDropdown<String>(
+                    label: LocaleKeys.signUpDistrict,
+                    hint: LocaleKeys.signUpSelectDistrict,
+                    value: _district,
+                    items: _districtOptions,
+                    itemAsString: (district) => district,
+                    onChanged: (value) => setState(() => _district = value),
+                    height: 56.h,
+                    showSearchBox: false,
+                    borderRadius: BorderRadius.circular(16.r),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 36.h),
+            TextButton(
+              onPressed: () => showChangePasswordBottomSheet(context: context),
+              child: Text(
+                LocaleKeys.changePassword,
+                style: TextStyle(
+                  color: AppColors.black,
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-        bottomNavigationBar: _EditProfileBottomBar(
-          onSave: () => successDialog(
-            context: context,
-            title: LocaleKeys.dataUpdatedSuccessfully,
-          ),
+      ),
+      bottomNavigationBar: _EditProfileBottomBar(
+        onSave: () => successDialog(
+          context: context,
+          title: LocaleKeys.dataUpdatedSuccessfully,
         ),
       ),
     );
@@ -178,78 +283,6 @@ class _EditProfileAvatar extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class _EditProfileField extends StatelessWidget {
-  final String label;
-  final String hint;
-  final IconData? icon;
-  final bool readOnly;
-  final TextInputType? keyboardType;
-  final double bottomSpacing;
-
-  const _EditProfileField({
-    required this.label,
-    required this.hint,
-    this.icon,
-    this.readOnly = false,
-    this.keyboardType,
-    this.bottomSpacing = 20,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: bottomSpacing.h),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(
-            label,
-            textAlign: TextAlign.right,
-            style: TextStyle(
-              color: AppColors.black,
-              fontSize: 16.sp,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          SizedBox(height: 10.h),
-          SizedBox(
-            height: 56.h,
-            child: TextFormField(
-              initialValue: hint,
-              readOnly: readOnly,
-              keyboardType: keyboardType,
-              textAlign: TextAlign.right,
-              style: TextStyle(
-                color: AppColors.hintText,
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w400,
-              ),
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: AppColors.fieldFillColor,
-                contentPadding: EdgeInsets.symmetric(horizontal: 22.w),
-                border: _border,
-                enabledBorder: _border,
-                focusedBorder: _border,
-                prefixIcon: icon == null
-                    ? null
-                    : Icon(icon, color: AppColors.hintText, size: 24.r),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  OutlineInputBorder get _border {
-    return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(16.r),
-      borderSide: BorderSide.none,
     );
   }
 }

@@ -1155,6 +1155,34 @@ abstract class LocaleKeys {
   static const String _bookingsCancelBooking = 'bookings_cancel_booking';
   static String get bookingsCancelBooking => _bookingsCancelBooking.tr();
 
+  static const String _bookingsCancelReasonTitle =
+      'bookings_cancel_reason_title';
+  static String get bookingsCancelReasonTitle =>
+      _bookingsCancelReasonTitle.tr();
+
+  static const String _bookingsConfirmCancel = 'bookings_confirm_cancel';
+  static String get bookingsConfirmCancel => _bookingsConfirmCancel.tr();
+
+  static const String _bookingsCancelReasonUnavailable =
+      'bookings_cancel_reason_unavailable';
+  static String get bookingsCancelReasonUnavailable =>
+      _bookingsCancelReasonUnavailable.tr();
+
+  static const String _bookingsCancelReasonEmergency =
+      'bookings_cancel_reason_emergency';
+  static String get bookingsCancelReasonEmergency =>
+      _bookingsCancelReasonEmergency.tr();
+
+  static const String _bookingsCancelReasonWrongTime =
+      'bookings_cancel_reason_wrong_time';
+  static String get bookingsCancelReasonWrongTime =>
+      _bookingsCancelReasonWrongTime.tr();
+
+  static const String _bookingsCancelReasonOther =
+      'bookings_cancel_reason_other';
+  static String get bookingsCancelReasonOther =>
+      _bookingsCancelReasonOther.tr();
+
   static const String _bookingsRateStadium = 'bookings_rate_stadium';
   static String get bookingsRateStadium => _bookingsRateStadium.tr();
 

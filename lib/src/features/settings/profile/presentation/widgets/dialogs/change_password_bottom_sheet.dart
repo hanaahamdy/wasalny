@@ -117,27 +117,60 @@ class _ChangePasswordBottomSheetState
               padding: EdgeInsets.symmetric(horizontal: 24.w),
               child: Column(
                 children: [
-                  _PasswordSheetField(
+                  CustomTextFiled(
                     controller: _currentPasswordController,
                     title: LocaleKeys.currentPassword,
+                    hint: LocaleKeys.pleaseEnterYourPassword,
+                    isOptional: true,
+                    isPassword: true,
+                    textInputType: TextInputType.visiblePassword,
+                    textInputAction: TextInputAction.next,
+                    fillColor: AppColors.fieldFillColor,
+                    borderRadius: BorderRadius.circular(24.r),
+                    suffixIcon: AppAssets.svg.baseSvg.circlePassword.svg(
+                      width: 24.r,
+                      height: 24.r,
+                    ),
                     validator: (value) => Validators.validateEmpty(
                       value,
                       fieldTitle: LocaleKeys.currentPassword,
                     ),
                   ),
                   SizedBox(height: 20.h),
-                  _PasswordSheetField(
+                  CustomTextFiled(
                     controller: _newPasswordController,
                     title: LocaleKeys.newPassword,
+                    hint: LocaleKeys.pleaseEnterYourPassword,
+                    isOptional: true,
+                    isPassword: true,
+                    textInputType: TextInputType.visiblePassword,
+                    textInputAction: TextInputAction.next,
+                    fillColor: AppColors.fieldFillColor,
+                    borderRadius: BorderRadius.circular(24.r),
+                    suffixIcon: AppAssets.svg.baseSvg.circlePassword.svg(
+                      width: 24.r,
+                      height: 24.r,
+                    ),
                     validator: (value) => Validators.validatePassword(
                       value,
                       fieldTitle: LocaleKeys.newPassword,
                     ),
                   ),
                   SizedBox(height: 20.h),
-                  _PasswordSheetField(
+                  CustomTextFiled(
                     controller: _confirmPasswordController,
                     title: LocaleKeys.confirmPassword,
+                    hint: LocaleKeys.pleaseEnterYourPassword,
+                    isOptional: true,
+                    isPassword: true,
+                    textInputType: TextInputType.visiblePassword,
+                    textInputAction: TextInputAction.done,
+                    fillColor: AppColors.fieldFillColor,
+                    borderRadius: BorderRadius.circular(24.r),
+                    suffixIcon: AppAssets.svg.baseSvg.circlePassword.svg(
+                      width: 24.r,
+                      height: 24.r,
+                    ),
                     validator: (value) => Validators.validatePasswordConfirm(
                       value,
                       _newPasswordController.text,
@@ -186,87 +219,6 @@ class _ChangePasswordBottomSheetState
           ],
         ),
       ),
-    );
-  }
-}
-
-class _PasswordSheetField extends StatelessWidget {
-  final TextEditingController controller;
-  final String title;
-  final String? Function(String?) validator;
-
-  const _PasswordSheetField({
-    required this.controller,
-    required this.title,
-    required this.validator,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Text(
-          title,
-          textAlign: TextAlign.right,
-          style: TextStyle(
-            color: AppColors.black,
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        SizedBox(height: 12.h),
-        SizedBox(
-          height: 56.h,
-          child: TextFormField(
-            controller: controller,
-            obscureText: true,
-            keyboardType: TextInputType.visiblePassword,
-            textInputAction: TextInputAction.next,
-            textAlign: TextAlign.right,
-            validator: validator,
-            style: TextStyle(
-              color: AppColors.black,
-              fontSize: 12.sp,
-              fontWeight: FontWeight.w400,
-            ),
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: AppColors.fieldFillColor,
-              hintText: LocaleKeys.pleaseEnterYourPassword,
-              hintStyle: TextStyle(
-                color: AppColors.hintText,
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w400,
-              ),
-              contentPadding: EdgeInsets.symmetric(horizontal: 24.w),
-              border: _border,
-              enabledBorder: _border,
-              focusedBorder: _border,
-              errorBorder: _border,
-              focusedErrorBorder: _border,
-              suffixIcon: Padding(
-                padding: EdgeInsetsDirectional.only(end: 16.w),
-                child: AppAssets.svg.baseSvg.circlePassword.svg(
-                  width: 24.r,
-                  height: 24.r,
-                ),
-              ),
-              suffixIconConstraints: BoxConstraints(
-                minWidth: 56.w,
-                minHeight: 56.h,
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  OutlineInputBorder get _border {
-    return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(24.r),
-      borderSide: BorderSide.none,
     );
   }
 }
