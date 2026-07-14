@@ -34,7 +34,7 @@ class RouterGenerator {
           settings: settings,
         ),
         NamedRoutes.team => _pageRouter.build(
-          const TeamTabView(),
+          const TeamDetailsView(),
           settings: settings,
         ),
         NamedRoutes.stadiumSearch => _pageRouter.build(

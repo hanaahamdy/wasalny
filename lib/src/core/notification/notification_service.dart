@@ -5,8 +5,12 @@ import 'dart:io';
 import "package:firebase_core/firebase_core.dart";
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import '../../config/language/locale_keys.g.dart';
 import '../../config/res/config_imports.dart';
- import '../network/un_authenticated_interceptor.dart';
+import '../../features/logic/home_tabs/bookings/presentation/bookings_feature.dart';
+import '../../features/settings/team/presentation/imports/view_imports.dart';
+import '../navigation/navigator.dart';
+import '../network/un_authenticated_interceptor.dart';
 
 part 'navigation_types.dart';
 part 'notification_routes.dart';
@@ -200,7 +204,7 @@ class NotificationService {
     try {
       final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
       await firebaseMessaging.requestPermission(
-        alert:Platform.isIOS ? false : true,
+        alert: Platform.isIOS ? false : true,
         badge: true,
         sound: true,
       );

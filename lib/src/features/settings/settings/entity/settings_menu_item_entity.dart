@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 import '../../../../config/language/locale_keys.g.dart';
 import '../../../../config/res/assets.gen.dart';
 import '../../../../config/res/config_imports.dart';
@@ -13,8 +11,7 @@ class SettingsItemEntity {
     MoreItemEntity(
       title: LocaleKeys.settingsEditProfile,
       subtitle: LocaleKeys.settingsEditProfileSubtitle,
-      icon: AppAssets.svg.baseSvg.profile.path,
-      iconData: Icons.person_add_alt_1_outlined,
+      image: AppAssets.svg.baseSvg.userSetting,
       iconBackgroundColor: AppColors.settingsProfileIconBackground,
       iconColor: AppColors.primary,
       onTap: () => Go.to(const EditProfileView()),
@@ -22,8 +19,7 @@ class SettingsItemEntity {
     MoreItemEntity(
       title: LocaleKeys.settingsChangePhone,
       subtitle: LocaleKeys.settingsChangePhoneSubtitle,
-      icon: AppAssets.svg.baseSvg.changeEmail.path,
-      iconData: Icons.shield_outlined,
+      image: AppAssets.svg.baseSvg.info,
       iconBackgroundColor: AppColors.moreSettingsIconBackground,
       iconColor: AppColors.settingsPhoneIcon,
       // onTap: () => Go.to(const VerifyPasswordScreen()),
@@ -32,8 +28,7 @@ class SettingsItemEntity {
     MoreItemEntity(
       title: LocaleKeys.settingsLanguages,
       subtitle: LocaleKeys.settingsLanguages,
-      icon: AppAssets.svg.baseSvg.changePass.path,
-      iconData: Icons.shield_rounded,
+      image: AppAssets.svg.baseSvg.settingLang,
       iconBackgroundColor: AppColors.settingsLanguageIconBackground,
       iconColor: AppColors.settingsLanguageIcon,
       onTap: () => LanguagePickerSheet.show(Go.context),
@@ -41,8 +36,7 @@ class SettingsItemEntity {
     MoreItemEntity(
       title: LocaleKeys.settingsNotifications,
       subtitle: LocaleKeys.settingsNotificationsAvailable,
-      icon: AppAssets.svg.baseSvg.notify.path,
-      iconData: Icons.notifications_none_rounded,
+      image: AppAssets.svg.baseSvg.notification,
       iconBackgroundColor: AppColors.settingsNotificationsIconBackground,
       iconColor: AppColors.settingsNotificationsIcon,
       useSwitch: true,

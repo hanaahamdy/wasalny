@@ -12,8 +12,7 @@ import '../../../../settings/team/presentation/imports/view_imports.dart';
 class MoreItemEntity {
   final String title;
   final String subtitle;
-  final String icon;
-  final IconData iconData;
+  final SvgGenImage image;
   final Color iconBackgroundColor;
   final Color iconColor;
   final VoidCallback onTap;
@@ -23,8 +22,7 @@ class MoreItemEntity {
   MoreItemEntity({
     required this.title,
     this.subtitle = '',
-    required this.icon,
-    this.iconData = Icons.circle_outlined,
+    required this.image,
     this.iconBackgroundColor = AppColors.fieldFillColor,
     this.iconColor = AppColors.primary,
     required this.onTap,
@@ -36,8 +34,7 @@ class MoreItemEntity {
     MoreItemEntity(
       title: LocaleKeys.profile,
       subtitle: LocaleKeys.moreProfileSubtitle,
-      icon: AppAssets.svg.appSvg.home.path,
-      iconData: Icons.person_add_alt_1_outlined,
+      image: AppAssets.svg.baseSvg.userSetting,
       iconBackgroundColor: AppColors.moreProfileIconBackground,
       iconColor: AppColors.authTabSelected,
       onTap: () {},
@@ -45,20 +42,18 @@ class MoreItemEntity {
     MoreItemEntity(
       title: LocaleKeys.moreGeneralSettings,
       subtitle: LocaleKeys.moreGeneralSettingsSubtitle,
-      icon: AppAssets.svg.appSvg.home.path,
-      iconData: Icons.shield_outlined,
+      image: AppAssets.svg.baseSvg.info,
       iconBackgroundColor: AppColors.moreSettingsIconBackground,
       iconColor: AppColors.primary,
-      onTap:() => Go.to(const SettingsScreen()),
+      onTap: () => Go.to(const SettingsScreen()),
     ),
     MoreItemEntity(
       title: LocaleKeys.moreMyTeam,
       subtitle: LocaleKeys.moreMyTeamSubtitle,
-      icon: AppAssets.svg.appSvg.home.path,
-      iconData: Icons.emoji_events_outlined,
+      image: AppAssets.svg.baseSvg.celebrate,
       iconBackgroundColor: AppColors.moreTeamIconBackground,
       iconColor: AppColors.bookingPendingYellow,
-      onTap: () => Go.to(const TeamTabView()),
+      onTap: () => Go.to(const TeamDetailsView()),
     ),
   ];
 
@@ -67,8 +62,7 @@ class MoreItemEntity {
     MoreItemEntity(
       title: LocaleKeys.contactUs,
       subtitle: LocaleKeys.moreContactSubtitle,
-      icon: AppAssets.svg.appSvg.home.path,
-      iconData: Icons.support_agent_outlined,
+      image: AppAssets.svg.baseSvg.call,
       iconBackgroundColor: AppColors.moreContactIconBackground,
       iconColor: AppColors.primary,
       onTap: () => Go.to(const ContactUsScreen()),
@@ -76,8 +70,7 @@ class MoreItemEntity {
     MoreItemEntity(
       title: LocaleKeys.moreTermsPrivacy,
       subtitle: LocaleKeys.moreTermsPrivacySubtitle,
-      icon: AppAssets.svg.appSvg.home.path,
-      iconData: Icons.calendar_month_outlined,
+      image: AppAssets.svg.baseSvg.calednder,
       iconBackgroundColor: AppColors.moreTermsIconBackground,
       iconColor: AppColors.bookingPendingYellow,
       onTap: () => Go.to(
@@ -89,8 +82,7 @@ class MoreItemEntity {
     MoreItemEntity(
       title: LocaleKeys.moreAboutUs,
       subtitle: LocaleKeys.moreAboutUsSubtitle,
-      icon: AppAssets.svg.appSvg.home.path,
-      iconData: Icons.calendar_month_outlined,
+      image: AppAssets.svg.baseSvg.calednder,
       iconBackgroundColor: AppColors.moreTermsIconBackground,
       iconColor: AppColors.bookingPendingYellow,
       onTap: () => Go.to(
@@ -104,8 +96,7 @@ class MoreItemEntity {
     MoreItemEntity(
       title: LocaleKeys.whoUs,
       subtitle: LocaleKeys.moreAboutUsSubtitle,
-      icon: AppAssets.svg.appSvg.home.path,
-      iconData: Icons.calendar_month_outlined,
+      image: AppAssets.svg.baseSvg.info,
       iconBackgroundColor: AppColors.moreTermsIconBackground,
       iconColor: AppColors.bookingPendingYellow,
       onTap: () => Go.to(
@@ -115,8 +106,7 @@ class MoreItemEntity {
     MoreItemEntity(
       title: LocaleKeys.contactUs,
       subtitle: LocaleKeys.moreContactSubtitle,
-      icon: AppAssets.svg.appSvg.home.path,
-      iconData: Icons.support_agent_outlined,
+      image: AppAssets.svg.baseSvg.call,
       iconBackgroundColor: AppColors.moreContactIconBackground,
       iconColor: AppColors.primary,
       onTap: () => Go.to(const ContactUsScreen()),
@@ -125,8 +115,7 @@ class MoreItemEntity {
     MoreItemEntity(
       title: LocaleKeys.terms,
       subtitle: LocaleKeys.moreTermsPrivacySubtitle,
-      icon: AppAssets.svg.appSvg.home.path,
-      iconData: Icons.calendar_month_outlined,
+      image: AppAssets.svg.baseSvg.policyIcon,
       iconBackgroundColor: AppColors.moreTermsIconBackground,
       iconColor: AppColors.bookingPendingYellow,
       onTap: () => Go.to(
@@ -138,8 +127,7 @@ class MoreItemEntity {
     MoreItemEntity(
       title: LocaleKeys.policy,
       subtitle: LocaleKeys.moreTermsPrivacySubtitle,
-      icon: AppAssets.svg.appSvg.home.path,
-      iconData: Icons.calendar_month_outlined,
+      image: AppAssets.svg.baseSvg.policyIcon,
       iconBackgroundColor: AppColors.moreTermsIconBackground,
       iconColor: AppColors.bookingPendingYellow,
       onTap: () => Go.to(
@@ -150,8 +138,7 @@ class MoreItemEntity {
     MoreItemEntity(
       title: LocaleKeys.logout,
       subtitle: ConstantManager.emptyText,
-      icon: AppAssets.svg.appSvg.home.path,
-      iconData: Icons.logout,
+      image: AppAssets.svg.baseSvg.replaceIcon,
       iconBackgroundColor: AppColors.moreLogoutBackground,
       iconColor: AppColors.moreLogoutText,
       disableArrow: true,

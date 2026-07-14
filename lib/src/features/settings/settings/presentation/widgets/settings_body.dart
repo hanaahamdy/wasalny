@@ -29,8 +29,7 @@ class _SettingsTabBody extends StatelessWidget {
                     ? MoreItemEntity(
                         title: menuItem.title,
                         subtitle: menuItem.subtitle,
-                        icon: menuItem.icon,
-                        iconData: menuItem.iconData,
+                        image: menuItem.image,
                         iconBackgroundColor: menuItem.iconBackgroundColor,
                         iconColor: menuItem.iconColor,
                         disableArrow: menuItem.disableArrow,

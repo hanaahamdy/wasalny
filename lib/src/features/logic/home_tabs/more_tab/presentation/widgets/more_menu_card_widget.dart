@@ -98,7 +98,13 @@ class _MoreMenuIcon extends StatelessWidget {
         color: menuItem.iconBackgroundColor,
         borderRadius: BorderRadius.circular(12.r),
       ),
-      child: Icon(menuItem.iconData, color: menuItem.iconColor, size: 19.r),
+      child: Center(
+        child: menuItem.image.svg(
+          width: 19.r,
+          height: 19.r,
+          colorFilter: ColorFilter.mode(menuItem.iconColor, BlendMode.srcIn),
+        ),
+      ),
     );
   }
 }

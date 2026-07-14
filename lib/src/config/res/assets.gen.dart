@@ -54,8 +54,21 @@ class $AssetsImagesGen {
   AssetGenImage get taemLogo =>
       const AssetGenImage('assets/images/taem_logo.png');
 
+  /// File path: assets/images/team_details_captain.jpg
+  AssetGenImage get teamDetailsCaptain =>
+      const AssetGenImage('assets/images/team_details_captain.jpg');
+
+  /// File path: assets/images/team_details_cover.jpg
+  AssetGenImage get teamDetailsCover =>
+      const AssetGenImage('assets/images/team_details_cover.jpg');
+
   /// List of all assets
-  List<AssetGenImage> get values => [profileBackgroung, taemLogo];
+  List<AssetGenImage> get values => [
+    profileBackgroung,
+    taemLogo,
+    teamDetailsCaptain,
+    teamDetailsCover,
+  ];
 }
 
 class $AssetsLottieGen {
@@ -194,8 +207,19 @@ class $AssetsSvgBaseSvgGen {
   SvgGenImage get bookingIcon =>
       const SvgGenImage('assets/svg/base_svg/booking_icon.svg');
 
+  /// File path: assets/svg/base_svg/calednder.svg
+  SvgGenImage get calednder =>
+      const SvgGenImage('assets/svg/base_svg/calednder.svg');
+
+  /// File path: assets/svg/base_svg/call.svg
+  SvgGenImage get call => const SvgGenImage('assets/svg/base_svg/call.svg');
+
   /// File path: assets/svg/base_svg/camera.svg
   SvgGenImage get camera => const SvgGenImage('assets/svg/base_svg/camera.svg');
+
+  /// File path: assets/svg/base_svg/celebrate.svg
+  SvgGenImage get celebrate =>
+      const SvgGenImage('assets/svg/base_svg/celebrate.svg');
 
   /// File path: assets/svg/base_svg/change_email.svg
   SvgGenImage get changeEmail =>
@@ -240,8 +264,15 @@ class $AssetsSvgBaseSvgGen {
   SvgGenImage get homeCard =>
       const SvgGenImage('assets/svg/base_svg/home_card.svg');
 
+  /// File path: assets/svg/base_svg/info.svg
+  SvgGenImage get info => const SvgGenImage('assets/svg/base_svg/info.svg');
+
   /// File path: assets/svg/base_svg/more.svg
   SvgGenImage get more => const SvgGenImage('assets/svg/base_svg/more.svg');
+
+  /// File path: assets/svg/base_svg/notification.svg
+  SvgGenImage get notification =>
+      const SvgGenImage('assets/svg/base_svg/notification.svg');
 
   /// File path: assets/svg/base_svg/notification_delete.svg
   SvgGenImage get notificationDelete =>
@@ -293,6 +324,14 @@ class $AssetsSvgBaseSvgGen {
   AssetGenImage get sessionsEmpty =>
       const AssetGenImage('assets/svg/base_svg/sessions_empty.png');
 
+  /// File path: assets/svg/base_svg/setting_lang.svg
+  SvgGenImage get settingLang =>
+      const SvgGenImage('assets/svg/base_svg/setting_lang.svg');
+
+  /// File path: assets/svg/base_svg/user_setting.svg
+  SvgGenImage get userSetting =>
+      const SvgGenImage('assets/svg/base_svg/user_setting.svg');
+
   /// File path: assets/svg/base_svg/user_vector.svg
   SvgGenImage get userVector =>
       const SvgGenImage('assets/svg/base_svg/user_vector.svg');
@@ -318,7 +357,10 @@ class $AssetsSvgBaseSvgGen {
     arrowBack,
     arrowDown,
     bookingIcon,
+    calednder,
+    call,
     camera,
+    celebrate,
     changeEmail,
     changePass,
     chatsEmpty,
@@ -330,7 +372,9 @@ class $AssetsSvgBaseSvgGen {
     dropDownClose,
     home,
     homeCard,
+    info,
     more,
+    notification,
     notificationDelete,
     notificationDialog,
     notificationEmpty,
@@ -344,6 +388,8 @@ class $AssetsSvgBaseSvgGen {
     replaceIcon,
     search,
     sessionsEmpty,
+    settingLang,
+    userSetting,
     userVector,
     wallet,
     walletCard,

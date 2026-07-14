@@ -14,10 +14,8 @@ import 'package:injectable/injectable.dart' as _i526;
 
 import '../../../features/logic/home_tabs/more_tab/presentation/imports/view_imports.dart'
     as _i869;
-
 import '../../../features/settings/contact_us/presentation/imports/contact_us_imports.dart'
     as _i550;
-
 import '../../../features/settings/notifications/presentation/cubits/unread_notification_count_cubit.dart'
     as _i395;
 import '../../../features/settings/notifications/presentation/imports/view_imports.dart'
@@ -48,8 +46,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i200.BaseUrlCubit>(() => _i200.BaseUrlCubit());
     gh.factory<_i869.LogOutCubit>(() => _i869.LogOutCubit());
-
-
     gh.factory<_i550.ContactUsCubit>(() => _i550.ContactUsCubit());
     gh.factory<_i204.NotificationsCubit>(() => _i204.NotificationsCubit());
     gh.factory<_i1046.LangCubit>(() => _i1046.LangCubit());

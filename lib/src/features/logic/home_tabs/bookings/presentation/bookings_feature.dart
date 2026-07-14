@@ -12,6 +12,7 @@ import '../../../../../core/extensions/text_style_extensions.dart';
 import '../../../../../core/navigation/navigator.dart';
 import '../../../../../core/widgets/buttons/default_button.dart';
 import '../../../../../core/widgets/custom_loading.dart';
+import '../../../../../core/widgets/custom_appbar.dart';
 import '../../../../../core/widgets/buttons/round_back_button.dart';
 import '../../../../../core/widgets/universal_media/widgets.dart';
 
@@ -22,6 +23,7 @@ part 'entity/booking_entities.dart';
 part 'entity/cancel_reason_entity.dart';
 part 'view/bookings_view.dart';
 part 'view/booking_details_view.dart';
+part 'view/booking_details_for_notification_screen.dart';
 part 'widgets/booking_card.dart';
 part 'widgets/cancel_booking_reasons_sheet.dart';
 part 'widgets/booking_details_action_bar.dart';

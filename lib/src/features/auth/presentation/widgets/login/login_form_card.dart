@@ -152,7 +152,7 @@ class _RegisterPrompt extends StatelessWidget {
           style: const TextStyle().setHintColor.s14.regular,
         ),
         TextButton(
-          onPressed: () => Go.toNamed(NamedRoutes.signUp),
+          onPressed: () => Go.to(const SignUpScreen()),
           style: TextButton.styleFrom(
             padding: EdgeInsets.symmetric(horizontal: AppPadding.pW4),
             minimumSize: Size(AppSize.sW40, AppSize.sH35),

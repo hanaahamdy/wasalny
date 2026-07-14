@@ -59,6 +59,11 @@ class AppColors {
   static const Color stadiumSectionAction = Color(0xFF3DBB85);
   static const Color bookingMutedText = Color(0xFF9B9B9B);
   static const Color bookingDivider = Color(0xFFEDEDED);
+  static const Color bookingDetailsTermsBackground = Color(0x1A2B3289);
+  static const Color bookingDetailsCardBorder = Color(0xFFF3F4F6);
+  static const Color bookingDetailsBottomShadow = Color(0x0F000000);
+  static const Color bookingDetailsSportBackground = Color(0xFFECFDF5);
+  static const Color bookingDetailsSportText = Color(0xFF059669);
   static const Color paymentPolicyBackground = Color(0xFFF5E2E2);
   static const Color paymentPolicyText = Color(0xFFB31616);
   static const Color walletGradientStart = Color(0xFF29B980);
@@ -86,6 +91,15 @@ class AppColors {
   static const Color settingsNotificationsIconBackground = Color(0xFFFAF5FF);
   static const Color settingsNotificationsIcon = Color(0xFFA855F7);
   static const Color teamHeaderAccent = Color(0xFF36B882);
+  static const Color teamDetailsCloseBackground = Color(0xFFF3F4F6);
+  static const Color teamDetailsSportBackground = Color(0xFFEFF6FF);
+  static const Color teamDetailsPlayersBackground = Color(0xFFECFDF5);
+  static const Color teamDetailsCaptainCard = Color(0xFFF9FAFB);
+  static const Color teamDetailsCaptainBadgeBackground = Color(0xFFD1FAE5);
+  static const Color teamDetailsCaptainBadgeText = Color(0xFF047857);
+  static const Color teamDetailsCaptainLabel = Color(0xFF6B7280);
+  static const Color teamDetailsCaptainName = Color(0xFF1F2937);
+  static const Color teamDetailsBottomBorder = Color(0xFFF3F4F6);
   static const Color teamSubstituteBackground = Color(0xFFEAF9F2);
   static const Color teamRoleBackground = Color(0xFFFFF4D7);
   static const Color teamRoleText = Color(0xFFC98F00);

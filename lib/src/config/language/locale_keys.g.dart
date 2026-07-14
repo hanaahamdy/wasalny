@@ -858,6 +858,40 @@ abstract class LocaleKeys {
   static const String _teamSubstitute = 'team_substitute';
   static String get teamSubstitute => _teamSubstitute.tr();
 
+  static const String _teamDetailsTitle = 'team_details_title';
+  static String get teamDetailsTitle => _teamDetailsTitle.tr();
+
+  static const String _teamDetailsFoundedAt = 'team_details_founded_at';
+  static String get teamDetailsFoundedAt => _teamDetailsFoundedAt.tr();
+
+  static const String _teamDetailsSportType = 'team_details_sport_type';
+  static String get teamDetailsSportType => _teamDetailsSportType.tr();
+
+  static const String _teamDetailsSportTypeLabel =
+      'team_details_sport_type_label';
+  static String get teamDetailsSportTypeLabel =>
+      _teamDetailsSportTypeLabel.tr();
+
+  static const String _teamDetailsPlayersCountValue =
+      'team_details_players_count_value';
+  static String get teamDetailsPlayersCountValue =>
+      _teamDetailsPlayersCountValue.tr();
+
+  static const String _teamDetailsPlayersLabel = 'team_details_players_label';
+  static String get teamDetailsPlayersLabel => _teamDetailsPlayersLabel.tr();
+
+  static const String _teamDetailsCaptainLabel = 'team_details_captain_label';
+  static String get teamDetailsCaptainLabel => _teamDetailsCaptainLabel.tr();
+
+  static const String _teamDetailsCaptainName = 'team_details_captain_name';
+  static String get teamDetailsCaptainName => _teamDetailsCaptainName.tr();
+
+  static const String _teamDetailsCaptainBadge = 'team_details_captain_badge';
+  static String get teamDetailsCaptainBadge => _teamDetailsCaptainBadge.tr();
+
+  static const String _teamDetailsJoinRequest = 'team_details_join_request';
+  static String get teamDetailsJoinRequest => _teamDetailsJoinRequest.tr();
+
   static const String _accept = 'accept';
   static String get accept => _accept.tr();
 
@@ -1241,6 +1275,20 @@ abstract class LocaleKeys {
 
   static const String _bookingsRiyal = 'bookings_riyal';
   static String get bookingsRiyal => _bookingsRiyal.tr();
+
+  static const String _bookingDetailsTitle = 'booking_details_title';
+  static String get bookingDetailsTitle => _bookingDetailsTitle.tr();
+
+  static const String _bookingDetailsConditions = 'booking_details_conditions';
+  static String get bookingDetailsConditions => _bookingDetailsConditions.tr();
+
+  static const String _bookingDetailsUnpaidWarning =
+      'booking_details_unpaid_warning';
+  static String get bookingDetailsUnpaidWarning =>
+      _bookingDetailsUnpaidWarning.tr();
+
+  static const String _pay = 'pay';
+  static String get pay => _pay.tr();
 
   static const String _locationHere = 'location_here';
   static String get locationHere => _locationHere.tr();

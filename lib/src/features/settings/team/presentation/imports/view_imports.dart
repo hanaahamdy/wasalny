@@ -11,13 +11,20 @@ import '../../../../../core/base_crud/code/presentation/cubit/base_cubit/async_c
 import '../../../../../core/extensions/text_style_extensions.dart';
 import '../../../../../core/extensions/widgets/sized_box_helper.dart';
 import '../../../../../core/navigation/navigator.dart';
+import '../../../../../core/widgets/buttons/default_button.dart';
 import '../../../../../core/widgets/dialogs/success_dialog.dart';
 import '../../../../../core/widgets/universal_media/widgets.dart';
 
 part '../../data/fake_team_api.dart';
 part '../../entity/team_player.dart';
 part '../cubits/team_cubit.dart';
+part '../view/team_details_view.dart';
 part '../view/team_tab_view.dart';
+part '../widgets/team_details_app_bar.dart';
+part '../widgets/team_details_bottom_action.dart';
+part '../widgets/team_details_hero_card.dart';
+part '../widgets/team_details_stats.dart';
+part '../widgets/team_captain_card.dart';
 part '../widgets/team_header_widget.dart';
 part '../widgets/team_member_card_widget.dart';
 part '../widgets/team_request_card_widget.dart';
