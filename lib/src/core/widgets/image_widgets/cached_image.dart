@@ -99,8 +99,8 @@ class CachedImage extends StatelessWidget {
         ),
         child: const CupertinoActivityIndicator(color: AppColors.white),
       ),
-      // errorWidget: (context, url, error) =>
-      //     AppAssets.svg.loggo.image(width: width, height: height),
+      errorWidget: (context, url, error) =>
+          placeHolder ?? const Icon(Icons.broken_image_outlined),
     ).onClick(
       onTap:
           onTap ??

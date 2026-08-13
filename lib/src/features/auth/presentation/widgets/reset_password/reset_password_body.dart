@@ -18,6 +18,7 @@ class _ResetPasswordBodyState extends State<_ResetPasswordBody> {
 
   @override
   Widget build(BuildContext context) {
+    final state = context.watch<ForgotPasswordCubit>().state;
     return Form(
       key: params.formKey,
       child: SingleChildScrollView(
@@ -52,7 +53,7 @@ class _ResetPasswordBodyState extends State<_ResetPasswordBody> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Center(child: _LoginLogo()),
+                  const Center(child: AppLogoWidget()),
                   AppSize.sH40.szH,
                   CustomPhoneField(
                     controller: params.phoneController,
@@ -66,14 +67,10 @@ class _ResetPasswordBodyState extends State<_ResetPasswordBody> {
                     height: AppSize.sH56,
                     borderRadius: AppCircular.infinity,
                     color: AppColors.primary,
+                    isDissabled: state.isLoading,
                     onTap: () async {
-                      if (!params.validate()) return;
-
-                      await Go.to(
-                        OtpVerificationScreen(
-                          phone: params.phoneController.text.trim(),
-                          purpose: OtpPurpose.resetPassword,
-                        ),
+                      await context.read<ForgotPasswordCubit>().requestCode(
+                        params,
                       );
                     },
                   ),

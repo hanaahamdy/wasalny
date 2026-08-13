@@ -5,7 +5,7 @@ class ContactUsCubit extends AsyncCubit<BaseModel?> {
   ContactUsCubit() : super(null);
 
   Future<void> contactUs(ContactUsParams params) async {
-    if (!params.validate()) return;
+    if (isLoading || !params.validateAndScroll()) return;
     await executeAsync(
       operation: () async => baseCrudUseCase.call(
         CrudBaseParams(
@@ -15,11 +15,15 @@ class ContactUsCubit extends AsyncCubit<BaseModel?> {
           mapper: (json) => BaseModel.fromJson(json),
         ),
       ),
-      successEmitter: (success) {
-        Go.back();
-        successDialog(
-          context: Go.context,
-          title: LocaleKeys.contactRequestSendSuccessfully,
+      successEmitter: (success) async {
+        final context = Go.context;
+        if (!context.mounted) return;
+        await successDialog(
+          context: context,
+          title: success?.message.isNotEmpty == true
+              ? success!.message
+              : LocaleKeys.contactRequestSendSuccessfully,
+          afterSuccess: () => Go.back(true),
         );
       },
     );

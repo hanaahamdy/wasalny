@@ -17,6 +17,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     _initNotifications();
+    UserCubit.instance.refreshProfile();
   }
 
   void _initNotifications() {

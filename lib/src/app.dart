@@ -6,7 +6,6 @@ import 'config/res/config_imports.dart';
 import 'config/themes/app_theme.dart';
 import 'core/helpers/loading_manager.dart';
 import 'core/navigation/navigator.dart';
-import 'core/navigation/route_generator.dart';
 import 'core/network/un_authenticated_interceptor.dart';
 import 'core/shared/cubits/user_cubit/user_cubit.dart';
 import 'core/shared/route_observer.dart';
@@ -50,7 +49,6 @@ class _AppState extends State<App> {
             supportedLocales: context.supportedLocales,
             locale: context.locale,
             navigatorKey: Go.navigatorKey,
-            onGenerateRoute: RouterGenerator.getRoute,
             home: const SplashScreen(),
             navigatorObservers: [AppNavigationObserver()],
             theme: AppTheme.light,

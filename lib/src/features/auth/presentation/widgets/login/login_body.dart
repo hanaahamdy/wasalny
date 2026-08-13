@@ -9,7 +9,7 @@ class _LoginBody extends StatefulWidget {
 
 class _LoginBodyState extends State<_LoginBody> {
   final LoginParams params = LoginParams();
-  _LoginTab selectedTab = _LoginTab.email;
+  _LoginTab selectedTab = _LoginTab.phone;
 
   @override
   void dispose() {
@@ -25,14 +25,14 @@ class _LoginBodyState extends State<_LoginBody> {
       child: SingleChildScrollView(
         padding: EdgeInsets.symmetric(
           horizontal: AppPadding.pW20,
-          vertical: AppPadding.pH16,
+          vertical: AppPadding.pH8,
         ),
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _LoginHeader(),
-            20.szH,
+            const _LoginHeader(),
+            AppSize.sH12.szH,
             _LoginFormCard(
               params: params,
               selectedTab: selectedTab,

@@ -189,6 +189,9 @@ abstract class LocaleKeys {
   static String get fullNameShouldBeThreeAtLeast =>
       _fullNameShouldBeThreeAtLeast.tr();
 
+  static const String _nameMinTwoCharacters = 'name_min_two_characters';
+  static String get nameMinTwoCharacters => _nameMinTwoCharacters.tr();
+
   static const String _home = 'home';
   static String get home => _home.tr();
 
@@ -755,6 +758,9 @@ abstract class LocaleKeys {
   static const String _signUpTermsAgreement = 'sign_up_terms_agreement';
   static String get signUpTermsAgreement => _signUpTermsAgreement.tr();
 
+  static const String _signUpTermsRequired = 'sign_up_terms_required';
+  static String get signUpTermsRequired => _signUpTermsRequired.tr();
+
   static const String _signUpAlreadyHaveAccount =
       'sign_up_already_have_account';
   static String get signUpAlreadyHaveAccount => _signUpAlreadyHaveAccount.tr();
@@ -921,6 +927,12 @@ abstract class LocaleKeys {
   static const String _stadiumsBookingDateTime = 'stadiums_booking_date_time';
   static String get stadiumsBookingDateTime => _stadiumsBookingDateTime.tr();
 
+  static const String _stadiumsBookingFrom = 'stadiums_booking_from';
+  static String get stadiumsBookingFrom => _stadiumsBookingFrom.tr();
+
+  static const String _stadiumsBookingTo = 'stadiums_booking_to';
+  static String get stadiumsBookingTo => _stadiumsBookingTo.tr();
+
   static const String _stadiumsSelectBookingDateTime =
       'stadiums_select_booking_date_time';
   static String get stadiumsSelectBookingDateTime =>
@@ -990,6 +1002,31 @@ abstract class LocaleKeys {
       'stadiums_create_match_subtitle';
   static String get stadiumsCreateMatchSubtitle =>
       _stadiumsCreateMatchSubtitle.tr();
+
+  static const String _createMatchChooseTeam = 'create_match_choose_team';
+  static String get createMatchChooseTeam => _createMatchChooseTeam.tr();
+
+  static const String _createMatchChooseStadium = 'create_match_choose_stadium';
+  static String get createMatchChooseStadium => _createMatchChooseStadium.tr();
+
+  static const String _createMatchDateTimeInstruction =
+      'create_match_date_time_instruction';
+  static String get createMatchDateTimeInstruction =>
+      _createMatchDateTimeInstruction.tr();
+
+  static const String _createMatchConfirmBooking =
+      'create_match_confirm_booking';
+  static String get createMatchConfirmBooking =>
+      _createMatchConfirmBooking.tr();
+
+  static const String _createMatchBookingType = 'create_match_booking_type';
+  static String get createMatchBookingType => _createMatchBookingType.tr();
+
+  static const String _teamNoJoinRequests = 'team_no_join_requests';
+  static String get teamNoJoinRequests => _teamNoJoinRequests.tr();
+
+  static const String _teamNoMembers = 'team_no_members';
+  static String get teamNoMembers => _teamNoMembers.tr();
 
   static const String _stadiumsWelcomeUser = 'stadiums_welcome_user';
   static String get stadiumsWelcomeUser => _stadiumsWelcomeUser.tr();
@@ -1119,6 +1156,22 @@ abstract class LocaleKeys {
   static const String _stadiumsCashAfterPlay = 'stadiums_cash_after_play';
   static String get stadiumsCashAfterPlay => _stadiumsCashAfterPlay.tr();
 
+  static const String _stadiumsWalletPayment = 'stadiums_wallet_payment';
+  static String get stadiumsWalletPayment => _stadiumsWalletPayment.tr();
+
+  static const String _stadiumsGroupBooking = 'stadiums_group_booking';
+  static String get stadiumsGroupBooking => _stadiumsGroupBooking.tr();
+
+  static const String _stadiumsInvalidBookingPeriod =
+      'stadiums_invalid_booking_period';
+  static String get stadiumsInvalidBookingPeriod =>
+      _stadiumsInvalidBookingPeriod.tr();
+
+  static const String _stadiumsBookingDurationTooLong =
+      'stadiums_booking_duration_too_long';
+  static String get stadiumsBookingDurationTooLong =>
+      _stadiumsBookingDurationTooLong.tr();
+
   static const String _bookingsBookFieldTitle = 'bookings_book_field_title';
   static String get bookingsBookFieldTitle => _bookingsBookFieldTitle.tr();
 
@@ -1174,8 +1227,29 @@ abstract class LocaleKeys {
   static const String _bookingsPaymentSummary = 'bookings_payment_summary';
   static String get bookingsPaymentSummary => _bookingsPaymentSummary.tr();
 
+  static const String _bookingsPaymentMethod = 'bookings_payment_method';
+  static String get bookingsPaymentMethod => _bookingsPaymentMethod.tr();
+
+  static const String _bookingsPaymentStatus = 'bookings_payment_status';
+  static String get bookingsPaymentStatus => _bookingsPaymentStatus.tr();
+
   static const String _bookingsHoursCount = 'bookings_hours_count';
   static String get bookingsHoursCount => _bookingsHoursCount.tr();
+
+  static const String _bookingsTeamMembers = 'bookings_team_members';
+  static String get bookingsTeamMembers => _bookingsTeamMembers.tr();
+
+  static const String _bookingsDate = 'bookings_date';
+  static String get bookingsDate => _bookingsDate.tr();
+
+  static const String _bookingsTime = 'bookings_time';
+  static String get bookingsTime => _bookingsTime.tr();
+
+  static const String _bookingsDuration = 'bookings_duration';
+  static String get bookingsDuration => _bookingsDuration.tr();
+
+  static const String _bookingsAdditionalCost = 'bookings_additional_cost';
+  static String get bookingsAdditionalCost => _bookingsAdditionalCost.tr();
 
   static const String _bookingsTotal = 'bookings_total';
   static String get bookingsTotal => _bookingsTotal.tr();
@@ -1249,6 +1323,18 @@ abstract class LocaleKeys {
 
   static const String _bookingsRechargeBalance = 'bookings_recharge_balance';
   static String get bookingsRechargeBalance => _bookingsRechargeBalance.tr();
+
+  static const String _walletChargeAmount = 'wallet_charge_amount';
+  static String get walletChargeAmount => _walletChargeAmount.tr();
+
+  static const String _walletChargeAmountHint = 'wallet_charge_amount_hint';
+  static String get walletChargeAmountHint => _walletChargeAmountHint.tr();
+
+  static const String _walletChargeAmountError = 'wallet_charge_amount_error';
+  static String get walletChargeAmountError => _walletChargeAmountError.tr();
+
+  static const String _walletChargeSuccess = 'wallet_charge_success';
+  static String get walletChargeSuccess => _walletChargeSuccess.tr();
 
   static const String _bookingsLastRecharge = 'bookings_last_recharge';
   static String get bookingsLastRecharge => _bookingsLastRecharge.tr();

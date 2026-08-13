@@ -3,11 +3,13 @@ part of '../imports/view_imports.dart';
 class TeamMemberCardWidget extends StatelessWidget {
   final TeamPlayer player;
   final int number;
+  final VoidCallback onSubstitute;
 
   const TeamMemberCardWidget({
     super.key,
     required this.player,
     required this.number,
+    required this.onSubstitute,
   });
 
   @override
@@ -41,7 +43,7 @@ class TeamMemberCardWidget extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          _SubstituteButton(onTap: () {}),
+          if (!player.isCaptain) _SubstituteButton(onTap: onSubstitute),
         ],
       ),
     );

@@ -23,7 +23,6 @@ class _ContactUsBodyState extends State<_ContactUsBody> {
       key: params.formKey,
       child: Column(
         children: [
-
           Expanded(
             child: SingleChildScrollView(
               padding: EdgeInsets.fromLTRB(
@@ -74,7 +73,8 @@ class _ContactUsBodyState extends State<_ContactUsBody> {
             ),
           ),
           _ContactUsBottomBar(
-            onSend: () async => await cubit.contactUs(params),
+            isLoading: context.watch<ContactUsCubit>().isLoading,
+            onSend: () => cubit.contactUs(params),
           ),
         ],
       ),
@@ -82,11 +82,11 @@ class _ContactUsBodyState extends State<_ContactUsBody> {
   }
 }
 
-
 class _ContactUsBottomBar extends StatelessWidget {
+  final bool isLoading;
   final Future<void> Function() onSend;
 
-  const _ContactUsBottomBar({required this.onSend});
+  const _ContactUsBottomBar({required this.isLoading, required this.onSend});
 
   @override
   Widget build(BuildContext context) {
@@ -120,6 +120,7 @@ class _ContactUsBottomBar extends StatelessWidget {
         borderRadius: 50.r,
         fontSize: 16.sp,
         fontWeight: FontWeight.w500,
+        isDissabled: isLoading,
         onTap: onSend,
       ),
     );

@@ -17,14 +17,16 @@ class LogOutCubit extends AsyncCubit<BaseModel?> {
           mapper: (json) => BaseModel.fromJson(json),
         ),
       ),
-      successEmitter: (data) {
-        UserCubit.instance.logout();
-        // Go.offAll(const LoginScreen());
+      successEmitter: (data) async {
+        await UserCubit.instance.logout();
+        Go.offAll(const LoginScreen());
         MessageUtils.showSnackBar(
           baseStatus: BaseStatus.success,
           message: data!.message,
         );
       },
     );
+
+    if (state.isError) Go.back();
   }
 }

@@ -4,25 +4,20 @@ part of '../imports/view_imports.dart';
 class SplashCubit extends Cubit<SplashState> {
   SplashCubit() : super(SplashState.initial());
 
-  void initApp(BuildContext context) async {
+  Future<void> initApp(BuildContext context) async {
+    final minimumSplashDuration = Future<void>.delayed(
+      const Duration(milliseconds: ConstantManager.splashTimer),
+    );
     final baseUrlCubit = context.read<BaseUrlCubit>();
-    final result = await baseUrlCubit.fetchBaseUrl();
-    if (result) {
-      // Inject BaseUrl To Dio Service after Fetching it form FireBase DataBase
-      await injector<NetworkService>().updateBaseUrl();
-      if (!context.mounted) return;
-      await initUserData(context);
-    }
+    final hasBaseUrl = await baseUrlCubit.fetchBaseUrl();
+    if (!hasBaseUrl) return;
+
+    await injector<NetworkService>().updateBaseUrl();
+    final isLoggedIn = await UserCubit.instance.init();
+    await minimumSplashDuration;
+
+    if (!context.mounted) return;
+    Go.offAll(isLoggedIn ? const HomeScreen() : const LoginScreen());
   }
 }
 
-Future<void> initUserData(BuildContext context) async {
-  Future.delayed(
-    const Duration(milliseconds: ConstantManager.splashTimer),
-  ).then((value) async {
-    await UserCubit.instance.init();
-
-    Go.to(const HomeScreen());
-    // Go.to(const LoginScreen());
-  });
-}

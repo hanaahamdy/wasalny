@@ -8,18 +8,22 @@ import '../../../../../../core/extensions/widgets/sized_box_helper.dart';
 import '../../../../../../core/extensions/widgets/widget_extension.dart';
 import '../../../../../../core/navigation/navigator.dart';
 import '../../../../../settings/profile/presentation/imports/view_imports.dart';
-import '../../entity/more_menu_item_entity.dart';
+import '../../../data/more_tab/more_menu_item_entity.dart';
 
 class MoreMenuCardWidget extends StatelessWidget {
   final MoreItemEntity menuItem;
   final bool showDivider;
   final EdgeInsetsGeometry? padding;
+  final bool? switchValue;
+  final ValueChanged<bool>? onSwitchChanged;
 
   const MoreMenuCardWidget({
     super.key,
     required this.menuItem,
     this.showDivider = false,
     this.padding,
+    this.switchValue,
+    this.onSwitchChanged,
   });
 
   @override
@@ -77,7 +81,11 @@ class MoreMenuCardWidget extends StatelessWidget {
               ],
             ),
           ),
-          _MoreMenuTrailing(menuItem: menuItem),
+          _MoreMenuTrailing(
+            menuItem: menuItem,
+            switchValue: switchValue,
+            onSwitchChanged: onSwitchChanged,
+          ),
         ],
       ),
     ).onClick(onTap: menuItem.useSwitch ? null : onTap);
@@ -111,19 +119,25 @@ class _MoreMenuIcon extends StatelessWidget {
 
 class _MoreMenuTrailing extends StatelessWidget {
   final MoreItemEntity menuItem;
+  final bool? switchValue;
+  final ValueChanged<bool>? onSwitchChanged;
 
-  const _MoreMenuTrailing({required this.menuItem});
+  const _MoreMenuTrailing({
+    required this.menuItem,
+    this.switchValue,
+    this.onSwitchChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
     if (menuItem.useSwitch) {
       return Switch(
-        value: true,
+        value: switchValue ?? false,
         activeColor: AppColors.white,
         activeTrackColor: AppColors.primary,
         inactiveThumbColor: AppColors.white,
         inactiveTrackColor: AppColors.border,
-        onChanged: (_) {},
+        onChanged: onSwitchChanged,
       );
     }
 

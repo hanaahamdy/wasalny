@@ -34,14 +34,14 @@ class _StadiumSearchViewState extends State<StadiumSearchView> {
             children: [
               Padding(
                 padding: EdgeInsets.fromLTRB(24.w, 24.h, 24.w, 8.h),
-                child: _SearchBox(controller: _controller, onSearch: _search),
+                child: MainTabSearch(
+                  controller: _controller,
+                  onSearch: _search,
+                ),
               ),
               Expanded(
                 child:
-                    BlocBuilder<
-                      StadiumSearchCubit,
-                      StadiumCubitState<List<Stadium>>
-                    >(
+                    BlocBuilder<StadiumSearchCubit, AsyncState<List<Stadium>?>>(
                       builder: (context, state) {
                         if (state.isLoading || state.data == null) {
                           return const Center(

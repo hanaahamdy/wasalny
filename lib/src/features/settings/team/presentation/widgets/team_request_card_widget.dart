@@ -3,18 +3,19 @@ part of '../imports/view_imports.dart';
 class TeamRequestCardWidget extends StatelessWidget {
   final TeamPlayer player;
   final Future<void> Function() onAccept;
+  final Future<void> Function() onReject;
 
   const TeamRequestCardWidget({
     super.key,
     required this.player,
     required this.onAccept,
+    required this.onReject,
   });
 
   @override
   Widget build(BuildContext context) {
     return _TeamCardShell(
-      child: Column(
-          children: [_buildPlayerInfo(), 15.h.szH, _buildActions()]),
+      child: Column(children: [_buildPlayerInfo(), 15.h.szH, _buildActions()]),
     );
   }
 
@@ -38,8 +39,6 @@ class TeamRequestCardWidget extends StatelessWidget {
             ),
           ],
         ),
-
-
       ],
     );
   }
@@ -63,7 +62,7 @@ class TeamRequestCardWidget extends StatelessWidget {
             icon: Icons.close_rounded,
             backgroundColor: AppColors.teamRejectBackground,
             foregroundColor: AppColors.error,
-            onTap: () async {},
+            onTap: onReject,
           ),
         ),
       ],

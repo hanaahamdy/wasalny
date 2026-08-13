@@ -5,10 +5,13 @@ class ResetPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      backgroundColor: AppColors.scaffoldBackground,
-      body: const SafeArea(child: _ResetPasswordBody()),
+    return BlocProvider(
+      create: (_) => ForgotPasswordCubit(),
+      child: Scaffold(
+        appBar: AppBar(),
+        backgroundColor: AppColors.scaffoldBackground,
+        body: const SafeArea(child: _ResetPasswordBody()),
+      ),
     );
   }
 }

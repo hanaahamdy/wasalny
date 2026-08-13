@@ -4,12 +4,16 @@ class WalletCubit extends AsyncCubit<WalletEntity?> {
   WalletCubit() : super(null);
 
   Future<void> fetchWallet() async {
-    setLoading();
-    try {
-      final wallet = await _FakeWalletApi.getWallet();
-      setSuccess(data: wallet);
-    } catch (error) {
-      setError(errorMessage: error.toString(), showToast: false);
-    }
+    await executeAsync(
+      operation: () => baseCrudUseCase.call(
+        CrudBaseParams(
+          api: ApiConstants.wallet,
+          httpRequestType: HttpRequestType.get,
+          mapper: (json) => WalletEntity.fromJson(
+            Map<String, dynamic>.from(json['data'] as Map),
+          ),
+        ),
+      ),
+    );
   }
 }

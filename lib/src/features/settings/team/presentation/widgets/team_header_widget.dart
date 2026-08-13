@@ -1,7 +1,9 @@
 part of '../imports/view_imports.dart';
 
 class TeamHeaderWidget extends StatelessWidget {
-  const TeamHeaderWidget({super.key});
+  final TeamPayload payload;
+
+  const TeamHeaderWidget({super.key, required this.payload});
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +30,11 @@ class TeamHeaderWidget extends StatelessWidget {
               ),
               child: IconButton(
                 onPressed: Go.back,
-                icon: Icon(Icons.arrow_back_ios_rounded,
+                icon: Icon(
+                  Icons.arrow_back_ios_rounded,
                   color: AppColors.white,
-                  size: 14.sp,)
-
+                  size: 14.sp,
+                ),
               ),
             ),
           ),
@@ -46,7 +49,14 @@ class TeamHeaderWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(AppCircular.r12),
                 boxShadow: [AppColors.containerShadow],
               ),
-              child: AppAssets.images.taemLogo.image(),
+              child: payload.logo.startsWith('http')
+                  ? Image.network(
+                      payload.logo,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) =>
+                          AppAssets.images.taemLogo.image(),
+                    )
+                  : AppAssets.images.taemLogo.image(),
             ),
           ),
           PositionedDirectional(
@@ -56,7 +66,7 @@ class TeamHeaderWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  LocaleKeys.teamName,
+                  payload.name.isEmpty ? LocaleKeys.teamName : payload.name,
                   style: const TextStyle().setWhiteColor.s20.bold,
                 ),
                 4.h.szH,
@@ -64,7 +74,7 @@ class TeamHeaderWidget extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      LocaleKeys.teamPlayersCount,
+                      payload.membersCount.toString(),
                       style: const TextStyle().setWhiteColor.s12.medium,
                     ),
                     5.w.szW,

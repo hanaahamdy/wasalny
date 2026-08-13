@@ -2,8 +2,12 @@ part of '../../imports/view_imports.dart';
 
 class _ChangePasswordBody extends StatefulWidget {
   final String phone;
+  final String verificationCode;
 
-  const _ChangePasswordBody({required this.phone});
+  const _ChangePasswordBody({
+    required this.phone,
+    required this.verificationCode,
+  });
 
   @override
   State<_ChangePasswordBody> createState() => _ChangePasswordBodyState();
@@ -38,6 +42,7 @@ class _ChangePasswordBodyState extends State<_ChangePasswordBody> {
             _ChangePasswordCard(
               params: params,
               phone: widget.phone,
+              verificationCode: widget.verificationCode,
               isLoading: changePasswordState.isLoading,
             ),
           ],
@@ -73,11 +78,13 @@ class _ChangePasswordHeader extends StatelessWidget {
 class _ChangePasswordCard extends StatelessWidget {
   final ResetPasswordParams params;
   final String phone;
+  final String verificationCode;
   final bool isLoading;
 
   const _ChangePasswordCard({
     required this.params,
     required this.phone,
+    required this.verificationCode,
     required this.isLoading,
   });
 
@@ -104,7 +111,7 @@ class _ChangePasswordCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Center(child: _LoginLogo()),
+          const Center(child: AppLogoWidget()),
           AppSize.sH30.szH,
           CustomTextFiled(
             suffixIcon: AppAssets.svg.baseSvg.circlePassword.svg(),
@@ -148,6 +155,7 @@ class _ChangePasswordCard extends StatelessWidget {
             onTap: () async {
               await context.read<ChangePasswordCubit>().changePassword(
                 phone: phone,
+                verificationCode: verificationCode,
                 params: params,
               );
             },

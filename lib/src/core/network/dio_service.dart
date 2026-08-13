@@ -25,10 +25,13 @@ class DioService implements NetworkService {
   DioService() {
     _dio = Dio()
       ..options.connectTimeout = const Duration(
-        seconds: ConstantManager.connectTimeoutDuration,
+        milliseconds: ConstantManager.connectTimeoutDuration,
+      )
+      ..options.sendTimeout = const Duration(
+        milliseconds: ConstantManager.sendTimeoutDuration,
       )
       ..options.receiveTimeout = const Duration(
-        seconds: ConstantManager.recieveTimeoutDuration,
+        milliseconds: ConstantManager.receiveTimeoutDuration,
       )
       ..options.responseType = ResponseType.json;
 
@@ -114,6 +117,17 @@ class DioService implements NetworkService {
               : publicHeadersValue,
         ),
       );
+      final statusCode = response.statusCode;
+      if (statusCode != null) {
+        networkRequest.onResponseStatus?.call(statusCode);
+      }
+      if (statusCode == HttpStatus.nonAuthoritativeInformation) {
+        throw DioException(
+          type: DioExceptionType.badResponse,
+          requestOptions: response.requestOptions,
+          response: response,
+        );
+      }
       if (mapper != null) {
         return BaseModel.fromJson(response.data, jsonToModel: mapper);
       } else {
@@ -124,53 +138,68 @@ class DioService implements NetworkService {
     }
   }
 
-  dynamic _handleError(DioException error) {
+  Never _handleError(DioException error) {
     switch (error.type) {
       case DioExceptionType.connectionTimeout:
       case DioExceptionType.sendTimeout:
       case DioExceptionType.receiveTimeout:
+      case DioExceptionType.connectionError:
         throw NoInternetConnectionException(LocaleKeys.checkInternet);
       case DioExceptionType.badResponse:
-        switch (error.response!.statusCode) {
+        final message = _extractErrorMessage(error.response?.data);
+        switch (error.response?.statusCode) {
+          case HttpStatus.nonAuthoritativeInformation:
+            throw NeedActiveException(message ?? LocaleKeys.verifyAccount);
           case HttpStatus.badRequest:
-            throw BadRequestException(
-              error.response?.data['message'] ?? LocaleKeys.badRequest,
-            );
+          case HttpStatus.unprocessableEntity:
+            throw BadRequestException(message ?? LocaleKeys.badRequest);
           case HttpStatus.unauthorized:
-            throw UnauthorizedException(
-              error.response?.data['message'] ?? LocaleKeys.badRequest,
-            );
+            throw UnauthorizedException(message ?? LocaleKeys.badRequest);
           case HttpStatus.locked:
-            throw BlockedException(
-              error.response?.data['message'] ?? LocaleKeys.badRequest,
-            );
+            throw BlockedException(message ?? LocaleKeys.badRequest);
           case HttpStatus.forbidden:
-            throw NeedActiveException(
-              error.response?.data['message'] ?? LocaleKeys.badRequest,
-            );
+            throw NeedActiveException(message ?? LocaleKeys.badRequest);
           case HttpStatus.notFound:
-            throw NotFoundException(LocaleKeys.notFound);
+            throw NotFoundException(message ?? LocaleKeys.notFound);
           case HttpStatus.conflict:
-            throw ConflictException(
-              error.response?.data['message'] ?? LocaleKeys.serverError,
-            );
+            throw ConflictException(message ?? LocaleKeys.serverError);
           case HttpStatus.internalServerError:
             throw InternalServerErrorException(
-              error.response?.data['message'] ?? LocaleKeys.serverError,
+              message ?? LocaleKeys.serverError,
             );
           default:
-            throw ServerException(LocaleKeys.serverError);
+            throw ServerException(message ?? LocaleKeys.serverError);
         }
       case DioExceptionType.cancel:
         throw ServerException(LocaleKeys.intenetWeakness);
       case DioExceptionType.unknown:
         throw ServerException(
-          error.response?.data['message'] ?? LocaleKeys.exceptionError,
+          _extractErrorMessage(error.response?.data) ??
+              LocaleKeys.exceptionError,
         );
       default:
-        throw ServerException(
-          error.response?.data['message'] ?? LocaleKeys.exceptionError,
-        );
+        throw ServerException(LocaleKeys.exceptionError);
     }
+  }
+
+  String? _extractErrorMessage(dynamic responseData) {
+    if (responseData is! Map) return null;
+
+    final errors = responseData['errors'];
+    if (errors is Map) {
+      final messages = errors.values
+          .expand<String>((value) {
+            if (value is List) {
+              return value.whereType<String>();
+            }
+            return value is String ? [value] : const <String>[];
+          })
+          .where((message) => message.trim().isNotEmpty)
+          .toList();
+      if (messages.isNotEmpty) return messages.join('\n');
+    }
+
+    final message = responseData['message'];
+    return message is String && message.trim().isNotEmpty ? message : null;
   }
 }

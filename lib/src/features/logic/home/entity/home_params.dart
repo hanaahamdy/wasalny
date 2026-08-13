@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import '../../../../config/language/locale_keys.g.dart';
 import '../../../../config/res/assets.gen.dart';
 import '../../../../config/res/config_imports.dart';
-import '../../../../core/shared/cubits/user_cubit/user_cubit.dart';
-import '../../../../core/widgets/dialogs/visitor_pop_up.dart';
 import '../../../../core/widgets/navigation_bar/navigation_bar_entity.dart';
 
 class HomeParams {

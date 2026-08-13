@@ -25,9 +25,10 @@ import '../../../../../../core/widgets/buttons/loading_button.dart';
 import '../../../../../../core/widgets/custom_messages.dart';
 import '../../../../../../core/widgets/dialogs/visitor_pop_up.dart';
 import '../../../../../../core/widgets/image_widgets/cached_image.dart';
+import '../../../../../auth/presentation/imports/view_imports.dart';
 import '../../../../../settings/notifications/presentation/cubits/unread_notification_count_cubit.dart';
 import '../../../../../settings/notifications/presentation/imports/view_imports.dart';
-import '../../entity/more_menu_item_entity.dart';
+import '../../../data/more_tab/more_menu_item_entity.dart';
 import '../widgets/more_menu_card_widget.dart';
 
 part '../view/more_tab_view.dart';
@@ -35,4 +36,3 @@ part '../widgets/more_tab_body.dart';
 part '../widgets/more_section_widget.dart';
 part '../cubits/log_out_cubit.dart';
 part '../widgets/dialogs/log_out_dialog.dart';
-part '../widgets/profile_info_with_icons_widget.dart';

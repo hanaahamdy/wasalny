@@ -5,7 +5,7 @@ import '../../../config/res/config_imports.dart';
 import '../../navigation/navigator.dart';
 
 Future<DateTime?> showCustomDatePicker({
-  required TextEditingController controller,
+  TextEditingController? controller,
   String? dateFormat,
   DateTime? initialDate,
   DateTime? firstDate,
@@ -40,7 +40,37 @@ Future<DateTime?> showCustomDatePicker({
       dateFormat ?? 'EEE, M/d/y',
       Languages.currentLanguage.locale.languageCode,
     ).format(pickedDate);
-    controller.text = formattedDate;
+    controller?.text = formattedDate;
   }
   return pickedDate;
+}
+
+Future<DateTime?> showCustomDateTimePicker({
+  DateTime? initialDateTime,
+  DateTime? firstDate,
+  DateTime? lastDate,
+}) async {
+  final context = Go.context;
+  final selectedDate = await showCustomDatePicker(
+    initialDate: initialDateTime,
+    firstDate: firstDate,
+    lastDate: lastDate,
+  );
+  if (selectedDate == null || !context.mounted) return null;
+
+  final selectedTime = await showTimePicker(
+    context: context,
+    initialTime: initialDateTime == null
+        ? TimeOfDay.now()
+        : TimeOfDay.fromDateTime(initialDateTime),
+  );
+  if (selectedTime == null) return null;
+
+  return DateTime(
+    selectedDate.year,
+    selectedDate.month,
+    selectedDate.day,
+    selectedTime.hour,
+    selectedTime.minute,
+  );
 }

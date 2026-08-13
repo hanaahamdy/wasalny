@@ -5,17 +5,57 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => ProfileCubit()..fetchProfile(),
+      child: const _ProfileContent(),
+    );
+  }
+}
+
+class _ProfileContent extends StatelessWidget {
+  const _ProfileContent();
+
+  @override
+  Widget build(BuildContext context) {
     context.locale;
-    final user = UserCubit.instance.user;
+    final user =
+        context.watch<ProfileCubit>().state.data ?? UserCubit.instance.user;
     final name = user.fullName.isEmpty ? LocaleKeys.visitorText : user.fullName;
-    final handle = user.email.isNotEmpty ? user.email : '@ahmed.sami';
+    final handle = user.email.isNotEmpty
+        ? '@${user.email.split('@').first}'
+        : '@ahmed.sami';
+    final profileFields = <({String label, String value})>[
+      (
+        label: LocaleKeys.signUpGender,
+        value: user.gender.isEmpty ? LocaleKeys.signUpMale : user.gender,
+      ),
+      (
+        label: LocaleKeys.signUpBirthDate,
+        value: user.birthDate.isEmpty
+            ? LocaleKeys.signUpBirthDateHint
+            : user.birthDate,
+      ),
+      (
+        label: LocaleKeys.location,
+        value: user.location.isEmpty ? LocaleKeys.location : user.location,
+      ),
+      (
+        label: LocaleKeys.signUpCity,
+        value: user.city.isEmpty ? LocaleKeys.signUpCity : user.city,
+      ),
+      (
+        label: LocaleKeys.signUpDistrict,
+        value: user.district.isEmpty
+            ? LocaleKeys.signUpDistrict
+            : user.district,
+      ),
+    ];
 
     return Scaffold(
       appBar: CustomAppbar(title: LocaleKeys.profile),
       backgroundColor: AppColors.subtleBackground,
       body: CustomScrollView(
         slivers: [
-
           SliverPadding(
             padding: EdgeInsets.fromLTRB(24.w, 24.h, 24.w, 34.h),
             sliver: SliverToBoxAdapter(
@@ -51,87 +91,31 @@ class ProfileView extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 20.h),
-                    _ProfileReadonlyField(
-                      label: LocaleKeys.signUpType,
-                      value: LocaleKeys.signUpPlayer,
-                    ),
-                    _ProfileReadonlyField(
-                      label: LocaleKeys.signUpGender,
-                      value: LocaleKeys.signUpMale,
-                    ),
-                    _ProfileReadonlyField(
-                      label: LocaleKeys.signUpBirthDate,
-                      value: LocaleKeys.signUpBirthDateHint,
-                    ),
-                    _ProfileReadonlyField(
-                      label: LocaleKeys.location,
-                      value: LocaleKeys.location,
-                    ),
-                    _ProfileReadonlyField(
-                      label: LocaleKeys.signUpCity,
-                      value: user.city.isEmpty
-                          ? LocaleKeys.signUpCity
-                          : user.city,
-                    ),
-                    _ProfileReadonlyField(
-                      label: LocaleKeys.signUpDistrict,
-                      value: LocaleKeys.signUpDistrict,
-                      bottomSpacing: 0,
-                    ),
+                    ...profileFields.indexed.map((entry) {
+                      final (index, field) = entry;
+                      return Padding(
+                        padding: EdgeInsets.only(
+                          bottom: index == profileFields.length - 1 ? 0 : 20.h,
+                        ),
+                        child: CustomTextFiled(
+                          title: field.label,
+                          hint: field.value,
+                          controller: null,
+                          textInputType: TextInputType.text,
+                          textInputAction: TextInputAction.next,
+                          validator: null,
+                          readOnly: true,
+                          isOptional: true,
+                          borderRadius: BorderRadius.circular(14.r),
+                        ),
+                      );
+                    }),
                   ],
                 ),
               ),
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _ProfileHeader extends StatelessWidget {
-  final String title;
-
-  const _ProfileHeader({required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 121.h,
-      decoration: BoxDecoration(
-        color: AppColors.authTabSelected,
-        borderRadius: BorderRadius.vertical(bottom: Radius.circular(10.r)),
-      ),
-      child: SafeArea(
-        bottom: false,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            PositionedDirectional(
-              start: 18.w,
-              top: 14.h,
-              child: IconButton(
-                onPressed: () => Go.back(),
-                icon: Icon(
-                  Icons.arrow_back,
-                  color: AppColors.white,
-                  size: 24.r,
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 14.h),
-              child: Text(
-                title,
-                style: TextStyle(
-                  color: AppColors.white,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
@@ -144,71 +128,24 @@ class _ProfileAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final fallback = ColoredBox(
+      color: AppColors.avatarBackground,
+      child: AppAssets.svg.baseSvg.userVector.svg(fit: BoxFit.cover),
+    );
+
     return SizedBox(
       width: 120.r,
       height: 120.r,
       child: ClipOval(
         child: userImage.isEmpty
-            ? AppAssets.svg.baseSvg.userVector.svg(fit: BoxFit.cover)
+            ? fallback
             : CachedImage(
                 url: userImage,
                 width: 120.r,
                 height: 120.r,
                 boxShape: BoxShape.circle,
+                placeHolder: fallback,
               ),
-      ),
-    );
-  }
-}
-
-class _ProfileReadonlyField extends StatelessWidget {
-  final String label;
-  final String value;
-  final double bottomSpacing;
-
-  const _ProfileReadonlyField({
-    required this.label,
-    required this.value,
-    this.bottomSpacing = 20,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: bottomSpacing.h),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            label,
-            style: TextStyle(
-              color: AppColors.black,
-              fontSize: 16.sp,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          SizedBox(height: 10.h),
-          Container(
-            height: 56.h,
-            width: double.infinity,
-            alignment: AlignmentDirectional.centerStart,
-            padding: EdgeInsets.symmetric(horizontal: 22.w),
-            decoration: BoxDecoration(
-              color: AppColors.fieldFillColor,
-              borderRadius: BorderRadius.circular(14.r),
-            ),
-            child: Text(
-              value,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                color: AppColors.hintText,
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

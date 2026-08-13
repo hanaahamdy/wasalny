@@ -1,5 +1,39 @@
 part of '../../imports/view_imports.dart';
 
+class _TermsAgreementField extends StatelessWidget {
+  const _TermsAgreementField();
+
+  @override
+  Widget build(BuildContext context) {
+    return FormField<bool>(
+      initialValue: false,
+      validator: (value) =>
+          value == true ? null : LocaleKeys.signUpTermsRequired,
+      builder: (field) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _TermsRow(
+              isChecked: field.value ?? false,
+              onChanged: () {
+                field.didChange(!(field.value ?? false));
+                if (field.hasError) field.validate();
+              },
+            ),
+            if (field.hasError) ...[
+              AppSize.sH6.szH,
+              Text(
+                field.errorText!,
+                style: const TextStyle().setColor(AppColors.error).s12.regular,
+              ),
+            ],
+          ],
+        );
+      },
+    );
+  }
+}
+
 class _TermsRow extends StatelessWidget {
   final bool isChecked;
   final VoidCallback onChanged;
@@ -34,7 +68,6 @@ class _TermsRow extends StatelessWidget {
               style: const TextStyle().setHintColor.s14.regular,
             ),
           ),
-
         ],
       ),
     );

@@ -11,7 +11,7 @@ class StaticPagesCubit extends AsyncCubit<String?> {
           CrudBaseParams(
             api: pageType.apiEndpoint,
             httpRequestType: HttpRequestType.get,
-            mapper: (json) => json['data'],
+            mapper: (json) => json['data']['content'] as String,
           ),
         );
       },

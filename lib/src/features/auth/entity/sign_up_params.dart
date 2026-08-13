@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-import '../../../config/language/locale_keys.g.dart';
+import 'gender.dart';
 
 class SignUpParams {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -15,40 +15,33 @@ class SignUpParams {
   final TextEditingController confirmPasswordController =
       TextEditingController();
 
-  String type = LocaleKeys.signUpPlayer;
-  String gender = LocaleKeys.signUpMale;
-  String? city;
-  String? district;
-  final ValueNotifier<File?> avatarImageNotifier = ValueNotifier<File?>(null);
-  final ValueNotifier<bool> acceptedTermsNotifier = ValueNotifier<bool>(false);
-
-  List<String> get genderOptions => [
-    LocaleKeys.signUpMale,
-    LocaleKeys.signUpFemale,
-  ];
-
-  List<String> get fullNameOptions => [
-    LocaleKeys.signUpNewPlayer,
-    LocaleKeys.signUpTeamMember,
-  ];
-
-  List<String> get birthDateOptions => [
-    LocaleKeys.signUpAgeUnder18,
-    LocaleKeys.signUpAge18To25,
-    LocaleKeys.signUpAge26To35,
-    LocaleKeys.signUpAgeOver35,
-  ];
-
-  List<String> get cityOptions => ['Riyadh', 'Jeddah', 'Cairo'];
-
-  List<String> get districtOptions => [
-    'Al Nakheel District',
-    'Al Faisaliah District',
-    'Al Malqa District',
-    'Nasr City',
-  ];
+  File? image;
+  Gender? gender;
+  String countryCode = '+966';
+  String? cityId;
+  String? districtId;
+  double? latitude;
+  double? longitude;
 
   bool validate() => formKey.currentState?.validate() ?? false;
+
+  Map<String, dynamic> toJson() => {
+    'name': fullNameController.text.trim(),
+    'phone': phoneController.text.trim(),
+    'country_code': countryCode,
+    if (gender != null) 'gender': gender!.value,
+    'birth_date': birthDateController.text.trim(),
+    'password': passwordController.text,
+    if (image != null) 'image': image,
+    if (latitude != null) 'lat': latitude,
+    if (longitude != null) 'lng': longitude,
+    if (locationController.text.trim().isNotEmpty)
+      'map_desc': locationController.text.trim(),
+    if (cityId != null) 'city_id': cityId,
+    if (districtId != null) 'district_id': districtId,
+    if (emailController.text.trim().isNotEmpty)
+      'email': emailController.text.trim(),
+  };
 
   void dispose() {
     phoneController.dispose();
@@ -58,7 +51,5 @@ class SignUpParams {
     locationController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
-    avatarImageNotifier.dispose();
-    acceptedTermsNotifier.dispose();
   }
 }

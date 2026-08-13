@@ -69,6 +69,7 @@ class AppColors {
   static const Color walletGradientStart = Color(0xFF29B980);
   static const Color walletGradientEnd = Color(0xFF0F7C55);
   static const Color walletActionGreen = Color(0xFF24A86E);
+  static const Color walletBalanceBackground = Color(0xFFF0FDF4);
   static const Color moreHeaderDarkGreen = Color(0xFF003D31);
   static const Color moreHeaderGreen = Color(0xFF1EB271);
   static const Color moreSectionTitle = Color(0xFF424242);
@@ -104,6 +105,10 @@ class AppColors {
   static const Color teamRoleBackground = Color(0xFFFFF4D7);
   static const Color teamRoleText = Color(0xFFC98F00);
   static const Color teamRejectBackground = Color(0xFFFFF1F1);
+  static const Color createMatchHeader = Color(0xFF3BB885);
+  static const Color createMatchSelectionFill = Color(0xFFECFDF5);
+  static const Color createMatchBottomBorder = Color(0xFFF3F4F6);
+  static const Color createMatchCardShadow = Color(0x12000000);
 
   static const Color grey1 = Color(0xffDFDFDF);
   static const Color grey2 = Color(0xFFC7C7C7);

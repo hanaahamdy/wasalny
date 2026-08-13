@@ -24,15 +24,15 @@ class _BookingsViewState extends State<BookingsView> {
         textDirection: TextDirection.rtl,
         child: Scaffold(
           backgroundColor: AppColors.subtleBackground,
-          body: BlocBuilder<BookingsCubit, BookingsState>(
+          body: BlocBuilder<BookingsCubit, AsyncState<List<BookingEntity>>>(
             builder: (context, state) {
               return CustomScrollView(
                 slivers: [
                   SliverToBoxAdapter(
                     child: _BookingHeader(
-                      title: LocaleKeys.bookingsBookFieldTitle,
+                      title: LocaleKeys.bookings,
                       child: _BookingFilterTabs(
-                        selectedStatus: state.selectedStatus,
+                        selectedStatus: _cubit.selectedStatus,
                         onChanged: context.read<BookingsCubit>().selectStatus,
                       ),
                     ),
@@ -47,24 +47,51 @@ class _BookingsViewState extends State<BookingsView> {
     );
   }
 
-  Widget _buildBookingsSliver(BookingsState state) {
+  Widget _buildBookingsSliver(AsyncState<List<BookingEntity>> state) {
+    final bookings = _cubit.filteredBookings;
     return switch ((state.isLoading, state.errorMessage)) {
       (true, _) => const SliverFillRemaining(
         child: Center(child: LoadingIndicator(color: AppColors.primary)),
       ),
       (_, final message?) => SliverFillRemaining(
-        child: Center(child: Text(message)),
+        child: Center(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.w),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(message, textAlign: TextAlign.center),
+                SizedBox(height: 16.h),
+                DefaultButton(
+                  title: LocaleKeys.stadiumsRetry,
+                  width: 140.w,
+                  onTap: _cubit.loadBookings,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      _ when bookings.isEmpty => SliverFillRemaining(
+        child: Center(child: Text(LocaleKeys.noDataFound)),
       ),
       _ => SliverPadding(
         padding: EdgeInsets.fromLTRB(24.w, 24.h, 24.w, 26.h),
         sliver: SliverList.separated(
-          itemCount: state.filteredBookings.length,
+          itemCount: bookings.length,
           separatorBuilder: (_, _) => SizedBox(height: 16.h),
           itemBuilder: (context, index) {
-            final booking = state.filteredBookings[index];
+            final booking = bookings[index];
             return _BookingCard(
               booking: booking,
-              onTap: () => Go.to(BookingDetailsView(booking: booking)),
+              onTap: () async {
+                final wasCancelled = await Go.to<bool>(
+                  BookingDetailsView(booking: booking),
+                );
+                if (wasCancelled == true) {
+                  _cubit.loadBookings();
+                }
+              },
             );
           },
         ),

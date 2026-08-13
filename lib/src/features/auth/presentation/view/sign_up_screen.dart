@@ -5,12 +5,15 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => RegisterCubit(),
-      child: Scaffold(
-        appBar: AppBar(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => RegisterCubit()),
+        BlocProvider(create: (context) => CitiesCubit()..fetchInitialData()),
+        BlocProvider(create: (context) => DistrictsCubit()),
+      ],
+      child: const Scaffold(
         backgroundColor: AppColors.scaffoldBackground,
-        body: const SafeArea(child: _SignUpBody()),
+        body: SafeArea(child: _SignUpBody()),
       ),
     );
   }

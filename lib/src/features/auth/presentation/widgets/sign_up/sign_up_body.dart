@@ -9,9 +9,17 @@ class _SignUpBody extends StatefulWidget {
 
 class _SignUpBodyState extends State<_SignUpBody> {
   final SignUpParams params = SignUpParams();
+  final ValueNotifier<File?> _imageNotifier = ValueNotifier(null);
+  final ValueNotifier<Gender?> _genderNotifier = ValueNotifier(null);
+  final ValueNotifier<CityEntity?> _cityNotifier = ValueNotifier(null);
+  final ValueNotifier<DistrictEntity?> _districtNotifier = ValueNotifier(null);
 
   @override
   void dispose() {
+    _imageNotifier.dispose();
+    _genderNotifier.dispose();
+    _cityNotifier.dispose();
+    _districtNotifier.dispose();
     params.dispose();
     super.dispose();
   }
@@ -19,7 +27,6 @@ class _SignUpBodyState extends State<_SignUpBody> {
   @override
   Widget build(BuildContext context) {
     final registerState = context.watch<RegisterCubit>().state;
-
     return Form(
       key: params.formKey,
       child: SingleChildScrollView(
@@ -52,15 +59,27 @@ class _SignUpBodyState extends State<_SignUpBody> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   ValueListenableBuilder<File?>(
-                    valueListenable: params.avatarImageNotifier,
-                    builder: (context, image, _) {
-                      return _AvatarPicker(
-                        image: image,
-                        onImagePicked: (image) {
-                          params.avatarImageNotifier.value = image;
-                        },
-                      );
-                    },
+                    valueListenable: _imageNotifier,
+                    builder: (context, image, _) => ProfileImagePicker(
+                      image: image,
+                      onImageSelected: (image) {
+                        params.image = image;
+                        _imageNotifier.value = image;
+                      },
+                      label: Text.rich(
+                        TextSpan(
+                          text: '${LocaleKeys.signUpProfilePicture} ',
+                          style: const TextStyle().setMainTextColor.s14.medium,
+                          children: [
+                            TextSpan(
+                              text: LocaleKeys.signUpOptional,
+                              style: const TextStyle().setHintColor.s12.regular,
+                            ),
+                          ],
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                   ),
                   AppSize.sH24.szH,
                   CustomPhoneField(
@@ -69,73 +88,65 @@ class _SignUpBodyState extends State<_SignUpBody> {
                     title: LocaleKeys.phoneNumber,
                   ),
                   AppSize.sH20.szH,
+                  ValueListenableBuilder<Gender?>(
+                    valueListenable: _genderNotifier,
+                    builder: (context, gender, _) => AppDropdown<Gender>(
+                      label: LocaleKeys.signUpGender,
+                      hint: LocaleKeys.selectAnOption,
+                      value: gender,
+                      items: Gender.values,
+                      showHeader: true,
+                      showSearchBox: false,
+                      itemAsString: (item) => item.label,
+                      onChanged: (gender) {
+                        params.gender = gender;
+                        _genderNotifier.value = gender;
+                      },
+                      borderRadius: BorderRadius.circular(16),
+                      validator: (value) => Validators.validateDropDown(
+                        value,
+                        fieldTitle: LocaleKeys.signUpGender,
+                      ),
+                    ),
+                  ),
+                  AppSize.sH20.szH,
                   CustomTextFiled(
-                    title: LocaleKeys.signUpType,
-                    hint: params.type,
-                    controller: null,
-                    textInputType: TextInputType.text,
-                    textInputAction: TextInputAction.next,
-                    validator: null,
-                    onTap: () {},
-                    readOnly: true,
-                    borderRadius: BorderRadius.circular(16),
-                    suffixIcon: const Icon(
-                      Icons.keyboard_arrow_down_rounded,
-                      color: AppColors.hintText,
-                      size: 24,
-                    ),
-                  ),
-                  AppSize.sH20.szH,
-                  AppDropdown<String>(
-                    label: LocaleKeys.signUpGender,
-                    hint: params.gender,
-                    value: params.gender,
-                    items: params.genderOptions,
-                    itemAsString: (item) => item,
-                    onChanged: (value) {
-                      if (value == null) return;
-                      setState(() {
-                        params.gender = value;
-                      });
-                    },
-                    borderRadius: BorderRadius.circular(16),
-                    validator: (value) => Validators.validateDropDown(
-                      value,
-                      fieldTitle: LocaleKeys.signUpGender,
-                    ),
-                  ),
-                  AppSize.sH20.szH,
-                  AppDropdown<String>(
-                    label: LocaleKeys.signUpFullName,
+                    title: LocaleKeys.signUpFullName,
                     hint: LocaleKeys.signUpEnterName,
-                    value: params.fullNameController.text.isEmpty
-                        ? null
-                        : params.fullNameController.text,
-                    items: params.fullNameOptions,
-                    itemAsString: (item) => item,
-                    onChanged: (value) {
-                      params.fullNameController.text = value ?? '';
-                    },
+                    controller: params.fullNameController,
+                    textInputType: TextInputType.name,
+                    textInputAction: TextInputAction.next,
                     borderRadius: BorderRadius.circular(16),
-                    validator: (value) => Validators.validateDropDown(
+                    validator: (value) => Validators.validateName(
                       value,
                       fieldTitle: LocaleKeys.signUpFullName,
                     ),
                   ),
                   AppSize.sH20.szH,
-                  AppDropdown<String>(
-                    label: LocaleKeys.signUpBirthDate,
+                  CustomTextFiled(
+                    title: LocaleKeys.signUpBirthDate,
                     hint: LocaleKeys.signUpBirthDateHint,
-                    value: params.birthDateController.text.isEmpty
-                        ? null
-                        : params.birthDateController.text,
-                    items: params.birthDateOptions,
-                    itemAsString: (item) => item,
-                    onChanged: (value) {
-                      params.birthDateController.text = value ?? '';
+                    controller: params.birthDateController,
+                    textInputType: TextInputType.datetime,
+                    textInputAction: TextInputAction.next,
+                    readOnly: true,
+                    onTap: () async {
+                      final now = DateTime.now();
+                      final today = DateTime(now.year, now.month, now.day);
+                      final selectedDate = await showDatePicker(
+                        context: context,
+                        initialDate: today,
+                        firstDate: DateTime(today.year - 100),
+                        lastDate: today,
+                      );
+                      if (selectedDate == null) return;
+                      params.birthDateController.text =
+                          '${selectedDate.year.toString().padLeft(4, '0')}-'
+                          '${selectedDate.month.toString().padLeft(2, '0')}-'
+                          '${selectedDate.day.toString().padLeft(2, '0')}';
                     },
                     borderRadius: BorderRadius.circular(16),
-                    validator: (value) => Validators.validateDropDown(
+                    validator: (value) => Validators.validateEmpty(
                       value,
                       fieldTitle: LocaleKeys.signUpBirthDate,
                     ),
@@ -156,44 +167,86 @@ class _SignUpBodyState extends State<_SignUpBody> {
                   AppSize.sH20.szH,
                   LocationTextField(
                     controller: params.locationController,
-                    onLocationSelected: (_) {},
+                    onLocationSelected: (location) {
+                      params.latitude = location.position?.latitude;
+                      params.longitude = location.position?.longitude;
+                      params.locationController.text =
+                          location.descriptiveLocation;
+                    },
                   ),
                   AppSize.sH20.szH,
-                  AppDropdown<String>(
-                    label: LocaleKeys.signUpCity,
-                    hint: params.city ?? LocaleKeys.signUpSelectCity,
-                    value: params.city,
-                    items: params.cityOptions,
-                    itemAsString: (item) => item,
-                    onChanged: (value) {
-                      setState(() {
-                        params.city = value;
-                        params.district = null;
-                      });
+                  BlocBuilder<
+                    CitiesCubit,
+                    AsyncState<PaginatedData<CityEntity>>
+                  >(
+                    builder: (context, state) {
+                      final cities = state.data.items;
+                      return ValueListenableBuilder<CityEntity?>(
+                        valueListenable: _cityNotifier,
+                        builder: (context, selectedCity, _) =>
+                            AppDropdown<CityEntity>(
+                              label: LocaleKeys.signUpCity,
+                              hint: LocaleKeys.signUpSelectCity,
+                              value: selectedCity,
+                              items: cities,
+                              isLoading: state.isLoading,
+                              isLoadingMore: state.isLoadingMore,
+                              hasMoreItems: !state.data.meta.isLastPage,
+                              onLoadMore: context.read<CitiesCubit>().loadMore,
+                              isFailer: state.isError,
+                              itemAsString: (city) => city.name,
+                              onChanged: (city) {
+                                params.cityId = city?.id.toString();
+                                params.districtId = null;
+                                _cityNotifier.value = city;
+                                _districtNotifier.value = null;
+                                if (city == null) {
+                                  context.read<DistrictsCubit>().clear();
+                                } else {
+                                  context.read<DistrictsCubit>().fetchDistricts(
+                                    city.id,
+                                  );
+                                }
+                              },
+                              borderRadius: BorderRadius.circular(16),
+                              validator: (city) => Validators.validateDropDown(
+                                city,
+                                fieldTitle: LocaleKeys.signUpCity,
+                              ),
+                            ),
+                      );
                     },
-                    borderRadius: BorderRadius.circular(16),
-                    validator: (value) => Validators.validateDropDown(
-                      value,
-                      fieldTitle: LocaleKeys.signUpCity,
-                    ),
                   ),
                   AppSize.sH20.szH,
-                  AppDropdown<String>(
-                    label: LocaleKeys.signUpDistrict,
-                    hint: params.district ?? LocaleKeys.signUpSelectDistrict,
-                    value: params.district,
-                    items: params.districtOptions,
-                    itemAsString: (item) => item,
-                    onChanged: (value) {
-                      setState(() {
-                        params.district = value;
-                      });
+                  BlocBuilder<DistrictsCubit, AsyncState<List<DistrictEntity>>>(
+                    builder: (context, state) {
+                      return ValueListenableBuilder<CityEntity?>(
+                        valueListenable: _cityNotifier,
+                        builder: (context, city, _) =>
+                            ValueListenableBuilder<DistrictEntity?>(
+                              valueListenable: _districtNotifier,
+                              builder: (context, selectedDistrict, _) =>
+                                  AppDropdown<DistrictEntity>(
+                                    label: LocaleKeys.signUpDistrict,
+                                    hint: LocaleKeys.signUpSelectDistrict,
+                                    isOptional: true,
+                                    value: selectedDistrict,
+                                    items: state.data,
+                                    isLoading: state.isLoading,
+                                    isFailer: state.isError,
+                                    readonly: city == null,
+                                    fillColor: AppColors.fieldFillColor,
+                                    itemAsString: (district) => district.name,
+                                    onChanged: (district) {
+                                      params.districtId = district?.id
+                                          .toString();
+                                      _districtNotifier.value = district;
+                                    },
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                            ),
+                      );
                     },
-                    borderRadius: BorderRadius.circular(16),
-                    validator: (value) => Validators.validateDropDown(
-                      value,
-                      fieldTitle: LocaleKeys.signUpDistrict,
-                    ),
                   ),
                   AppSize.sH20.szH,
                   CustomTextFiled(
@@ -228,17 +281,7 @@ class _SignUpBodyState extends State<_SignUpBody> {
                     ),
                   ),
                   AppSize.sH18.szH,
-                  ValueListenableBuilder<bool>(
-                    valueListenable: params.acceptedTermsNotifier,
-                    builder: (context, acceptedTerms, _) {
-                      return _TermsRow(
-                        isChecked: acceptedTerms,
-                        onChanged: () {
-                          params.acceptedTermsNotifier.value = !acceptedTerms;
-                        },
-                      );
-                    },
-                  ),
+                  const _TermsAgreementField(),
                   AppSize.sH16.szH,
                   LoadingButton(
                     title: LocaleKeys.createAccount,
@@ -246,8 +289,7 @@ class _SignUpBodyState extends State<_SignUpBody> {
                     borderRadius: AppCircular.infinity,
                     color: AppColors.primary,
                     isDissabled: registerState.isLoading,
-                    onTap: () =>
-                        context.read<RegisterCubit>().register(params),
+                    onTap: () => context.read<RegisterCubit>().register(params),
                   ),
                   AppSize.sH22.szH,
                   const _LoginLink(),

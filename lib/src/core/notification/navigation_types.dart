@@ -72,7 +72,7 @@ class NewTeamScreenAction implements NotificationNavigation {
 
   @override
   void navigate({required Map<String, dynamic> data}) {
-    Go.to(const TeamDetailsView());
+    Go.to(const TeamTabView());
   }
 }
 

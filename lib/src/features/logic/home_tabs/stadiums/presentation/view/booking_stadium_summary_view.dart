@@ -2,8 +2,15 @@ part of '../imports/stadiums_imports.dart';
 
 class BookingStadiumSummaryView extends StatefulWidget {
   final Stadium stadium;
+  final BookingSummary summary;
+  final CreateBookingParams params;
 
-  const BookingStadiumSummaryView({super.key, required this.stadium});
+  const BookingStadiumSummaryView({
+    super.key,
+    required this.stadium,
+    required this.summary,
+    required this.params,
+  });
 
   @override
   State<BookingStadiumSummaryView> createState() =>
@@ -11,8 +18,7 @@ class BookingStadiumSummaryView extends StatefulWidget {
 }
 
 class _BookingStadiumSummaryViewState extends State<BookingStadiumSummaryView> {
-  late final BookingSummaryCubit _cubit = BookingSummaryCubit()
-    ..createBooking(widget.stadium.id);
+  late final CreateBookingCubit _cubit = CreateBookingCubit();
 
   @override
   void dispose() {
@@ -22,77 +28,40 @@ class _BookingStadiumSummaryViewState extends State<BookingStadiumSummaryView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: _cubit,
-      child: Scaffold(
-        appBar:CustomAppbar(title: LocaleKeys.stadiumsBookingSummary),
-        bottomNavigationBar: Padding(
-          padding: EdgeInsets.fromLTRB(24.w, 14.h, 24.w, 18.h),
-          child: DefaultButton(
-            title: LocaleKeys.stadiumsConfirm,
-            height: 56.h,
-            color: AppColors.primary,
-            borderRadius: BorderRadius.circular(28.r),
-            onTap: () => _showBookingSuccess(context),
-          ),
+    return BlocBuilder<CreateBookingCubit, AsyncState<BookingSummary?>>(
+      bloc: _cubit,
+      builder: (context, state) => BookingSummaryPage(
+        source: BookingFormSource.stadiumBooking,
+        bookingType: widget.summary.type,
+        dateTime: widget.summary.dateTime,
+        price: widget.summary.price,
+        paymentMethod: widget.summary.payment,
+        stadiumPreview: StadiumCard(
+          stadium: widget.stadium,
+          compact: true,
+          onDetails: () {},
         ),
-        body:
-            BlocBuilder<BookingSummaryCubit, StadiumCubitState<BookingSummary>>(
-              builder: (context, state) {
-                if (state.isLoading || state.data == null) {
-                  return const Center(
-                    child: CircularProgressIndicator(color: AppColors.primary),
-                  );
-                }
-
-                if (state.isError) {
-                  return _StadiumErrorView(
-                    message: state.errorMessage,
-                    onRetry: () => context
-                        .read<BookingSummaryCubit>()
-                        .createBooking(widget.stadium.id),
-                  );
-                }
-
-                final summary = state.data!;
-                return CustomScrollView(
-                  slivers: [
-                    SliverPadding(
-                      padding: EdgeInsets.fromLTRB(24.w, 18.h, 24.w, 28.h),
-                      sliver: SliverList.list(
-                        children: [
-                          _SummaryRow(
-                            label: LocaleKeys.stadiumsBookingType,
-                            value: summary.type,
-                          ),
-                          _SummaryRow(
-                            label: LocaleKeys.stadiumsBookingDateTime,
-                            value: summary.dateTime,
-                          ),
-                          _SummaryRow(
-                            label: LocaleKeys.stadiumsPrice,
-                            value: summary.price,
-                          ),
-                          _SummaryRow(
-                            label: LocaleKeys.stadiumsPaymentMethod,
-                            value: summary.payment,
-                          ),
-                          SizedBox(height: 16.h),
-                          const _PaymentPolicyCard(),
-                          SizedBox(height: 20.h),
-                          StadiumCard(
-                            stadium: widget.stadium,
-                            compact: true,
-                            onDetails: () {},
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                );
-              },
-            ),
+        isLoading: state.isLoading,
+        onConfirm: _confirmBooking,
       ),
     );
+  }
+
+  Future<void> _confirmBooking() async {
+    final summary = await _cubit.createBooking(widget.params);
+    if (summary == null || !mounted) {
+      final message = _cubit.state.errorMessage;
+      if (mounted && message?.isNotEmpty == true) {
+        MessageUtils.showSnackBar(
+          context: context,
+          baseStatus: BaseStatus.error,
+          message: message!,
+        );
+      }
+      return;
+    }
+    await _showBookingSuccess(context);
+    if (!context.mounted) return;
+    await Go.offAll(const HomeScreen(initialTabIndex: 1));
   }
 }

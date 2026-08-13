@@ -30,19 +30,21 @@ class TeamSegmentedTabs extends StatelessWidget {
         children: [
           Expanded(
             child: _SegmentButton(
-              title: LocaleKeys.teamJoinRequests,
-              isActive: !showMembers,
-              onTap: () => onChanged(false),
-            ),
-          ),
-          8.w.szW,
-          Expanded(
-            child: _SegmentButton(
               title: LocaleKeys.teamMembers,
               isActive: showMembers,
               onTap: () => onChanged(true),
             ),
           ),
+          8.w.szW,
+          Expanded(
+            child: _SegmentButton(
+              title: LocaleKeys.teamJoinRequests,
+              isActive: !showMembers,
+              onTap: () => onChanged(false),
+            ),
+          ),
+
+
         ],
       ),
     );

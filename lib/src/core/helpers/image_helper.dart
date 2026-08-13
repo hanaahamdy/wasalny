@@ -35,10 +35,11 @@ class ImageHelper {
   }
 
   static Future<File?> getImageFromCameraOrDevice() async {
-    final ImagePicker picker = ImagePicker();
-    File? image;
-    await showModalBottomSheet(
-      context: Go.navigatorKey.currentContext!,
+    final context = Go.navigatorKey.currentContext;
+    if (context == null) return null;
+
+    final source = await showModalBottomSheet<ImageSource>(
+      context: context,
       builder: (BuildContext bc) {
         return SafeArea(
           child: Wrap(
@@ -46,35 +47,23 @@ class ImageHelper {
               ListTile(
                 leading: const Icon(Icons.photo_library),
                 title: Text(LocaleKeys.photoLibrary),
-                onTap: () async {
-                  final currentImage = await picker.pickImage(
-                    source: ImageSource.gallery,
-                  );
-                  if (currentImage != null) {
-                    image = File(currentImage.path);
-                  }
-                  Go.back();
-                },
+                onTap: () => Navigator.pop(bc, ImageSource.gallery),
               ),
               ListTile(
                 leading: const Icon(Icons.photo_camera),
                 title: Text(LocaleKeys.camera),
-                onTap: () async {
-                  final currentImage = await picker.pickImage(
-                    source: ImageSource.camera,
-                  );
-                  if (currentImage != null) {
-                    image = File(currentImage.path);
-                  }
-                  Go.back();
-                },
+                onTap: () => Navigator.pop(bc, ImageSource.camera),
               ),
             ],
           ).paddingAll(AppPadding.pH10),
         );
       },
     );
-    return image;
+
+    if (source == null) return null;
+
+    final currentImage = await _picker.pickImage(source: source);
+    return currentImage == null ? null : File(currentImage.path);
   }
 
   static Future<File?> getMedia() async {

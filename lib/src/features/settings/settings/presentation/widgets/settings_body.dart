@@ -24,6 +24,20 @@ class _SettingsTabBody extends StatelessWidget {
           child: Column(
             children: List.generate(generalItems.length, (index) {
               final menuItem = generalItems[index];
+              if (menuItem.useSwitch) {
+                return BlocBuilder<UserCubit, UserState>(
+                  bloc: UserCubit.instance,
+                  builder: (context, userState) => MoreMenuCardWidget(
+                    menuItem: menuItem,
+                    showDivider: index != generalItems.length - 1,
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    switchValue: userState.userModel.allowNotify,
+                    onSwitchChanged: context.read<NotifiyCubit>().isLoading
+                        ? null
+                        : context.read<NotifiyCubit>().switchNotify,
+                  ),
+                );
+              }
               return MoreMenuCardWidget(
                 menuItem: menuItem.title == LocaleKeys.settingsChangePhone
                     ? MoreItemEntity(
@@ -34,8 +48,9 @@ class _SettingsTabBody extends StatelessWidget {
                         iconColor: menuItem.iconColor,
                         disableArrow: menuItem.disableArrow,
                         useSwitch: menuItem.useSwitch,
-                        onTap: () =>
-                            showChangePhoneBottomSheet(context: context),
+                        onTap: () => context
+                            .read<ChangePhonePasswordCubit>()
+                            .startChangePhone(),
                       )
                     : menuItem,
                 showDivider: index != generalItems.length - 1,

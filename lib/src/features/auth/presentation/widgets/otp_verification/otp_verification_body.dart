@@ -33,6 +33,7 @@ class _OtpBodyState extends State<_OtpBody> {
   @override
   Widget build(BuildContext context) {
     final verifyState = context.watch<VerifyOtpCubit>().state;
+    final resendState = context.watch<ResendCodeCubit>().state;
 
     return Directionality(
       textDirection: ui.TextDirection.rtl,
@@ -78,7 +79,9 @@ class _OtpBodyState extends State<_OtpBody> {
                   AppSize.sH28.szH,
                   _OtpResendSection(
                     timerText: _timerText,
-                    canResend: _remainingSeconds == ConstantManager.zero,
+                    canResend:
+                        _remainingSeconds == ConstantManager.zero &&
+                        !resendState.isLoading,
                     onResend: _resendCode,
                   ),
                   AppSize.sH30.szH,
@@ -121,10 +124,9 @@ class _OtpBodyState extends State<_OtpBody> {
   }
 
   Future<void> _resendCode() async {
-    await context.read<ResendCodeCubit>().resend(
-      phone: widget.phone,
-      purpose: widget.purpose,
-    );
+    final resendCubit = context.read<ResendCodeCubit>();
+    await resendCubit.resend(phone: widget.phone, purpose: widget.purpose);
+    if (!mounted || !resendCubit.state.status.isSuccess) return;
     setState(() => _remainingSeconds = _resendDurationInSeconds);
     _startTimer();
   }

@@ -46,6 +46,9 @@ class AppDropdown<T> extends StatefulWidget {
     this.readonly = false,
     this.showCustomHeaderMessage = false,
     this.customHeaderMessage,
+    this.onLoadMore,
+    this.hasMoreItems = false,
+    this.isLoadingMore = false,
   }) : _items = items,
        assert(
          !isMultiSelect || (selectedValues != null && onMultiChanged != null),
@@ -64,7 +67,9 @@ class AppDropdown<T> extends StatefulWidget {
       isMultiSelect,
       showSelectAll,
       readonly,
-      showCustomHeaderMessage;
+      showCustomHeaderMessage,
+      hasMoreItems,
+      isLoadingMore;
   final Color? fillColor, suffixIconColor;
   final T? value;
   final String? label, hint, selectAllText, customHeaderMessage;
@@ -79,6 +84,7 @@ class AppDropdown<T> extends StatefulWidget {
   final List<T>? selectedValues;
   final Function(List<T>)? onMultiChanged;
   final int? maxSelectableItems;
+  final VoidCallback? onLoadMore;
 
   @override
   State<AppDropdown<T>> createState() => _AppDropdownState<T>();
@@ -141,9 +147,13 @@ class _AppDropdownState<T> extends State<AppDropdown<T>> {
   /// Calculates the optimal height for the bottom sheet, ensuring it doesn't
   /// get obscured by the on-screen keyboard.
   double _calculateBottomSheetHeight(BuildContext context, int itemCount) {
-    final screenHeight = MediaQuery.of(context).size.height;
-    final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
-    final availableHeight = screenHeight - keyboardHeight;
+    final mediaQuery = MediaQuery.of(context);
+    final screenHeight = mediaQuery.size.height;
+    final availableHeight =
+        screenHeight -
+        mediaQuery.viewInsets.bottom -
+        mediaQuery.padding.top -
+        mediaQuery.padding.bottom;
 
     const double topHandleAndPadding = 28.0;
     final double headerHeight = widget.showHeader ? 50.0 : 0.0;
@@ -275,9 +285,11 @@ class _AppDropdownState<T> extends State<AppDropdown<T>> {
                           widget.contentPadding ??
                           EdgeInsets.all(AppPadding.pH12),
                       decoration: BoxDecoration(
-                        color: widget.readonly
-                            ? AppColors.grey2.withOpacity(0.3)
-                            : widget.fillColor ?? AppColors.fieldFillColor,
+                        color:
+                            widget.fillColor ??
+                            (widget.readonly
+                                ? AppColors.grey2.withOpacity(0.3)
+                                : AppColors.fieldFillColor),
                         borderRadius:
                             widget.borderRadius ?? BorderRadius.circular(12.r),
                         border: Border.all(
@@ -399,6 +411,7 @@ class _AppDropdownState<T> extends State<AppDropdown<T>> {
     return await showModalBottomSheet<T>(
       context: context,
       isScrollControlled: true,
+      useSafeArea: true,
       backgroundColor: Colors.transparent,
       builder: (modalContext) {
         return Padding(
@@ -408,102 +421,117 @@ class _AppDropdownState<T> extends State<AppDropdown<T>> {
           child: ValueListenableBuilder<List<T>>(
             valueListenable: _bottomSheetFilteredItemsNotifier,
             builder: (context, filteredItems, child) {
-              final double dynamicHeight = _calculateBottomSheetHeight(
-                context,
-                filteredItems.length,
-              );
+              final mediaQuery = MediaQuery.of(context);
+              final availableHeight =
+                  mediaQuery.size.height -
+                  mediaQuery.viewInsets.bottom -
+                  mediaQuery.padding.top -
+                  mediaQuery.padding.bottom;
+              final preferredHeight =
+                  widget.maxHeight ?? mediaQuery.size.height * .75;
+              final sheetHeight = availableHeight <= widget.minBottomSheetHeight
+                  ? availableHeight
+                  : preferredHeight.clamp(
+                      widget.minBottomSheetHeight,
+                      availableHeight,
+                    );
 
-              return Container(
-                height: dynamicHeight,
-                decoration: BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(12.r),
+              return SizedBox(
+                height: sheetHeight,
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(12.r),
+                    ),
                   ),
-                ),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12.0),
-                      child: Container(
-                        width: AppSize.sH85,
-                        height: 4,
-                        decoration: BoxDecoration(
-                          color: AppColors.grey1,
-                          borderRadius: BorderRadius.circular(2),
-                        ),
-                      ),
-                    ),
-                    if (widget.showHeader)
+                  child: Column(
+                    children: [
                       Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: AppPadding.pH16,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              widget.label ?? LocaleKeys.selectAnOption,
-                              style:
-                                  widget.labelTextStyle ??
-                                  context.textStyle.s16.bold.setMainTextColor,
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.close),
-                              onPressed: () => Navigator.pop(context),
-                            ),
-                          ],
+                        padding: const EdgeInsets.symmetric(vertical: 12.0),
+                        child: Container(
+                          width: AppSize.sH85,
+                          height: 4,
+                          decoration: BoxDecoration(
+                            color: AppColors.grey1,
+                            borderRadius: BorderRadius.circular(2),
+                          ),
                         ),
                       ),
-                    if (widget.showSearchBox)
+                      if (widget.showHeader)
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: AppPadding.pH16,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                widget.label ?? LocaleKeys.selectAnOption,
+                                style:
+                                    widget.labelTextStyle ??
+                                    context.textStyle.s16.bold.setMainTextColor,
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.close),
+                                onPressed: () => Navigator.pop(context),
+                              ),
+                            ],
+                          ),
+                        ),
+                      if (widget.showSearchBox)
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: AppPadding.pH16,
+                            vertical: AppPadding.pH8,
+                          ),
+                          child: CustomTextFiled(
+                            hint: LocaleKeys.search,
+                            suffixIcon: AppAssets.svg.baseSvg.search.svg(),
+                            controller: _searchController,
+                            textInputType: TextInputType.text,
+                            textInputAction: TextInputAction.search,
+                            validator: (value) => Validators.noValidate(value!),
+                          ),
+                        ),
+                      Expanded(child: _buildItemsList(context, filteredItems)),
                       Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: AppPadding.pH16,
-                          vertical: AppPadding.pH8,
-                        ),
-                        child: CustomTextFiled(
-                          hint: LocaleKeys.search,
-                          suffixIcon: AppAssets.svg.baseSvg.search.svg(),
-                          controller: _searchController,
-                          textInputType: TextInputType.text,
-                          textInputAction: TextInputAction.search,
-                          validator: (value) => Validators.noValidate(value!),
+                        padding: EdgeInsets.all(AppPadding.pH16),
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: ValueListenableBuilder<T?>(
+                            valueListenable: _bottomSheetSelectedValueNotifier,
+                            builder: (context, selectedValue, _) {
+                              final bool isEnabled = selectedValue != null;
+                              return ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: isEnabled
+                                      ? AppColors.primary
+                                      : AppColors.grey2,
+                                  padding: EdgeInsets.symmetric(vertical: 14.h),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.r),
+                                  ),
+                                ),
+                                onPressed: isEnabled
+                                    ? () =>
+                                          Navigator.pop(context, selectedValue)
+                                    : null,
+                                child: Text(
+                                  LocaleKeys.confirm,
+                                  style: context.textStyle.s18.medium.setColor(
+                                    isEnabled
+                                        ? AppColors.white
+                                        : AppColors.grey1,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
                         ),
                       ),
-                    Expanded(child: _buildItemsList(context, filteredItems)),
-                    Padding(
-                      padding: EdgeInsets.all(AppPadding.pH16),
-                      child: SizedBox(
-                        width: double.infinity,
-                        child: ValueListenableBuilder<T?>(
-                          valueListenable: _bottomSheetSelectedValueNotifier,
-                          builder: (context, selectedValue, _) {
-                            final bool isEnabled = selectedValue != null;
-                            return ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: isEnabled
-                                    ? AppColors.primary
-                                    : AppColors.grey2,
-                                padding: EdgeInsets.symmetric(vertical: 14.h),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.r),
-                                ),
-                              ),
-                              onPressed: isEnabled
-                                  ? () => Navigator.pop(context, selectedValue)
-                                  : null,
-                              child: Text(
-                                LocaleKeys.confirm,
-                                style: context.textStyle.s18.medium.setColor(
-                                  isEnabled ? AppColors.white : AppColors.grey1,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               );
             },
@@ -687,98 +715,127 @@ class _AppDropdownState<T> extends State<AppDropdown<T>> {
 
   Widget _buildItemsList(BuildContext context, List<T> items) {
     if (items.isEmpty) {
-      return Center(
-        child: Text(
-          _searchController.text.isNotEmpty
-              ? LocaleKeys.noResultFound
-              : LocaleKeys.noOptionsFound,
-          style: context.textStyle.s14.regular.setHintColor,
+      return LayoutBuilder(
+        builder: (context, constraints) => SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minHeight: constraints.maxHeight),
+            child: Center(
+              child: Text(
+                _searchController.text.isNotEmpty
+                    ? LocaleKeys.noResultFound
+                    : LocaleKeys.noOptionsFound,
+                style: context.textStyle.s14.regular.setHintColor,
+              ),
+            ),
+          ),
         ),
       );
     }
 
-    return ListView.separated(
-      padding: EdgeInsets.symmetric(
-        horizontal: AppPadding.pH16,
-        vertical: 10.h,
-      ),
-      itemCount: items.length,
-      separatorBuilder: (context, index) => SizedBox(height: 12.h),
-      itemBuilder: (context, index) {
-        final item = items[index];
-        return ValueListenableBuilder<T?>(
-          valueListenable: _bottomSheetSelectedValueNotifier,
-          builder: (context, selectedValue, _) {
-            final isSelected = item == selectedValue;
-            return InkWell(
-              onTap: () {
-                _bottomSheetSelectedValueNotifier.value = item;
-              },
-              borderRadius: BorderRadius.circular(12.r),
-              child: Container(
-                height: widget.itemHeight,
-                decoration: BoxDecoration(
-                  color: isSelected
-                      ? AppColors.primary.withOpacity(0.08)
-                      : Colors.transparent,
-                  borderRadius: BorderRadius.circular(12.r),
-                  border: Border.all(
-                    color: isSelected
-                        ? AppColors.primary
-                        : AppColors.grey2.withOpacity(0.3),
-                    width: isSelected ? 1.5 : 0.5,
-                  ),
-                ),
-                padding: EdgeInsets.symmetric(
-                  vertical: 16.0.h,
-                  horizontal: 20.0.w,
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        widget.itemAsString(item),
-                        style: isSelected
-                            ? context.textStyle.s16.medium.setColor(
-                                AppColors.primary,
-                              )
-                            : context.textStyle.s16.regular.setMainTextColor,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    SizedBox(width: 16.w),
-                    Container(
-                      width: 20.w,
-                      height: 20.w,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: isSelected
-                              ? AppColors.primary
-                              : AppColors.grey1,
-                          width: 2.0,
-                        ),
-                      ),
-                      child: isSelected
-                          ? Center(
-                              child: Container(
-                                width: 10.w,
-                                height: 10.w,
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: AppColors.primary,
-                                ),
-                              ),
-                            )
-                          : null,
-                    ),
-                  ],
+    return NotificationListener<ScrollNotification>(
+      onNotification: (notification) {
+        if (notification.metrics.extentAfter < 200 &&
+            widget.hasMoreItems &&
+            !widget.isLoadingMore) {
+          widget.onLoadMore?.call();
+        }
+        return false;
+      },
+      child: ListView.separated(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+        padding: EdgeInsets.symmetric(
+          horizontal: AppPadding.pW16,
+          vertical: 10.h,
+        ),
+        itemCount: items.length + (widget.isLoadingMore ? 1 : 0),
+        separatorBuilder: (context, index) => SizedBox(height: 12.h),
+        itemBuilder: (context, index) {
+          if (index == items.length) {
+            return Padding(
+              padding: EdgeInsets.symmetric(vertical: 12.h),
+              child: const Center(
+                child: SizedBox.square(
+                  dimension: 24,
+                  child: CircularProgressIndicator(strokeWidth: 2),
                 ),
               ),
             );
-          },
-        );
-      },
+          }
+          final item = items[index];
+          return ValueListenableBuilder<T?>(
+            valueListenable: _bottomSheetSelectedValueNotifier,
+            builder: (context, selectedValue, _) {
+              final isSelected = item == selectedValue;
+              return InkWell(
+                onTap: () {
+                  _bottomSheetSelectedValueNotifier.value = item;
+                },
+                borderRadius: BorderRadius.circular(12.r),
+                child: Container(
+                  constraints: BoxConstraints(minHeight: widget.itemHeight),
+                  decoration: BoxDecoration(
+                    color: isSelected
+                        ? AppColors.primary.withOpacity(0.08)
+                        : Colors.transparent,
+                    borderRadius: BorderRadius.circular(12.r),
+                    border: Border.all(
+                      color: isSelected
+                          ? AppColors.primary
+                          : AppColors.grey2.withOpacity(0.3),
+                      width: isSelected ? 1.5 : 0.5,
+                    ),
+                  ),
+                  padding: EdgeInsets.symmetric(
+                    vertical: 12.0.h,
+                    horizontal: 20.0.w,
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          widget.itemAsString(item),
+                          style: isSelected
+                              ? context.textStyle.s16.medium.setColor(
+                                  AppColors.primary,
+                                )
+                              : context.textStyle.s16.regular.setMainTextColor,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      SizedBox(width: 16.w),
+                      Container(
+                        width: 20.w,
+                        height: 20.w,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: isSelected
+                                ? AppColors.primary
+                                : AppColors.grey1,
+                            width: 2.0,
+                          ),
+                        ),
+                        child: isSelected
+                            ? Center(
+                                child: Container(
+                                  width: 10.w,
+                                  height: 10.w,
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: AppColors.primary,
+                                  ),
+                                ),
+                              )
+                            : null,
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+        },
+      ),
     );
   }
 

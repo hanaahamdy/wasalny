@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../../../config/language/locale_keys.g.dart';
 import '../../../../config/res/config_imports.dart';
@@ -41,6 +42,10 @@ class CustomPhoneField extends StatelessWidget {
         title: null,
         textInputType: TextInputType.phone,
         textInputAction: textInputAction,
+        inputFormatters: [
+          FilteringTextInputFormatter.digitsOnly,
+          LengthLimitingTextInputFormatter(9),
+        ],
         borderRadius: BorderRadius.circular(AppCircular.r20),
         validator:
             validator ??
@@ -51,7 +56,11 @@ class CustomPhoneField extends StatelessWidget {
       ),
     );
 
-    final children = <Widget>[field, AppSize.sW10.szW, const CustomCountryCodeBox()];
+    final children = <Widget>[
+      field,
+      AppSize.sW10.szW,
+      const CustomCountryCodeBox(),
+    ];
 
     return Column(
       crossAxisAlignment: crossAxisAlignment,

@@ -29,12 +29,30 @@ class Validators {
     return null;
   }
 
-  static String? validatePassword(String? value, {String? fieldTitle}) {
+  static String? validateName(String? value, {String? fieldTitle}) {
+    final name = value?.trim() ?? '';
+    if (name.isEmpty) {
+      return fieldTitle == null
+          ? LocaleKeys.fillField
+          : '${LocaleKeys.filedValidation} $fieldTitle';
+    } else if (RegExp(r'[<>]').hasMatch(name)) {
+      return LocaleKeys.scripInjectionValidate;
+    } else if (name.runes.length < 2) {
+      return LocaleKeys.nameMinTwoCharacters;
+    }
+    return null;
+  }
+
+  static String? validatePassword(
+    String? value, {
+    String? fieldTitle,
+    int minLength = 8,
+  }) {
     if (value?.trim().isEmpty ?? true) {
       return fieldTitle == null
           ? LocaleKeys.fillField
           : "${LocaleKeys.filedValidation} $fieldTitle";
-    } else if (value!.length < 6) {
+    } else if (value!.length < minLength) {
       return LocaleKeys.passValidation;
     } else if (RegExp(r'[<>]').hasMatch(value)) {
       return LocaleKeys.scripInjectionValidate;
@@ -66,8 +84,19 @@ class Validators {
           : '${LocaleKeys.filedValidation} $fieldTitle';
     } else if (RegExp(r'[<>]').hasMatch(value!)) {
       return LocaleKeys.scripInjectionValidate;
-    } else if (!RegExp(r'^\d{8,15}$').hasMatch(value)) {
+    } else if (!RegExp(r'^5\d{8}$').hasMatch(value.trim())) {
       return LocaleKeys.phoneValidation;
+    }
+    return null;
+  }
+
+  static String? validatePositiveInteger(String? value, {String? fieldTitle}) {
+    final emptyError = validateEmpty(value, fieldTitle: fieldTitle);
+    if (emptyError != null) return emptyError;
+
+    final number = int.tryParse(value!.trim());
+    if (number == null || number <= 0) {
+      return LocaleKeys.validationInvalidNumber;
     }
     return null;
   }
@@ -88,5 +117,30 @@ class Validators {
     } else {
       return null;
     }
+  }
+
+  static String? validateEndDateTime(
+    String? endDateTime, {
+    required String? startDateTime,
+    String? fieldTitle,
+    int maxDurationHours = 12,
+  }) {
+    final emptyError = validateEmpty(endDateTime, fieldTitle: fieldTitle);
+    if (emptyError != null) return emptyError;
+
+    DateTime? parseDateTime(String? value) =>
+        DateTime.tryParse(value?.trim().replaceAll(RegExp(r'\s+'), ' ') ?? '');
+
+    final start = parseDateTime(startDateTime);
+    final end = parseDateTime(endDateTime);
+    if (start != null && (end == null || !end.isAfter(start))) {
+      return LocaleKeys.stadiumsInvalidBookingPeriod;
+    }
+    if (start != null &&
+        end != null &&
+        end.difference(start) > Duration(hours: maxDurationHours)) {
+      return LocaleKeys.stadiumsBookingDurationTooLong;
+    }
+    return null;
   }
 }

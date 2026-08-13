@@ -13,7 +13,7 @@ class ProfileChangePasswordCubit extends AsyncCubit<BaseModel?> {
         CrudBaseParams<BaseModel?>(
           api: ApiConstants.changePassword,
           body: {
-            'old_password': currentPassword,
+            'current_password': currentPassword,
             'password': password,
             'password_confirmation': confirmPassword,
           },
@@ -32,5 +32,7 @@ class ProfileChangePasswordCubit extends AsyncCubit<BaseModel?> {
         );
       },
     );
+
+    if (state.isError) Go.back();
   }
 }

@@ -2,10 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../../../../config/res/config_imports.dart';
 import '../../../../../core/notification/notification_service.dart';
+import '../../../../../core/shared/cubits/user_cubit/user_cubit.dart';
 import '../../../../../core/widgets/navigation_bar/navigation_bar.dart';
 import '../../../home_tabs/bookings/presentation/bookings_feature.dart';
 import '../../../home_tabs/more_tab/presentation/imports/view_imports.dart';
-import '../../../home_tabs/stadiums/presentation/stadiums_feature.dart';
+import '../../../home_tabs/main_tab_screen/presentation/imports/main_tab_screen_imports.dart';
 import '../../../home_tabs/wallet/presentation/wallet_feature.dart';
 import '../../entity/home_params.dart';
 

@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../config/res/config_imports.dart';
 import '../../../helpers/cache_service.dart';
+import '../../../network/api_endpoints.dart';
+import '../../../network/network_request.dart';
 import '../../../network/network_service.dart';
 import '../../models/user_model.dart';
 part 'user_state.dart';
@@ -44,15 +46,37 @@ class UserCubit extends Cubit<UserState> with UserUtils {
     emit(state.copyWith(userModel: user));
   }
 
+  Future<UserModel?> refreshProfile() async {
+    try {
+      final response = await injector<NetworkService>().callApi<UserModel?>(
+        NetworkRequest(method: RequestMethod.get, path: ApiConstants.profile),
+        mapper: (json) {
+          final response = Map<String, dynamic>.from(json as Map);
+          final data = response['data'];
+          return data is Map
+              ? UserModel.fromJson(Map<String, dynamic>.from(data))
+              : null;
+        },
+      );
+      final user = response.data;
+      if (user == null) return null;
+      await updateUser(user.copyWith(token: state.userModel.token));
+      return user;
+    } catch (_) {
+      return null;
+    }
+  }
+
   Future<bool> init() async {
     final Map<String, dynamic>? userMap = CacheStorage.read(
       _userKey,
       isDecoded: true,
     );
     final token = await SecureStorage.read(_tokenKey);
+    final savedToken = token?.trim();
     log('userMap $userMap, token $token');
-    if (token != null && userMap != null) {
-      injector<NetworkService>().setToken(token);
+    if (savedToken?.isNotEmpty == true && userMap != null) {
+      injector<NetworkService>().setToken(savedToken!);
       emit(
         state.copyWith(
           userModel: UserModel.fromJson(userMap),

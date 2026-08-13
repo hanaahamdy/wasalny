@@ -6,6 +6,7 @@ class ResetPasswordParams {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
+  String countryCode = '+966';
 
   bool validate() => formKey.currentState?.validate() ?? false;
 

@@ -4,12 +4,14 @@ part of '../imports/view_imports.dart';
 class NotifiyCubit extends AsyncCubit<BaseModel?> {
   NotifiyCubit() : super(null);
 
-  Future<void> switchNotifiy(ValueNotifier<bool> notifyNotifier) async {
+  Future<void> switchNotify(bool isEnabled) async {
+    if (isLoading) return;
     await executeAsync(
-      operation: () async => await baseCrudUseCase.call(
+      operation: () => baseCrudUseCase.call(
         CrudBaseParams(
           api: ApiConstants.switchNotification,
-          httpRequestType: HttpRequestType.patch,
+          body: {'is_notify': isEnabled},
+          httpRequestType: HttpRequestType.put,
           mapper: (json) => BaseModel.fromJson(json),
         ),
       ),
@@ -18,9 +20,7 @@ class NotifiyCubit extends AsyncCubit<BaseModel?> {
           baseStatus: BaseStatus.success,
           message: success!.message,
         );
-        final user = UserCubit.instance.user.copyWith(
-          allowNotify: notifyNotifier.value,
-        );
+        final user = UserCubit.instance.user.copyWith(allowNotify: isEnabled);
         await UserCubit.instance.updateUser(user);
       },
     );

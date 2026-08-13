@@ -12,8 +12,9 @@ class ConstantManager {
   static const int zero = 0;
   static const zeroAsDouble = 0.0;
   static const int pinCodeFieldsCount = 4;
-  static const int connectTimeoutDuration = 5000;
-  static const int recieveTimeoutDuration = 5000;
+  static const int connectTimeoutDuration = 30000;
+  static const int sendTimeoutDuration = 60000;
+  static const int receiveTimeoutDuration = 60000;
   static const String ar = 'ar';
   static const String en = 'en';
   static const String arabic = 'العربية';

@@ -11,77 +11,125 @@ class StadiumBookingView extends StatefulWidget {
 
 class _StadiumBookingViewState extends State<StadiumBookingView> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _dateTimeController = TextEditingController();
-  late final ValueNotifier<String> _selectedPaymentMethodNotifier =
-      ValueNotifier<String>(LocaleKeys.stadiumsOnlinePayment);
+  final TextEditingController _fromDateTimeController = TextEditingController();
+  final TextEditingController _toDateTimeController = TextEditingController();
+  final ValueNotifier<BookingPaymentMethod> _selectedPaymentMethodNotifier =
+      ValueNotifier(BookingPaymentMethod.online);
 
-  late final List<String> _bookingTypes = [
-    LocaleKeys.stadiumsIndividualBooking,
-    LocaleKeys.bookingsTeamMatch,
-  ];
-
-  String? _selectedBookingType;
+  BookingType? _selectedBookingType;
+  DateTime? _startsAt;
+  DateTime? _endsAt;
 
   @override
   void dispose() {
-    _dateTimeController.dispose();
+    _fromDateTimeController.dispose();
+    _toDateTimeController.dispose();
     _selectedPaymentMethodNotifier.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar:CustomAppbar(title: LocaleKeys.bookingsBookFieldTitle) ,
-      backgroundColor: AppColors.scaffoldBackground,
-      bottomNavigationBar: _BookingConfirmButton(onConfirm: _confirm),
-      body: CustomScrollView(
-        slivers: [
-          SliverPadding(
-            padding: EdgeInsets.fromLTRB(24.w, 16.h, 24.w, 24.h),
-            sliver: SliverList.list(
-              children: [
-                _BookingFormCard(
-                  formKey: _formKey,
-                  bookingTypes: _bookingTypes,
-                  selectedBookingType: _selectedBookingType,
-                  dateTimeController: _dateTimeController,
-                  onBookingTypeChanged: (type) {
-                    setState(() => _selectedBookingType = type);
-                  },
-                  onDateTimeTap: _selectDateTime,
+    return BlocProvider(
+      create: (_) => CreateBookingCubit(),
+      child: Builder(
+        builder: (context) => ValueListenableBuilder<BookingPaymentMethod>(
+          valueListenable: _selectedPaymentMethodNotifier,
+          builder: (context, selectedMethod, _) => BookingFormPage(
+            source: BookingFormSource.stadiumBooking,
+            formKey: _formKey,
+            selectedBookingType: _selectedBookingType,
+            fromDateTimeController: _fromDateTimeController,
+            toDateTimeController: _toDateTimeController,
+            onBookingTypeChanged: (type) {
+              setState(() => _selectedBookingType = type);
+            },
+            onFromDateTimeTap: _selectStartSlot,
+            onToDateTimeTap: _selectEndSlot,
+            selectedPaymentMethod: selectedMethod,
+            onPaymentMethodChanged: (method) =>
+                _selectedPaymentMethodNotifier.value = method,
+            bottomAction:
+                BlocBuilder<CreateBookingCubit, AsyncState<BookingSummary?>>(
+                  builder: (context, state) => _BookingConfirmButton(
+                    isLoading: state.isLoading,
+                    onConfirm: () => _confirm(context),
+                  ),
                 ),
-                SizedBox(height: 16.h),
-                _PaymentMethodsCard(
-                  selectedPaymentMethodNotifier: _selectedPaymentMethodNotifier,
-                ),
-              ],
-            ),
           ),
-        ],
+        ),
       ),
     );
   }
 
-  Future<void> _selectDateTime() async {
-    final DateTime today = DateTime.now();
-    final DateTime oneMonthFromToday = DateTime(
-      today.year,
-      today.month + 1,
-      today.day,
+  Future<void> _selectStartSlot() async {
+    final selection = await Go.to<StadiumSlotSelection>(
+      StadiumSlotsView(stadiumId: widget.stadium.id),
     );
-
-    await showCustomDatePicker(
-      controller: _dateTimeController,
-      dateFormat: 'EEE, M/d/y',
-      initialDate: today,
-      firstDate: today,
-      lastDate: oneMonthFromToday,
-    );
+    if (selection == null || !mounted) return;
+    setState(() {
+      _startsAt = selection.startsAt;
+      _endsAt = null;
+      _fromDateTimeController.text = DateFormat(
+        'yyyy-MM-dd HH:mm',
+        'en',
+      ).format(selection.startsAt);
+      _toDateTimeController.clear();
+    });
   }
 
-  void _confirm() {
+  Future<void> _selectEndSlot() async {
+    final startsAt = _startsAt;
+    if (startsAt == null) {
+      MessageUtils.showSnackBar(
+        context: context,
+        baseStatus: BaseStatus.error,
+        message: LocaleKeys.stadiumsInvalidBookingPeriod,
+      );
+      return;
+    }
+    final selection = await Go.to<StadiumSlotSelection>(
+      StadiumSlotsView(stadiumId: widget.stadium.id, startsAt: startsAt),
+    );
+    if (selection == null || !mounted) return;
+    setState(() {
+      _endsAt = selection.endsAt;
+      _toDateTimeController.text = DateFormat(
+        'yyyy-MM-dd HH:mm',
+        'en',
+      ).format(selection.endsAt);
+    });
+  }
+
+  Future<void> _confirm(BuildContext context) async {
     if (!(_formKey.currentState?.validate() ?? false)) return;
-    Go.to(BookingStadiumSummaryView(stadium: widget.stadium));
+    if (_startsAt == null || _endsAt == null || !_endsAt!.isAfter(_startsAt!)) {
+      MessageUtils.showSnackBar(
+        context: context,
+        baseStatus: BaseStatus.error,
+        message: LocaleKeys.stadiumsInvalidBookingPeriod,
+      );
+      return;
+    }
+
+    final payment = _selectedPaymentMethodNotifier.value;
+    final params = CreateBookingParams(
+      stadiumId: widget.stadium.id,
+      bookingType: _selectedBookingType!,
+      startsAt: _startsAt!,
+      endsAt: _endsAt!,
+      paymentType: payment.apiValue,
+    );
+    await Go.to(
+      BookingStadiumSummaryView(
+        stadium: widget.stadium,
+        params: params,
+        summary: BookingSummary.preview(
+          params: params,
+          stadium: widget.stadium,
+          paymentMethod: payment,
+        ),
+      ),
+    );
   }
 }

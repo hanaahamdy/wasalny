@@ -1,4 +1,3 @@
- 
 import '../../../config/res/config_imports.dart';
 
 class BaseModel<T> {
@@ -13,7 +12,9 @@ class BaseModel<T> {
     T Function(dynamic json)? jsonToModel,
   }) {
     return BaseModel(
-      message: json['msg'] ?? ConstantManager.emptyText,
+      message:
+          (json['message'] ?? json['msg'])?.toString() ??
+          ConstantManager.emptyText,
       key: json['key'] ?? ConstantManager.emptyText,
       data: jsonToModel != null
           ? json['data'] == null

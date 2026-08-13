@@ -1,6 +1,8 @@
 part of '../../imports/view_imports.dart';
 
 class _LoginHeader extends StatelessWidget {
+  const _LoginHeader();
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -15,7 +17,7 @@ class _LoginHeader extends StatelessWidget {
                 textAlign: TextAlign.start,
                 style: const TextStyle().setMainTextColor.s20.bold,
               ),
-              AppSize.sH10.szH,
+              AppSize.sH4.szH,
               Text(
                 LocaleKeys.loginSubtitle,
                 textAlign: TextAlign.start,
@@ -43,17 +45,6 @@ class _LoginHeader extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class _LoginLogo extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return AppAssets.svg.appSvg.appLogoPng.image(
-      width: 118,
-      height: 118,
-      fit: BoxFit.contain,
     );
   }
 }
