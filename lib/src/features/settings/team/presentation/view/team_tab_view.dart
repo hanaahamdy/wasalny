@@ -6,7 +6,7 @@ class TeamTabView extends StatefulWidget {
 
   const TeamTabView({
     super.key,
-    this.teamId = 5,
+    this.teamId = 0,
     this.initialShowMembers = true,
   });
 

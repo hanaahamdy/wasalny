@@ -22,6 +22,16 @@ class _StadiumSearchViewState extends State<StadiumSearchView> {
     _cubit.search(_controller.text);
   }
 
+  Future<void> _openFilters() async {
+    final filters = await StadiumFilterSheet.show(
+      context,
+      initialFilters: _cubit.filters,
+    );
+    if (filters == null) return;
+    await _cubit.applyFilters(filters, _controller.text);
+    if (mounted) setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
@@ -29,7 +39,36 @@ class _StadiumSearchViewState extends State<StadiumSearchView> {
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
-          appBar: CustomAppbar(title: LocaleKeys.stadiumsFeatured),
+          appBar: CustomAppbar(
+            title: LocaleKeys.stadiumsFeatured,
+            actions: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 24.w),
+                child: Center(
+                  child: InkWell(
+                    onTap: _openFilters,
+                    borderRadius: BorderRadius.circular(20.r),
+                    child: Container(
+                      width: 40.r,
+                      height: 40.r,
+                      decoration: BoxDecoration(
+                        color: AppColors.stadiumFilterIconBackground,
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: AppColors.stadiumFilterIconBorder,
+                        ),
+                      ),
+                      child: Icon(
+                        Icons.tune,
+                        color: AppColors.white,
+                        size: 20.r,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
           body: Column(
             children: [
               Padding(
@@ -59,6 +98,10 @@ class _StadiumSearchViewState extends State<StadiumSearchView> {
                         }
 
                         final stadiums = state.data!;
+                        if (stadiums.isEmpty) {
+                          return const NotContainData();
+                        }
+
                         return ListView.separated(
                           padding: EdgeInsets.fromLTRB(24.w, 18.h, 24.w, 28.h),
                           itemBuilder: (context, index) {

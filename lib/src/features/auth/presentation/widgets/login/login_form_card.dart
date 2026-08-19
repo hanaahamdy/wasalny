@@ -39,7 +39,7 @@ class _LoginFormCard extends StatelessWidget {
           _LoginIdentifierField(params: params, selectedTab: selectedTab),
           AppSize.sH12.szH,
           _LoginPasswordField(params: params),
-          const _ForgotPasswordButton(),
+          _ForgotPasswordButton(selectedTab: selectedTab),
           LoadingButton(
             title: LocaleKeys.login,
             height: AppSize.sH56,

@@ -57,6 +57,8 @@ class AppColors {
   static const Color bookingCodeText = Color(0xFF14945F);
   static const Color bookingServiceGreen = Color(0xFF2DBB82);
   static const Color stadiumSectionAction = Color(0xFF3DBB85);
+  static const Color stadiumFilterIconBackground = Color(0x333DBB85);
+  static const Color stadiumFilterIconBorder = Color(0x4DFFFFFF);
   static const Color bookingMutedText = Color(0xFF9B9B9B);
   static const Color bookingDivider = Color(0xFFEDEDED);
   static const Color bookingDetailsTermsBackground = Color(0x1A2B3289);

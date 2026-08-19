@@ -961,6 +961,18 @@ abstract class LocaleKeys {
   static const String _stadiumsSearchHint = 'stadiums_search_hint';
   static String get stadiumsSearchHint => _stadiumsSearchHint.tr();
 
+  static const String _stadiumsFilterSearch = 'stadiums_filter_search';
+  static String get stadiumsFilterSearch => _stadiumsFilterSearch.tr();
+
+  static const String _stadiumsSportType = 'stadiums_sport_type';
+  static String get stadiumsSportType => _stadiumsSportType.tr();
+
+  static const String _stadiumsSelectSportType = 'stadiums_select_sport_type';
+  static String get stadiumsSelectSportType => _stadiumsSelectSportType.tr();
+
+  static const String _stadiumsSelectLocation = 'stadiums_select_location';
+  static String get stadiumsSelectLocation => _stadiumsSelectLocation.tr();
+
   static const String _stadiumsCreateTeam = 'stadiums_create_team';
   static String get stadiumsCreateTeam => _stadiumsCreateTeam.tr();
 
@@ -1005,6 +1017,9 @@ abstract class LocaleKeys {
 
   static const String _createMatchChooseTeam = 'create_match_choose_team';
   static String get createMatchChooseTeam => _createMatchChooseTeam.tr();
+
+  static const String _createMatchNoTeams = 'create_match_no_teams';
+  static String get createMatchNoTeams => _createMatchNoTeams.tr();
 
   static const String _createMatchChooseStadium = 'create_match_choose_stadium';
   static String get createMatchChooseStadium => _createMatchChooseStadium.tr();
@@ -1263,6 +1278,9 @@ abstract class LocaleKeys {
   static const String _bookingsCancelBooking = 'bookings_cancel_booking';
   static String get bookingsCancelBooking => _bookingsCancelBooking.tr();
 
+  static const String _bookingsCancelOrder = 'bookings_cancel_order';
+  static String get bookingsCancelOrder => _bookingsCancelOrder.tr();
+
   static const String _bookingsCancelReasonTitle =
       'bookings_cancel_reason_title';
   static String get bookingsCancelReasonTitle =>
@@ -1372,6 +1390,16 @@ abstract class LocaleKeys {
       'booking_details_unpaid_warning';
   static String get bookingDetailsUnpaidWarning =>
       _bookingDetailsUnpaidWarning.tr();
+
+  static const String _bookingDetailsAcceptBooking =
+      'booking_details_accept_booking';
+  static String get bookingDetailsAcceptBooking =>
+      _bookingDetailsAcceptBooking.tr();
+
+  static const String _bookingDetailsRejectBooking =
+      'booking_details_reject_booking';
+  static String get bookingDetailsRejectBooking =>
+      _bookingDetailsRejectBooking.tr();
 
   static const String _pay = 'pay';
   static String get pay => _pay.tr();

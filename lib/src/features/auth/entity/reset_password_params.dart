@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class ResetPasswordParams {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController phoneController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
@@ -12,6 +13,7 @@ class ResetPasswordParams {
 
   void dispose() {
     phoneController.dispose();
+    emailController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
   }

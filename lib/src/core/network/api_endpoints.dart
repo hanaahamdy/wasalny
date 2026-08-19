@@ -10,14 +10,20 @@ class ApiConstants {
   static String stadiumDetails(int stadiumId) => 'stadiums/$stadiumId';
   static String stadiumSlots(int stadiumId) => 'stadiums/$stadiumId/slots';
   static const String bookings = 'bookings';
+  static const String bookingCancelReasons = 'booking-cancel-reasons';
   static const String bookingOpponents = 'bookings/opponents';
   static String bookingDetails(int bookingId) => 'bookings/$bookingId';
   static String cancelBooking(int bookingId) => 'bookings/$bookingId/cancel';
   static String reviewBooking(int bookingId) => 'bookings/$bookingId/review';
+  static String payBookingPlayer(int playerId) =>
+      'bookings/players/$playerId/pay';
+  static String respondToBookingMatch(int matchId) =>
+      'bookings/matches/$matchId/respond';
   static const String teams = 'teams';
+  static const String myTeam = 'teams/my';
   static String teamDetails(int teamId) => 'teams/$teamId';
   static String teamMembers(int teamId) => 'teams/$teamId/members';
-  static String teamRequests(int teamId) => 'teams/$teamId/requests';
+  static String teamRequests(int teamId) => 'teams/my/requests';
   static String substituteTeamMember(int teamId) => 'teams/$teamId/substitute';
   static String acceptTeamRequest(int requestId) =>
       'requests/$requestId/accept';

@@ -11,12 +11,13 @@ import '../../features/logic/home_tabs/bookings/presentation/bookings_feature.da
 import '../../features/settings/team/presentation/imports/view_imports.dart';
 import '../navigation/navigator.dart';
 import '../network/un_authenticated_interceptor.dart';
+import '../../../firebase_options.dart';
 
 part 'navigation_types.dart';
 part 'notification_routes.dart';
 
 Future<void> backgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   log('========= >>> backGroundMessage ${message.data}');
 }
 
@@ -32,6 +33,7 @@ class NotificationService {
 
   static String deviceToken = "";
   static int _notificationIdCounter = 0;
+  static Future<void>? _setupFuture;
 
   Future<bool> _requestPermissions() async {
     try {
@@ -220,20 +222,31 @@ class NotificationService {
     NotificationNavigator._instance?.onRoutingMessage(message);
   }
 
-  int count = 0;
-
   Future<void> _saveFcmToken() async {
     try {
+      if (Platform.isIOS) {
+        final apnsToken = await _waitForApnsToken();
+        if (apnsToken == null) {
+          log('⚠️ APNs token is not available yet. Skipping FCM token fetch.');
+          return;
+        }
+      }
+
       final token = await FirebaseMessaging.instance.getToken();
       deviceToken = token ?? "";
       log("✅ Firebase FCM token: $token");
     } catch (e, s) {
-      count++;
       log('❌ Error getting FCM token: $e', stackTrace: s);
-      if (count < 5) {
-        Future.delayed(const Duration(seconds: 3), () => _saveFcmToken());
-      }
     }
+  }
+
+  Future<String?> _waitForApnsToken() async {
+    for (var attempt = 0; attempt < 10; attempt++) {
+      final token = await FirebaseMessaging.instance.getAPNSToken();
+      if (token != null) return token;
+      await Future<void>.delayed(const Duration(milliseconds: 500));
+    }
+    return null;
   }
 
   Future<void> _setForegroundNotificationOptions() async {
@@ -251,13 +264,18 @@ class NotificationService {
   }
 
   Future<void> setupNotifications() async {
+    _setupFuture ??= _setupNotifications();
+    return _setupFuture;
+  }
+
+  Future<void> _setupNotifications() async {
     log('🚀 Starting notification setup...');
     try {
       await Future.wait([
         _setForegroundNotificationOptions(),
         _registerNotification(),
         _requestPermissions(),
-        NotificationNavigator._instance!.init(),
+        NotificationNavigator._instance?.init() ?? Future<void>.value(),
       ]);
       await _saveFcmToken();
       await _initLocalNotification();
@@ -271,8 +289,6 @@ class NotificationService {
   static List<NotificationActionListener> listeners = [];
 
   void _configureNotification() async {
-    FirebaseMessaging.onBackgroundMessage(backgroundHandler);
-
     FirebaseMessaging.onMessage.listen((RemoteMessage event) {
       log('╔════════════════════════════════════════╗');
       log('║     NOTIFICATION RECEIVED (Foreground)  ║');

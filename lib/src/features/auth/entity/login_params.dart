@@ -7,12 +7,14 @@ class LoginParams {
   final TextEditingController passwordController = TextEditingController();
   String countryCode = '+966';
 
+  String get identifier => phoneController.text.trim().isNotEmpty
+      ? phoneController.text.trim()
+      : emailController.text.trim();
+
   bool validate() => formKey.currentState?.validate() ?? false;
 
   Map<String, dynamic> toJson() => {
-    'login': phoneController.text.trim().isNotEmpty
-        ? phoneController.text.trim()
-        : emailController.text.trim(),
+    'login': identifier,
     if (phoneController.text.trim().isNotEmpty)
       'country_code': countryCode.replaceFirst('+', ''),
     'password': passwordController.text,

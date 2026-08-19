@@ -121,13 +121,6 @@ class DioService implements NetworkService {
       if (statusCode != null) {
         networkRequest.onResponseStatus?.call(statusCode);
       }
-      if (statusCode == HttpStatus.nonAuthoritativeInformation) {
-        throw DioException(
-          type: DioExceptionType.badResponse,
-          requestOptions: response.requestOptions,
-          response: response,
-        );
-      }
       if (mapper != null) {
         return BaseModel.fromJson(response.data, jsonToModel: mapper);
       } else {

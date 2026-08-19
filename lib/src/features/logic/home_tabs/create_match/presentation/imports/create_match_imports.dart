@@ -11,6 +11,7 @@ import '../../../../../../config/res/assets.gen.dart';
 import '../../../../../../config/res/config_imports.dart';
 import '../../../../../../core/navigation/navigator.dart';
 import '../../../../../../core/extensions/base_state.dart';
+import '../../../../../../core/extensions/text_style_extensions.dart';
 import '../../../../../../core/base_crud/code/domain/base_domain_imports.dart';
 import '../../../../../../core/base_crud/code/presentation/cubit/base_cubit/async_cubit.dart';
 import '../../../../../../core/network/api_endpoints.dart';

@@ -7,8 +7,9 @@ import '../navigation/navigator.dart';
 
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
+  final List<Widget>? actions;
 
-  const CustomAppbar({super.key, required this.title});
+  const CustomAppbar({super.key, required this.title, this.actions});
 
   @override
   Size get preferredSize => Size.fromHeight(121.h);
@@ -23,6 +24,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
         onPressed: () => Go.back(),
         icon: Icon(Icons.arrow_back, color: AppColors.white, size: 24.r),
       ),
+      actions: actions,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(bottom: Radius.circular(10.r)),
       ),

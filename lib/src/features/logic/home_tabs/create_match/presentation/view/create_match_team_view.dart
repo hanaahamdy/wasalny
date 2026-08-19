@@ -111,6 +111,13 @@ class _CreateMatchTeamViewState extends State<CreateMatchTeamView> {
                           );
                         }
                         if (widget.teams == null) _teams = teamsState.data;
+                        if (_teams.isEmpty) {
+                          return _CreateMatchTeamsEmptyState(
+                            onRetry: widget.teams == null
+                                ? _teamsCubit.fetchTeams
+                                : null,
+                          );
+                        }
                         return ValueListenableBuilder<int?>(
                           valueListenable: _selectedTeamIdNotifier,
                           builder: (context, selectedTeamId, _) {
@@ -171,6 +178,52 @@ class _CreateMatchTeamViewState extends State<CreateMatchTeamView> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _CreateMatchTeamsEmptyState extends StatelessWidget {
+  final VoidCallback? onRetry;
+
+  const _CreateMatchTeamsEmptyState({this.onRetry});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 24.w),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 72.r,
+              height: 72.r,
+              decoration: const BoxDecoration(
+                color: AppColors.teamSubstituteBackground,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.groups_2_outlined,
+                color: AppColors.teamHeaderAccent,
+                size: 34.r,
+              ),
+            ),
+            SizedBox(height: 14.h),
+            Text(
+              LocaleKeys.createMatchNoTeams,
+              textAlign: TextAlign.center,
+              style: const TextStyle().setHintColor.s14.medium,
+            ),
+            if (onRetry != null) ...[
+              SizedBox(height: 12.h),
+              TextButton(
+                onPressed: onRetry,
+                child: Text(LocaleKeys.stadiumsRetry),
+              ),
+            ],
+          ],
         ),
       ),
     );

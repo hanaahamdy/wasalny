@@ -26,7 +26,7 @@ import '../../../../../core/widgets/fields/text_fields/custom_phone_field.dart';
 import '../../../../../core/widgets/fields/text_fields/custom_text_field.dart';
 import '../../../../../core/widgets/pickers/default_bottom_sheet.dart';
 import '../../../../auth/presentation/imports/view_imports.dart';
-import '../../../../logic/home_tabs/more_tab/entity/more_menu_item_entity.dart';
+import '../../../../logic/home_tabs/data/more_tab/more_menu_item_entity.dart';
 import '../../../../logic/home_tabs/more_tab/presentation/widgets/more_menu_card_widget.dart';
 import '../../entity/settings_menu_item_entity.dart';
 

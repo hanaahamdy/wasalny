@@ -1,5 +1,6 @@
 import 'package:easy_logger/easy_logger.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -17,19 +18,22 @@ import 'src/core/navigation/page_router/implementation/imports_page_router.dart'
 import 'src/core/navigation/page_router/imports_page_router_builder.dart';
 import 'src/core/helpers/cache_service.dart';
 import 'src/core/network/backend_configuation.dart';
+import 'src/core/notification/notification_service.dart';
 import 'src/core/shared/bloc_observer.dart';
 import 'src/core/shared/service_locators/setup_service_locators.dart';
 import 'src/core/widgets/handling_views/exeption_view.dart';
+import 'firebase_options.dart';
 
 void main() async {
   Bloc.observer = AppBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
   await Future.wait([
-    Firebase.initializeApp(),
+    Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
     EasyLocalization.ensureInitialized(), // Initialize localization
     CacheStorage.init(), // Initialize local cache
     ScreenUtil.ensureScreenSize(), // Initialize screen size utils
   ]);
+  FirebaseMessaging.onBackgroundMessage(backgroundHandler);
 
   // Lock the app orientation to portrait only
   SystemChrome.setPreferredOrientations([

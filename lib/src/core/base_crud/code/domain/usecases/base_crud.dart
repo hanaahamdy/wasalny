@@ -31,12 +31,14 @@ class CrudBaseParams<T> {
   final T Function(dynamic) mapper;
   final bool isFromData;
   final void Function(int, int)? onSendProgress;
+  final void Function(int statusCode)? onResponseStatus;
   CrudBaseParams({
     required this.api,
     required this.httpRequestType,
     this.body,
     this.queryParameters,
     this.onSendProgress,
+    this.onResponseStatus,
     this.isFromData = false,
     required this.mapper,
   });
@@ -48,6 +50,7 @@ class CrudBaseParams<T> {
     Map<String, dynamic>? queryParameters,
     T Function(dynamic)? mapper,
     bool? isFromData,
+    void Function(int statusCode)? onResponseStatus,
   }) {
     return CrudBaseParams<T>(
       api: api ?? this.api,
@@ -56,6 +59,7 @@ class CrudBaseParams<T> {
       queryParameters: queryParameters ?? this.queryParameters,
       mapper: mapper ?? this.mapper,
       isFromData: isFromData ?? this.isFromData,
+      onResponseStatus: onResponseStatus ?? this.onResponseStatus,
     );
   }
 }

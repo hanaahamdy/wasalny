@@ -1,7 +1,9 @@
 part of '../imports/view_imports.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
-  const ResetPasswordScreen({super.key});
+  final bool byEmail;
+
+  const ResetPasswordScreen({super.key, this.byEmail = false});
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +12,7 @@ class ResetPasswordScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(),
         backgroundColor: AppColors.scaffoldBackground,
-        body: const SafeArea(child: _ResetPasswordBody()),
+        body: SafeArea(child: _ResetPasswordBody(byEmail: byEmail)),
       ),
     );
   }

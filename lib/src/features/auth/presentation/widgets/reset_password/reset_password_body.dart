@@ -1,7 +1,9 @@
 part of '../../imports/view_imports.dart';
 
 class _ResetPasswordBody extends StatefulWidget {
-  const _ResetPasswordBody();
+  final bool byEmail;
+
+  const _ResetPasswordBody({required this.byEmail});
 
   @override
   State<_ResetPasswordBody> createState() => _ResetPasswordBodyState();
@@ -9,6 +11,8 @@ class _ResetPasswordBody extends StatefulWidget {
 
 class _ResetPasswordBodyState extends State<_ResetPasswordBody> {
   final ResetPasswordParams params = ResetPasswordParams();
+
+  bool get _isEmailReset => widget.byEmail;
 
   @override
   void dispose() {
@@ -55,12 +59,28 @@ class _ResetPasswordBodyState extends State<_ResetPasswordBody> {
                 children: [
                   const Center(child: AppLogoWidget()),
                   AppSize.sH40.szH,
-                  CustomPhoneField(
-                    controller: params.phoneController,
-                    textInputAction: TextInputAction.done,
-                    title: LocaleKeys.phoneNumber,
-                    hint: LocaleKeys.pleaseEnterYourPhoneNumber,
-                  ),
+                  if (_isEmailReset)
+                    CustomTextFiled(
+                      controller: params.emailController,
+                      hint: LocaleKeys.signUpEnterEmail,
+                      title: LocaleKeys.email,
+                      textInputType: TextInputType.emailAddress,
+                      textInputAction: TextInputAction.done,
+                      borderRadius: BorderRadius.circular(
+                        AppCircular.r15 + 1.r,
+                      ),
+                      validator: (value) => Validators.validateEmail(
+                        value,
+                        fieldTitle: LocaleKeys.email,
+                      ),
+                    )
+                  else
+                    CustomPhoneField(
+                      controller: params.phoneController,
+                      textInputAction: TextInputAction.done,
+                      title: LocaleKeys.phoneNumber,
+                      hint: LocaleKeys.pleaseEnterYourPhoneNumber,
+                    ),
                   AppSize.sH24.szH,
                   LoadingButton(
                     title: LocaleKeys.confirm,
@@ -71,6 +91,7 @@ class _ResetPasswordBodyState extends State<_ResetPasswordBody> {
                     onTap: () async {
                       await context.read<ForgotPasswordCubit>().requestCode(
                         params,
+                        byEmail: _isEmailReset,
                       );
                     },
                   ),

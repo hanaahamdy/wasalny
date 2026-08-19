@@ -8,7 +8,7 @@ class _HomeBody extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (index) {
       case 0:
-        return const StadiumsHomeView();
+        return const MainTabScreen();
       case 1:
         return const BookingsView();
       case 2:

@@ -11,6 +11,7 @@ class NetworkRequest<GenericModel> {
   bool isFormData;
   final ProgressCallback? onSendProgress;
   final ProgressCallback? onReceiveProgress;
+  final void Function(int statusCode)? onResponseStatus;
 
   NetworkRequest({
     required this.method,
@@ -21,6 +22,7 @@ class NetworkRequest<GenericModel> {
     this.onSendProgress,
     this.headers,
     this.onReceiveProgress,
+    this.onResponseStatus,
   });
   NetworkRequest copyWith({
     String? path,
@@ -32,6 +34,7 @@ class NetworkRequest<GenericModel> {
     bool? isFormData,
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
+    void Function(int statusCode)? onResponseStatus,
   }) {
     return NetworkRequest(
       path: path ?? this.path,
@@ -42,6 +45,7 @@ class NetworkRequest<GenericModel> {
       isFormData: isFormData ?? this.isFormData,
       onSendProgress: onSendProgress ?? this.onSendProgress,
       onReceiveProgress: onReceiveProgress ?? this.onReceiveProgress,
+      onResponseStatus: onResponseStatus ?? this.onResponseStatus,
     );
   }
 }

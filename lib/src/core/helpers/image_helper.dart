@@ -1,6 +1,8 @@
 import 'dart:io';
+import 'dart:developer';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -12,6 +14,26 @@ import '../navigation/navigator.dart';
 class ImageHelper {
   static final ImagePicker _picker = ImagePicker();
   static final ImageCropper _cropper = ImageCropper();
+
+  static Future<XFile?> _pickImageSafely(ImageSource source) async {
+    if (source == ImageSource.camera && !_picker.supportsImageSource(source)) {
+      log('Camera image source is not available on this device.');
+      return null;
+    }
+
+    try {
+      return await _picker.pickImage(source: source);
+    } on PlatformException catch (e, s) {
+      log(
+        'Image picker failed for $source: ${e.code} ${e.message}',
+        stackTrace: s,
+      );
+      return null;
+    } catch (e, s) {
+      log('Unexpected image picker error for $source: $e', stackTrace: s);
+      return null;
+    }
+  }
 
   static Future<File?> getImage() async {
     final ImagePicker picker = ImagePicker();
@@ -62,7 +84,7 @@ class ImageHelper {
 
     if (source == null) return null;
 
-    final currentImage = await _picker.pickImage(source: source);
+    final currentImage = await _pickImageSafely(source);
     return currentImage == null ? null : File(currentImage.path);
   }
 
@@ -135,13 +157,13 @@ class ImageHelper {
   }
 
   static Future<File?> takePicture() async {
-    final XFile? image = await _picker.pickImage(source: ImageSource.camera);
+    final XFile? image = await _pickImageSafely(ImageSource.camera);
     if (image == null) return null;
     return await _cropImage(sourcePath: image.path);
   }
 
   static Future<File?> pickImage() async {
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    final XFile? image = await _pickImageSafely(ImageSource.gallery);
     if (image == null) return null;
     return await _cropImage(sourcePath: image.path);
   }

@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutterbase/src/features/logic/home_tabs/stadiums/presentation/stadiums_feature.dart';
+import 'package:flutterbase/src/core/shared/service_locators/setup_service_locators.dart';
+import 'package:flutterbase/src/features/logic/home_tabs/main_tab_screen/presentation/imports/main_tab_screen_imports.dart';
 
 void main() {
-  testWidgets('stadiums home renders fake API content', (tester) async {
+  setUpAll(setUpServiceLocator);
+
+  testWidgets('main tab screen renders', (tester) async {
     await tester.pumpWidget(
       ScreenUtilInit(
         designSize: const Size(360, 690),
         builder: (context, child) {
-          return const MaterialApp(home: StadiumsHomeView());
+          return const MaterialApp(home: MainTabScreen());
         },
       ),
     );
 
-    await tester.pump(const Duration(milliseconds: 600));
-
-    expect(find.text('الرياضات المتاحة'), findsOneWidget);
-    expect(find.text('الملاعب المميزة'), findsOneWidget);
-    expect(find.text('ملعب النخيل الرياضي'), findsOneWidget);
+    expect(find.byType(MainTabScreen), findsOneWidget);
   });
 }

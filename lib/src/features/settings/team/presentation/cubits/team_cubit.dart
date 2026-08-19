@@ -27,29 +27,35 @@ class TeamState extends Equatable {
 class TeamCubit extends AsyncCubit<TeamState> {
   final int teamId;
 
-  TeamCubit({required this.teamId, bool initialShowMembers = true})
+  TeamCubit({this.teamId = 0, bool initialShowMembers = true})
     : super(TeamState.initial(showMembers: initialShowMembers));
+
+  int get _activeTeamId =>
+      state.data.payload.teamId > 0 ? state.data.payload.teamId : teamId;
 
   Future<void> loadTeam() async {
     setLoading();
     try {
-      if (teamId <= 0) throw StateError('Invalid team id');
       final detailsResponse = await injector<NetworkService>()
           .callApi<TeamPayload>(
             NetworkRequest(
               method: RequestMethod.get,
-              path: ApiConstants.teamDetails(teamId),
+              path: teamId > 0
+                  ? ApiConstants.teamDetails(teamId)
+                  : ApiConstants.myTeam,
             ),
             mapper: _parseDetails,
           );
-      final membersResponse = await injector<NetworkService>()
-          .callApi<List<TeamPlayer>>(
-            NetworkRequest(
-              method: RequestMethod.get,
-              path: ApiConstants.teamMembers(teamId),
-            ),
-            mapper: (json) => _parsePlayers(json, isRequest: false),
-          );
+      final resolvedTeamId = detailsResponse.data.teamId;
+      final members = resolvedTeamId > 0
+          ? (await injector<NetworkService>().callApi<List<TeamPlayer>>(
+              NetworkRequest(
+                method: RequestMethod.get,
+                path: ApiConstants.teamMembers(resolvedTeamId),
+              ),
+              mapper: (json) => _parsePlayers(json, isRequest: false),
+            )).data
+          : const <TeamPlayer>[];
       final requestsResponse = await injector<NetworkService>()
           .callApi<List<TeamPlayer>>(
             NetworkRequest(
@@ -59,9 +65,11 @@ class TeamCubit extends AsyncCubit<TeamState> {
             mapper: (json) => _parsePlayers(json, isRequest: true),
           );
       final payload = detailsResponse.data.copyWith(
-        members: membersResponse.data,
+        members: members,
         requests: requestsResponse.data,
-        membersCount: membersResponse.data.length,
+        membersCount: detailsResponse.data.membersCount > 0
+            ? detailsResponse.data.membersCount
+            : members.length,
       );
       setSuccess(data: state.data.copyWith(payload: payload));
     } catch (error) {
@@ -96,11 +104,16 @@ class TeamCubit extends AsyncCubit<TeamState> {
     required int outgoingUserId,
     required int joinRequestId,
   }) async {
+    final resolvedTeamId = _activeTeamId;
+    if (resolvedTeamId <= 0) {
+      setError(errorMessage: LocaleKeys.serverError, showToast: true);
+      return false;
+    }
     try {
       await injector<NetworkService>().callApi<dynamic>(
         NetworkRequest(
           method: RequestMethod.post,
-          path: ApiConstants.substituteTeamMember(teamId),
+          path: ApiConstants.substituteTeamMember(resolvedTeamId),
           body: {
             'outgoing_user_id': outgoingUserId,
             'join_request_id': joinRequestId,
@@ -125,7 +138,7 @@ class TeamCubit extends AsyncCubit<TeamState> {
     return TeamPayload(
       teamId: int.tryParse(data['id']?.toString() ?? '') ?? 0,
       name: data['name']?.toString() ?? '',
-      logo: data['logo']?.toString() ?? '',
+      logo: (data['logo'] ?? data['image'])?.toString() ?? '',
       membersCount: int.tryParse(data['members_count']?.toString() ?? '') ?? 0,
     );
   }

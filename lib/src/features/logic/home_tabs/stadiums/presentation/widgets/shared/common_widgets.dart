@@ -69,27 +69,6 @@ class _SportPill extends StatelessWidget {
   }
 }
 
-class _CircleIconButton extends StatelessWidget {
-  final IconData icon;
-  final VoidCallback? onTap;
-
-  const _CircleIconButton({required this.icon, this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 40.r,
-      height: 40.r,
-      decoration: BoxDecoration(
-        color: Colors.black.withValues(alpha: 0.22),
-        shape: BoxShape.circle,
-        border: Border.all(color: AppColors.white.withValues(alpha: 0.42)),
-      ),
-      child: Icon(icon, color: AppColors.white, size: 21.r),
-    ).onClick(onTap: onTap);
-  }
-}
-
 class _Dot extends StatelessWidget {
   final bool active;
 
