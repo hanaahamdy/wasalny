@@ -8,8 +8,6 @@ enum NotificationType {
   block("block", NoAction()),
   blockNotify("block_notify", NoAction()),
   deleteNotify("delete_notify", NoAction()),
-  newTeam("new_team", NewTeamScreenAction()),
-  confirmBooking("confirm_booking", ConfirmBookingScreenAction()),
   userBlocked("user_blocked", NoAction()),
 
   // Chat
@@ -67,55 +65,7 @@ class ChatScreenAction implements NotificationNavigation {
   }
 }
 
-class NewTeamScreenAction implements NotificationNavigation {
-  const NewTeamScreenAction();
 
-  @override
-  void navigate({required Map<String, dynamic> data}) {
-    Go.to(const TeamTabView());
-  }
-}
 
-class ConfirmBookingScreenAction implements NotificationNavigation {
-  const ConfirmBookingScreenAction();
 
-  @override
-  void navigate({required Map<String, dynamic> data}) {
-    Go.to(BookingDetailsForNotificationScreen(booking: _bookingFrom(data)));
-  }
 
-  BookingEntity _bookingFrom(Map<String, dynamic> data) {
-    final total =
-        num.tryParse(
-          (data['total'] ?? data['price'] ?? data['amount'] ?? '150')
-              .toString(),
-        )?.toInt() ??
-        150;
-
-    return BookingEntity(
-      id: num.tryParse(data['booking_id']?.toString() ?? '')?.toInt() ?? 0,
-      code: data['booking_code']?.toString() ?? '',
-      title: data['stadium_name']?.toString() ?? LocaleKeys.stadiumsNakheelName,
-      type: data['booking_type']?.toString() ?? LocaleKeys.bookingsTeamMatch,
-      location:
-          data['stadium_location']?.toString() ??
-          LocaleKeys.stadiumsNakheelLocation,
-      date: data['booking_date']?.toString() ?? '06/04/2026',
-      time: data['booking_time']?.toString() ?? '09:00 م',
-      duration: data['duration']?.toString() ?? '',
-      hourPrice:
-          num.tryParse(data['hour_price']?.toString() ?? '')?.toInt() ?? total,
-      total: total,
-      paymentMethod:
-          data['payment_method']?.toString() ??
-          LocaleKeys.stadiumsOnlinePayment,
-      isPaid: false,
-      status: BookingStatus.scheduled,
-      imageUrl:
-          data['stadium_image']?.toString() ??
-          'https://images.unsplash.com/photo-1540379708242-14a809bef941?auto=format&fit=crop&w=1200&q=80',
-      services: const [],
-      bookedAt: '',
-    );
-  }
-}

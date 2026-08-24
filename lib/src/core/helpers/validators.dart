@@ -119,28 +119,4 @@ class Validators {
     }
   }
 
-  static String? validateEndDateTime(
-    String? endDateTime, {
-    required String? startDateTime,
-    String? fieldTitle,
-    int maxDurationHours = 12,
-  }) {
-    final emptyError = validateEmpty(endDateTime, fieldTitle: fieldTitle);
-    if (emptyError != null) return emptyError;
-
-    DateTime? parseDateTime(String? value) =>
-        DateTime.tryParse(value?.trim().replaceAll(RegExp(r'\s+'), ' ') ?? '');
-
-    final start = parseDateTime(startDateTime);
-    final end = parseDateTime(endDateTime);
-    if (start != null && (end == null || !end.isAfter(start))) {
-      return LocaleKeys.stadiumsInvalidBookingPeriod;
-    }
-    if (start != null &&
-        end != null &&
-        end.difference(start) > Duration(hours: maxDurationHours)) {
-      return LocaleKeys.stadiumsBookingDurationTooLong;
-    }
-    return null;
-  }
 }

@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 import '../../../../config/res/config_imports.dart';
 import '../../../extensions/text_style_extensions.dart';
+import '../../../extensions/widgets/sized_box_helper.dart';
 import 'default_text_field.dart';
 
 class CustomTextFiled extends StatelessWidget {
@@ -51,7 +52,7 @@ class CustomTextFiled extends StatelessWidget {
     this.hasBorder = false,
     this.readOnly = false,
     this.isPassword = false,
-    this.isOptional = false,
+    this.isOptional = true,
   });
 
   @override
@@ -84,6 +85,7 @@ class CustomTextFiled extends StatelessWidget {
               ],
             ),
           ],
+          8.szH,
         ],
         DefaultTextField(
           focusNode: focusNode,

@@ -1,3 +1,23 @@
+enum UserType {
+  delivery('delivery'),
+  admin('admin');
+
+  final String value;
+
+  const UserType(this.value);
+
+  static UserType fromJson(dynamic value) {
+    final rawValue = value is Map ? value['value'] : value;
+    final normalizedValue = rawValue?.toString().trim().toLowerCase();
+
+    return switch (normalizedValue) {
+      'admin' || '1' => UserType.admin,
+      'delivery' || 'driver' || '0' => UserType.delivery,
+      _ => UserType.delivery,
+    };
+  }
+}
+
 class UserModel {
   final String id;
   final String image;
@@ -9,7 +29,7 @@ class UserModel {
   final String gender;
   final String birthDate;
   final String location;
-  final int userType;
+  final UserType userType;
   final bool allowNotify;
   final String? token;
 
@@ -40,7 +60,7 @@ class UserModel {
     gender: '',
     birthDate: '',
     location: '',
-    userType: 0,
+    userType: UserType.delivery,
     allowNotify: false,
     token: '',
   );
@@ -56,7 +76,7 @@ class UserModel {
     String? gender,
     String? birthDate,
     String? location,
-    int? userType,
+    UserType? userType,
     bool? allowNotify,
     String? token,
   }) {
@@ -83,7 +103,7 @@ class UserModel {
     final genderData = json['gender'];
     final locationData = json['location'];
     final typeData = json['type'];
-    final legacyUserType = json['userType'];
+    final userTypeData = json['userType'] ?? json['user_type'] ?? typeData;
 
     return UserModel(
       id: json['id']?.toString() ?? '',
@@ -104,11 +124,7 @@ class UserModel {
       location: locationData is Map
           ? locationData['map_desc']?.toString() ?? ''
           : locationData?.toString() ?? '',
-      userType: legacyUserType is int
-          ? legacyUserType
-          : typeData is Map && typeData['value'] == 'player'
-          ? 1
-          : 0,
+      userType: UserType.fromJson(userTypeData),
       allowNotify: (json['allowNotify'] ?? json['is_notify']) == true,
       token: json['token']?.toString(),
     );
@@ -125,7 +141,7 @@ class UserModel {
     'gender': gender,
     'birthDate': birthDate,
     'location': location,
-    'userType': userType,
+    'userType': userType.value,
     'allowNotify': allowNotify,
   };
 }

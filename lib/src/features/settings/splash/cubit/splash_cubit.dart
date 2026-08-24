@@ -13,11 +13,10 @@ class SplashCubit extends Cubit<SplashState> {
     if (!hasBaseUrl) return;
 
     await injector<NetworkService>().updateBaseUrl();
-    final isLoggedIn = await UserCubit.instance.init();
+    await UserCubit.instance.init();
     await minimumSplashDuration;
 
     if (!context.mounted) return;
-    Go.offAll(isLoggedIn ? const HomeScreen() : const LoginScreen());
+    Go.offAll(const IntroScreen());
   }
 }
-

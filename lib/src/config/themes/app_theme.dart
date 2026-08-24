@@ -16,10 +16,16 @@ class AppTheme {
         modalBackgroundColor: AppColors.white,
         surfaceTintColor: Colors.transparent,
       ),
-      appBarTheme: const AppBarTheme(
-        backgroundColor: AppColors.scaffoldBackground,
+      appBarTheme: AppBarTheme(
+        backgroundColor: AppColors.introGradientStart,
         foregroundColor: AppColors.white,
-        iconTheme: IconThemeData(color: AppColors.primary),
+        titleTextStyle: TextStyle(
+          fontFamily: ConstantManager.fontFamily,
+          color: AppColors.white,
+          fontSize: FontSizeManager.s14,
+          fontWeight: FontWeightManager.regular,
+        ),
+        iconTheme: const IconThemeData(color: AppColors.white),
       ),
       scaffoldBackgroundColor: AppColors.scaffoldBackground,
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(

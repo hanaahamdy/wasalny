@@ -28,6 +28,15 @@ class AppColors {
   static const Color avatarCameraIcon = Color(0xff7A9691);
   static const Color phoneCountryBadge = Color(0xff006C35);
   static const Color signUpLoginLinkText = Color(0xff012B1F);
+  static const Color introGradientStart = Color(0xFF69C293);
+  static const Color introGradientEnd = Color(0xFF0090C5);
+  static const Color introButtonBorder = Color(0x80FFFFFF);
+  static const Color introInactiveIndicator = Color(0x80FFFFFF);
+  static const LinearGradient buttonGradient = LinearGradient(
+    colors: [introGradientStart, introGradientEnd],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
 
   static const Color scaffoldBackground = Color(0xffFFFFFF);
   static const Color border = Color(0xFFC5C6C9);

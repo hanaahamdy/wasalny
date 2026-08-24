@@ -5,11 +5,7 @@ import 'dart:io';
 import "package:firebase_core/firebase_core.dart";
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import '../../config/language/locale_keys.g.dart';
 import '../../config/res/config_imports.dart';
-import '../../features/logic/home_tabs/bookings/presentation/bookings_feature.dart';
-import '../../features/settings/team/presentation/imports/view_imports.dart';
-import '../navigation/navigator.dart';
 import '../network/un_authenticated_interceptor.dart';
 import '../../../firebase_options.dart';
 

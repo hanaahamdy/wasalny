@@ -53,30 +53,53 @@ class DefaultButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final effectiveBorderRadius =
+        borderRadius ?? BorderRadius.circular(AppCircular.r8);
+    final isDisabled = disabled == true || onTap == null;
+    final useGradient = color == null;
+
     return SizedBox(
       width: width ?? context.width * .9,
       height: height ?? AppSize.sH45,
-      child: ElevatedButton(
-        onPressed: onTap,
-        style: ElevatedButton.styleFrom(
-          splashFactory: InkRipple.splashFactory,
-          surfaceTintColor: color ?? AppColors.buttonColor,
-          foregroundColor: color ?? AppColors.buttonColor,
-          backgroundColor: color ?? AppColors.buttonColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: borderRadius ?? BorderRadius.circular(AppCircular.r8),
-            side: borderColor != null
-                ? BorderSide(
-                    color: borderColor ?? AppColors.buttonColor,
-                    width: .5,
-                  )
-                : BorderSide.none,
-          ),
-          elevation: elevation ?? ConstantManager.zeroAsDouble,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: useGradient
+              ? null
+              : isDisabled
+              ? AppColors.grey1
+              : color,
+          gradient: useGradient
+              ? isDisabled
+                    ? AppColors.disableGradient
+                    : AppColors.buttonGradient
+              : null,
+          borderRadius: effectiveBorderRadius,
         ),
-        child: isFitted
-            ? FittedBox(child: customChild ?? _defaultChild)
-            : customChild ?? _defaultChild,
+        child: ElevatedButton(
+          onPressed: isDisabled ? null : onTap,
+          style: ElevatedButton.styleFrom(
+            splashFactory: InkRipple.splashFactory,
+            surfaceTintColor: Colors.transparent,
+            foregroundColor: Colors.transparent,
+            backgroundColor: Colors.transparent,
+            disabledBackgroundColor: Colors.transparent,
+            disabledForegroundColor: Colors.transparent,
+            shadowColor: Colors.transparent,
+            shape: RoundedRectangleBorder(
+              borderRadius: effectiveBorderRadius,
+              side: borderColor != null
+                  ? BorderSide(
+                      color: borderColor ?? AppColors.buttonColor,
+                      width: .5,
+                    )
+                  : BorderSide.none,
+            ),
+            elevation: elevation ?? ConstantManager.zeroAsDouble,
+          ),
+          child: isFitted
+              ? FittedBox(child: customChild ?? _defaultChild)
+              : customChild ?? _defaultChild,
+        ),
       ),
     );
   }

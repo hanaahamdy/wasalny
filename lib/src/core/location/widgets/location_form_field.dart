@@ -63,7 +63,7 @@ class LocationTextField extends StatelessWidget {
     return CustomTextFiled(
       suffixIcon: Icon(
         Icons.location_on_outlined,
-        color: AppColors.hintText,
+        color: AppColors.grey2,
         size: 20.h,
       ),
       controller: controller,
@@ -74,7 +74,7 @@ class LocationTextField extends StatelessWidget {
         }
         return null;
       },
-      hint: LocaleKeys.signUpSelectLocation,
+      hint: LocaleKeys.selectTheLocation,
       readOnly: true,
       title: label ?? LocaleKeys.location,
       textInputType: TextInputType.text,

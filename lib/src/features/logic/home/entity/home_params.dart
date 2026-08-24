@@ -12,17 +12,6 @@ class HomeParams {
 
   void dispose() => selectedIndexNotifier.dispose();
 
-  String visitorDesc(int value) {
-    switch (value) {
-      case 1:
-        return LocaleKeys.bookings;
-      case 2:
-        return LocaleKeys.wallet;
-      default:
-        return ConstantManager.emptyText;
-    }
-  }
-
   void updateNavValue(int value) {
     selectedIndexNotifier.value = value;
     // if (UserCubit.instance.isUserLoggedIn) {
@@ -42,13 +31,10 @@ class HomeParams {
       icon: AppAssets.svg.baseSvg.home.path,
     ),
     NavigationBarEntity(
-      text: LocaleKeys.bookings,
+      text: LocaleKeys.orders,
       icon: AppAssets.svg.baseSvg.bookingIcon.path,
     ),
-    NavigationBarEntity(
-      text: LocaleKeys.wallet,
-      icon: AppAssets.svg.baseSvg.wallet.path,
-    ),
+
     NavigationBarEntity(
       text: LocaleKeys.more,
       icon: AppAssets.svg.baseSvg.more.path,
