@@ -2,7 +2,7 @@ part of '../imports/view_imports.dart';
 
 mixin LoginMixin on Cubit<AuthFormState> {
   final formKey = GlobalKey<FormState>();
-  final phoneController = TextEditingController();
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   void login() {
@@ -14,8 +14,8 @@ mixin LoginMixin on Cubit<AuthFormState> {
     emit(state.copyWith(isLoading: true));
     final adminUser = UserModel.initial().copyWith(
       fullName: 'Admin',
-      phoneNumber: phoneController.text.trim(),
-      userType: UserType.admin,
+      email: emailController.text.trim(),
+      userType: UserType.delivery,
     );
 
     await UserCubit.instance.setUserLoggedIn(
@@ -26,13 +26,9 @@ mixin LoginMixin on Cubit<AuthFormState> {
     Go.offAll(const HomeScreen());
   }
 
-  void createDeliveryAccount() {
-    Go.off(const RegisterScreen());
-  }
-
   @override
   Future<void> close() {
-    phoneController.dispose();
+    emailController.dispose();
     passwordController.dispose();
     return super.close();
   }

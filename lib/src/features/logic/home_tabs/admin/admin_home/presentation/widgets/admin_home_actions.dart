@@ -1,7 +1,7 @@
 part of '../imports/presentation_imports.dart';
 
 class AdminHomeActions extends StatelessWidget {
-  const AdminHomeActions();
+  const AdminHomeActions({super.key});
 
   @override
   Widget build(BuildContext context) {

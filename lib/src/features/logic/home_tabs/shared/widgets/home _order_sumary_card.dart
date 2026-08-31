@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../../config/res/config_imports.dart';
+
 class HomeOrderSummaryCard extends StatelessWidget {
   final String value;
   final String label;
@@ -7,7 +8,8 @@ class HomeOrderSummaryCard extends StatelessWidget {
   final Color iconBackground;
   final Color iconColor;
 
-  const HomeOrderSummaryCard({super.key,
+  const HomeOrderSummaryCard({
+    super.key,
     required this.value,
     required this.label,
     required this.icon,
@@ -18,7 +20,7 @@ class HomeOrderSummaryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: AppSize.sH100,
+      height: AppSize.sH120,
       padding: EdgeInsets.all(AppPadding.pW10),
       decoration: BoxDecoration(
         color: AppColors.white,
@@ -27,23 +29,24 @@ class HomeOrderSummaryCard extends StatelessWidget {
         boxShadow: [AppColors.containerShadow],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Align(
-            alignment: AlignmentDirectional.topStart,
+            alignment: AlignmentDirectional.topCenter,
             child: Container(
-              width: AppSize.sW28,
-              height: AppSize.sW28,
+              width: AppSize.sW50,
+              height: AppSize.sW50,
               decoration: BoxDecoration(
                 color: iconBackground,
                 borderRadius: BorderRadius.circular(AppCircular.r8),
               ),
-              child: Icon(icon, color: iconColor, size: AppSize.sH17),
+              child: Icon(icon, color: iconColor, size: AppSize.sH30),
             ),
           ),
           const Spacer(),
           Text(
             value,
+            textAlign: TextAlign.center,
             style: TextStyle(
               color: AppColors.main,
               fontSize: FontSizeManager.s18,
@@ -53,6 +56,7 @@ class HomeOrderSummaryCard extends StatelessWidget {
 
           Text(
             label,
+            textAlign: TextAlign.center,
             style: TextStyle(
               color: AppColors.hintText,
               fontSize: FontSizeManager.s10,

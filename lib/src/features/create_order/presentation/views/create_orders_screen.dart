@@ -1,13 +1,24 @@
 part of '../imports/presentation-imports.dart';
 
 class CreateOrdersScreen extends StatelessWidget {
-  const CreateOrdersScreen({super.key});
+  final String initialCustomerName;
+  final String initialCustomerPhone;
+
+  const CreateOrdersScreen({
+    super.key,
+    this.initialCustomerName = '',
+    this.initialCustomerPhone = '',
+  });
 
   @override
   Widget build(BuildContext context) {
     context.locale;
     return BlocProvider(
-      create: (_) => CreateOrdersCubit(),
+      create: (_) => CreateOrdersCubit()
+        ..prefillCustomer(
+          name: initialCustomerName,
+          phone: initialCustomerPhone,
+        ),
       child: AnnotatedRegion<SystemUiOverlayStyle>(
         value: const SystemUiOverlayStyle(
           statusBarColor: AppColors.authTabSelected,

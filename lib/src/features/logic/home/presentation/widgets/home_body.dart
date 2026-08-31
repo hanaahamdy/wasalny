@@ -14,8 +14,8 @@ class _HomeBody extends StatelessWidget {
             : const DeliveryHomeScreen();
       case 1:
         return const OrdersScreen();
-      case 3:
-        return const SizedBox.shrink();
+      case 2:
+        return const MoreScreen();
       default:
         return const SizedBox.shrink();
     }

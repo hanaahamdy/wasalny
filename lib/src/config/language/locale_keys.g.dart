@@ -70,9 +70,6 @@ abstract class LocaleKeys {
   static const String _createAccount = 'create_account';
   static String get createAccount => _createAccount.tr();
 
-  static const String _createDeliveryAccount = 'create_delivery_account';
-  static String get createDeliveryAccount => _createDeliveryAccount.tr();
-
   static const String _verifyAccount = 'verify_account';
   static String get verifyAccount => _verifyAccount.tr();
 
@@ -457,11 +454,11 @@ abstract class LocaleKeys {
   static const String _introStartnow = 'intro_startnow';
   static String get introStartnow => _introStartnow.tr();
 
-  static const String _introWaslnyTitle = 'intro_waslny_title';
-  static String get introWaslnyTitle => _introWaslnyTitle.tr();
+  static const String _splashWaslnyTitle = 'splash_waslny_title';
+  static String get splashWaslnyTitle => _splashWaslnyTitle.tr();
 
-  static const String _introWaslnySubtitle = 'intro_waslny_subtitle';
-  static String get introWaslnySubtitle => _introWaslnySubtitle.tr();
+  static const String _splashWaslnySubtitle = 'splash_waslny_subtitle';
+  static String get splashWaslnySubtitle => _splashWaslnySubtitle.tr();
 
   static const String _introNext = 'intro_next';
   static String get introNext => _introNext.tr();
@@ -664,6 +661,54 @@ abstract class LocaleKeys {
   static const String _moreAboutUsSubtitle = 'more_about_us_subtitle';
   static String get moreAboutUsSubtitle => _moreAboutUsSubtitle.tr();
 
+  static const String _moreManagement = 'more_management';
+  static String get moreManagement => _moreManagement.tr();
+
+  static const String _customers = 'customers';
+  static String get customers => _customers.tr();
+
+  static const String _deliveryStaff = 'delivery_staff';
+  static String get deliveryStaff => _deliveryStaff.tr();
+
+  static const String _sales = 'sales';
+  static String get sales => _sales.tr();
+
+  static const String _liveBroadcast = 'live_broadcast';
+  static String get liveBroadcast => _liveBroadcast.tr();
+
+  static const String _moreAccountAndSettings = 'more_account_and_settings';
+  static String get moreAccountAndSettings => _moreAccountAndSettings.tr();
+
+  static const String _language = 'language';
+  static String get language => _language.tr();
+
+  static const String _moreLegal = 'more_legal';
+  static String get moreLegal => _moreLegal.tr();
+
+  static const String _privacyPolicy = 'privacy_policy';
+  static String get privacyPolicy => _privacyPolicy.tr();
+
+  static const String _editProfile = 'edit_profile';
+  static String get editProfile => _editProfile.tr();
+
+  static const String _myDeliveries = 'my_deliveries';
+  static String get myDeliveries => _myDeliveries.tr();
+
+  static const String _selectMonth = 'select_month';
+  static String get selectMonth => _selectMonth.tr();
+
+  static const String _august2026 = 'august_2026';
+  static String get august2026 => _august2026.tr();
+
+  static const String _completedDeliveriesCount = 'completed_deliveries_count';
+  static String get completedDeliveriesCount => _completedDeliveriesCount.tr();
+
+  static const String _deliveredOrders = 'delivered_orders';
+  static String get deliveredOrders => _deliveredOrders.tr();
+
+  static const String _active = 'active';
+  static String get active => _active.tr();
+
   static const String _notificationsTitle = 'notifications_title';
   static String get notificationsTitle => _notificationsTitle.tr();
 
@@ -763,11 +808,17 @@ abstract class LocaleKeys {
   static const String _orderPending = 'order_pending';
   static String get orderPending => _orderPending.tr();
 
+  static const String _orderCreated = 'order_created';
+  static String get orderCreated => _orderCreated.tr();
+
   static const String _orderDelivering = 'order_delivering';
   static String get orderDelivering => _orderDelivering.tr();
 
   static const String _orderReceived = 'order_received';
   static String get orderReceived => _orderReceived.tr();
+
+  static const String _orderCancelled = 'order_cancelled';
+  static String get orderCancelled => _orderCancelled.tr();
 
   static const String _orderCount = 'order_count';
   static String get orderCount => _orderCount.tr();
@@ -889,4 +940,63 @@ abstract class LocaleKeys {
   static const String _delivered = 'delivered';
   static String get delivered => _delivered.tr();
 
+  static const String _inactive = 'inactive';
+  static String get inactive => _inactive.tr();
+
+  static const String _deliveryDetails = 'delivery_details';
+  static String get deliveryDetails => _deliveryDetails.tr();
+
+  static const String _editDeliveryData = 'edit_delivery_data';
+  static String get editDeliveryData => _editDeliveryData.tr();
+
+  static const String _disableAccount = 'disable_account';
+  static String get disableAccount => _disableAccount.tr();
+
+  static const String _deleteDelivery = 'delete_delivery';
+  static String get deleteDelivery => _deleteDelivery.tr();
+
+  static const String _deliveryId = 'delivery_id';
+  static String get deliveryId => _deliveryId.tr();
+
+  static const String _salesFilter = 'sales_filter';
+  static String get salesFilter => _salesFilter.tr();
+
+  static const String _totalSales = 'total_sales';
+  static String get totalSales => _totalSales.tr();
+
+  static const String _completedOrders = 'completed_orders';
+  static String get completedOrders => _completedOrders.tr();
+
+  static const String _salesAmount = 'sales_amount';
+  static String get salesAmount => _salesAmount.tr();
+
+  static const String _totalDeliveryFees = 'total_delivery_fees';
+  static String get totalDeliveryFees => _totalDeliveryFees.tr();
+
+  static const String _egyptianPound = 'egyptian_pound';
+  static String get egyptianPound => _egyptianPound.tr();
+
+  static const String _egyptianPoundShort = 'egyptian_pound_short';
+  static String get egyptianPoundShort => _egyptianPoundShort.tr();
+
+  static const String _customer = 'customer';
+  static String get customer => _customer.tr();
+
+  static const String _fromDate = 'from_date';
+  static String get fromDate => _fromDate.tr();
+
+  static const String _toDate = 'to_date';
+  static String get toDate => _toDate.tr();
+
+  static const String _applyFilter = 'apply_filter';
+  static String get applyFilter => _applyFilter.tr();
+
+  static const String _editDeliveryProfile = 'edit_delivery_profile';
+  static String get editDeliveryProfile => _editDeliveryProfile.tr();
+
+  static const String _deliveryProfilePhotoOptional = 'delivery_profile_photo_optional';
+  static String get deliveryProfilePhotoOptional => _deliveryProfilePhotoOptional.tr();
+
+  static const String _uploadPhoto = 'upload_photo';
+  static String get uploadPhoto => _uploadPhoto.tr();
 }

@@ -94,6 +94,7 @@ class OrderCard extends StatelessWidget {
         background: AppColors.settingsProfileIconBackground,
         textColor: AppColors.authTabSelected,
       ),
+
       AdminOrderTab.delivering => OrderStatusData(
         label: AdminOrderTab.delivering.label,
         background: AppColors.settingsProfileIconBackground,
@@ -101,6 +102,11 @@ class OrderCard extends StatelessWidget {
       ),
       AdminOrderTab.received => OrderStatusData(
         label: AdminOrderTab.received.label,
+        background: AppColors.settingsProfileIconBackground,
+        textColor: AppColors.authTabSelected,
+      ),
+      AdminOrderTab.cancelled => OrderStatusData(
+        label: AdminOrderTab.created.label,
         background: AppColors.settingsProfileIconBackground,
         textColor: AppColors.authTabSelected,
       ),

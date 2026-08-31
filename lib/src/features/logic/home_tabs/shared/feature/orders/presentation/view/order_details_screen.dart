@@ -15,8 +15,7 @@ class OrderDetailsScreen extends StatelessWidget {
         statusBarBrightness: Brightness.dark,
       ),
       child: Scaffold(
-        appBar: AppBar(title: Text(LocaleKeys.orderDetails),),
-        backgroundColor: AppColors.fieldFillColor,
+        appBar: AppBar(title: Text(LocaleKeys.orderDetails)),
         body: OrderDetailsBody(order: order),
       ),
     );

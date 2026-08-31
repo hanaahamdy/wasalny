@@ -17,6 +17,6 @@ class SplashCubit extends Cubit<SplashState> {
     await minimumSplashDuration;
 
     if (!context.mounted) return;
-    Go.offAll(const IntroScreen());
+    Go.offAll(const LoginScreen());
   }
 }

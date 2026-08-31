@@ -15,6 +15,7 @@ import '../../../home_tabs/delivery/delivery_home/presentation/imports/presentat
 import '../../../home_tabs/shared/feature/orders/entity/order_model.dart';
 import '../../../home_tabs/shared/feature/orders/presentation/imports/view_imports.dart';
 import '../../../home_tabs/shared/widgets/home _order_sumary_card.dart';
+import '../../../../settings/more/presentation/more_screen.dart';
 import '../../entity/home_params.dart';
 
 part '../view/home_screen.dart';

@@ -27,7 +27,7 @@ class AppTheme {
         ),
         iconTheme: const IconThemeData(color: AppColors.white),
       ),
-      scaffoldBackgroundColor: AppColors.scaffoldBackground,
+      scaffoldBackgroundColor: AppColors.fieldFillColor,
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: AppColors.white,
         selectedItemColor: AppColors.primary,

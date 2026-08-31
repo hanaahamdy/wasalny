@@ -57,29 +57,11 @@ class CreateOrdersBody extends StatelessWidget {
                       textInputAction: TextInputAction.next,
                     ),
                     SizedBox(height: AppSize.sH14),
-                    CustomTextFiled(
-                      title: LocaleKeys.productName,
-                      hint: LocaleKeys.pieceOrProductName,
-                      controller: cubit.addressController,
-                      validator: (value) => Validators.validateEmpty(
-                        value,
-                        fieldTitle: LocaleKeys.orderAddress,
-                      ),
-                      textInputType: TextInputType.text,
-                      textInputAction: TextInputAction.next,
-                    ),
-                    SizedBox(height: AppSize.sH14),
-                    CustomTextFiled(
-                      hint: LocaleKeys.amount,
-                      title: LocaleKeys.numberOfPieces,
-                      controller: cubit.numberOfPieces,
-                      textInputType: TextInputType.number,
-                      prefixIcon: const Icon(Icons.payments_outlined),
-                      validator: (value) => Validators.validatePositiveInteger(
-                        value,
-                        fieldTitle: LocaleKeys.orderTotal,
-                      ),
-                      textInputAction: TextInputAction.next,
+                    BlocBuilder<CreateOrdersCubit, CreateOrdersState>(
+                      buildWhen: (previous, current) =>
+                          previous.itemCount != current.itemCount,
+                      builder: (context, state) =>
+                          _OrderItemsSection(cubit: cubit),
                     ),
                     SizedBox(height: AppSize.sH14),
                     CustomTextFiled(
@@ -120,6 +102,80 @@ class CreateOrdersBody extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _OrderItemsSection extends StatelessWidget {
+  final CreateOrdersCubit cubit;
+
+  const _OrderItemsSection({required this.cubit});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: List.generate(cubit.orderItems.length, (index) {
+        final item = cubit.orderItems[index];
+
+        return Padding(
+          padding: EdgeInsets.only(
+            bottom: index == cubit.orderItems.length - 1 ? 0 : AppPadding.pH14,
+          ),
+          child: Container(
+            padding: EdgeInsets.all(AppPadding.pW12),
+            decoration: BoxDecoration(
+              color: AppColors.white,
+              borderRadius: BorderRadius.circular(AppCircular.r10),
+              border: Border.all(color: AppColors.inputBorder),
+            ),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    if (index > 0)
+                      IconButton(
+                        onPressed: () => cubit.removeOrderItem(index),
+                        icon: const Icon(Icons.remove_circle_outline),
+                        color: AppColors.error,
+                      ),
+                    if (index == 0)
+                      IconButton(
+                        onPressed: cubit.addOrderItem,
+                        icon: const Icon(Icons.add_circle_outline),
+                        color: AppColors.authTabSelected,
+                      ),
+                  ],
+                ),
+                CustomTextFiled(
+                  title: LocaleKeys.productName,
+                  hint: LocaleKeys.pieceOrProductName,
+                  controller: item.productName,
+                  validator: (value) => Validators.validateEmpty(
+                    value,
+                    fieldTitle: LocaleKeys.productName,
+                  ),
+                  textInputType: TextInputType.text,
+                  textInputAction: TextInputAction.next,
+                ),
+                SizedBox(height: AppSize.sH14),
+                CustomTextFiled(
+                  hint: LocaleKeys.amount,
+                  title: LocaleKeys.numberOfPieces,
+                  controller: item.quantity,
+                  textInputType: TextInputType.number,
+                  prefixIcon: const Icon(Icons.inventory_2_outlined),
+                  validator: (value) => Validators.validatePositiveInteger(
+                    value,
+                    fieldTitle: LocaleKeys.numberOfPieces,
+                  ),
+                  textInputAction: TextInputAction.next,
+                ),
+              ],
+            ),
+          ),
+        );
+      }),
     );
   }
 }

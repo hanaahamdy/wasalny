@@ -17,14 +17,14 @@ class LoginScreen extends StatelessWidget {
               subtitle: LocaleKeys.loginSubtitle,
               fields: [
                 CustomTextFiled(
-                  title: LocaleKeys.phoneNumber,
-                  hint: LocaleKeys.pleaseEnterYourPhoneNumber,
-                  controller: cubit.phoneController,
-                  textInputType: TextInputType.phone,
-                  prefixIcon: const Icon(Icons.phone_outlined),
-                  validator: (value) => Validators.validatePhone(
+                  title: LocaleKeys.email,
+                  hint: LocaleKeys.enterTheEmail,
+                  controller: cubit.emailController,
+                  textInputType: TextInputType.emailAddress,
+                  prefixIcon: const Icon(Icons.mail_outline),
+                  validator: (value) => Validators.validateEmail(
                     value,
-                    fieldTitle: LocaleKeys.phoneNumber,
+                    fieldTitle: LocaleKeys.email,
                   ),
                   textInputAction: TextInputAction.next,
                 ),
@@ -52,8 +52,6 @@ class LoginScreen extends StatelessWidget {
               ],
               buttonTitle: LocaleKeys.login,
               onSubmit: cubit.login,
-              secondaryButtonTitle: LocaleKeys.createDeliveryAccount,
-              onSecondarySubmit: cubit.createDeliveryAccount,
               footer: AuthActionLink(
                 label: LocaleKeys.doNotHaveAnAccount,
                 action: LocaleKeys.register,
