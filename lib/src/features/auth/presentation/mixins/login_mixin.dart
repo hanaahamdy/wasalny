@@ -7,23 +7,8 @@ mixin LoginMixin on Cubit<AuthFormState> {
 
   void login() {
     if (state.isLoading) return;
-    _loginAsAdmin();
-  }
-
-  Future<void> _loginAsAdmin() async {
-    emit(state.copyWith(isLoading: true));
-    final adminUser = UserModel.initial().copyWith(
-      fullName: 'Admin',
-      email: emailController.text.trim(),
-      userType: UserType.delivery,
-    );
-
-    await UserCubit.instance.setUserLoggedIn(
-      user: adminUser,
-      token: 'mock-admin-token',
-    );
-
-    Go.offAll(const HomeScreen());
+    if (formKey.currentState?.validate() != true) return;
+    Go.offAll(RoleSelectionScreen(email: emailController.text.trim()));
   }
 
   @override

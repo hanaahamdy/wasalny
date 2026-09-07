@@ -9,12 +9,9 @@ import '../../../../config/res/config_imports.dart';
 import '../../../../core/extensions/text_style_extensions.dart';
 import '../../../../core/helpers/validators.dart';
 import '../../../../core/navigation/navigator.dart';
-import '../../../../core/shared/cubits/user_cubit/user_cubit.dart';
-import '../../../../core/shared/models/user_model.dart';
 import '../../../../core/widgets/buttons/default_button.dart';
 import '../../../../core/widgets/fields/text_fields/custom_text_field.dart';
-import '../../../../core/widgets/fields/text_fields/default_text_field.dart';
-import '../../../logic/home/presentation/imports/view_imports.dart';
+import '../../../workflow/presentation/role_selection_screen.dart';
 
 part '../cubits/auth_form_state.dart';
 part '../cubits/login_cubit.dart';
