@@ -1,13 +1,15 @@
 import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../config/language/locale_keys.g.dart';
 import '../../../../config/res/config_imports.dart';
-import '../../../base_crud/code/presentation/cubit/base_cubit/async_cubit.dart';
+import '../../../extensions/base_state.dart';
 import '../../../helpers/cache_service.dart';
+import '../../../widgets/custom_messages.dart';
 
 @injectable
-class BaseUrlCubit extends AsyncCubit<String?> {
+class BaseUrlCubit extends Cubit<String?> {
   BaseUrlCubit() : super(null);
 
   Future<bool> fetchBaseUrl() async {
@@ -44,9 +46,9 @@ class BaseUrlCubit extends AsyncCubit<String?> {
         }
 
         if (!hasStoredBaseUrl && attempts >= 5) {
-          setError(
-            errorMessage: LocaleKeys.dataUpdatingNowComeLater,
-            showToast: true,
+          MessageUtils.showSnackBar(
+            baseStatus: BaseStatus.error,
+            message: LocaleKeys.dataUpdatingNowComeLater,
           );
           return false;
         }

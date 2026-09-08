@@ -14,7 +14,6 @@ class NotificationScreen extends StatelessWidget {
           statusBarBrightness: Brightness.dark,
         ),
         child: Scaffold(
-
           appBar: CustomAppbar(title: LocaleKeys.notificationsTitle),
           backgroundColor: AppColors.scaffoldBackground,
           body: Column(
@@ -32,4 +31,3 @@ class NotificationScreen extends StatelessWidget {
     );
   }
 }
-

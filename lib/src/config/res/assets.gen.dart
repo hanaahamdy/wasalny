@@ -46,6 +46,13 @@ class $AssetsFontsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/create_match_stadium.png
+  AssetGenImage get createMatchStadium =>
+      const AssetGenImage('assets/images/create_match_stadium.png');
+
+  /// File path: assets/images/intro1.png
+  AssetGenImage get intro1 => const AssetGenImage('assets/images/intro1.png');
+
   /// File path: assets/images/profile_backgroung.png
   AssetGenImage get profileBackgroung =>
       const AssetGenImage('assets/images/profile_backgroung.png');
@@ -64,6 +71,8 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
+    createMatchStadium,
+    intro1,
     profileBackgroung,
     taemLogo,
     teamDetailsCaptain,
@@ -202,6 +211,10 @@ class $AssetsSvgBaseSvgGen {
   /// File path: assets/svg/base_svg/arrow_down.svg
   SvgGenImage get arrowDown =>
       const SvgGenImage('assets/svg/base_svg/arrow_down.svg');
+
+  /// File path: assets/svg/base_svg/booking_date_time.svg
+  SvgGenImage get bookingDateTime =>
+      const SvgGenImage('assets/svg/base_svg/booking_date_time.svg');
 
   /// File path: assets/svg/base_svg/booking_icon.svg
   SvgGenImage get bookingIcon =>
@@ -356,6 +369,7 @@ class $AssetsSvgBaseSvgGen {
     uploadDoted,
     arrowBack,
     arrowDown,
+    bookingDateTime,
     bookingIcon,
     calednder,
     call,
@@ -396,9 +410,7 @@ class $AssetsSvgBaseSvgGen {
   ];
 }
 
-class AppAssets {
-  const AppAssets._();
-
+abstract final class AppAssets {
   static const $AssetsFontsGen fonts = $AssetsFontsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsLottieGen lottie = $AssetsLottieGen();

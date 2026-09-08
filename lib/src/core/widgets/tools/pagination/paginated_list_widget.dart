@@ -1,6 +1,6 @@
 part of 'imports/pagination_imports.dart';
 
-/// A customizable paginated list widget with AsyncBlocBuilder
+/// A customizable paginated list widget driven by a plain Cubit.
 class PaginatedListWidget<C extends PaginatedCubit<T>, T>
     extends StatefulWidget {
   /// Item builder for each item in the list
@@ -87,7 +87,7 @@ class _PaginatedListWidgetState<C extends PaginatedCubit<T>, T>
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<C, AsyncState<PaginatedData<T>>>(
+    return BlocBuilder<C, RequestState<PaginatedData<T>>>(
       builder: (context, state) {
         // Show shimmer only on initial load or loading (not on loadingMore)
         if ((state.status == BaseStatus.initial ||

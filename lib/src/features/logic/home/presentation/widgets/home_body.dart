@@ -9,7 +9,7 @@ class _HomeBody extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (index) {
       case 0:
-        return UserCubit.instance.user.userType == UserType.admin
+        return UserCubit.instance.user.role == UserRole.admin
             ? const AdminHome()
             : const DeliveryHomeScreen();
       case 1:

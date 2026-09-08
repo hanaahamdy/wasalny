@@ -1,13 +1,13 @@
 part of '../imports/view_imports.dart';
 
 class OrdersCubit extends Cubit<int> {
-  OrdersCubit({UserType? userType})
-    : userType = userType ?? UserCubit.instance.user.userType,
+  OrdersCubit({UserRole? userRole})
+    : userRole = userRole ?? UserCubit.instance.user.role,
       super(0);
 
-  final UserType userType;
+  final UserRole userRole;
 
-  bool get isAdmin => userType == UserType.admin;
+  bool get isAdmin => userRole == UserRole.admin;
 
   List<String> get tabs => isAdmin
       ? AdminOrderTab.values.map((tab) => tab.label).toList()

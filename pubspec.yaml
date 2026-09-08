@@ -75,6 +75,11 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+# flutter_html 3.0.0 imports a private query-selector API removed in html 0.15.7.
+# Keep the last compatible release until flutter_html publishes an update.
+dependency_overrides:
+  html: 0.15.6
+
 flutter:
   uses-material-design: true
 

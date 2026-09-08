@@ -1,21 +1,18 @@
 part of '../imports/contact_us_imports.dart';
 
 @injectable
-class ContactUsCubit extends AsyncCubit<BaseModel?> {
-  ContactUsCubit() : super(null);
+class ContactUsCubit extends Cubit<RequestState<BaseModel?>> {
+  final ContactUsRepository _repository;
+
+  ContactUsCubit(this._repository) : super(const RequestState(data: null));
 
   Future<void> contactUs(ContactUsParams params) async {
-    if (isLoading || !params.validateAndScroll()) return;
-    await executeAsync(
-      operation: () async => baseCrudUseCase.call(
-        CrudBaseParams(
-          api: ApiConstants.contactUs,
-          body: params.toJson(),
-          httpRequestType: HttpRequestType.post,
-          mapper: (json) => BaseModel.fromJson(json),
-        ),
-      ),
-      successEmitter: (success) async {
+    if (state.isLoading || !params.validateAndScroll()) return;
+    emit(state.copyWith(status: BaseStatus.loading, clearError: true));
+    final result = await _repository.send(params);
+    await result.when(
+      (success) async {
+        emit(state.copyWith(status: BaseStatus.success, data: success));
         final context = Go.context;
         if (!context.mounted) return;
         await successDialog(
@@ -24,6 +21,18 @@ class ContactUsCubit extends AsyncCubit<BaseModel?> {
               ? success!.message
               : LocaleKeys.contactRequestSendSuccessfully,
           afterSuccess: () => Go.back(true),
+        );
+      },
+      (failure) async {
+        emit(
+          state.copyWith(
+            status: BaseStatus.error,
+            errorMessage: failure.message,
+          ),
+        );
+        MessageUtils.showSnackBar(
+          baseStatus: BaseStatus.error,
+          message: failure.message,
         );
       },
     );

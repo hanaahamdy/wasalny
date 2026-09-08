@@ -14,10 +14,7 @@ import '../../../../../../home/presentation/imports/view_imports.dart';
 import '../../entity/order_model.dart';
 import '../../entity/order_tabs.dart';
 
-part '../cubits/create_orders_cubit.dart';
-part '../cubits/create_orders_state.dart';
 part '../cubits/orders_cubit.dart';
-part '../mixins/create_orders_mixin.dart';
 part '../view/order_details_screen.dart';
 part '../view/orders_screen.dart';
 part '../widgets/order_card.dart';

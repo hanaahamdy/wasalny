@@ -27,7 +27,7 @@ class MoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = UserCubit.instance.user;
-    final isAdmin = user.userType == UserType.admin;
+    final isAdmin = user.role == UserRole.admin;
 
     return ColoredBox(
       color: AppColors.fieldFillColor,

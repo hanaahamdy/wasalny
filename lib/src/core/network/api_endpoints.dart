@@ -10,6 +10,7 @@ class ApiConstants {
   static String stadiumDetails(int stadiumId) => 'stadiums/$stadiumId';
   static String stadiumSlots(int stadiumId) => 'stadiums/$stadiumId/slots';
   static const String bookings = 'bookings';
+  static const String orders = 'orders';
   static const String bookingCancelReasons = 'booking-cancel-reasons';
   static const String bookingOpponents = 'bookings/opponents';
   static String bookingDetails(int bookingId) => 'bookings/$bookingId';
@@ -39,10 +40,8 @@ class ApiConstants {
   static const String registerContent = 'user/get-register-data';
   static const String verifyAccountResendCode =
       'user/auth/verify-account-resend-code';
-  static const String forgetSendCode = 'auth/forgot-password/request-code';
-  static const String forgetReSendCode = 'auth/forgot-password/request-code';
-  static const String forgetCheckCode = 'auth/forgot-password/verify-code';
-  static const String resetPassword = 'auth/forgot-password/reset-password';
+  static const String forgotPassword = 'auth/forgot-password';
+  static const String resetPassword = 'auth/reset-password';
 
   // ---------------------- Notifications -----------------------------------
   static const String notifications = 'notifications';

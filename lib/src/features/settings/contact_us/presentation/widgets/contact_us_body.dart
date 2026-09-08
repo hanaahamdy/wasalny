@@ -73,7 +73,7 @@ class _ContactUsBodyState extends State<_ContactUsBody> {
             ),
           ),
           _ContactUsBottomBar(
-            isLoading: context.watch<ContactUsCubit>().isLoading,
+            isLoading: context.watch<ContactUsCubit>().state.isLoading,
             onSend: () => cubit.contactUs(params),
           ),
         ],

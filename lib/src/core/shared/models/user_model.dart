@@ -1,147 +1,172 @@
-enum UserType {
+enum UserRole {
   delivery('delivery'),
   admin('admin');
 
   final String value;
 
-  const UserType(this.value);
+  const UserRole(this.value);
 
-  static UserType fromJson(dynamic value) {
-    final rawValue = value is Map ? value['value'] : value;
-    final normalizedValue = rawValue?.toString().trim().toLowerCase();
+  String toJson() => value;
 
+  static UserRole fromJson(dynamic value) {
+    final normalizedValue = value?.toString().trim().toLowerCase();
     return switch (normalizedValue) {
-      'admin' || '1' => UserType.admin,
-      'delivery' || 'driver' || '0' => UserType.delivery,
-      _ => UserType.delivery,
+      'admin' => UserRole.admin,
+      'delivery' => UserRole.delivery,
+      _ => UserRole.delivery,
     };
   }
 }
 
 class UserModel {
-  final String id;
-  final String image;
-  final String fullName;
-  final String phoneNumber;
+  final int id;
+  final String name;
   final String email;
-  final String city;
-  final String district;
-  final String gender;
-  final String birthDate;
-  final String location;
-  final UserType userType;
-  final bool allowNotify;
-  final String? token;
+  final String phone;
+  final UserRole role;
+  final String? profilePhotoPath;
+  final String? address;
+  final String? image;
+  final double? latitude;
+  final double? longitude;
+  final int isActive;
+  final String? lastSeenAt;
+  final String? passwordResetOtp;
+  final String? passwordResetOtpExpiresAt;
+  final String? createdAt;
+  final String? updatedAt;
+  final String? deletedAt;
+  final String systemType;
+  final String? accessToken;
 
-  UserModel({
+  const UserModel({
     required this.id,
-    required this.image,
-    required this.fullName,
-    required this.phoneNumber,
+    required this.name,
     required this.email,
-    required this.city,
-    required this.district,
-    required this.gender,
-    required this.birthDate,
-    required this.location,
-    required this.userType,
-    required this.allowNotify,
-    required this.token,
+    required this.phone,
+    required this.role,
+    this.profilePhotoPath,
+    this.address,
+    this.image,
+    this.latitude,
+    this.longitude,
+    required this.isActive,
+    this.lastSeenAt,
+    this.passwordResetOtp,
+    this.passwordResetOtpExpiresAt,
+    this.createdAt,
+    this.updatedAt,
+    this.deletedAt,
+    required this.systemType,
+    this.accessToken,
   });
 
-  factory UserModel.initial() => UserModel(
-    id: '',
-    image: '',
-    fullName: '',
-    phoneNumber: '',
+  factory UserModel.initial() => const UserModel(
+    id: 0,
+    name: '',
     email: '',
-    city: '',
-    district: '',
-    gender: '',
-    birthDate: '',
-    location: '',
-    userType: UserType.delivery,
-    allowNotify: false,
-    token: '',
+    phone: '',
+    role: UserRole.delivery,
+    isActive: 0,
+    systemType: '',
   );
 
   UserModel copyWith({
-    String? id,
-    String? image,
-    String? fullName,
-    String? phoneNumber,
+    int? id,
+    String? name,
     String? email,
-    String? city,
-    String? district,
-    String? gender,
-    String? birthDate,
-    String? location,
-    UserType? userType,
-    bool? allowNotify,
-    String? token,
+    String? phone,
+    UserRole? role,
+    String? profilePhotoPath,
+    String? address,
+    String? image,
+    double? latitude,
+    double? longitude,
+    int? isActive,
+    String? lastSeenAt,
+    String? passwordResetOtp,
+    String? passwordResetOtpExpiresAt,
+    String? createdAt,
+    String? updatedAt,
+    String? deletedAt,
+    String? systemType,
+    String? accessToken,
   }) {
     return UserModel(
       id: id ?? this.id,
-      image: image ?? this.image,
-      fullName: fullName ?? this.fullName,
-      phoneNumber: phoneNumber ?? this.phoneNumber,
+      name: name ?? this.name,
       email: email ?? this.email,
-      city: city ?? this.city,
-      district: district ?? this.district,
-      gender: gender ?? this.gender,
-      birthDate: birthDate ?? this.birthDate,
-      location: location ?? this.location,
-      userType: userType ?? this.userType,
-      allowNotify: allowNotify ?? this.allowNotify,
-      token: token ?? this.token,
+      phone: phone ?? this.phone,
+      role: role ?? this.role,
+      profilePhotoPath: profilePhotoPath ?? this.profilePhotoPath,
+      address: address ?? this.address,
+      image: image ?? this.image,
+      latitude: latitude ?? this.latitude,
+      longitude: longitude ?? this.longitude,
+      isActive: isActive ?? this.isActive,
+      lastSeenAt: lastSeenAt ?? this.lastSeenAt,
+      passwordResetOtp: passwordResetOtp ?? this.passwordResetOtp,
+      passwordResetOtpExpiresAt:
+          passwordResetOtpExpiresAt ?? this.passwordResetOtpExpiresAt,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
+      systemType: systemType ?? this.systemType,
+      accessToken: accessToken ?? this.accessToken,
     );
   }
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
-    final cityData = json['city'];
-    final districtData = json['district'];
-    final genderData = json['gender'];
-    final locationData = json['location'];
-    final typeData = json['type'];
-    final userTypeData = json['userType'] ?? json['user_type'] ?? typeData;
+    double? asDouble(dynamic value) => value is num
+        ? value.toDouble()
+        : double.tryParse(value?.toString() ?? '');
+
+    int asInt(dynamic value) =>
+        value is num ? value.toInt() : int.tryParse('$value') ?? 0;
 
     return UserModel(
-      id: json['id']?.toString() ?? '',
-      image: json['image']?.toString() ?? '',
-      fullName: (json['fullName'] ?? json['name'])?.toString() ?? '',
-      phoneNumber: (json['phoneNumber'] ?? json['phone'])?.toString() ?? '',
+      id: asInt(json['id']),
+      name: json['name']?.toString() ?? '',
       email: json['email']?.toString() ?? '',
-      city: cityData is Map
-          ? cityData['name']?.toString() ?? ''
-          : cityData?.toString() ?? '',
-      district: districtData is Map
-          ? districtData['name']?.toString() ?? ''
-          : districtData?.toString() ?? '',
-      gender: genderData is Map
-          ? (genderData['label'] ?? genderData['value'])?.toString() ?? ''
-          : genderData?.toString() ?? '',
-      birthDate: (json['birthDate'] ?? json['birth_date'])?.toString() ?? '',
-      location: locationData is Map
-          ? locationData['map_desc']?.toString() ?? ''
-          : locationData?.toString() ?? '',
-      userType: UserType.fromJson(userTypeData),
-      allowNotify: (json['allowNotify'] ?? json['is_notify']) == true,
-      token: json['token']?.toString(),
+      phone: json['phone']?.toString() ?? '',
+      role: UserRole.fromJson(json['role']),
+      profilePhotoPath: json['profile_photo_path']?.toString(),
+      address: json['address']?.toString(),
+      image: json['image']?.toString(),
+      latitude: asDouble(json['latitude']),
+      longitude: asDouble(json['longitude']),
+      isActive: asInt(json['is_active']),
+      lastSeenAt: json['last_seen_at']?.toString(),
+      passwordResetOtp: json['password_reset_otp']?.toString(),
+      passwordResetOtpExpiresAt: json['password_reset_otp_expires_at']
+          ?.toString(),
+      createdAt: json['created_at']?.toString(),
+      updatedAt: json['updated_at']?.toString(),
+      deletedAt: json['deleted_at']?.toString(),
+      systemType: json['system_type']?.toString() ?? '',
+      accessToken: json['access_token']?.toString(),
     );
   }
 
   Map<String, dynamic> toJson() => {
     'id': id,
-    'image': image,
-    'fullName': fullName,
-    'phoneNumber': phoneNumber,
+    'name': name,
     'email': email,
-    'city': city,
-    'district': district,
-    'gender': gender,
-    'birthDate': birthDate,
-    'location': location,
-    'userType': userType.value,
-    'allowNotify': allowNotify,
+    'phone': phone,
+    'role': role.toJson(),
+    'profile_photo_path': profilePhotoPath,
+    'address': address,
+    'image': image,
+    'latitude': latitude,
+    'longitude': longitude,
+    'is_active': isActive,
+    'last_seen_at': lastSeenAt,
+    'password_reset_otp': passwordResetOtp,
+    'password_reset_otp_expires_at': passwordResetOtpExpiresAt,
+    'created_at': createdAt,
+    'updated_at': updatedAt,
+    'deleted_at': deletedAt,
+    'system_type': systemType,
+    'access_token': accessToken,
   };
 }

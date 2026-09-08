@@ -1,8 +1,8 @@
 part of '../imports/pagination_imports.dart';
 
 /// Abstract base cubit for paginated data
-abstract class PaginatedCubit<T> extends AsyncCubit<PaginatedData<T>> {
-  PaginatedCubit() : super(PaginatedData.initial());
+abstract class PaginatedCubit<T> extends Cubit<RequestState<PaginatedData<T>>> {
+  PaginatedCubit() : super(RequestState(data: PaginatedData.initial()));
 
   int _currentPage = 1;
   bool _isLoadingMore = false;
@@ -10,6 +10,7 @@ abstract class PaginatedCubit<T> extends AsyncCubit<PaginatedData<T>> {
 
   int get currentPage => _currentPage;
   bool get isLoadingMore => _isLoadingMore;
+  bool get isLoading => state.status.isLoading;
   bool get hasMorePages => !state.data.meta.isLastPage;
   bool get canLoadMore => hasMorePages && !_isLoadingMore && !isLoading;
 
@@ -37,7 +38,7 @@ abstract class PaginatedCubit<T> extends AsyncCubit<PaginatedData<T>> {
     _isLoadingMore = false;
     _filterKey = key;
 
-    setLoading();
+    emit(state.copyWith(status: BaseStatus.loading, clearError: true));
     final result = await fetchPageData(_currentPage, key: _filterKey);
 
     result.when(
@@ -45,12 +46,15 @@ abstract class PaginatedCubit<T> extends AsyncCubit<PaginatedData<T>> {
         final items = parseItems(success['data']);
         final meta = parsePagination(success['data']);
 
-        setSuccess(
-          data: PaginatedData(items: items, meta: meta),
+        emit(
+          state.copyWith(
+            status: BaseStatus.success,
+            data: PaginatedData(items: items, meta: meta),
+          ),
         );
       },
       (failure) {
-        setError(errorMessage: failure.message, showToast: true);
+        _emitError(failure.message);
       },
     );
   }
@@ -63,7 +67,7 @@ abstract class PaginatedCubit<T> extends AsyncCubit<PaginatedData<T>> {
     _isLoadingMore = true;
     _currentPage++;
 
-    setLoadingMore();
+    emit(state.copyWith(status: BaseStatus.loadingMore, clearError: true));
     final result = await fetchPageData(_currentPage, key: _filterKey);
 
     result.when(
@@ -71,13 +75,13 @@ abstract class PaginatedCubit<T> extends AsyncCubit<PaginatedData<T>> {
         final newItems = parseItems(success['data']);
         final newMeta = parsePagination(success['data']);
         final updatedData = state.data.addItems(newItems, newMeta);
-        setSuccess(data: updatedData);
+        emit(state.copyWith(status: BaseStatus.success, data: updatedData));
         _isLoadingMore = false;
       },
       (failure) {
         _currentPage--; // Revert page on error
         _isLoadingMore = false;
-        setError(errorMessage: failure.message, showToast: true);
+        _emitError(failure.message);
       },
     );
   }
@@ -88,11 +92,19 @@ abstract class PaginatedCubit<T> extends AsyncCubit<PaginatedData<T>> {
     await fetchInitialData(key: _filterKey);
   }
 
-  @override
   void reset() {
     _currentPage = 1;
     _isLoadingMore = false;
     _filterKey = null;
-    super.reset();
+    emit(RequestState(data: PaginatedData.initial()));
+  }
+
+  void replaceData(PaginatedData<T> data) {
+    emit(state.copyWith(status: BaseStatus.success, data: data));
+  }
+
+  void _emitError(String message) {
+    emit(state.copyWith(status: BaseStatus.error, errorMessage: message));
+    MessageUtils.showSnackBar(baseStatus: BaseStatus.error, message: message);
   }
 }

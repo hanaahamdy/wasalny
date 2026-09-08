@@ -53,7 +53,7 @@
   "file_selected_successfully": "File uploaded successfully",
   "fill_field": "This field is required",
   "forgot_password": "Forgot Password?",
-  "forgot_password_subtitle": "Please enter the registered phone number so we can send the code",
+  "forgot_password_subtitle": "Enter your registered email so we can send the verification code",
   "full_name_should_be_three_at_least": "Full name must be at least three characters",
   "name_min_two_characters": "Name must be at least two characters",
   "home": "Home",
@@ -332,5 +332,10 @@
   "apply_filter": "Apply Filter",
   "edit_delivery_profile": "Edit Delivery Profile",
   "delivery_profile_photo_optional": "Profile Photo - Optional",
-  "upload_photo": "Tap to upload a photo"
+  "upload_photo": "Tap to upload a photo",
+  "resend_code": "Resend code",
+  "continue_button": "Continue",
+  "reset_password": "Reset password",
+  "enter_new_password": "Enter and confirm your new password",
+  "password_reset_success": "Password reset successfully"
 }

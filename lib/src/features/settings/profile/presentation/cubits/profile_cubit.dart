@@ -1,64 +1,56 @@
 part of '../imports/view_imports.dart';
 
-class ProfileCubit extends AsyncCubit<UserModel?> {
-  ProfileCubit() : super(UserCubit.instance.user);
+class ProfileCubit extends Cubit<RequestState<UserModel?>> {
+  final ProfileRepository _repository;
+
+  ProfileCubit({ProfileRepository? repository})
+    : _repository = repository ?? injector<ProfileRepository>(),
+      super(RequestState(data: UserCubit.instance.user));
 
   Future<bool> updateProfile(UpdateProfileParams params) async {
     final currentUser = UserCubit.instance.user;
     final updatedUser = currentUser.copyWith(
-      fullName: params.fullName,
-      birthDate: params.birthDate,
+      name: params.fullName,
       email: params.email,
-      location: params.location,
-      gender: params.gender,
-      city: params.cityName ?? '',
-      district: params.districtName ?? '',
+      address: params.location,
     );
 
-    await executeAsync(
-      operation: () => baseCrudUseCase.call(
-        CrudBaseParams<UserModel?>(
-          api: ApiConstants.updateProfile,
-          body: params.toJson(),
-          httpRequestType: HttpRequestType.post,
-          isFromData: true,
-          mapper: (json) {
-            final response = Map<String, dynamic>.from(json as Map);
-            final data = response['data'];
-            return data is Map
-                ? UserModel.fromJson(Map<String, dynamic>.from(data))
-                : updatedUser;
-          },
-        ),
-      ),
+    emit(state.copyWith(status: BaseStatus.loading, clearError: true));
+    final result = await _repository.updateProfile(params, updatedUser);
+    return await result.when(
+      (user) async {
+        if (user == null) return false;
+        emit(state.copyWith(status: BaseStatus.success, data: user));
+        await UserCubit.instance.updateUser(user);
+        return true;
+      },
+      (failure) async {
+        emit(
+          state.copyWith(
+            status: BaseStatus.error,
+            errorMessage: failure.message,
+          ),
+        );
+        MessageUtils.showSnackBar(
+          baseStatus: BaseStatus.error,
+          message: failure.message,
+        );
+        return false;
+      },
     );
-
-    final returnedUser = state.data;
-    if (!state.isSuccess || returnedUser == null) return false;
-
-    await UserCubit.instance.updateUser(returnedUser);
-    return true;
   }
 
   Future<void> fetchProfile() async {
-    await executeAsync(
-      operation: () => baseCrudUseCase.call(
-        CrudBaseParams<UserModel?>(
-          api: ApiConstants.profile,
-          httpRequestType: HttpRequestType.get,
-          mapper: (json) {
-            final response = Map<String, dynamic>.from(json as Map);
-            final data = response['data'];
-            return data is Map
-                ? UserModel.fromJson(Map<String, dynamic>.from(data))
-                : null;
-          },
-        ),
-      ),
-      showErrorToast: false,
-      successEmitter: (user) {
+    emit(state.copyWith(status: BaseStatus.loading, clearError: true));
+    final result = await _repository.fetchProfile();
+    result.when(
+      (user) {
+        emit(state.copyWith(status: BaseStatus.success, data: user));
         if (user != null) UserCubit.instance.updateUser(user);
       },
+      (failure) => emit(
+        state.copyWith(status: BaseStatus.error, errorMessage: failure.message),
+      ),
     );
   }
 }

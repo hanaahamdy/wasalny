@@ -11,10 +11,10 @@ class StaticPagesBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AsyncBlocBuilder<StaticPagesCubit, String?>(
+    return RequestBlocBuilder<StaticPagesCubit, String?>(
       skeletonBuilder: (context) {
-        return _StaticPageCard(
-          child: const Text(
+        return const _StaticPageCard(
+          child: Text(
             '${SkeltonizerManager.veryLong} \n\n'
             '${SkeltonizerManager.veryLong} \n\n'
             '${SkeltonizerManager.veryLong}',

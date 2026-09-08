@@ -53,7 +53,7 @@
   "file_selected_successfully": "تم رفع الملف بنجاح",
   "fill_field": "هذا الحقل مطلوب",
   "forgot_password": "نسيت كلمة المرور؟",
-  "forgot_password_subtitle": "من فضلك قم بادخال رقم الجوال المسجل حتي تتمكن من ارسال الكود",
+  "forgot_password_subtitle": "أدخل بريدك الإلكتروني المسجل لإرسال رمز التحقق",
   "full_name_should_be_three_at_least": "يجب أن يكون الاسم الكامل ثلاثة أحرف على الأقل",
   "name_min_two_characters": "يجب ألا يقل الاسم عن حرفين",
   "home": "الرئيسية",
@@ -332,5 +332,10 @@
   "apply_filter": "تطبيق الفلتر",
   "edit_delivery_profile": "تعديل بيانات الدليفري",
   "delivery_profile_photo_optional": "الصورة الشخصية - اختياري",
-  "upload_photo": "اضغط هنا لرفع صورة"
+  "upload_photo": "اضغط هنا لرفع صورة",
+  "resend_code": "إعادة إرسال الرمز",
+  "continue_button": "متابعة",
+  "reset_password": "إعادة تعيين كلمة المرور",
+  "enter_new_password": "أدخل كلمة المرور الجديدة وقم بتأكيدها",
+  "password_reset_success": "تم إعادة تعيين كلمة المرور بنجاح"
 }

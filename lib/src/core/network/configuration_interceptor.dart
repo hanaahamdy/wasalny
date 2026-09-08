@@ -8,11 +8,13 @@ class ConfigurationInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     options.headers.addAll({
-      HttpHeaders.acceptHeader: ContentType.json,
-      Headers.contentTypeHeader: Headers.jsonContentType,
+      HttpHeaders.acceptHeader: Headers.jsonContentType,
       HttpHeaders.acceptLanguageHeader:
           Languages.currentLanguage.locale.languageCode,
     });
+    options.contentType = options.data is FormData
+        ? Headers.multipartFormDataContentType
+        : Headers.jsonContentType;
     handler.next(options);
   }
 

@@ -1,6 +1,21 @@
 import 'package:easy_localization/easy_localization.dart';
 
 abstract class LocaleKeys {
+  static const String _resendCode = 'resend_code';
+  static String get resendCode => _resendCode.tr();
+
+  static const String _continueButton = 'continue_button';
+  static String get continueButton => _continueButton.tr();
+
+  static const String _resetPassword = 'reset_password';
+  static String get resetPassword => _resetPassword.tr();
+
+  static const String _enterNewPassword = 'enter_new_password';
+  static String get enterNewPassword => _enterNewPassword.tr();
+
+  static const String _passwordResetSuccess = 'password_reset_success';
+  static String get passwordResetSuccess => _passwordResetSuccess.tr();
+
   static const String _areYouSureYouWantToDeleteAccount = 'are_you_sure_you_want_to_delete_account';
   static String get areYouSureYouWantToDeleteAccount => _areYouSureYouWantToDeleteAccount.tr();
 

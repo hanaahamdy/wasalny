@@ -2,24 +2,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../../config/res/config_imports.dart';
-import '../../../../../core/base_crud/code/domain/base_domain_imports.dart';
-import '../../../../../core/network/api_endpoints.dart';
- 
+import '../../domain/repositories/notifications_repository.dart';
 
 @lazySingleton
 class UnreadNotificationCountCubit extends Cubit<int> {
   UnreadNotificationCountCubit() : super(0);
 
-  late final BaseCrudUseCase _baseCrudUseCase = injector();
+  late final NotificationsRepository _repository = injector();
 
   Future<void> fetchUnreadCount() async {
-    final result = await _baseCrudUseCase.call(
-      CrudBaseParams(
-        api: ApiConstants.unReadNotifications,
-        httpRequestType: HttpRequestType.get,
-        mapper: (json) => json['data']['count'] as int? ?? 0,
-      ),
-    );
+    final result = await _repository.fetchUnreadCount();
     result.when((count) => emit(count), (failure) => emit(0));
   }
 

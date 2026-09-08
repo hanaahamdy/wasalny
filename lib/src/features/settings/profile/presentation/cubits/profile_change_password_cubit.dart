@@ -1,28 +1,26 @@
 part of '../imports/view_imports.dart';
 
-class ProfileChangePasswordCubit extends AsyncCubit<BaseModel?> {
-  ProfileChangePasswordCubit() : super(null);
+class ProfileChangePasswordCubit extends Cubit<RequestState<BaseModel?>> {
+  final ProfileRepository _repository;
+
+  ProfileChangePasswordCubit({ProfileRepository? repository})
+    : _repository = repository ?? injector<ProfileRepository>(),
+      super(const RequestState(data: null));
 
   Future<void> changePassword({
     required String currentPassword,
     required String password,
     required String confirmPassword,
   }) async {
-    await executeAsync(
-      operation: () async => baseCrudUseCase.call(
-        CrudBaseParams<BaseModel?>(
-          api: ApiConstants.changePassword,
-          body: {
-            'current_password': currentPassword,
-            'password': password,
-            'password_confirmation': confirmPassword,
-          },
-          httpRequestType: HttpRequestType.post,
-          isFromData: true,
-          mapper: (json) => BaseModel.fromJson(json),
-        ),
-      ),
-      successEmitter: (success) async {
+    emit(state.copyWith(status: BaseStatus.loading, clearError: true));
+    final result = await _repository.changePassword(
+      currentPassword: currentPassword,
+      password: password,
+      confirmPassword: confirmPassword,
+    );
+    await result.when(
+      (success) async {
+        emit(state.copyWith(status: BaseStatus.success, data: success));
         Go.back();
         await successDialog(
           context: Go.context,
@@ -31,8 +29,19 @@ class ProfileChangePasswordCubit extends AsyncCubit<BaseModel?> {
               : LocaleKeys.changePassword,
         );
       },
+      (failure) async {
+        emit(
+          state.copyWith(
+            status: BaseStatus.error,
+            errorMessage: failure.message,
+          ),
+        );
+        MessageUtils.showSnackBar(
+          baseStatus: BaseStatus.error,
+          message: failure.message,
+        );
+        Go.back();
+      },
     );
-
-    if (state.isError) Go.back();
   }
 }

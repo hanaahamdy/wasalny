@@ -1,0 +1,887 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Default module",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "summary": "register",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "yosra",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "yosra@hotmail.com",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "phone",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "01015873265",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "yosra123",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "password_confirmation",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "yosra123",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "role",
+            "in": "query",
+            "description": "in |customer|delivery|packing|supervisor|sales|",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "application/json",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "message": "The email address has already been taken. (and 1 more error)",
+                  "errors": {
+                    "email": [
+                      "The email address has already been taken."
+                    ],
+                    "phone": [
+                      "The phone number has already been taken."
+                    ]
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "login",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "application/json",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "encoding": {
+                "email": {
+                  "contentType": ""
+                },
+                "phone": {
+                  "contentType": ""
+                },
+                "password": {
+                  "contentType": ""
+                }
+              },
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "example": "yosra1@hotmail.com",
+                    "type": "string"
+                  },
+                  "phone": {
+                    "example": "01015873255",
+                    "type": "string"
+                  },
+                  "password": {
+                    "example": "yosra123",
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "email": "yosra1@hotmail.com",
+                "phone": "01015873255",
+                "password": "yosra123"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "status": "success",
+                  "message": "auth.login_success",
+                  "data": {
+                    "user": {
+                      "id": 2,
+                      "name": "yosra1",
+                      "email": "yosra1@hotmail.com",
+                      "phone": "01015873255",
+                      "role": "delivery",
+                      "profile_photo_path": null,
+                      "address": null,
+                      "latitude": null,
+                      "longitude": null,
+                      "is_active": 1,
+                      "last_seen_at": null,
+                      "password_reset_otp": null,
+                      "password_reset_otp_expires_at": null,
+                      "created_at": "2026-08-24T08:53:29.000000Z",
+                      "updated_at": "2026-08-24T08:53:29.000000Z",
+                      "deleted_at": null,
+                      "image": null
+                    },
+                    "access_token": "2|QOg5BUUVEkatEBYPf8i5DZrFsZugtzbCPq3d0FKKc1818420"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "summary": "logout",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "application/json",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "status": "success",
+                  "message": "Logged out successfully"
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/auth/forgot-password": {
+      "post": {
+        "summary": "forgot-password",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "application/json",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "example": "yosrakhattab2020@gmail.com",
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "email": "yosrakhattab2020@gmail.com"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "status": "success",
+                  "message": "messages.otp_sent_successfully",
+                  "data": []
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/auth/reset-password": {
+      "post": {
+        "summary": "reset-password",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "application/json",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "example": "yosrakhattab2020@gmail.com",
+                    "type": "string"
+                  },
+                  "otp": {
+                    "example": "491035",
+                    "type": "string"
+                  },
+                  "password": {
+                    "example": "yosra1235",
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "email": "yosrakhattab2020@gmail.com",
+                "otp": "491035",
+                "password": "yosra1235"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "status": "success",
+                  "message": "messages.otp_verified_successfully",
+                  "data": []
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/home": {
+      "get": {
+        "summary": "home",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "application/json",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "status": "success",
+                  "message": "messages.success",
+                  "data": {
+                    "created_orders": 0,
+                    "delivered_orders": 0
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/deliveries/orders": {
+      "get": {
+        "summary": "deliveries   orders",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "application/json",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "status": "success",
+                  "message": "messages.success",
+                  "data": []
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/orders/5/delivery-location": {
+      "get": {
+        "summary": "get delivery location",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "status": "success",
+                  "message": "messages.success",
+                  "data": {
+                    "order_id": 5,
+                    "lat": null,
+                    "lng": null,
+                    "heading": null,
+                    "speed": null,
+                    "recorded_at": null
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "post": {
+        "summary": " update delivery location",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "application/json",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "latitude": {
+                    "example": "30.0000",
+                    "type": "string"
+                  },
+                  "longitude": {
+                    "example": "30.0000",
+                    "type": "string"
+                  },
+                  "heading": {
+                    "example": "north",
+                    "type": "string"
+                  },
+                  "speed": {
+                    "example": "30",
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "latitude": "30.0000",
+                "longitude": "30.0000",
+                "heading": "north",
+                "speed": "30"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "status": "success",
+                  "message": "messages.updated_success",
+                  "data": {
+                    "order_id": 5,
+                    "lat": 30,
+                    "lng": 30,
+                    "heading": null,
+                    "speed": null,
+                    "recorded_at": "2026-09-07T12:11:17+00:00"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/orders": {
+      "post": {
+        "summary": "orders",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "application/json",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "encoding": {
+                "name": {
+                  "contentType": ""
+                },
+                "phone": {
+                  "contentType": ""
+                },
+                "total_amount": {
+                  "contentType": ""
+                },
+                "delivery_fee": {
+                  "contentType": ""
+                },
+                "products[0][product_name]": {
+                  "contentType": ""
+                },
+                "products[0][quantity]": {
+                  "contentType": ""
+                },
+                "products[0][price]": {
+                  "contentType": ""
+                }
+              },
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "example": "Yosra",
+                    "type": "string"
+                  },
+                  "phone": {
+                    "example": "01015873254",
+                    "type": "string"
+                  },
+                  "total_amount": {
+                    "example": "500",
+                    "type": "string"
+                  },
+                  "delivery_fee": {
+                    "example": "50",
+                    "type": "string"
+                  },
+                  "products[0][product_name]": {
+                    "example": "T-Shirt",
+                    "type": "string"
+                  },
+                  "products[0][quantity]": {
+                    "type": "string",
+                    "example": "2"
+                  },
+                  "products[0][price]": {
+                    "example": "200",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "phone",
+                  "total_amount",
+                  "delivery_fee",
+                  "products[0][product_name]",
+                  "products[0][quantity]",
+                  "products[0][price]"
+                ]
+              },
+              "example": {
+                "name": "Yosra",
+                "phone": "01015873254",
+                "total_amount": "500",
+                "delivery_fee": "50",
+                "products[0][product_name]": "T-Shirt",
+                "products[0][quantity]": "2",
+                "products[0][price]": "200"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "status": "success",
+                  "message": "messages.created_success",
+                  "data": {
+                    "customer_id": 6,
+                    "order_number": "ORD-6A8C1AD92A66E",
+                    "updated_at": "2026-08-24T10:20:09.000000Z",
+                    "created_at": "2026-08-24T10:20:09.000000Z",
+                    "id": 3
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "get": {
+        "summary": "all orders",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "description": "status",
+            "required": false,
+            "example": "pending",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "1",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "application/json",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "status": "success",
+                  "message": "messages.success",
+                  "data": [
+                    {
+                      "id": 4,
+                      "order_number": "ORD-6A8C3450D5B9F",
+                      "customer": {
+                        "id": 2,
+                        "name": "Yosra",
+                        "phone": "01015873254"
+                      },
+                      "total_amount": "0.00",
+                      "delivery_fee": "0.00",
+                      "status": "pending",
+                      "items": [
+                        {
+                          "id": 1,
+                          "product_name": "T-Shirt",
+                          "quantity": 2,
+                          "price": "10.00"
+                        }
+                      ],
+                      "created_at": "2026-08-24T12:08:48.000000Z"
+                    }
+                  ]
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/orders/4": {
+      "get": {
+        "summary": "order by Id",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "application/json",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "status": "success",
+                  "message": "messages.success",
+                  "data": {
+                    "id": 4,
+                    "order_number": "ORD-6A8C3450D5B9F",
+                    "customer": {
+                      "id": 2,
+                      "name": "Yosra",
+                      "phone": "01015873254"
+                    },
+                    "total_amount": "0.00",
+                    "delivery_fee": "0.00",
+                    "status": "pending",
+                    "items": [
+                      {
+                        "id": 1,
+                        "product_name": "T-Shirt",
+                        "quantity": 2,
+                        "price": "10.00"
+                      }
+                    ],
+                    "created_at": "2026-08-24T12:08:48.000000Z"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {},
+    "responses": {},
+    "securitySchemes": {
+      "bearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "servers": [],
+  "security": []
+}

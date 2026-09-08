@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "194862880924",
-    "project_id": "arenza-cbbb1",
-    "storage_bucket": "arenza-cbbb1.firebasestorage.app"
+    "project_number": "622895000556",
+    "project_id": "wasalny-5de8d",
+    "storage_bucket": "wasalny-5de8d.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:194862880924:android:f224e61daa94d5738a3559",
+        "mobilesdk_app_id": "1:622895000556:android:d8d4b7bae14895df9aaec9",
         "android_client_info": {
           "package_name": "com.aait.arenza"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDWgSKTnVukao1P4chhhftb5LXSaK_Vwqc"
+          "current_key": "AIzaSyBJJFYIzqKhn5TkvOXMXB9pv74EiGwWnfw"
         }
       ],
       "services": {

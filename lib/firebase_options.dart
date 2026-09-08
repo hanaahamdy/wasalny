@@ -50,19 +50,18 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDWgSKTnVukao1P4chhhftb5LXSaK_Vwqc',
-    appId: '1:194862880924:android:f224e61daa94d5738a3559',
-    messagingSenderId: '194862880924',
-    projectId: 'arenza-cbbb1',
-    storageBucket: 'arenza-cbbb1.firebasestorage.app',
+    apiKey: 'AIzaSyBJJFYIzqKhn5TkvOXMXB9pv74EiGwWnfw',
+    appId: '1:622895000556:android:d8d4b7bae14895df9aaec9',
+    messagingSenderId: '622895000556',
+    projectId: 'wasalny-5de8d',
+    storageBucket: 'wasalny-5de8d.firebasestorage.app',
   );
-
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCMJ-5fX-_qAsLhgvJse5SKVVTEWuvrEzE',
-    appId: '1:194862880924:ios:dc85fcfc770111548a3559',
-    messagingSenderId: '194862880924',
-    projectId: 'arenza-cbbb1',
-    storageBucket: 'arenza-cbbb1.firebasestorage.app',
+    apiKey: 'AIzaSyAU6O0OG8wnfXAsuFUTs60R3iFlsLNuJpA',
+    appId: '1:622895000556:ios:f382bceda5c40f9d9aaec9',
+    messagingSenderId: '622895000556',
+    projectId: 'wasalny-5de8d',
+    storageBucket: 'wasalny-5de8d.firebasestorage.app',
     iosBundleId: 'com.aait.arenza',
   );
 }

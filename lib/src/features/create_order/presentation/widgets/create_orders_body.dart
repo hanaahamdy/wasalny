@@ -1,4 +1,4 @@
-part of '../imports/presentation-imports.dart';
+part of '../imports/presentation_imports.dart';
 
 class CreateOrdersBody extends StatelessWidget {
   const CreateOrdersBody({super.key});
@@ -80,7 +80,7 @@ class CreateOrdersBody extends StatelessWidget {
                     CustomTextFiled(
                       hint: LocaleKeys.deliveryPrice,
                       title: LocaleKeys.deliveryPrice,
-                      controller: cubit.deliveryPrice,
+                      controller: cubit.deliveryPriceController,
                       textInputType: TextInputType.number,
                       prefixIcon: const Icon(Icons.payments_outlined),
                       validator: (value) => Validators.validatePositiveInteger(
@@ -90,10 +90,20 @@ class CreateOrdersBody extends StatelessWidget {
                       textInputAction: TextInputAction.done,
                     ),
                     SizedBox(height: AppSize.sH24),
-                    DefaultButton(
-                      title: LocaleKeys.addOrder,
-                      onTap: cubit.createOrder,
-                      height: AppSize.sH48,
+                    BlocBuilder<CreateOrdersCubit, CreateOrdersState>(
+                      buildWhen: (previous, current) =>
+                          previous.isLoading != current.isLoading,
+                      builder: (context, state) => DefaultButton(
+                        title: LocaleKeys.addOrder,
+                        onTap: state.isLoading ? null : cubit.createOrder,
+                        disabled: state.isLoading,
+                        customChild: state.isLoading
+                            ? const CircularProgressIndicator(
+                                color: AppColors.white,
+                              )
+                            : null,
+                        height: AppSize.sH48,
+                      ),
                     ),
                   ],
                 ),
@@ -156,6 +166,19 @@ class _OrderItemsSection extends StatelessWidget {
                     fieldTitle: LocaleKeys.productName,
                   ),
                   textInputType: TextInputType.text,
+                  textInputAction: TextInputAction.next,
+                ),
+                SizedBox(height: AppSize.sH14),
+                CustomTextFiled(
+                  hint: LocaleKeys.pricing,
+                  title: LocaleKeys.pricing,
+                  controller: item.price,
+                  textInputType: TextInputType.number,
+                  prefixIcon: const Icon(Icons.payments_outlined),
+                  validator: (value) => Validators.validatePositiveInteger(
+                    value,
+                    fieldTitle: LocaleKeys.pricing,
+                  ),
                   textInputAction: TextInputAction.next,
                 ),
                 SizedBox(height: AppSize.sH14),

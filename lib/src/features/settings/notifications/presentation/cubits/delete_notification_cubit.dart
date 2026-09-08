@@ -1,52 +1,55 @@
 part of '../imports/view_imports.dart';
 
-class DeleteNotificationCubit extends AsyncCubit<BaseModel?> {
+class DeleteNotificationCubit extends Cubit<RequestState<BaseModel?>> {
   final NotificationsCubit notificationsCubit;
-  DeleteNotificationCubit(this.notificationsCubit) : super(null);
+  final NotificationsRepository _repository;
+
+  DeleteNotificationCubit(
+    this.notificationsCubit, {
+    NotificationsRepository? repository,
+  }) : _repository = repository ?? injector<NotificationsRepository>(),
+       super(const RequestState(data: null));
 
   Future<void> deleteOneNotification(NotificationEntity notification) async {
-    final result = await baseCrudUseCase.call(
-      CrudBaseParams(
-        api: '${ApiConstants.deleteNotification}${notification.id}',
-        httpRequestType: HttpRequestType.delete,
-        mapper: (json) => BaseModel.fromJson(json),
-      ),
-    );
+    emit(state.copyWith(status: BaseStatus.loading, clearError: true));
+    final result = await _repository.deleteOne(notification.id);
 
     result.when(
       (success) {
+        emit(state.copyWith(status: BaseStatus.success, data: success));
         notificationsCubit.deleteOneNotification(notification);
         Go.back();
         MessageUtils.showSnackBar(
           baseStatus: BaseStatus.success,
-          message: success.message,
+          message: success?.message ?? '',
         );
       },
       (error) {
-        setError(showToast: true, errorMessage: error.message);
+        _emitError(error.message);
         Go.back();
       },
     );
   }
 
   Future<void> deleteAllNotifications() async {
-    final result = await baseCrudUseCase.call(
-      CrudBaseParams(
-        api: ApiConstants.deleteAllNotifications,
-        httpRequestType: HttpRequestType.delete,
-        mapper: (json) => BaseModel.fromJson(json),
-      ),
-    );
+    emit(state.copyWith(status: BaseStatus.loading, clearError: true));
+    final result = await _repository.deleteAll();
 
     result.when(
       (success) {
+        emit(state.copyWith(status: BaseStatus.success, data: success));
         notificationsCubit.clearData();
         Go.back();
       },
       (error) {
-        setError(showToast: true, errorMessage: error.message);
+        _emitError(error.message);
         Go.back();
       },
     );
+  }
+
+  void _emitError(String message) {
+    emit(state.copyWith(status: BaseStatus.error, errorMessage: message));
+    MessageUtils.showSnackBar(baseStatus: BaseStatus.error, message: message);
   }
 }

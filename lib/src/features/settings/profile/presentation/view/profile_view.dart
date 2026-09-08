@@ -7,12 +7,10 @@ class ProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => ProfileCubit()..fetchProfile(),
-      child:const Scaffold()
+      child: const Scaffold(),
     );
   }
 }
-
-
 
 class _ProfileAvatar extends StatelessWidget {
   final String userImage;

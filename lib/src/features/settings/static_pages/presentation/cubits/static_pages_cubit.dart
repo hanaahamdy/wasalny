@@ -1,21 +1,20 @@
 part of '../imports/view_imports.dart';
 
 @injectable
-class StaticPagesCubit extends AsyncCubit<String?> {
-  StaticPagesCubit() : super(null);
+class StaticPagesCubit extends Cubit<RequestState<String?>> {
+  final StaticPagesRepository _repository;
+
+  StaticPagesCubit(this._repository) : super(const RequestState(data: null));
 
   Future<void> fetchStaticPage(StaticPageTypeEnum pageType) async {
-    await executeAsync(
-      operation: () async {
-        return await baseCrudUseCase.call<String>(
-          CrudBaseParams(
-            api: pageType.apiEndpoint,
-            httpRequestType: HttpRequestType.get,
-            mapper: (json) => json['data']['content'] as String,
-          ),
-        );
-      },
-      showErrorToast: false,
+    emit(state.copyWith(status: BaseStatus.loading, clearError: true));
+    final result = await _repository.fetch(pageType);
+    result.when(
+      (content) =>
+          emit(state.copyWith(status: BaseStatus.success, data: content)),
+      (failure) => emit(
+        state.copyWith(status: BaseStatus.error, errorMessage: failure.message),
+      ),
     );
   }
 }

@@ -2,19 +2,17 @@ part of '../imports/view_imports.dart';
 
 @injectable
 class NotificationsCubit extends PaginatedCubit<NotificationEntity> {
+  final NotificationsRepository _repository;
+
+  NotificationsCubit({NotificationsRepository? repository})
+    : _repository = repository ?? injector<NotificationsRepository>();
+
   @override
   Future<Result<Map<String, dynamic>, Failure>> fetchPageData(
     int page, {
     String? key,
   }) async {
-    return await baseCrudUseCase.call(
-      CrudBaseParams(
-        api: ApiConstants.notifications,
-        httpRequestType: HttpRequestType.get,
-        queryParameters: ConstantManager.paginateJson(page),
-        mapper: (json) => json,
-      ),
-    );
+    return _repository.fetchPage(page);
   }
 
   @override
@@ -27,12 +25,12 @@ class NotificationsCubit extends PaginatedCubit<NotificationEntity> {
       PaginationMeta.fromJson(json['pagination']);
 
   void clearData() async {
-    setSuccess(data: PaginatedData.initial());
+    replaceData(PaginatedData.initial());
   }
 
   void deleteOneNotification(NotificationEntity notification) async {
     final updatedItems = List<NotificationEntity>.from(state.data.items)
       ..removeWhere((element) => element.id == notification.id);
-    setSuccess(data: state.data.copyWith(items: updatedItems));
+    replaceData(state.data.copyWith(items: updatedItems));
   }
 }

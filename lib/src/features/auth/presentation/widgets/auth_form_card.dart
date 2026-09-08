@@ -10,6 +10,7 @@ class AuthFormCard extends StatelessWidget {
   final String? secondaryButtonTitle;
   final VoidCallback? onSecondarySubmit;
   final Widget footer;
+  final bool isLoading;
 
   const AuthFormCard({
     super.key,
@@ -22,6 +23,7 @@ class AuthFormCard extends StatelessWidget {
     this.secondaryButtonTitle,
     this.onSecondarySubmit,
     required this.footer,
+    this.isLoading = false,
   });
 
   @override
@@ -50,17 +52,34 @@ class AuthFormCard extends StatelessWidget {
               SizedBox(height: AppSize.sH24),
               DefaultButton(
                 title: buttonTitle,
-                onTap: onSubmit,
+                onTap: isLoading ? null : onSubmit,
+                disabled: isLoading,
+                customChild: isLoading
+                    ? SizedBox.square(
+                        dimension: AppSize.sH20,
+                        child: const CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: AppColors.white,
+                        ),
+                      )
+                    : null,
                 height: AppSize.sH48,
                 borderRadius: BorderRadius.circular(AppCircular.r8),
               ),
               if (secondaryButtonTitle != null) ...[
                 SizedBox(height: AppSize.sH6),
-                 Row(
+                Row(
                   children: [
-                     Expanded(child: Divider(color: AppColors.grey1,endIndent: 10.w,)),
-                    Text(LocaleKeys.or,style: const TextStyle(color: AppColors.grey2).s12.medium,),
-                     Expanded(child: Divider(color: AppColors.grey1,indent: 10.w,)),
+                    Expanded(
+                      child: Divider(color: AppColors.grey1, endIndent: 10.w),
+                    ),
+                    Text(
+                      LocaleKeys.or,
+                      style: const TextStyle(color: AppColors.grey2).s12.medium,
+                    ),
+                    Expanded(
+                      child: Divider(color: AppColors.grey1, indent: 10.w),
+                    ),
                   ],
                 ),
                 SizedBox(height: AppSize.sH6),

@@ -1,6 +1,6 @@
 part of '../imports/view_imports.dart';
 
-mixin RegisterMixin on Cubit<AuthFormState> {
+mixin RegisterMixin on Cubit<RegisterState> {
   final formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
   final phoneController = TextEditingController();

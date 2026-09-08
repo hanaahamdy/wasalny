@@ -5,9 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../config/res/config_imports.dart';
 import '../../../helpers/cache_service.dart';
-import '../../../network/api_endpoints.dart';
-import '../../../network/network_request.dart';
 import '../../../network/network_service.dart';
+import '../../domain/repositories/user_repository.dart';
 import '../../models/user_model.dart';
 part 'user_state.dart';
 part 'user_utils.dart';
@@ -48,19 +47,10 @@ class UserCubit extends Cubit<UserState> with UserUtils {
 
   Future<UserModel?> refreshProfile() async {
     try {
-      final response = await injector<NetworkService>().callApi<UserModel?>(
-        NetworkRequest(method: RequestMethod.get, path: ApiConstants.profile),
-        mapper: (json) {
-          final response = Map<String, dynamic>.from(json as Map);
-          final data = response['data'];
-          return data is Map
-              ? UserModel.fromJson(Map<String, dynamic>.from(data))
-              : null;
-        },
-      );
-      final user = response.data;
+      final result = await injector<UserRepository>().fetchProfile();
+      final user = result.tryGetSuccess();
       if (user == null) return null;
-      await updateUser(user.copyWith(token: state.userModel.token));
+      await updateUser(user.copyWith(accessToken: state.userModel.accessToken));
       return user;
     } catch (_) {
       return null;

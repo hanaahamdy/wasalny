@@ -7,9 +7,9 @@ class _DeliveryProfileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final name = user.fullName.trim().isEmpty
+    final name = user.name.trim().isEmpty
         ? LocaleKeys.deliveryStaff
-        : user.fullName;
+        : user.name;
     final initial = name.characters.first;
 
     return Container(
@@ -47,9 +47,9 @@ class _DeliveryProfileCard extends StatelessWidget {
                     fontWeight: FontWeightManager.bold,
                   ),
                 ),
-                if (user.phoneNumber.trim().isNotEmpty)
+                if (user.phone.trim().isNotEmpty)
                   Text(
-                    user.phoneNumber,
+                    user.phone,
                     style: TextStyle(
                       color: AppColors.hintText,
                       fontSize: FontSizeManager.s10,
