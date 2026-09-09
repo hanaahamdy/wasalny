@@ -8,8 +8,8 @@ class AdminSalesScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(LocaleKeys.sales),
-        flexibleSpace: const DecoratedBox(
-          decoration: BoxDecoration(gradient: AppColors.buttonGradient),
+        flexibleSpace: DecoratedBox(
+          decoration: BoxDecoration(gradient: AppColors.scenarioGradient),
         ),
         actions: [
           IconButton(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
- import '../../../config/language/locale_keys.g.dart';
+import '../../../config/language/locale_keys.g.dart';
 import '../../../config/res/assets.gen.dart';
 import '../../../config/res/config_imports.dart';
 import '../../extensions/context_extension.dart';

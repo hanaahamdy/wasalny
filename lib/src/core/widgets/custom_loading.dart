@@ -7,10 +7,7 @@ import '../helpers/loading_manager.dart';
 class CustomLoading {
   static Center showLoadingView() {
     return Center(
-      child: SpinKitCircle(
-        color: AppColors.main,
-        size: AppSize.sH50,
-      ),
+      child: SpinKitCircle(color: AppColors.main, size: AppSize.sH50),
     );
   }
 

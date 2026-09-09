@@ -1,4 +1,5 @@
 part of '../imports/presentation_imports.dart';
+
 class DeliveryHomeBody extends StatelessWidget {
   const DeliveryHomeBody({super.key});
 
@@ -21,7 +22,7 @@ class DeliveryHomeBody extends StatelessWidget {
                 ViewAllOrdersWidget(title: LocaleKeys.createdOrders),
                 SizedBox(height: AppSize.sH10),
                 ...OrderModel.samples.map(
-                      (order) => Padding(
+                  (order) => Padding(
                     padding: EdgeInsets.only(bottom: AppPadding.pH10),
                     child: OrderCard(order: order),
                   ),

@@ -40,7 +40,7 @@ class CreateOrdersScreen extends StatelessWidget {
         },
         child: AnnotatedRegion<SystemUiOverlayStyle>(
           value: const SystemUiOverlayStyle(
-            statusBarColor: AppColors.authTabSelected,
+            statusBarColor: AppColors.scenarioPrimary,
             statusBarIconBrightness: Brightness.light,
             statusBarBrightness: Brightness.dark,
           ),

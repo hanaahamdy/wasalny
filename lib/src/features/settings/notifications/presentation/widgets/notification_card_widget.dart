@@ -29,7 +29,7 @@ class _NotificationCardWidget extends StatelessWidget {
             width: 44.w,
             height: AppSize.sH44,
             decoration: BoxDecoration(
-              color: AppColors.authTabSelected,
+              color: AppColors.scenarioPrimary,
               borderRadius: BorderRadius.circular(AppCircular.r12),
             ),
             alignment: Alignment.center,

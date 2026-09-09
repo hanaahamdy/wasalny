@@ -8,6 +8,7 @@ class DefaultButton extends StatelessWidget {
   final Function()? onTap;
   final Color? textColor;
   final Color? color;
+  final Gradient? gradient;
   final Color? borderColor;
   final BorderRadius? borderRadius;
   final EdgeInsets? margin;
@@ -26,6 +27,7 @@ class DefaultButton extends StatelessWidget {
     this.title,
     this.onTap,
     this.color,
+    this.gradient,
     this.disabled,
     this.textColor,
     this.borderRadius,
@@ -71,7 +73,7 @@ class DefaultButton extends StatelessWidget {
           gradient: useGradient
               ? isDisabled
                     ? AppColors.disableGradient
-                    : AppColors.buttonGradient
+                    : (gradient ?? AppColors.scenarioGradient)
               : null,
           borderRadius: effectiveBorderRadius,
         ),

@@ -54,6 +54,7 @@ class AuthFormCard extends StatelessWidget {
                 title: buttonTitle,
                 onTap: isLoading ? null : onSubmit,
                 disabled: isLoading,
+                gradient: AppColors.scenarioGradient,
                 customChild: isLoading
                     ? SizedBox.square(
                         dimension: AppSize.sH20,

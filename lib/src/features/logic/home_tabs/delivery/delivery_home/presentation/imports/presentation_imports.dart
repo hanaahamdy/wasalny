@@ -10,6 +10,6 @@ import '../../../../shared/feature/orders/presentation/imports/view_imports.dart
 import '../../../../shared/widgets/home_order_summary_card.dart';
 import '../../../../shared/widgets/view_all_orders_widget.dart';
 
-part  '../view/delivery_home_screen.dart';
+part '../view/delivery_home_screen.dart';
 part '../widgets/delivery_home_order_summary_cards.dart';
 part '../widgets/deliveey_home_body.dart';

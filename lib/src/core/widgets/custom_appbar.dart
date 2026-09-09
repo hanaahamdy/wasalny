@@ -18,7 +18,8 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       toolbarHeight: 121.h,
-      backgroundColor: AppColors.authTabSelected,
+      backgroundColor: AppColors.transparent,
+      surfaceTintColor: AppColors.transparent,
       elevation: 0,
       leading: IconButton(
         onPressed: () => Go.back(),
@@ -28,15 +29,18 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(bottom: Radius.circular(10.r)),
       ),
-      flexibleSpace: SafeArea(
-        bottom: false,
-        child: Padding(
-          padding: EdgeInsets.only(left: 24.w, right: 24.w, top: 18.h),
-          child: Center(
-            child: Text(
-              title,
-              textAlign: TextAlign.center,
-              style: const TextStyle().setWhiteColor.s16.bold,
+      flexibleSpace: DecoratedBox(
+        decoration: BoxDecoration(gradient: AppColors.scenarioGradient),
+        child: SafeArea(
+          bottom: false,
+          child: Padding(
+            padding: EdgeInsets.only(left: 24.w, right: 24.w, top: 18.h),
+            child: Center(
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                style: const TextStyle().setWhiteColor.s16.bold,
+              ),
             ),
           ),
         ),

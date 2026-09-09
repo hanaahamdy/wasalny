@@ -1020,4 +1020,172 @@ abstract class LocaleKeys {
 
   static const String _orderCreatedSuccessfully = 'order_created_successfully';
   static String get orderCreatedSuccessfully => _orderCreatedSuccessfully.tr();
+
+  static String get workflowBuyer => 'workflow.buyer'.tr();
+
+  static String get workflowBuyerOrder => 'workflow.buyer_order'.tr();
+
+  static String get workflowBuyerApprovals => 'workflow.buyer_approvals'.tr();
+
+  static String get workflowChooseAction => 'workflow.choose_action'.tr();
+
+  static String get workflowSeparateRequests => 'workflow.separate_requests'.tr();
+
+  static String get workflowCategoryOrder => 'workflow.category_order'.tr();
+
+  static String get workflowCategoryOrderSubtitle => 'workflow.category_order_subtitle'.tr();
+
+  static String get workflowLive => 'workflow.live'.tr();
+
+  static String get workflowLiveSubtitle => 'workflow.live_subtitle'.tr();
+
+  static String get workflowClientName => 'workflow.client_name'.tr();
+
+  static String get workflowCategories => 'workflow.categories'.tr();
+
+  static String get workflowAddCategory => 'workflow.add_category'.tr();
+
+  static String workflowCategoryNumber(Object number) =>
+      'workflow.category_number'.tr(namedArgs: {'number': '$number'});
+
+  static String get workflowCategoryName => 'workflow.category_name'.tr();
+
+  static String get workflowCount => 'workflow.count'.tr();
+
+  static String get workflowUnitPrice => 'workflow.unit_price'.tr();
+
+  static String get workflowTotalPrice => 'workflow.total_price'.tr();
+
+  static String workflowAmountEgp(Object amount) =>
+      'workflow.amount_egp'.tr(namedArgs: {'amount': '$amount'});
+
+  static String get workflowRequired => 'workflow.required'.tr();
+
+  static String get workflowInvalid => 'workflow.invalid'.tr();
+
+  static String get workflowSendOrder => 'workflow.send_order'.tr();
+
+  static String get workflowOrderSent => 'workflow.order_sent'.tr();
+
+  static String get workflowLiveRequest => 'workflow.live_request'.tr();
+
+  static String get workflowLiveApprovalNotice => 'workflow.live_approval_notice'.tr();
+
+  static String get workflowLiveDetails => 'workflow.live_details'.tr();
+
+  static String get workflowLiveDetailsHint => 'workflow.live_details_hint'.tr();
+
+  static String get workflowAskAdminLive => 'workflow.ask_admin_live'.tr();
+
+  static String get workflowLiveStarted => 'workflow.live_started'.tr();
+
+  static String get workflowApprovedReady => 'workflow.approved_ready'.tr();
+
+  static String get workflowWaitingAdmin => 'workflow.waiting_admin'.tr();
+
+  static String get workflowNewSessionNotice => 'workflow.new_session_notice'.tr();
+
+  static String get workflowAdminApprovedSession => 'workflow.admin_approved_session'.tr();
+
+  static String get workflowStartUnlockNotice => 'workflow.start_unlock_notice'.tr();
+
+  static String get workflowStartLive => 'workflow.start_live'.tr();
+
+  static String get workflowLiveActive => 'workflow.live_active'.tr();
+
+  static String get workflowRequestAnotherLive => 'workflow.request_another_live'.tr();
+
+  static String get workflowNoRequests => 'workflow.no_requests'.tr();
+
+  static String get workflowCategoryOrders => 'workflow.category_orders'.tr();
+
+  static String get workflowLiveRequests => 'workflow.live_requests'.tr();
+
+  static String get workflowApproveOrder => 'workflow.approve_order'.tr();
+
+  static String get workflowOrderApproved => 'workflow.order_approved'.tr();
+
+  static String get workflowApproveLive => 'workflow.approve_live'.tr();
+
+  static String get workflowLiveApproved => 'workflow.live_approved'.tr();
+
+  static String get workflowPacking => 'workflow.packing'.tr();
+
+  static String get workflowNoPackingOrders => 'workflow.no_packing_orders'.tr();
+
+  static String get workflowPrint => 'workflow.print'.tr();
+
+  static String get workflowSendToAliaa => 'workflow.send_to_aliaa'.tr();
+
+  static String get workflowSentToAliaa => 'workflow.sent_to_aliaa'.tr();
+
+  static String get workflowPackingSlip => 'workflow.packing_slip'.tr();
+
+  static String workflowOrderNumber(Object number) =>
+      'workflow.order_number'.tr(namedArgs: {'number': '$number'});
+
+  static String workflowClientValue(Object name) =>
+      'workflow.client_value'.tr(namedArgs: {'name': '$name'});
+
+  static String workflowItemCount(Object name, Object count) =>
+      'workflow.item_count'.tr(namedArgs: {'name': '$name', 'count': '$count'});
+
+  static String workflowTotalValue(Object amount) =>
+      'workflow.total_value'.tr(namedArgs: {'amount': '$amount'});
+
+  static String get workflowDone => 'workflow.done'.tr();
+
+  static String get workflowAliaaNumbers => 'workflow.aliaa_numbers'.tr();
+
+  static String get workflowNoClientNumbers => 'workflow.no_client_numbers'.tr();
+
+  static String get workflowAddClientNumber => 'workflow.add_client_number'.tr();
+
+  static String workflowClientNumberTitle(Object name) =>
+      'workflow.client_number_title'.tr(namedArgs: {'name': '$name'});
+
+  static String get workflowClientPhoneNumber => 'workflow.client_phone_number'.tr();
+
+  static String get workflowValidNumber => 'workflow.valid_number'.tr();
+
+  static String get workflowSaveComplete => 'workflow.save_complete'.tr();
+
+  static String get workflowClientNumberAdded => 'workflow.client_number_added'.tr();
+
+  static String get workflowChooseTestCycle => 'workflow.choose_test_cycle'.tr();
+
+  static String get workflowSelectRoleNotice => 'workflow.select_role_notice'.tr();
+
+  static String get workflowAdmin => 'workflow.admin'.tr();
+
+  static String get workflowAdminSubtitle => 'workflow.admin_subtitle'.tr();
+
+  static String get workflowDelivery => 'workflow.delivery'.tr();
+
+  static String get workflowDeliverySubtitle => 'workflow.delivery_subtitle'.tr();
+
+  static String get workflowBuyerSubtitle => 'workflow.buyer_subtitle'.tr();
+
+  static String get workflowPackingSubtitle => 'workflow.packing_subtitle'.tr();
+
+  static String get workflowAliaa => 'workflow.aliaa'.tr();
+
+  static String get workflowAliaaSubtitle => 'workflow.aliaa_subtitle'.tr();
+
+  static String get workflowOpenAdminCycle => 'workflow.open_admin_cycle'.tr();
+
+  static String get workflowApproveBuyerRequests => 'workflow.approve_buyer_requests'.tr();
+
+  static String get workflowCancel => 'workflow.cancel'.tr();
+
+  static String workflowPackingQueue(Object count) =>
+      'workflow.packing_queue'.tr(namedArgs: {'count': '$count'});
+
+  static String workflowAliaaQueue(Object count) =>
+      'workflow.aliaa_queue'.tr(namedArgs: {'count': '$count'});
+
+  static String get workflowFirstScenario => 'workflow.first_scenario'.tr();
+
+  static String get workflowSecondScenario => 'workflow.second_scenario'.tr();
+
 }

@@ -22,7 +22,9 @@ class LoginScreen extends StatelessWidget {
                   message: state.errorMessage!,
                 );
               } else if (state.isSuccess) {
-                Go.offAll(const HomeScreen());
+                Go.offAll(
+                  RoleSelectionScreen(email: cubit.emailController.text.trim()),
+                );
               }
             },
             builder: (context, state) => AuthShell(

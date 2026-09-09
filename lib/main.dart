@@ -85,7 +85,7 @@ void main() async {
       supportedLocales: Languages.supportLocales,
       path: 'assets/translations',
       fallbackLocale: const Locale('en'),
-      startLocale:const Locale('ar') ,
+      startLocale: const Locale('ar'),
       saveLocale: true,
       child: const App(),
     ),

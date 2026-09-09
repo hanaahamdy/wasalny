@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter/services.dart';
 import 'config/res/config_imports.dart';
 import 'config/themes/app_theme.dart';
 import 'core/helpers/loading_manager.dart';
@@ -53,12 +54,15 @@ class _AppState extends State<App> {
             navigatorObservers: [AppNavigationObserver()],
             theme: AppTheme.light,
             builder: (context, child) {
-              return MediaQuery(
-                data: MediaQuery.of(
-                  context,
-                ).copyWith(textScaler: const TextScaler.linear(1.0)),
-                child: OfflineWidget(
-                  child: FullScreenLoadingManager(child: child!),
+              return AnnotatedRegion<SystemUiOverlayStyle>(
+                value: AppColors.systemUiOverlayStyle,
+                child: MediaQuery(
+                  data: MediaQuery.of(
+                    context,
+                  ).copyWith(textScaler: const TextScaler.linear(1.0)),
+                  child: OfflineWidget(
+                    child: FullScreenLoadingManager(child: child!),
+                  ),
                 ),
               );
             },

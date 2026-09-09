@@ -18,7 +18,7 @@ class DeliveredOrderRow extends StatelessWidget {
                 Text(
                   delivery.orderNumber,
                   style: TextStyle(
-                    color: AppColors.authTabSelected,
+                    color: AppColors.scenarioPrimary,
                     fontSize: FontSizeManager.s11,
                     fontWeight: FontWeightManager.bold,
                   ),
@@ -40,7 +40,7 @@ class DeliveredOrderRow extends StatelessWidget {
               Text(
                 '${delivery.fee} ${LocaleKeys.egyptianPound}',
                 style: TextStyle(
-                  color: AppColors.authTabSelected,
+                  color: AppColors.scenarioPrimary,
                   fontSize: FontSizeManager.s11,
                   fontWeight: FontWeightManager.bold,
                 ),

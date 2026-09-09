@@ -20,7 +20,7 @@ import '../../../../core/widgets/buttons/default_button.dart';
 import '../../../../core/widgets/custom_messages.dart';
 import '../../../../core/widgets/fields/text_fields/custom_text_field.dart';
 import '../../../../core/widgets/fields/text_fields/pin_text_field.dart';
-import '../../../logic/home/presentation/imports/view_imports.dart';
+import '../../../workflow/views/role_selection_screen.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../../entity/login_params.dart';
 

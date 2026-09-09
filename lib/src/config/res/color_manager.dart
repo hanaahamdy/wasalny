@@ -1,6 +1,55 @@
 part of 'config_imports.dart';
 
+enum AppColorScenario { first, second }
+
+abstract final class FirstScenarioColors {
+  static const Color primary = Color(0xFF0038A8);
+  static const Color primaryDark = Color(0xFF002B80);
+  static const Color secondary = Color(0xFFCE1126);
+  static const Color tertiary = Color(0xFFFFFFFF);
+  static const Color background = Color(0xFFF5F6FA);
+  static const Color surface = Color(0xFFFFFFFF);
+  static const Color border = Color(0xFFE8ECF0);
+  static const Color text = Color(0xFF1C2433);
+  static const Color muted = Color(0xFF8A96A3);
+  static const Color pendingBackground = Color(0xFFFEF3C7);
+  static const Color pendingText = Color(0xFFB45309);
+  static const Color createdBackground = Color(0xFFE0E8FF);
+  static const Color deliveringBackground = Color(0xFFFFE0E4);
+  static const Color deliveredBackground = Color(0xFFDCFCE7);
+  static const Color success = Color(0xFF15803D);
+  static const Color warning = Color(0xFFF59E0B);
+  static const LinearGradient mainGradient = LinearGradient(
+    colors: [primary, primaryDark, secondary],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+  static const LinearGradient phoneFrameGradient = LinearGradient(
+    colors: [Color(0xFF001A5C), primary, Color(0xFF8A0A1A)],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+}
+
+abstract final class SecondScenarioColors {
+  static const Color primary = Color(0xFF2FB67F);
+  static const Color secondary = Color(0xFF0090C5);
+  static const Color background = Color(0xFFF7F7F8);
+  static const Color surface = Color(0xFFFFFFFF);
+  static const Color border = Color(0xFFC5C6C9);
+  static const Color text = Color(0xFF1C1C1C);
+  static const Color muted = Color(0xFF666666);
+  static const LinearGradient mainGradient = LinearGradient(
+    colors: [Color(0xFF69C293), secondary],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+}
+
 class AppColors {
+  /// Selected from the workflow role screen and shared by every role UI.
+  static AppColorScenario selectedScenario = AppColorScenario.first;
+
   static const Color main = Color(0xFF1C1C1C);
   static const Color primary = Color(0xFF2B3289);
   static const Color moreIconBackground = Color(0x142B3289);
@@ -36,6 +85,68 @@ class AppColors {
     colors: [introGradientStart, introGradientEnd],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
+  );
+  static Color get scenarioPrimary => selectedScenario == AppColorScenario.first
+      ? FirstScenarioColors.primary
+      : SecondScenarioColors.primary;
+
+  static LinearGradient get scenarioGradient =>
+      selectedScenario == AppColorScenario.first
+      ? FirstScenarioColors.mainGradient
+      : SecondScenarioColors.mainGradient;
+
+  static Color get scenarioSecondary =>
+      selectedScenario == AppColorScenario.first
+      ? FirstScenarioColors.secondary
+      : SecondScenarioColors.secondary;
+  static Color get scenarioBackground =>
+      selectedScenario == AppColorScenario.first
+      ? FirstScenarioColors.background
+      : SecondScenarioColors.background;
+  static Color get scenarioSurface => selectedScenario == AppColorScenario.first
+      ? FirstScenarioColors.surface
+      : SecondScenarioColors.surface;
+  static Color get scenarioBorder => selectedScenario == AppColorScenario.first
+      ? FirstScenarioColors.border
+      : SecondScenarioColors.border;
+  static Color get scenarioText => selectedScenario == AppColorScenario.first
+      ? FirstScenarioColors.text
+      : SecondScenarioColors.text;
+  static Color get scenarioMuted => selectedScenario == AppColorScenario.first
+      ? FirstScenarioColors.muted
+      : SecondScenarioColors.muted;
+  static Color get scenarioError => selectedScenario == AppColorScenario.first
+      ? FirstScenarioColors.secondary
+      : error;
+  static Color get scenarioSuccess => selectedScenario == AppColorScenario.first
+      ? FirstScenarioColors.success
+      : successGreen;
+  static Color get pendingBackground =>
+      selectedScenario == AppColorScenario.first
+      ? FirstScenarioColors.pendingBackground
+      : moreTermsIconBackground;
+  static Color get pendingText => selectedScenario == AppColorScenario.first
+      ? FirstScenarioColors.pendingText
+      : bookingPendingYellow;
+  static Color get createdBackground =>
+      selectedScenario == AppColorScenario.first
+      ? FirstScenarioColors.createdBackground
+      : settingsProfileIconBackground;
+  static Color get deliveringBackground =>
+      selectedScenario == AppColorScenario.first
+      ? FirstScenarioColors.deliveringBackground
+      : settingsProfileIconBackground;
+  static Color get deliveredBackground =>
+      selectedScenario == AppColorScenario.first
+      ? FirstScenarioColors.deliveredBackground
+      : settingsProfileIconBackground;
+
+  static SystemUiOverlayStyle get systemUiOverlayStyle => SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    statusBarIconBrightness: Brightness.light,
+    statusBarBrightness: Brightness.dark,
+    systemNavigationBarColor: scenarioBackground,
+    systemNavigationBarIconBrightness: Brightness.dark,
   );
 
   static const Color scaffoldBackground = Color(0xffFFFFFF);

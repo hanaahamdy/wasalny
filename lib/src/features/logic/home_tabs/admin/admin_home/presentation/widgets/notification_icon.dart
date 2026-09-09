@@ -1,10 +1,12 @@
 part of '../imports/presentation_imports.dart';
+
 class NotificationIcon extends StatelessWidget {
   final IconData icon;
   final Color color;
   final VoidCallback onTap;
 
-  const NotificationIcon({super.key,
+  const NotificationIcon({
+    super.key,
     required this.icon,
     required this.color,
     required this.onTap,

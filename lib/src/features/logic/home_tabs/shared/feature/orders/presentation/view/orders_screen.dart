@@ -9,17 +9,13 @@ class OrdersScreen extends StatelessWidget {
     return BlocProvider(
       create: (_) => OrdersCubit(),
       child: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: const SystemUiOverlayStyle(
-          statusBarColor: AppColors.authTabSelected,
-          statusBarIconBrightness: Brightness.light,
-          statusBarBrightness: Brightness.dark,
-        ),
+        value: AppColors.systemUiOverlayStyle,
         child: Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,
-            title:  Text(LocaleKeys.orders,),
+            title: Text(LocaleKeys.orders),
           ),
-          backgroundColor: AppColors.scaffoldBackground,
+          backgroundColor: AppColors.scenarioBackground,
           body: const OrdersBody(),
         ),
       ),

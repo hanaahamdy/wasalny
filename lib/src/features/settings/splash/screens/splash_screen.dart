@@ -39,7 +39,7 @@ class _SplashViewState extends State<_SplashView> {
         body: Container(
           width: context.width,
           height: context.height,
-          decoration: const BoxDecoration(gradient: AppColors.buttonGradient),
+          decoration: BoxDecoration(gradient: AppColors.scenarioGradient),
           child: SafeArea(
             child: Center(
               child: Column(

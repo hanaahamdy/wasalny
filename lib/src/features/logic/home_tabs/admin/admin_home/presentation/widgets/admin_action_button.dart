@@ -15,7 +15,7 @@ class _AdminActionButton extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: AppPadding.pH12),
         height: AppSize.sH100,
         decoration: BoxDecoration(
-          gradient: AppColors.buttonGradient,
+          gradient: AppColors.scenarioGradient,
           borderRadius: BorderRadius.circular(AppCircular.r12),
         ),
         child: Column(
@@ -35,16 +35,14 @@ class _AdminActionButton extends StatelessWidget {
                 size: AppSize.sH22,
               ),
             ),
-             12.szH,
-             Text(
-                title,
-                style: TextStyle(
-                  color: AppColors.white,
-                  fontSize: FontSizeManager.s13,
-                  fontWeight: FontWeightManager.bold,
-                ),
-
-
+            12.szH,
+            Text(
+              title,
+              style: TextStyle(
+                color: AppColors.white,
+                fontSize: FontSizeManager.s13,
+                fontWeight: FontWeightManager.bold,
+              ),
             ),
           ],
         ),

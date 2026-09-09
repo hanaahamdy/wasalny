@@ -28,7 +28,7 @@ class DeliverySummaryCard extends StatelessWidget {
             ),
             child: Icon(
               Icons.local_shipping_outlined,
-              color: AppColors.authTabSelected,
+              color: AppColors.scenarioPrimary,
               size: AppSize.sH18,
             ),
           ),
