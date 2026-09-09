@@ -901,6 +901,9 @@ abstract class LocaleKeys {
   static const String _pleaseEnableLocationServicesInSettings = 'please_enable_location_services_in_settings';
   static String get pleaseEnableLocationServicesInSettings => _pleaseEnableLocationServicesInSettings.tr();
 
+  static const String _openSettings = 'open_settings';
+  static String get openSettings => _openSettings.tr();
+
   static const String _theMobilePhoneNumberHasBeenUpdatedSuccessfully = 'the_mobile_phone_number_has_been_updated_successfully';
   static String get theMobilePhoneNumberHasBeenUpdatedSuccessfully => _theMobilePhoneNumberHasBeenUpdatedSuccessfully.tr();
 
@@ -1014,4 +1017,7 @@ abstract class LocaleKeys {
 
   static const String _uploadPhoto = 'upload_photo';
   static String get uploadPhoto => _uploadPhoto.tr();
+
+  static const String _orderCreatedSuccessfully = 'order_created_successfully';
+  static String get orderCreatedSuccessfully => _orderCreatedSuccessfully.tr();
 }

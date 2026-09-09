@@ -23,7 +23,7 @@ class CreateOrdersScreen extends StatelessWidget {
         listenWhen: (previous, current) =>
             previous.errorMessage != current.errorMessage ||
             (!previous.isSuccess && current.isSuccess),
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state.errorMessage != null) {
             MessageUtils.showSnackBar(
               context: context,
@@ -31,14 +31,11 @@ class CreateOrdersScreen extends StatelessWidget {
               message: state.errorMessage!,
             );
           } else if (state.isSuccess) {
-            if (state.successMessage?.isNotEmpty == true) {
-              MessageUtils.showSnackBar(
-                context: context,
-                baseStatus: BaseStatus.success,
-                message: state.successMessage!,
-              );
-            }
-            Go.back(state.createdOrder);
+            await successDialog(
+              context: context,
+              title: LocaleKeys.orderCreatedSuccessfully,
+              afterSuccess: () => Go.back(state.createdOrder),
+            );
           }
         },
         child: AnnotatedRegion<SystemUiOverlayStyle>(

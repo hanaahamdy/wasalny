@@ -294,6 +294,7 @@
   "location_here": "Your Location",
   "location_services_disabled": "Location services are disabled",
   "please_enable_location_services_in_settings": "Please enable location services in settings",
+  "open_settings": "Settings",
   "order_number": "order number",
   "the_mobile_phone_number_has_been_updated_successfully": "The mobile phone number has been updated successfully",
   "or": "Or",
@@ -337,5 +338,6 @@
   "continue_button": "Continue",
   "reset_password": "Reset password",
   "enter_new_password": "Enter and confirm your new password",
-  "password_reset_success": "Password reset successfully"
+  "password_reset_success": "Password reset successfully",
+  "order_created_successfully": "Order Created Successfully"
 }

@@ -17,7 +17,8 @@ class OrdersBody extends StatelessWidget {
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [OrdersTabs(
+              children: [
+                OrdersTabs(
                   tabs: cubit.tabs,
                   selectedIndex: state,
                   onChanged: cubit.selectTab,
@@ -37,7 +38,7 @@ class OrdersBody extends StatelessWidget {
                         )
                       : ListView.separated(
                           itemCount: orders.length,
-                          separatorBuilder: (_, __) =>
+                          separatorBuilder: (_, _) =>
                               SizedBox(height: AppSize.sH12),
                           itemBuilder: (context, index) =>
                               OrderCard(order: orders[index]),

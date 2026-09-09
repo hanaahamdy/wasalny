@@ -294,6 +294,7 @@
   "location_here": "موقعك الحالي",
   "location_services_disabled": "خدمات الموقع معطلة",
   "please_enable_location_services_in_settings": "يرجى تفعيل خدمات الموقع من الإعدادات",
+  "open_settings": "الإعدادات",
   "order_number": "رقم الطلب",
   "the_mobile_phone_number_has_been_updated_successfully": "تم تعديل رقم الجوال بنجاح",
   "or": "او",
@@ -337,5 +338,6 @@
   "continue_button": "متابعة",
   "reset_password": "إعادة تعيين كلمة المرور",
   "enter_new_password": "أدخل كلمة المرور الجديدة وقم بتأكيدها",
-  "password_reset_success": "تم إعادة تعيين كلمة المرور بنجاح"
+  "password_reset_success": "تم إعادة تعيين كلمة المرور بنجاح",
+  "order_created_successfully": "تم إنشاء الطلب بنجاح"
 }

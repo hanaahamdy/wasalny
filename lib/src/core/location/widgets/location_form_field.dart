@@ -40,11 +40,7 @@ class LocationTextField extends StatelessWidget {
           return;
         }
       }
-    } on LocationException catch (exception) {
-      MessageUtils.showSnackBar(
-        baseStatus: BaseStatus.error,
-        message: exception.message,
-      );
+    } on LocationException {
       return;
     }
 

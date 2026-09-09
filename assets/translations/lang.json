@@ -294,6 +294,7 @@
   "location_here #$ Your Location": "موقعك الحالي",
   "location_services_disabled #$ Location services are disabled": "خدمات الموقع معطلة",
   "please_enable_location_services_in_settings #$ Please enable location services in settings": "يرجى تفعيل خدمات الموقع من الإعدادات",
+  "open_settings #$ Settings": "الإعدادات",
   "order number": "رقم الطلب",
   "The mobile phone number has been updated successfully": "تم تعديل رقم الجوال بنجاح",
   "or  #$ Or": "او",
@@ -333,5 +334,6 @@
   "Apply Filter": "تطبيق الفلتر",
   "Edit Delivery Profile": "تعديل بيانات الدليفري",
   "Delivery Profile Photo Optional": "الصورة الشخصية - اختياري",
-  "Upload Photo": "اضغط هنا لرفع صورة"
+  "Upload Photo": "اضغط هنا لرفع صورة",
+  "Order Created Successfully": "تم إنشاء الطلب بنجاح"
 }

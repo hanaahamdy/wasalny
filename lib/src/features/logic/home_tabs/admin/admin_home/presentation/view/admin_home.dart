@@ -7,63 +7,60 @@ class AdminHome extends StatelessWidget {
   Widget build(BuildContext context) {
     context.locale;
 
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.light,
-        statusBarBrightness: Brightness.dark,
+    return BlocProvider(
+      create: (_) => AdminHomeCubit()..fetchHome(),
+      child: const _AdminHomeView(),
+    );
+  }
+}
+
+class _AdminHomeView extends StatelessWidget {
+  const _AdminHomeView();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocListener<AdminHomeCubit, RequestState<AdminHomeModel?>>(
+      listenWhen: (previous, current) =>
+          previous.errorMessage != current.errorMessage &&
+          current.errorMessage != null,
+      listener: (context, state) => MessageUtils.showSnackBar(
+        context: context,
+        baseStatus: BaseStatus.error,
+        message: state.errorMessage!,
       ),
-      child: Column(
-        children: [
-          const HomeHeader(),
-          Expanded(
-            child: SingleChildScrollView(
-              padding: EdgeInsets.fromLTRB(
-                AppPadding.pW8,
-                AppPadding.pH12,
-                AppPadding.pW8,
-                AppPadding.pH20,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const _AdminHomeStats(),
-                  SizedBox(height: AppSize.sH14),
-                  const AdminHomeActions(),
-                  SizedBox(height: AppSize.sH16),
-                  Row(
+      child: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.light,
+          statusBarBrightness: Brightness.dark,
+        ),
+        child: Column(
+          children: [
+            const HomeHeader(),
+            Expanded(
+              child: RefreshIndicator(
+                onRefresh: context.read<AdminHomeCubit>().fetchHome,
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  padding: EdgeInsets.fromLTRB(
+                    AppPadding.pW8,
+                    AppPadding.pH12,
+                    AppPadding.pW8,
+                    AppPadding.pH20,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Text(
-                        LocaleKeys.latestOrders,
-                        style: TextStyle(
-                          color: AppColors.main,
-                          fontSize: FontSizeManager.s13,
-                          fontWeight: FontWeightManager.bold,
-                        ),
-                      ),
-                      const Spacer(),
-                      Text(
-                        LocaleKeys.viewAll,
-                        style: TextStyle(
-                          color: AppColors.authTabSelected,
-                          fontSize: FontSizeManager.s11,
-                          fontWeight: FontWeightManager.regular,
-                        ),
-                      ),
+                      const _AdminHomeStats(),
+                      SizedBox(height: AppSize.sH14),
+                      const AdminHomeActions(),
                     ],
                   ),
-                  SizedBox(height: AppSize.sH10),
-                  ...OrderModel.samples.map(
-                    (order) => Padding(
-                      padding: EdgeInsets.only(bottom: AppPadding.pH10),
-                      child: OrderCard(order: order),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -74,68 +71,35 @@ class _AdminHomeStats extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: HomeOrderSummaryCard(
-            value: OrderModel.samples.length.toString(),
-            label: LocaleKeys.orderCount,
-            icon: Icons.inventory_2_outlined,
-            iconBackground: AppColors.settingsLanguageIconBackground,
-            iconColor: AppColors.settingsLanguageIcon,
-          ),
-        ),
-        SizedBox(width: AppSize.sW8),
-        Expanded(
-          child: HomeOrderSummaryCard(
-            value: '4',
-            label: LocaleKeys.deliveryCount,
-            icon: Icons.local_shipping_outlined,
-            iconBackground: AppColors.moreProfileIconBackground,
-            iconColor: AppColors.authTabSelected,
-          ),
-        ),
-      ],
+    return BlocBuilder<AdminHomeCubit, RequestState<AdminHomeModel?>>(
+      builder: (context, state) {
+        final data = state.data;
+        final loadingValue = state.isLoading && data == null ? '...' : null;
+
+        return Row(
+          children: [
+            Expanded(
+              child: HomeOrderSummaryCard(
+                value: loadingValue ?? (data?.createdOrders ?? 0).toString(),
+                label: LocaleKeys.orderCount,
+                icon: Icons.inventory_2_outlined,
+                iconBackground: AppColors.settingsLanguageIconBackground,
+                iconColor: AppColors.settingsLanguageIcon,
+              ),
+            ),
+            SizedBox(width: AppSize.sW8),
+            Expanded(
+              child: HomeOrderSummaryCard(
+                value: loadingValue ?? (data?.deliveredOrders ?? 0).toString(),
+                label: LocaleKeys.delivered,
+                icon: Icons.local_shipping_outlined,
+                iconBackground: AppColors.moreProfileIconBackground,
+                iconColor: AppColors.authTabSelected,
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
-}
-
-class OrderStatusChip extends StatelessWidget {
-  final OrderStatusData status;
-
-  const OrderStatusChip({super.key, required this.status});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: AppPadding.pW10,
-        vertical: AppPadding.pH4,
-      ),
-      decoration: BoxDecoration(
-        color: status.background,
-        borderRadius: BorderRadius.circular(AppCircular.r8),
-      ),
-      child: Text(
-        status.label,
-        style: TextStyle(
-          color: status.textColor,
-          fontSize: FontSizeManager.s10,
-          fontWeight: FontWeightManager.medium,
-        ),
-      ),
-    );
-  }
-}
-
-class OrderStatusData {
-  final String label;
-  final Color background;
-  final Color textColor;
-
-  const OrderStatusData({
-    required this.label,
-    required this.background,
-    required this.textColor,
-  });
 }

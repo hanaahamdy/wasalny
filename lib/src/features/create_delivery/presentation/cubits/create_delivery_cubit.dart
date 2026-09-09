@@ -21,6 +21,7 @@ class CreateDeliveryCubit extends Cubit<CreateDeliveryState>
     final result = await _repository.createDelivery(
       CreateDeliveryParams(
         name: fullNameController.text.trim(),
+        phone: phoneController.text.trim(),
         email: emailController.text.trim(),
         password: passwordController.text,
       ),

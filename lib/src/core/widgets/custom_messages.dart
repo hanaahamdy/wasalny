@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../config/language/locale_keys.g.dart';
 import '../../config/res/config_imports.dart';
 import '../extensions/base_state.dart';
 import '../extensions/text_style_extensions.dart';
@@ -10,15 +9,24 @@ class MessageUtils {
     BuildContext? context,
     required BaseStatus baseStatus,
     required String message,
+    String? actionLabel,
+    VoidCallback? onAction,
   }) {
     final snackBar = SnackBar(
-      duration: const Duration(seconds: 2),
+      duration: Duration(seconds: onAction == null ? 2 : 6),
       content: Text(message, style: const TextStyle().setWhiteColor.s11.medium),
       backgroundColor: baseStatus == BaseStatus.error
           ? AppColors.secondary
           : AppColors.primary,
       behavior: SnackBarBehavior.floating,
       elevation: 4,
+      action: actionLabel != null && onAction != null
+          ? SnackBarAction(
+              label: actionLabel,
+              textColor: Colors.white,
+              onPressed: onAction,
+            )
+          : null,
     );
     ScaffoldMessenger.of(context ?? Go.context).showSnackBar(snackBar);
   }

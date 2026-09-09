@@ -26,11 +26,17 @@ import '../../../features/create_delivery/data/repositories/create_delivery_repo
 import '../../../features/create_delivery/domain/repositories/create_delivery_repository.dart'
     as _i431;
 import '../../../features/create_order/data/datasources/create_order_remote_data_source.dart'
-    as _i701;
+    as _i206;
 import '../../../features/create_order/data/repositories/create_order_repository_impl.dart'
-    as _i702;
+    as _i931;
 import '../../../features/create_order/domain/repositories/create_order_repository.dart'
-    as _i703;
+    as _i478;
+import '../../../features/logic/home_tabs/admin/admin_home/data/datasources/admin_home_remote_data_source.dart'
+    as _i141;
+import '../../../features/logic/home_tabs/admin/admin_home/data/repositories/admin_home_repository_impl.dart'
+    as _i837;
+import '../../../features/logic/home_tabs/admin/admin_home/domain/repositories/admin_home_repository.dart'
+    as _i981;
 import '../../../features/settings/contact_us/data/datasources/contact_us_remote_data_source.dart'
     as _i208;
 import '../../../features/settings/contact_us/data/repositories/contact_us_repository_impl.dart'
@@ -86,13 +92,11 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i395.UnreadNotificationCountCubit(),
     );
     gh.lazySingleton<_i632.NetworkService>(() => _i37.DioService());
-    gh.lazySingleton<_i701.CreateOrderRemoteDataSource>(
-      () => _i701.CreateOrderRemoteDataSourceImpl(gh<_i632.NetworkService>()),
+    gh.lazySingleton<_i206.CreateOrderRemoteDataSource>(
+      () => _i206.CreateOrderRemoteDataSourceImpl(gh<_i632.NetworkService>()),
     );
-    gh.lazySingleton<_i703.CreateOrderRepository>(
-      () => _i702.CreateOrderRepositoryImpl(
-        gh<_i701.CreateOrderRemoteDataSource>(),
-      ),
+    gh.lazySingleton<_i141.AdminHomeRemoteDataSource>(
+      () => _i141.AdminHomeRemoteDataSourceImpl(gh<_i632.NetworkService>()),
     );
     gh.lazySingleton<_i777.ProfileRemoteDataSource>(
       () => _i777.ProfileRemoteDataSourceImpl(gh<_i632.NetworkService>()),
@@ -102,6 +106,10 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i129.NotificationsRemoteDataSource>(
       () => _i129.NotificationsRemoteDataSourceImpl(gh<_i632.NetworkService>()),
+    );
+    gh.lazySingleton<_i343.CreateDeliveryRemoteDataSource>(
+      () =>
+          _i343.CreateDeliveryRemoteDataSourceImpl(gh<_i632.NetworkService>()),
     );
     gh.lazySingleton<_i56.UserRemoteDataSource>(
       () => _i56.UserRemoteDataSourceImpl(gh<_i632.NetworkService>()),
@@ -114,12 +122,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i208.ContactUsRemoteDataSource>(
       () => _i208.ContactUsRemoteDataSourceImpl(gh<_i632.NetworkService>()),
     );
-    gh.lazySingleton<_i343.CreateDeliveryRemoteDataSource>(
-      () =>
-          _i343.CreateDeliveryRemoteDataSourceImpl(gh<_i632.NetworkService>()),
-    );
     gh.lazySingleton<_i436.AuthRemoteDataSource>(
       () => _i436.AuthRemoteDataSourceImpl(gh<_i632.NetworkService>()),
+    );
+    gh.lazySingleton<_i478.CreateOrderRepository>(
+      () => _i931.CreateOrderRepositoryImpl(
+        gh<_i206.CreateOrderRemoteDataSource>(),
+      ),
+    );
+    gh.lazySingleton<_i981.AdminHomeRepository>(
+      () =>
+          _i837.AdminHomeRepositoryImpl(gh<_i141.AdminHomeRemoteDataSource>()),
     );
     gh.lazySingleton<_i431.CreateDeliveryRepository>(
       () => _i330.CreateDeliveryRepositoryImpl(

@@ -19,7 +19,7 @@ class OrdersTabs extends StatelessWidget {
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemCount: tabs.length,
-        separatorBuilder: (_, __) => SizedBox(width: AppSize.sW8),
+        separatorBuilder: (_, _) => SizedBox(width: AppSize.sW8),
         itemBuilder: (context, index) {
           final isSelected = selectedIndex == index;
 

@@ -3,6 +3,7 @@ part of '../imports/presentation_imports.dart';
 mixin CreateDeliveryControllers on Cubit<CreateDeliveryState> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController fullNameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
@@ -11,6 +12,7 @@ mixin CreateDeliveryControllers on Cubit<CreateDeliveryState> {
   @override
   Future<void> close() {
     fullNameController.dispose();
+    phoneController.dispose();
     emailController.dispose();
     passwordController.dispose();
     locationController.dispose();

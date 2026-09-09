@@ -29,8 +29,10 @@ class LocationModel extends Equatable {
     this.tempLocation,
   });
 
-  factory LocationModel.fromJson(Map<String, dynamic> json,
-      {bool fromCache = false}) {
+  factory LocationModel.fromJson(
+    Map<String, dynamic> json, {
+    bool fromCache = false,
+  }) {
     return LocationModel(
       position: fromCache
           ? Position.fromMap(json['position'])
@@ -70,7 +72,7 @@ class LocationModel extends Equatable {
       : [
           placemark?.country,
           placemark?.subAdministrativeArea,
-          placemark?.thoroughfare
+          placemark?.thoroughfare,
         ].join(', ');
 
   @override
@@ -137,6 +139,8 @@ class LocationHelper {
       MessageUtils.showSnackBar(
         baseStatus: BaseStatus.error,
         message: msg,
+        actionLabel: LocaleKeys.openSettings,
+        onAction: () => Geolocator.openLocationSettings(),
       );
       throw LocationException(msg);
     }
@@ -154,10 +158,14 @@ class LocationHelper {
       await Geolocator.getCurrentPosition();
 
   static Future<Placemark> getPlacemarkFromCoordinates(
-      double latitude, double longitude) async {
+    double latitude,
+    double longitude,
+  ) async {
     setLocaleIdentifier(Go.navigatorKey.currentContext!.locale.languageCode);
-    final List<Placemark> placemarks =
-    await placemarkFromCoordinates(latitude, longitude);
+    final List<Placemark> placemarks = await placemarkFromCoordinates(
+      latitude,
+      longitude,
+    );
     return placemarks.first;
   }
 
