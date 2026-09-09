@@ -17,9 +17,9 @@ class OrderCard extends StatelessWidget {
           vertical: AppPadding.pH12,
         ),
         decoration: BoxDecoration(
-          color: AppColors.white,
+          color: AppColors.scenarioSurface,
           borderRadius: BorderRadius.circular(AppCircular.r12),
-          border: Border.all(color: AppColors.inputBorder),
+          border: Border.all(color: AppColors.scenarioBorder),
           boxShadow: [AppColors.containerShadow],
         ),
         child: Row(
@@ -32,7 +32,7 @@ class OrderCard extends StatelessWidget {
                   Text(
                     '${order.id.replaceFirst('#', 'ORD-')}#',
                     style: TextStyle(
-                      color: AppColors.main,
+                      color: AppColors.scenarioText,
                       fontSize: FontSizeManager.s12,
                       fontWeight: FontWeightManager.bold,
                     ),
@@ -43,7 +43,7 @@ class OrderCard extends StatelessWidget {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      color: AppColors.main,
+                      color: AppColors.scenarioText,
                       fontSize: FontSizeManager.s12,
                       fontWeight: FontWeightManager.medium,
                     ),
@@ -52,7 +52,7 @@ class OrderCard extends StatelessWidget {
                   Text(
                     order.phone,
                     style: TextStyle(
-                      color: AppColors.hintText,
+                      color: AppColors.scenarioMuted,
                       fontSize: FontSizeManager.s10,
                       fontWeight: FontWeightManager.regular,
                     ),
@@ -75,7 +75,6 @@ class OrderCard extends StatelessWidget {
                 ),
               ],
             ),
-
           ],
         ),
       ),
@@ -86,29 +85,29 @@ class OrderCard extends StatelessWidget {
     return switch (tab) {
       AdminOrderTab.pending => OrderStatusData(
         label: AdminOrderTab.pending.label,
-        background: AppColors.moreTermsIconBackground,
-        textColor: AppColors.bookingPendingYellow,
+        background: AppColors.pendingBackground,
+        textColor: AppColors.pendingText,
       ),
       AdminOrderTab.created => OrderStatusData(
         label: AdminOrderTab.created.label,
-        background: AppColors.settingsProfileIconBackground,
-        textColor: AppColors.authTabSelected,
+        background: AppColors.createdBackground,
+        textColor: AppColors.scenarioPrimary,
       ),
 
       AdminOrderTab.delivering => OrderStatusData(
         label: AdminOrderTab.delivering.label,
-        background: AppColors.settingsProfileIconBackground,
-        textColor: AppColors.authTabSelected,
+        background: AppColors.deliveringBackground,
+        textColor: AppColors.scenarioSecondary,
       ),
       AdminOrderTab.received => OrderStatusData(
         label: AdminOrderTab.received.label,
-        background: AppColors.settingsProfileIconBackground,
-        textColor: AppColors.authTabSelected,
+        background: AppColors.deliveredBackground,
+        textColor: AppColors.scenarioSuccess,
       ),
       AdminOrderTab.cancelled => OrderStatusData(
         label: AdminOrderTab.created.label,
-        background: AppColors.settingsProfileIconBackground,
-        textColor: AppColors.authTabSelected,
+        background: AppColors.deliveringBackground,
+        textColor: AppColors.scenarioError,
       ),
     };
   }

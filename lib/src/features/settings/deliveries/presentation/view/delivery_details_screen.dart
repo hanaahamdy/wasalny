@@ -10,8 +10,8 @@ class DeliveryDetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(LocaleKeys.deliveryDetails),
-        flexibleSpace: const DecoratedBox(
-          decoration: BoxDecoration(gradient: AppColors.buttonGradient),
+        flexibleSpace: DecoratedBox(
+          decoration: BoxDecoration(gradient: AppColors.scenarioGradient),
         ),
       ),
       body: DeliveryDetailsBody(delivery: delivery),

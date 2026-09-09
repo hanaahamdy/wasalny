@@ -10,7 +10,7 @@ class ViewAllOrdersWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Row(
+    return Row(
       children: [
         Text(
           title,
@@ -22,11 +22,11 @@ class ViewAllOrdersWidget extends StatelessWidget {
         ),
         const Spacer(),
         InkWell(
-          onTap: () =>Go.to(const HomeScreen(initialTabIndex: 1)),
+          onTap: () => Go.to(const HomeScreen(initialTabIndex: 1)),
           child: Text(
             LocaleKeys.viewAll,
             style: TextStyle(
-              color: AppColors.authTabSelected,
+              color: AppColors.scenarioPrimary,
               fontSize: FontSizeManager.s11,
               fontWeight: FontWeightManager.regular,
             ),

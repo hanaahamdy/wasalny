@@ -23,7 +23,7 @@ class DeliveryProfileCard extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: AppSize.sW25,
-            backgroundColor: AppColors.authTabSelected,
+            backgroundColor: AppColors.scenarioPrimary,
             child: Text(
               delivery.name.characters.first,
               style: TextStyle(

@@ -24,7 +24,7 @@ class _DeliveryProfileCard extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: AppSize.sW25,
-            backgroundColor: AppColors.authTabSelected,
+            backgroundColor: AppColors.scenarioPrimary,
             child: Text(
               initial,
               style: TextStyle(

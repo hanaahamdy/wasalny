@@ -31,20 +31,19 @@ class OrdersTabs extends StatelessWidget {
               alignment: Alignment.center,
               padding: EdgeInsets.symmetric(horizontal: AppPadding.pW16),
               decoration: BoxDecoration(
-                color: isSelected
-                    ? AppColors.authTabSelected
-                    : AppColors.fieldFillColor,
+                color: isSelected ? null : AppColors.scenarioSurface,
+                gradient: isSelected ? AppColors.scenarioGradient : null,
                 borderRadius: BorderRadius.circular(AppCircular.r8),
                 border: Border.all(
                   color: isSelected
-                      ? AppColors.authTabSelected
-                      : AppColors.inputBorder,
+                      ? AppColors.scenarioPrimary
+                      : AppColors.scenarioBorder,
                 ),
               ),
               child: Text(
                 tabs[index],
                 style: TextStyle(
-                  color: isSelected ? AppColors.white : AppColors.hintText,
+                  color: isSelected ? AppColors.white : AppColors.scenarioMuted,
                   fontSize: FontSizeManager.s12,
                   fontWeight: FontWeightManager.medium,
                 ),

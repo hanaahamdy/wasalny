@@ -7,8 +7,8 @@ mixin LoginMixin on Cubit<AuthFormState> {
 
   void login() {
     if (state.isLoading) return;
-    if (formKey.currentState?.validate() != true) return;
-    Go.offAll(RoleSelectionScreen(email: emailController.text.trim()));
+    // if (formKey.currentState?.validate() != true) return;
+    Go.to(RoleSelectionScreen(email: emailController.text.trim()));
   }
 
   @override

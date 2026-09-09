@@ -6,9 +6,7 @@ class TotalDeliveriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(LocaleKeys.myDeliveries),
-      ),
+      appBar: AppBar(title: Text(LocaleKeys.myDeliveries)),
       body: const TotalDeliveriesBody(),
     );
   }

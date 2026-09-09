@@ -17,7 +17,7 @@ class AdminHomeActions extends StatelessWidget {
         Expanded(
           child: _AdminActionButton(
             title: LocaleKeys.addDelivery,
-            onTap: () =>Go.to(const CreateDeliveryScreen()),
+            onTap: () => Go.to(const CreateDeliveryScreen()),
           ),
         ),
       ],

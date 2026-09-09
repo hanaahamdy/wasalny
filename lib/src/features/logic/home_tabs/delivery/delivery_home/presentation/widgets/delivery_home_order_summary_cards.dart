@@ -1,4 +1,5 @@
 part of '../imports/presentation_imports.dart';
+
 class DeliveryHomeOrderSummaryCards extends StatelessWidget {
   const DeliveryHomeOrderSummaryCards({super.key});
 
@@ -22,7 +23,7 @@ class DeliveryHomeOrderSummaryCards extends StatelessWidget {
             label: LocaleKeys.delivered,
             icon: Icons.check_circle_outline,
             iconBackground: AppColors.moreProfileIconBackground,
-            iconColor: AppColors.authTabSelected,
+            iconColor: AppColors.scenarioPrimary,
           ),
         ),
       ],

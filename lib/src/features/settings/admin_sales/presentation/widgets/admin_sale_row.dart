@@ -31,7 +31,7 @@ class AdminSaleRow extends StatelessWidget {
               _formatAmount(sale.amount),
               textAlign: TextAlign.end,
               style: textStyle.copyWith(
-                color: AppColors.authTabSelected,
+                color: AppColors.scenarioPrimary,
                 fontWeight: FontWeightManager.bold,
               ),
             ),

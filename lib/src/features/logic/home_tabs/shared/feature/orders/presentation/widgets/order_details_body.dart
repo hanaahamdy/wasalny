@@ -42,7 +42,7 @@ class OrderDetailsBody extends StatelessWidget {
                               label: AdminOrderTab.created.label,
                               background:
                                   AppColors.settingsProfileIconBackground,
-                              textColor: AppColors.authTabSelected,
+                              textColor: AppColors.scenarioPrimary,
                             ),
                           ),
                           OrderDetailsRow(
@@ -51,7 +51,7 @@ class OrderDetailsBody extends StatelessWidget {
                               label: LocaleKeys.paymentOnReceive,
                               background:
                                   AppColors.settingsProfileIconBackground,
-                              textColor: AppColors.authTabSelected,
+                              textColor: AppColors.scenarioPrimary,
                             ),
                             showDivider: false,
                           ),
@@ -121,7 +121,6 @@ class OrderDetailsBody extends StatelessWidget {
     );
   }
 }
-
 
 class _DetailsSectionTitle extends StatelessWidget {
   final String title;

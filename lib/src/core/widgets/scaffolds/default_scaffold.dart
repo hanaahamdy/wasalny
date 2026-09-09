@@ -29,7 +29,7 @@ class DefaultScaffold extends StatelessWidget {
     return PopScope(
       canPop: false,
       child: Scaffold(
-        backgroundColor: AppColors.scaffoldBackground,
+        backgroundColor: AppColors.scenarioBackground,
         body: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -51,7 +51,9 @@ class DefaultScaffold extends StatelessWidget {
                     if (headLineWidget == null) ...[
                       Text(
                         title,
-                        style: const TextStyle().setMainTextColor.s13.medium,
+                        style: TextStyle(
+                          color: AppColors.scenarioText,
+                        ).s13.medium,
                       ),
                     ] else ...[
                       headLineWidget!,

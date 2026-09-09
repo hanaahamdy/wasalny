@@ -8,8 +8,8 @@ class ContactUsScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => injector<ContactUsCubit>(),
       child: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: const SystemUiOverlayStyle(
-          statusBarColor: AppColors.authTabSelected,
+        value:  SystemUiOverlayStyle(
+          statusBarColor: AppColors.scenarioPrimary,
           statusBarIconBrightness: Brightness.light,
           statusBarBrightness: Brightness.dark,
         ),

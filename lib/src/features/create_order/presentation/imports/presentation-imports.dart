@@ -10,5 +10,5 @@ import '../../../../core/widgets/buttons/default_button.dart';
 import '../../../../core/widgets/fields/text_fields/custom_text_field.dart';
 import '../../../logic/home_tabs/shared/feature/orders/presentation/imports/view_imports.dart';
 
-part  '../views/create_orders_screen.dart';
+part '../views/create_orders_screen.dart';
 part '../widgets/create_orders_body.dart';

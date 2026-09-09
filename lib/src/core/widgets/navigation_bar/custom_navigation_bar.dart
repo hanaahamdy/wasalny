@@ -58,7 +58,9 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
   Widget _buildTab(NavigationBarEntity tab, int index) {
     context.locale;
     final isActive = _selectedIndex == index;
-    final color = isActive ? const Color(0xFF3BB885) : const Color(0xFF424242);
+    final color = isActive
+        ? AppColors.scenarioPrimary
+        : AppColors.scenarioMuted;
 
     return Expanded(
       child: Semantics(
@@ -109,9 +111,9 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
         AppPadding.pW8,
         AppPadding.pH10,
       ),
-      decoration: const BoxDecoration(
-        color: AppColors.white,
-        boxShadow: [
+      decoration: BoxDecoration(
+        color: AppColors.scenarioSurface,
+        boxShadow: const [
           BoxShadow(
             color: Color(0x26000000),
             blurRadius: 15,

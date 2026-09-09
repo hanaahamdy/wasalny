@@ -49,7 +49,7 @@ class EditDeliveryTextField extends StatelessWidget {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppCircular.r12),
-              borderSide: const BorderSide(color: AppColors.authTabSelected),
+              borderSide: BorderSide(color: AppColors.scenarioPrimary),
             ),
           ),
         ),

@@ -17,7 +17,8 @@ class OrdersBody extends StatelessWidget {
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [OrdersTabs(
+              children: [
+                OrdersTabs(
                   tabs: cubit.tabs,
                   selectedIndex: state,
                   onChanged: cubit.selectTab,

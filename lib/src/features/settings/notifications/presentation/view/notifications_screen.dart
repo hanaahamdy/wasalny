@@ -8,13 +8,12 @@ class NotificationScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => injector<NotificationsCubit>()..fetchInitialData(),
       child: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: const SystemUiOverlayStyle(
-          statusBarColor: AppColors.authTabSelected,
+        value:  SystemUiOverlayStyle(
+          statusBarColor: AppColors.scenarioPrimary,
           statusBarIconBrightness: Brightness.light,
           statusBarBrightness: Brightness.dark,
         ),
         child: Scaffold(
-
           appBar: CustomAppbar(title: LocaleKeys.notificationsTitle),
           backgroundColor: AppColors.scaffoldBackground,
           body: Column(
@@ -32,4 +31,3 @@ class NotificationScreen extends StatelessWidget {
     );
   }
 }
-

@@ -15,7 +15,7 @@ class AuthShell extends StatelessWidget {
       ),
       child: Scaffold(
         body: DecoratedBox(
-          decoration: const BoxDecoration(gradient: AppColors.buttonGradient),
+          decoration: BoxDecoration(gradient: AppColors.scenarioGradient),
           child: SafeArea(
             child: Center(
               child: SingleChildScrollView(

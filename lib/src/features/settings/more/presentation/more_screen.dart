@@ -30,15 +30,17 @@ class MoreScreen extends StatelessWidget {
     final isAdmin = user.userType == UserType.admin;
 
     return ColoredBox(
-      color: AppColors.fieldFillColor,
+      color: AppColors.scenarioBackground,
       child: Column(
         children: [
           Container(
             height: MediaQuery.viewPaddingOf(context).top,
-            decoration: const BoxDecoration(gradient: AppColors.buttonGradient),
+            decoration: BoxDecoration(gradient: AppColors.scenarioGradient),
           ),
           AppBar(
             primary: false,
+            backgroundColor: AppColors.transparent,
+            surfaceTintColor: AppColors.transparent,
             automaticallyImplyLeading: false,
             title: Text(LocaleKeys.more),
           ),

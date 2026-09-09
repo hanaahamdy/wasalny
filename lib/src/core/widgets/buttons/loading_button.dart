@@ -68,8 +68,8 @@ class LoadingButton extends StatelessWidget {
         gradient: isDissabled
             ? AppColors.disableGradient
             : color != null
-                ? LinearGradient(colors: [color!, color!])
-                : AppColors.gradient,
+            ? LinearGradient(colors: [color!, color!])
+            : AppColors.gradient,
         onTap: isDissabled ? () async {} : onTap,
         elevation: 0,
         padding: EdgeInsets.zero,
@@ -129,12 +129,14 @@ class LoadingButton extends StatelessWidget {
                   );
                 },
               ),
-        child: titleAsWidget ??
+        child:
+            titleAsWidget ??
             Text(
               title,
               style: TextStyle(
-                color:
-                    isDissabled ? AppColors.black : textColor ?? Colors.white,
+                color: isDissabled
+                    ? AppColors.black
+                    : textColor ?? Colors.white,
                 fontSize: fontSize ?? FontSizeManager.s14,
                 fontWeight: FontWeight.w600,
               ),

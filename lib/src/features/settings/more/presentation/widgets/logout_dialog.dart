@@ -66,7 +66,7 @@ class _LogoutDialog extends StatelessWidget {
               child: Text(
                 LocaleKeys.cancel,
                 style: TextStyle(
-                  color: AppColors.authTabSelected,
+                  color: AppColors.scenarioPrimary,
                   fontSize: FontSizeManager.s12,
                   fontWeight: FontWeightManager.medium,
                 ),

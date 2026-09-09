@@ -40,7 +40,7 @@ class AdminSalesSummaryCard extends StatelessWidget {
               ),
               child: Icon(
                 icon,
-                color: AppColors.authTabSelected,
+                color: AppColors.scenarioPrimary,
                 size: AppSize.sH18,
               ),
             ),

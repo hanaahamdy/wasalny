@@ -1,26 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../../config/res/config_imports.dart';
 import '../../../core/navigation/navigator.dart';
 import '../../../core/shared/cubits/user_cubit/user_cubit.dart';
 import '../../../core/shared/models/user_model.dart';
 import '../../logic/home/presentation/imports/view_imports.dart';
+import '../../users_type/aliaa/views/aliaa_screen.dart';
+import '../../users_type/buyer/views/buyer_screen.dart';
+import '../../users_type/packing/views/packing_screen.dart';
 import 'admin_approval_screen.dart';
-import 'aliaa_screen.dart';
-import 'buyer_screen.dart';
-import 'packing_screen.dart';
+import '../../../config/language/locale_keys.g.dart';
 
-class RoleSelectionScreen extends StatelessWidget {
+/// Entry view used to select a workflow role during the test cycle.
+class RoleSelectionScreen extends StatefulWidget {
   final String email;
 
   const RoleSelectionScreen({super.key, required this.email});
 
+  @override
+  State<RoleSelectionScreen> createState() => _RoleSelectionScreenState();
+}
+
+class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
   Future<void> _openExistingCycle(UserType type) async {
     final user = UserModel.initial().copyWith(
       fullName: type == UserType.admin ? 'Admin' : 'Delivery',
-      email: email,
+      email: widget.email,
       userType: type,
     );
-    await UserCubit.instance.setUserLoggedIn(user: user, token: 'mock-role-token');
+    await UserCubit.instance.setUserLoggedIn(
+      user: user,
+      token: 'mock-role-token',
+    );
     Go.offAll(const HomeScreen());
   }
 
@@ -28,42 +39,41 @@ class RoleSelectionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final roles = <_RoleData>[
       _RoleData(
-        title: 'Admin',
-        subtitle: 'Existing admin cycle and buyer approvals',
+        title: LocaleKeys.workflowAdmin,
+        subtitle: LocaleKeys.workflowAdminSubtitle,
         icon: Icons.admin_panel_settings_outlined,
-        color: const Color(0xFF2563EB),
+        color: AppColors.scenarioPrimary,
         onTap: () => _showAdminChoice(context),
       ),
       _RoleData(
-        title: 'Delivery',
-        subtitle: 'Open the existing delivery cycle',
+        title: LocaleKeys.workflowDelivery,
+        subtitle: LocaleKeys.workflowDeliverySubtitle,
         icon: Icons.local_shipping_outlined,
-        color: const Color(0xFF0F9F8E),
+        color: AppColors.scenarioPrimary,
         onTap: () => _openExistingCycle(UserType.delivery),
       ),
       _RoleData(
-        title: 'Buyer',
-        subtitle: 'Create an order and request Facebook Live',
+        title: LocaleKeys.workflowBuyer,
+        subtitle: LocaleKeys.workflowBuyerSubtitle,
         icon: Icons.shopping_bag_outlined,
-        color: const Color(0xFF7C3AED),
+        color: AppColors.scenarioPrimary,
         onTap: () => Go.to(const BuyerScreen()),
       ),
       _RoleData(
-        title: 'Packing',
-        subtitle: 'Prepare, print, and send orders to Aliaa',
+        title: LocaleKeys.workflowPacking,
+        subtitle: LocaleKeys.workflowPackingSubtitle,
         icon: Icons.inventory_2_outlined,
-        color: const Color(0xFFEA8A00),
+        color: AppColors.scenarioPrimary,
         onTap: () => Go.to(const PackingScreen()),
       ),
       _RoleData(
-        title: 'Aliaa',
-        subtitle: 'Add the final client number',
+        title: LocaleKeys.workflowAliaa,
+        subtitle: LocaleKeys.workflowAliaaSubtitle,
         icon: Icons.contact_phone_outlined,
-        color: const Color(0xFFE34D4D),
+        color: AppColors.scenarioPrimary,
         onTap: () => Go.to(const AliaaScreen()),
       ),
     ];
-
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -77,22 +87,47 @@ class RoleSelectionScreen extends StatelessWidget {
                   width: 64,
                   height: 64,
                   decoration: BoxDecoration(
-                    gradient: AppColors.buttonGradient,
+                    gradient: AppColors.scenarioGradient,
                     borderRadius: BorderRadius.circular(18),
                   ),
                   child: const Icon(Icons.route_outlined, size: 34),
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  'Choose a test cycle',
+                  LocaleKeys.workflowChooseTestCycle,
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: AppColors.main,
                   ),
                 ),
                 const SizedBox(height: 6),
-                const Text('Select who is using the app. You can return here to test another role.'),
+                Text(LocaleKeys.workflowSelectRoleNotice),
                 const SizedBox(height: 24),
+                RadioGroup<AppColorScenario>(
+                  groupValue: AppColors.selectedScenario,
+                  onChanged: (value) {
+                    if (value == null) return;
+                    setState(() => AppColors.selectedScenario = value);
+                    SystemChrome.setSystemUIOverlayStyle(
+                      AppColors.systemUiOverlayStyle,
+                    );
+                  },
+                  child: Column(
+                    children: [
+                      RadioListTile<AppColorScenario>(
+                        value: AppColorScenario.first,
+                        activeColor: AppColors.scenarioPrimary,
+                        title: Text(LocaleKeys.workflowFirstScenario),
+                      ),
+                      RadioListTile<AppColorScenario>(
+                        value: AppColorScenario.second,
+                        activeColor: AppColors.scenarioPrimary,
+                        title: Text(LocaleKeys.workflowSecondScenario),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 16),
                 ...roles.map((role) => _RoleCard(role: role)),
               ],
             ),
@@ -112,23 +147,33 @@ class RoleSelectionScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text('Admin', style: Theme.of(context).textTheme.titleLarge),
+              Text(
+                LocaleKeys.workflowAdmin,
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
               const SizedBox(height: 16),
               FilledButton.icon(
+                style: FilledButton.styleFrom(
+                  backgroundColor: AppColors.scenarioPrimary,
+                ),
                 onPressed: () {
                   Navigator.pop(sheetContext);
                   _openExistingCycle(UserType.admin);
                 },
                 icon: const Icon(Icons.dashboard_outlined),
-                label: const Text('Open existing admin cycle'),
+                label: Text(LocaleKeys.workflowOpenAdminCycle),
               ),
               OutlinedButton.icon(
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: AppColors.scenarioPrimary,
+                  side: BorderSide(color: AppColors.scenarioPrimary),
+                ),
                 onPressed: () {
                   Navigator.pop(sheetContext);
                   Go.to(const AdminApprovalScreen());
                 },
                 icon: const Icon(Icons.approval_outlined),
-                label: const Text('Approve buyer requests'),
+                label: Text(LocaleKeys.workflowApproveBuyerRequests),
               ),
             ],
           ),
@@ -171,12 +216,19 @@ class _RoleCard extends StatelessWidget {
           backgroundColor: role.color.withValues(alpha: .12),
           child: Icon(role.icon, color: role.color),
         ),
-        title: Text(role.title, style: const TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(
+          role.title,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
         subtitle: Padding(
           padding: const EdgeInsets.only(top: 4),
           child: Text(role.subtitle),
         ),
-        trailing: const Icon(Icons.arrow_forward_ios, color: AppColors.hintText, size: 17),
+        trailing: const Icon(
+          Icons.arrow_forward_ios,
+          color: AppColors.hintText,
+          size: 17,
+        ),
       ),
     );
   }

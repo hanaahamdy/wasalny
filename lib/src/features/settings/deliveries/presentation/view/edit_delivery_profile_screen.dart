@@ -10,8 +10,8 @@ class EditDeliveryProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(LocaleKeys.editDeliveryProfile),
-        flexibleSpace: const DecoratedBox(
-          decoration: BoxDecoration(gradient: AppColors.buttonGradient),
+        flexibleSpace: DecoratedBox(
+          decoration: BoxDecoration(gradient: AppColors.scenarioGradient),
         ),
       ),
       body: EditDeliveryProfileBody(delivery: delivery),

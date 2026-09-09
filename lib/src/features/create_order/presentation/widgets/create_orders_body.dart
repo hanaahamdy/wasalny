@@ -143,7 +143,7 @@ class _OrderItemsSection extends StatelessWidget {
                       IconButton(
                         onPressed: cubit.addOrderItem,
                         icon: const Icon(Icons.add_circle_outline),
-                        color: AppColors.authTabSelected,
+                        color: AppColors.scenarioPrimary,
                       ),
                   ],
                 ),

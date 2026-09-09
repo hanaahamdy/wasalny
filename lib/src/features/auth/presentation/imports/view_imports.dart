@@ -11,7 +11,7 @@ import '../../../../core/helpers/validators.dart';
 import '../../../../core/navigation/navigator.dart';
 import '../../../../core/widgets/buttons/default_button.dart';
 import '../../../../core/widgets/fields/text_fields/custom_text_field.dart';
-import '../../../workflow/presentation/role_selection_screen.dart';
+import '../../../workflow/views/role_selection_screen.dart';
 
 part '../cubits/auth_form_state.dart';
 part '../cubits/login_cubit.dart';

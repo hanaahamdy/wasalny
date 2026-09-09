@@ -16,7 +16,7 @@ class AdminSalesFilterButton extends StatelessWidget {
           width: double.infinity,
           padding: EdgeInsets.symmetric(vertical: AppPadding.pH12),
           decoration: BoxDecoration(
-            gradient: AppColors.buttonGradient,
+            gradient: AppColors.scenarioGradient,
             borderRadius: BorderRadius.circular(AppCircular.r10),
           ),
           child: Text(

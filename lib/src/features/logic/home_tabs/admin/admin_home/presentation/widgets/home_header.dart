@@ -6,7 +6,7 @@ class HomeHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
-      decoration: const BoxDecoration(gradient: AppColors.buttonGradient),
+      decoration: BoxDecoration(gradient: AppColors.scenarioGradient),
       child: SafeArea(
         bottom: false,
         child: SizedBox(
@@ -44,7 +44,6 @@ class HomeHeader extends StatelessWidget {
                   color: AppColors.bookingPendingYellow,
                   onTap: () {},
                 ),
-
               ],
             ),
           ),

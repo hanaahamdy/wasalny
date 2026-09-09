@@ -83,6 +83,7 @@ void main() async {
   runApp(
     EasyLocalization(
       supportedLocales: Languages.supportLocales,
+      startLocale:Locale('ar') ,
       path: 'assets/translations',
       fallbackLocale: const Locale('en'),
       saveLocale: true,

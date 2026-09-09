@@ -32,7 +32,7 @@ class AdminSalesDeliveryTotal extends StatelessWidget {
           Text(
             '${_formatAmount(amount)} ${LocaleKeys.egyptianPound}',
             style: TextStyle(
-              color: AppColors.authTabSelected,
+              color: AppColors.scenarioPrimary,
               fontSize: FontSizeManager.s12,
               fontWeight: FontWeightManager.bold,
             ),

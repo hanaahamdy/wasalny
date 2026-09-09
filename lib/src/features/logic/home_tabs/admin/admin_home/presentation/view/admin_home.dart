@@ -45,7 +45,7 @@ class AdminHome extends StatelessWidget {
                       Text(
                         LocaleKeys.viewAll,
                         style: TextStyle(
-                          color: AppColors.authTabSelected,
+                          color: AppColors.scenarioPrimary,
                           fontSize: FontSizeManager.s11,
                           fontWeight: FontWeightManager.regular,
                         ),
@@ -92,7 +92,7 @@ class _AdminHomeStats extends StatelessWidget {
             label: LocaleKeys.deliveryCount,
             icon: Icons.local_shipping_outlined,
             iconBackground: AppColors.moreProfileIconBackground,
-            iconColor: AppColors.authTabSelected,
+            iconColor: AppColors.scenarioPrimary,
           ),
         ),
       ],

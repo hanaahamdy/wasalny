@@ -51,16 +51,24 @@ class AuthFormCard extends StatelessWidget {
               DefaultButton(
                 title: buttonTitle,
                 onTap: onSubmit,
+                gradient: AppColors.scenarioGradient,
                 height: AppSize.sH48,
                 borderRadius: BorderRadius.circular(AppCircular.r8),
               ),
               if (secondaryButtonTitle != null) ...[
                 SizedBox(height: AppSize.sH6),
-                 Row(
+                Row(
                   children: [
-                     Expanded(child: Divider(color: AppColors.grey1,endIndent: 10.w,)),
-                    Text(LocaleKeys.or,style: const TextStyle(color: AppColors.grey2).s12.medium,),
-                     Expanded(child: Divider(color: AppColors.grey1,indent: 10.w,)),
+                    Expanded(
+                      child: Divider(color: AppColors.grey1, endIndent: 10.w),
+                    ),
+                    Text(
+                      LocaleKeys.or,
+                      style: const TextStyle(color: AppColors.grey2).s12.medium,
+                    ),
+                    Expanded(
+                      child: Divider(color: AppColors.grey1, indent: 10.w),
+                    ),
                   ],
                 ),
                 SizedBox(height: AppSize.sH6),
@@ -69,7 +77,7 @@ class AuthFormCard extends StatelessWidget {
                   onTap: onSecondarySubmit,
                   height: AppSize.sH48,
                   color: AppColors.white,
-                  borderColor: AppColors.authTabSelected,
+                  borderColor: AppColors.scenarioPrimary,
                   textColor: AppColors.authLinkText,
                   borderRadius: BorderRadius.circular(AppCircular.r8),
                 ),
