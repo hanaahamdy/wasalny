@@ -2,8 +2,9 @@ part of '../imports/view_imports.dart';
 
 class OrderDetailsBody extends StatelessWidget {
   final OrderModel order;
+  final Widget? actions;
 
-  const OrderDetailsBody({super.key, required this.order});
+  const OrderDetailsBody({super.key, required this.order, this.actions});
 
   @override
   Widget build(BuildContext context) {
@@ -110,6 +111,7 @@ class OrderDetailsBody extends StatelessWidget {
                           ),
                         ],
                       ),
+                      ?actions,
                     ],
                   ),
                 ),

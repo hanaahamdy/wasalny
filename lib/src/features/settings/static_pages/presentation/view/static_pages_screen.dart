@@ -12,7 +12,7 @@ class StaticPagesScreen extends StatelessWidget {
           injector<StaticPagesCubit>()..fetchStaticPage(pageType),
       child: Scaffold(
         backgroundColor: AppColors.subtleBackground,
-        appBar: CustomAppbar(title: pageType.title),
+        appBar: CustomAppBar(title: pageType.title),
         body: StaticPagesBody(pageType: pageType),
       ),
     );

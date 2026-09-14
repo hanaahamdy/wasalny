@@ -22,18 +22,21 @@ class PackingSlipDialog extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(LocaleKeys.workflowOrderNumber(order.id)),
-            Text(LocaleKeys.workflowClientValue(order.clientName)),
+            Text(LocaleKeys.workflowOrderNumber(number: order.id.toString())),
+            Text(LocaleKeys.workflowClientValue(name: order.clientName)),
             const Divider(),
             ...order.categories.map(
               (item) => Text(
-                LocaleKeys.workflowItemCount(item.name, item.count),
+                LocaleKeys.workflowItemCount(
+                  name: item.name,
+                  count: item.count.toString(),
+                ),
               ),
             ),
             const Divider(),
             Text(
               LocaleKeys.workflowTotalValue(
-                order.totalPrice.toStringAsFixed(2),
+                amount: order.totalPrice.toStringAsFixed(2),
               ),
             ),
           ],

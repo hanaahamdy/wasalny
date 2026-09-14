@@ -6,7 +6,16 @@ class CreateOrdersCubit extends Cubit<CreateOrdersState>
 
   CreateOrdersCubit({CreateOrderRepository? repository})
     : _repository = repository ?? injector<CreateOrderRepository>(),
-      super(const CreateOrdersState());
+      super(const CreateOrdersState()) {
+    initializeOrderItems();
+  }
+
+  static const sellerOptions = ['seller_one', 'seller_two', 'seller_three'];
+
+  void selectSeller(String? seller) {
+    if (seller == null) return;
+    emit(state.copyWith(seller: seller));
+  }
 
   void prefillCustomer({required String name, required String phone}) {
     customerNameController.text = name;
@@ -14,13 +23,14 @@ class CreateOrdersCubit extends Cubit<CreateOrdersState>
   }
 
   void addOrderItem() {
-    orderItems.add(OrderItemControllers());
+    orderItems.add(createOrderItemControllers());
     emit(state.copyWith(itemCount: orderItems.length));
   }
 
   void removeOrderItem(int index) {
     if (orderItems.length == 1) return;
     orderItems.removeAt(index).dispose();
+    calculateTotals();
     emit(state.copyWith(itemCount: orderItems.length));
   }
 
@@ -39,6 +49,8 @@ class CreateOrdersCubit extends Cubit<CreateOrdersState>
       phone: phoneController.text.trim(),
       totalAmount: totalController.text.trim(),
       deliveryFee: deliveryPriceController.text.trim(),
+      partnerPrice: partnerPriceController.text.trim(),
+      seller: state.seller!,
       products: orderItems
           .map(
             (item) => CreateOrderProductParams(

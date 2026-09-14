@@ -39,13 +39,13 @@ class CreateOrdersScreen extends StatelessWidget {
           }
         },
         child: AnnotatedRegion<SystemUiOverlayStyle>(
-          value: const SystemUiOverlayStyle(
+          value: SystemUiOverlayStyle(
             statusBarColor: AppColors.scenarioPrimary,
             statusBarIconBrightness: Brightness.light,
             statusBarBrightness: Brightness.dark,
           ),
           child: Scaffold(
-            appBar: AppBar(title: Text(LocaleKeys.addOrder)),
+            appBar: CustomAppBar(title: LocaleKeys.addOrder),
             backgroundColor: AppColors.scaffoldBackground,
             body: const SafeArea(child: CreateOrdersBody()),
           ),

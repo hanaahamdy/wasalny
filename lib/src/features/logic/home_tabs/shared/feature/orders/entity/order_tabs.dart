@@ -2,6 +2,7 @@ import '../../../../../../../config/language/locale_keys.g.dart';
 
 enum AdminOrderTab {
   pending,
+  onHolding,
   created,
   delivering,
   received,
@@ -9,6 +10,7 @@ enum AdminOrderTab {
 
   String get label => switch (this) {
     AdminOrderTab.pending => LocaleKeys.orderPending,
+    AdminOrderTab.onHolding => LocaleKeys.orderOnHolding,
     AdminOrderTab.created => LocaleKeys.orderCreated,
     AdminOrderTab.delivering => LocaleKeys.orderDelivering,
     AdminOrderTab.received => LocaleKeys.orderReceived,
@@ -29,3 +31,5 @@ enum DeliveryOrderTab {
     DeliveryOrderTab.recieved => LocaleKeys.delivered,
   };
 }
+
+//pending , created  , in_delivery ,delivered ,cancelled ,on_hold ,received

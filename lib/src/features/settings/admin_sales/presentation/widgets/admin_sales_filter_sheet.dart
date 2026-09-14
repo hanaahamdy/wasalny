@@ -58,7 +58,7 @@ class _AdminSalesFilterSheetState extends State<AdminSalesFilterSheet> {
               ),
               Expanded(
                 child: Text(
-                  LocaleKeys.salesFilter,
+                  LocaleKeys.filter,
                   textAlign: TextAlign.start,
                   style: TextStyle(
                     color: AppColors.main,

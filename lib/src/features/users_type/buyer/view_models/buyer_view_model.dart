@@ -6,21 +6,30 @@ class BuyerViewModel extends ChangeNotifier {
   final List<WorkflowLiveRequest> _liveRequests = [];
 
   List<WorkflowOrder> get orders => List.unmodifiable(_orders);
-  List<WorkflowLiveRequest> get liveRequests => List.unmodifiable(_liveRequests.reversed);
+  List<WorkflowLiveRequest> get liveRequests =>
+      List.unmodifiable(_liveRequests.reversed);
 
-  void addOrder({required String clientName, required List<WorkflowCategory> categories}) {
-    _orders.add(WorkflowOrder(
-      id: DateTime.now().microsecondsSinceEpoch,
-      clientName: clientName,
-      categories: List.unmodifiable(categories),
-      facebookLiveRequested: false,
-      facebookRequest: '',
-      status: WorkflowOrderStatus.waitingAdmin,
-    ));
+  void addOrder({
+    required String clientName,
+    required List<WorkflowCategory> categories,
+  }) {
+    _orders.add(
+      WorkflowOrder(
+        id: DateTime.now().microsecondsSinceEpoch,
+        clientName: clientName,
+        categories: List.unmodifiable(categories),
+        facebookLiveRequested: false,
+        facebookRequest: '',
+        status: WorkflowOrderStatus.waitingAdmin,
+      ),
+    );
     notifyListeners();
   }
 
-  WorkflowLiveRequest addLiveRequest({required String clientName, required String details}) {
+  WorkflowLiveRequest addLiveRequest({
+    required String clientName,
+    required String details,
+  }) {
     final request = WorkflowLiveRequest(
       id: DateTime.now().microsecondsSinceEpoch,
       clientName: clientName,
@@ -35,7 +44,9 @@ class BuyerViewModel extends ChangeNotifier {
   void startLive(int id) {
     final index = _liveRequests.indexWhere((request) => request.id == id);
     if (index < 0) return;
-    _liveRequests[index] = _liveRequests[index].copyWith(status: WorkflowLiveStatus.started);
+    _liveRequests[index] = _liveRequests[index].copyWith(
+      status: WorkflowLiveStatus.started,
+    );
     notifyListeners();
   }
 }

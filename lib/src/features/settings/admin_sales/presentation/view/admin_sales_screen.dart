@@ -6,14 +6,11 @@ class AdminSalesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(LocaleKeys.sales),
-        flexibleSpace: DecoratedBox(
-          decoration: BoxDecoration(gradient: AppColors.scenarioGradient),
-        ),
+      appBar: CustomAppBar(
+        title: LocaleKeys.sales,
         actions: [
           IconButton(
-            tooltip: LocaleKeys.salesFilter,
+            tooltip: LocaleKeys.filter,
             onPressed: () => AdminSalesFilterSheet.show(context),
             icon: const Icon(Icons.filter_alt_outlined),
           ),

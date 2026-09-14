@@ -10,7 +10,11 @@ class OrderCard extends StatelessWidget {
 
     return InkWell(
       borderRadius: BorderRadius.circular(AppCircular.r12),
-      onTap: () => Go.to(OrderDetailsScreen(order: order)),
+      onTap: () => Go.to(
+        UserCubit.instance.user.role == UserRole.admin
+            ? AdminOrderDetailsScreen(order: order)
+            : DeliveryOrderDetailsScreen(order: order),
+      ),
       child: Container(
         padding: EdgeInsets.symmetric(
           horizontal: AppPadding.pW12,
@@ -30,7 +34,9 @@ class OrderCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${order.id.replaceFirst('#', 'ORD-')}#',
+                    order.id.startsWith('#')
+                        ? 'ORD-${order.id.substring(1)}'
+                        : order.id,
                     style: TextStyle(
                       color: AppColors.scenarioText,
                       fontSize: FontSizeManager.s12,
@@ -85,6 +91,11 @@ class OrderCard extends StatelessWidget {
     return switch (tab) {
       AdminOrderTab.pending => OrderStatusData(
         label: AdminOrderTab.pending.label,
+        background: AppColors.pendingBackground,
+        textColor: AppColors.pendingText,
+      ),
+      AdminOrderTab.onHolding => OrderStatusData(
+        label: AdminOrderTab.onHolding.label,
         background: AppColors.pendingBackground,
         textColor: AppColors.pendingText,
       ),

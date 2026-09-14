@@ -6,7 +6,7 @@ class CustomersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(LocaleKeys.customers)),
+      appBar: CustomAppBar(title: LocaleKeys.customers),
       body: const CustomersBody(),
     );
   }

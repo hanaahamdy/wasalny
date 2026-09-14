@@ -40,22 +40,24 @@ class _AliaaScreenState extends State<AliaaScreen> {
               WorkflowQueueHeader(
                 icon: Icons.contact_phone_outlined,
                 title: LocaleKeys.workflowAliaa,
-                subtitle: LocaleKeys.workflowAliaaQueue(orders.length),
+                subtitle: LocaleKeys.workflowAliaaQueue(
+                  count: orders.length.toString(),
+                ),
                 count: orders.length,
               ),
               ...orders.map(
-                  (order) => WorkflowOrderCard(
-                    order: order,
-                    action: SizedBox(
-                      width: double.infinity,
-                      child: FilledButton.icon(
-                        onPressed: () => _addClientNumber(context, order),
-                        icon: const Icon(Icons.add_call),
-                        label: Text(LocaleKeys.workflowAddClientNumber),
-                      ),
+                (order) => WorkflowOrderCard(
+                  order: order,
+                  action: SizedBox(
+                    width: double.infinity,
+                    child: FilledButton.icon(
+                      onPressed: () => _addClientNumber(context, order),
+                      icon: const Icon(Icons.add_call),
+                      label: Text(LocaleKeys.workflowAddClientNumber),
                     ),
                   ),
                 ),
+              ),
             ],
           );
         },

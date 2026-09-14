@@ -6,9 +6,7 @@ class AdminApprovalViewModel extends ChangeNotifier {
     const WorkflowOrder(
       id: 1001,
       clientName: 'Mona Ali',
-      categories: [
-        WorkflowCategory(name: 'Clothes', count: 2, unitPrice: 320),
-      ],
+      categories: [WorkflowCategory(name: 'Clothes', count: 2, unitPrice: 320)],
       facebookLiveRequested: false,
       facebookRequest: '',
       status: WorkflowOrderStatus.waitingAdmin,
@@ -41,7 +39,8 @@ class AdminApprovalViewModel extends ChangeNotifier {
   ];
 
   List<WorkflowOrder> get orders => List.unmodifiable(_orders);
-  List<WorkflowLiveRequest> get liveRequests => List.unmodifiable(_liveRequests);
+  List<WorkflowLiveRequest> get liveRequests =>
+      List.unmodifiable(_liveRequests);
 
   void approveOrder(int id) {
     _orders.removeWhere((order) => order.id == id);

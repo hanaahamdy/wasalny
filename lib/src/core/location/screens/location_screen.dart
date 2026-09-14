@@ -31,7 +31,9 @@ class _LocationScreenState extends State<LocationScreen> {
     final bool hasInitialLocation = widget.initialLocation != null;
 
     return Scaffold(
-      appBar: AppBar(title: Text(widget.appBarTitle ?? LocaleKeys.location)),
+      appBar: CustomAppBar(
+        title: widget.appBarTitle ?? LocaleKeys.location,
+      ),
       body: Stack(
         alignment: Alignment.bottomLeft,
         children: [

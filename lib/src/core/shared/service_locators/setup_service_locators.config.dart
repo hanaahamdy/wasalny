@@ -19,11 +19,11 @@ import '../../../features/auth/data/repositories/auth_repository_impl.dart'
     as _i365;
 import '../../../features/auth/domain/repositories/auth_repository.dart'
     as _i234;
-import '../../../features/create_delivery/data/datasources/create_delivery_remote_data_source.dart'
+import '../../../features/create_employee/data/datasources/create_employee_remote_data_source.dart'
     as _i343;
-import '../../../features/create_delivery/data/repositories/create_delivery_repository_impl.dart'
+import '../../../features/create_employee/data/repositories/create_employee_repository_impl.dart'
     as _i330;
-import '../../../features/create_delivery/domain/repositories/create_delivery_repository.dart'
+import '../../../features/create_employee/domain/repositories/create_employee_repository.dart'
     as _i431;
 import '../../../features/create_order/data/datasources/create_order_remote_data_source.dart'
     as _i206;
@@ -107,9 +107,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i129.NotificationsRemoteDataSource>(
       () => _i129.NotificationsRemoteDataSourceImpl(gh<_i632.NetworkService>()),
     );
-    gh.lazySingleton<_i343.CreateDeliveryRemoteDataSource>(
+    gh.lazySingleton<_i343.CreateEmployeeRemoteDataSource>(
       () =>
-          _i343.CreateDeliveryRemoteDataSourceImpl(gh<_i632.NetworkService>()),
+          _i343.CreateEmployeeRemoteDataSourceImpl(gh<_i632.NetworkService>()),
     );
     gh.lazySingleton<_i56.UserRemoteDataSource>(
       () => _i56.UserRemoteDataSourceImpl(gh<_i632.NetworkService>()),
@@ -134,9 +134,9 @@ extension GetItInjectableX on _i174.GetIt {
       () =>
           _i837.AdminHomeRepositoryImpl(gh<_i141.AdminHomeRemoteDataSource>()),
     );
-    gh.lazySingleton<_i431.CreateDeliveryRepository>(
-      () => _i330.CreateDeliveryRepositoryImpl(
-        gh<_i343.CreateDeliveryRemoteDataSource>(),
+    gh.lazySingleton<_i431.CreateEmployeeRepository>(
+      () => _i330.CreateEmployeeRepositoryImpl(
+        gh<_i343.CreateEmployeeRemoteDataSource>(),
       ),
     );
     gh.lazySingleton<_i544.UserRepository>(

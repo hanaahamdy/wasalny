@@ -113,7 +113,7 @@ class _BuyerOrderDetailsScreenState extends State<BuyerOrderDetailsScreen> {
                       ),
                       Text(
                         LocaleKeys.workflowAmountEgp(
-                          _total.toStringAsFixed(2),
+                          amount: _total.toStringAsFixed(2),
                         ),
                         style: TextStyle(
                           color: AppColors.scenarioPrimary,

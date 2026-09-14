@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../../config/res/config_imports.dart';
-import '../../../../core/navigation/navigator.dart';
+import '../../../../core/widgets/custom_appbar.dart';
 import '../../models/workflow_order.dart';
 import '../../../../config/language/locale_keys.g.dart';
 
@@ -33,68 +33,14 @@ class WorkflowPage extends StatelessWidget {
           statusBarBrightness: Brightness.dark,
         ),
         child: Scaffold(
-          body: Column(
-            children: [
-              _WorkflowHeader(title: title),
-              Expanded(
-                child: SafeArea(
-                  top: false,
-                  child: Center(
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 720),
-                      child: child,
-                    ),
-                  ),
-                ),
+          appBar: CustomAppBar(title: title),
+          body: SafeArea(
+            top: false,
+            child: Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 720),
+                child: child,
               ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _WorkflowHeader extends StatelessWidget {
-  final String title;
-
-  const _WorkflowHeader({required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(gradient: AppColors.scenarioGradient),
-      child: SafeArea(
-        bottom: false,
-        child: SizedBox(
-          height: AppSize.sH70,
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: AppPadding.pW14),
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                const Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: IconButton(
-                    onPressed: Go.back,
-                    icon: Icon(Icons.arrow_back, color: AppColors.white),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: AppPadding.pW24),
-                  child: Text(
-                    title,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: AppColors.white,
-                      fontSize: FontSizeManager.s15,
-                      fontWeight: FontWeightManager.bold,
-                    ),
-                  ),
-                ),
-              ],
             ),
           ),
         ),
@@ -140,12 +86,15 @@ class WorkflowOrderCard extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        LocaleKeys.workflowItemCount(item.name, item.count),
+                        LocaleKeys.workflowItemCount(
+                          name: item.name,
+                          count: item.count.toString(),
+                        ),
                       ),
                     ),
                     Text(
                       LocaleKeys.workflowAmountEgp(
-                        item.total.toStringAsFixed(2),
+                        amount: item.total.toStringAsFixed(2),
                       ),
                     ),
                   ],
@@ -163,7 +112,7 @@ class WorkflowOrderCard extends StatelessWidget {
                 ),
                 Text(
                   LocaleKeys.workflowAmountEgp(
-                    order.totalPrice.toStringAsFixed(2),
+                    amount: order.totalPrice.toStringAsFixed(2),
                   ),
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
@@ -185,7 +134,9 @@ class WorkflowOrderCard extends StatelessWidget {
             ],
             if (order.clientNumber != null) ...[
               const SizedBox(height: 10),
-              Text(LocaleKeys.workflowClientNumberTitle(order.clientNumber!)),
+              Text(
+                LocaleKeys.workflowClientNumberTitle(name: order.clientNumber!),
+              ),
             ],
             if (action != null) ...[const SizedBox(height: 12), action!],
           ],

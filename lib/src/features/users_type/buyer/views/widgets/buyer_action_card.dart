@@ -40,13 +40,25 @@ class BuyerActionCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+                  Text(
+                    title,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   const SizedBox(height: 5),
-                  Text(subtitle, style: const TextStyle(color: AppColors.hintText)),
+                  Text(
+                    subtitle,
+                    style: const TextStyle(color: AppColors.hintText),
+                  ),
                 ],
               ),
             ),
-            Icon(Icons.arrow_forward_ios, color: AppColors.scenarioPrimary, size: 18),
+            Icon(
+              Icons.arrow_forward_ios,
+              color: AppColors.scenarioPrimary,
+              size: 18,
+            ),
           ],
         ),
       ),

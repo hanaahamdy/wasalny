@@ -15,6 +15,7 @@ import '../../extensions/text_style_extensions.dart';
 import '../../helpers/location_helper.dart';
 import '../../navigation/navigator.dart' show Go;
 import '../../widgets/buttons/default_button.dart';
+import '../../widgets/custom_appbar.dart';
 import '../../widgets/scaffolds/default_scaffold.dart';
 import '../widgets/map_widget.dart';
 

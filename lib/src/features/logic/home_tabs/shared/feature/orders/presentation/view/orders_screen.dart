@@ -11,9 +11,9 @@ class OrdersScreen extends StatelessWidget {
       child: AnnotatedRegion<SystemUiOverlayStyle>(
         value: AppColors.systemUiOverlayStyle,
         child: Scaffold(
-          appBar: AppBar(
+          appBar: CustomAppBar(
             automaticallyImplyLeading: false,
-            title: Text(LocaleKeys.orders),
+            title: LocaleKeys.orders,
           ),
           backgroundColor: AppColors.scenarioBackground,
           body: const OrdersBody(),

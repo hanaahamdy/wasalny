@@ -4,6 +4,7 @@ final class CreateOrdersState {
   final bool isLoading;
   final bool isSuccess;
   final int itemCount;
+  final String? seller;
   final String? errorMessage;
   final String? successMessage;
   final CreatedOrderModel? createdOrder;
@@ -12,6 +13,7 @@ final class CreateOrdersState {
     this.isLoading = false,
     this.isSuccess = false,
     this.itemCount = 1,
+    this.seller,
     this.errorMessage,
     this.successMessage,
     this.createdOrder,
@@ -21,6 +23,7 @@ final class CreateOrdersState {
     bool? isLoading,
     bool? isSuccess,
     int? itemCount,
+    String? seller,
     String? errorMessage,
     String? successMessage,
     CreatedOrderModel? createdOrder,
@@ -30,6 +33,7 @@ final class CreateOrdersState {
     isLoading: isLoading ?? this.isLoading,
     isSuccess: isSuccess ?? this.isSuccess,
     itemCount: itemCount ?? this.itemCount,
+    seller: seller ?? this.seller,
     errorMessage: clearError ? null : errorMessage ?? this.errorMessage,
     successMessage: clearSuccess ? null : successMessage ?? this.successMessage,
     createdOrder: createdOrder ?? this.createdOrder,

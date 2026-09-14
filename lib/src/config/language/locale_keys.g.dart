@@ -1,23 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 
 abstract class LocaleKeys {
-  static const String _resendCode = 'resend_code';
-  static String get resendCode => _resendCode.tr();
-
-  static const String _continueButton = 'continue_button';
-  static String get continueButton => _continueButton.tr();
-
-  static const String _resetPassword = 'reset_password';
-  static String get resetPassword => _resetPassword.tr();
-
-  static const String _enterNewPassword = 'enter_new_password';
-  static String get enterNewPassword => _enterNewPassword.tr();
-
-  static const String _passwordResetSuccess = 'password_reset_success';
-  static String get passwordResetSuccess => _passwordResetSuccess.tr();
-
-  static const String _areYouSureYouWantToDeleteAccount = 'are_you_sure_you_want_to_delete_account';
-  static String get areYouSureYouWantToDeleteAccount => _areYouSureYouWantToDeleteAccount.tr();
+  static const String _areYouSureYouWantToDeleteAccount =
+      'are_you_sure_you_want_to_delete_account';
+  static String get areYouSureYouWantToDeleteAccount =>
+      _areYouSureYouWantToDeleteAccount.tr();
 
   static const String _badRequest = 'bad_request';
   static String get badRequest => _badRequest.tr();
@@ -34,8 +21,10 @@ abstract class LocaleKeys {
   static const String _cancel = 'cancel';
   static String get cancel => _cancel.tr();
 
-  static const String _cannotSelectAttachmentsExceptPdf = 'cannot_select_attachments_except_pdf';
-  static String get cannotSelectAttachmentsExceptPdf => _cannotSelectAttachmentsExceptPdf.tr();
+  static const String _cannotSelectAttachmentsExceptPdf =
+      'cannot_select_attachments_except_pdf';
+  static String get cannotSelectAttachmentsExceptPdf =>
+      _cannotSelectAttachmentsExceptPdf.tr();
 
   static const String _category = 'category';
   static String get category => _category.tr();
@@ -124,17 +113,23 @@ abstract class LocaleKeys {
   static const String _serverError = 'server_error';
   static String get serverError => _serverError.tr();
 
-  static const String _errorExeptionNoconnection = 'error_exeption_noconnection';
-  static String get errorExeptionNoconnection => _errorExeptionNoconnection.tr();
+  static const String _errorExeptionNoconnection =
+      'error_exeption_noconnection';
+  static String get errorExeptionNoconnection =>
+      _errorExeptionNoconnection.tr();
 
-  static const String _errorExeptionNointernetDesc = 'error_exeption_nointernet_desc';
-  static String get errorExeptionNointernetDesc => _errorExeptionNointernetDesc.tr();
+  static const String _errorExeptionNointernetDesc =
+      'error_exeption_nointernet_desc';
+  static String get errorExeptionNointernetDesc =>
+      _errorExeptionNointernetDesc.tr();
 
   static const String _errorExceptionNotContain = 'error_exception_not_contain';
   static String get errorExceptionNotContain => _errorExceptionNotContain.tr();
 
-  static const String _errorExceptionNotContainDesc = 'error_exception_not_contain_desc';
-  static String get errorExceptionNotContainDesc => _errorExceptionNotContainDesc.tr();
+  static const String _errorExceptionNotContainDesc =
+      'error_exception_not_contain_desc';
+  static String get errorExceptionNotContainDesc =>
+      _errorExceptionNotContainDesc.tr();
 
   static const String _visitorText = 'visitor_text';
   static String get visitorText => _visitorText.tr();
@@ -145,20 +140,28 @@ abstract class LocaleKeys {
   static const String _emptyOtpRequired = 'empty_otp_required';
   static String get emptyOtpRequired => _emptyOtpRequired.tr();
 
-  static const String _errorExceptionNoconnection = 'error_exception_noconnection';
-  static String get errorExceptionNoconnection => _errorExceptionNoconnection.tr();
+  static const String _errorExceptionNoconnection =
+      'error_exception_noconnection';
+  static String get errorExceptionNoconnection =>
+      _errorExceptionNoconnection.tr();
 
-  static const String _errorExeptionNoConnection = 'error_exeption_no_connection';
-  static String get errorExeptionNoConnection => _errorExeptionNoConnection.tr();
+  static const String _errorExeptionNoConnection =
+      'error_exeption_no_connection';
+  static String get errorExeptionNoConnection =>
+      _errorExeptionNoConnection.tr();
 
-  static const String _errorexceptionNointernetdesc = 'errorexception_nointernetdesc';
-  static String get errorexceptionNointernetdesc => _errorexceptionNointernetdesc.tr();
+  static const String _errorexceptionNointernetdesc =
+      'errorexception_nointernetdesc';
+  static String get errorexceptionNointernetdesc =>
+      _errorexceptionNointernetdesc.tr();
 
   static const String _errorexceptionNotcontain = 'errorexception_notcontain';
   static String get errorexceptionNotcontain => _errorexceptionNotcontain.tr();
 
-  static const String _errorexceptionNotcontaindesc = 'errorexception_notcontaindesc';
-  static String get errorexceptionNotcontaindesc => _errorexceptionNotcontaindesc.tr();
+  static const String _errorexceptionNotcontaindesc =
+      'errorexception_notcontaindesc';
+  static String get errorexceptionNotcontaindesc =>
+      _errorexceptionNotcontaindesc.tr();
 
   static const String _exceptionError = 'exception_error';
   static String get exceptionError => _exceptionError.tr();
@@ -181,8 +184,10 @@ abstract class LocaleKeys {
   static const String _forgotPasswordSubtitle = 'forgot_password_subtitle';
   static String get forgotPasswordSubtitle => _forgotPasswordSubtitle.tr();
 
-  static const String _fullNameShouldBeThreeAtLeast = 'full_name_should_be_three_at_least';
-  static String get fullNameShouldBeThreeAtLeast => _fullNameShouldBeThreeAtLeast.tr();
+  static const String _fullNameShouldBeThreeAtLeast =
+      'full_name_should_be_three_at_least';
+  static String get fullNameShouldBeThreeAtLeast =>
+      _fullNameShouldBeThreeAtLeast.tr();
 
   static const String _nameMinTwoCharacters = 'name_min_two_characters';
   static String get nameMinTwoCharacters => _nameMinTwoCharacters.tr();
@@ -199,8 +204,10 @@ abstract class LocaleKeys {
   static const String _intenetWeakness = 'intenet_weakness';
   static String get intenetWeakness => _intenetWeakness.tr();
 
-  static const String _internetConnectionRestored = 'internet_connection_restored';
-  static String get internetConnectionRestored => _internetConnectionRestored.tr();
+  static const String _internetConnectionRestored =
+      'internet_connection_restored';
+  static String get internetConnectionRestored =>
+      _internetConnectionRestored.tr();
 
   static const String _loading = 'loading';
   static String get loading => _loading.tr();
@@ -265,35 +272,48 @@ abstract class LocaleKeys {
   static const String _pleaseAdd = 'please_add';
   static String get pleaseAdd => _pleaseAdd.tr();
 
-  static const String _pleaseEnterTheCodeSentTo = 'please_enter_the_code_sent_to';
+  static const String _pleaseEnterTheCodeSentTo =
+      'please_enter_the_code_sent_to';
   static String get pleaseEnterTheCodeSentTo => _pleaseEnterTheCodeSentTo.tr();
 
-  static const String _pleaseEnterTheVerificationCodeSentToYourEmail = 'please_enter_the_verification_code_sent_to_your_email';
-  static String get pleaseEnterTheVerificationCodeSentToYourEmail => _pleaseEnterTheVerificationCodeSentToYourEmail.tr();
+  static const String _pleaseEnterTheVerificationCodeSentToYourEmail =
+      'please_enter_the_verification_code_sent_to_your_email';
+  static String get pleaseEnterTheVerificationCodeSentToYourEmail =>
+      _pleaseEnterTheVerificationCodeSentToYourEmail.tr();
 
-  static const String _pleaseEnterTheVerificationCodeSentToYourMobilePhone = 'please_enter_the_verification_code_sent_to_your_mobile_phone';
-  static String get pleaseEnterTheVerificationCodeSentToYourMobilePhone => _pleaseEnterTheVerificationCodeSentToYourMobilePhone.tr();
+  static const String _pleaseEnterTheVerificationCodeSentToYourMobilePhone =
+      'please_enter_the_verification_code_sent_to_your_mobile_phone';
+  static String get pleaseEnterTheVerificationCodeSentToYourMobilePhone =>
+      _pleaseEnterTheVerificationCodeSentToYourMobilePhone.tr();
 
   static const String _registerOtpDescription = 'register_otp_description';
   static String get registerOtpDescription => _registerOtpDescription.tr();
 
-  static const String _pleaseEnterYourConfirmPassword = 'please_enter_your_confirm_password';
-  static String get pleaseEnterYourConfirmPassword => _pleaseEnterYourConfirmPassword.tr();
+  static const String _pleaseEnterYourConfirmPassword =
+      'please_enter_your_confirm_password';
+  static String get pleaseEnterYourConfirmPassword =>
+      _pleaseEnterYourConfirmPassword.tr();
 
-  static const String _pleaseEnterYourCurrentPassword = 'please_enter_your_current_password';
-  static String get pleaseEnterYourCurrentPassword => _pleaseEnterYourCurrentPassword.tr();
+  static const String _pleaseEnterYourCurrentPassword =
+      'please_enter_your_current_password';
+  static String get pleaseEnterYourCurrentPassword =>
+      _pleaseEnterYourCurrentPassword.tr();
 
   static const String _pleaseEnterYourNewEmail = 'please_enter_your_new_email';
   static String get pleaseEnterYourNewEmail => _pleaseEnterYourNewEmail.tr();
 
-  static const String _pleaseEnterYourNewPassword = 'please_enter_your_new_password';
-  static String get pleaseEnterYourNewPassword => _pleaseEnterYourNewPassword.tr();
+  static const String _pleaseEnterYourNewPassword =
+      'please_enter_your_new_password';
+  static String get pleaseEnterYourNewPassword =>
+      _pleaseEnterYourNewPassword.tr();
 
   static const String _pleaseEnterYourPassword = 'please_enter_your_password';
   static String get pleaseEnterYourPassword => _pleaseEnterYourPassword.tr();
 
-  static const String _pleaseEnterYourPhoneNumber = 'please_enter_your_phone_number';
-  static String get pleaseEnterYourPhoneNumber => _pleaseEnterYourPhoneNumber.tr();
+  static const String _pleaseEnterYourPhoneNumber =
+      'please_enter_your_phone_number';
+  static String get pleaseEnterYourPhoneNumber =>
+      _pleaseEnterYourPhoneNumber.tr();
 
   static const String _scripInjectionValidate = 'scrip_injection_validate';
   static String get scripInjectionValidate => _scripInjectionValidate.tr();
@@ -388,11 +408,15 @@ abstract class LocaleKeys {
   static const String _validationMaxLength = 'validation_max_length';
   static String get validationMaxLength => _validationMaxLength.tr();
 
-  static const String _validationWorkingHoursRange = 'validation_working_hours_range';
-  static String get validationWorkingHoursRange => _validationWorkingHoursRange.tr();
+  static const String _validationWorkingHoursRange =
+      'validation_working_hours_range';
+  static String get validationWorkingHoursRange =>
+      _validationWorkingHoursRange.tr();
 
-  static const String _validationSleepHoursRange = 'validation_sleep_hours_range';
-  static String get validationSleepHoursRange => _validationSleepHoursRange.tr();
+  static const String _validationSleepHoursRange =
+      'validation_sleep_hours_range';
+  static String get validationSleepHoursRange =>
+      _validationSleepHoursRange.tr();
 
   static const String _validationMealsMin = 'validation_meals_min';
   static String get validationMealsMin => _validationMealsMin.tr();
@@ -409,8 +433,10 @@ abstract class LocaleKeys {
   static const String _validationWeightLossMin = 'validation_weight_loss_min';
   static String get validationWeightLossMin => _validationWeightLossMin.tr();
 
-  static const String _validationCommitmentRange = 'validation_commitment_range';
-  static String get validationCommitmentRange => _validationCommitmentRange.tr();
+  static const String _validationCommitmentRange =
+      'validation_commitment_range';
+  static String get validationCommitmentRange =>
+      _validationCommitmentRange.tr();
 
   static const String _validationInvalidNumber = 'validation_invalid_number';
   static String get validationInvalidNumber => _validationInvalidNumber.tr();
@@ -442,8 +468,10 @@ abstract class LocaleKeys {
   static const String _logout = 'logout';
   static String get logout => _logout.tr();
 
-  static const String _logoutConfirmationMessage = 'logout_confirmation_message';
-  static String get logoutConfirmationMessage => _logoutConfirmationMessage.tr();
+  static const String _logoutConfirmationMessage =
+      'logout_confirmation_message';
+  static String get logoutConfirmationMessage =>
+      _logoutConfirmationMessage.tr();
 
   static const String _introSkip = 'intro_skip';
   static String get introSkip => _introSkip.tr();
@@ -496,8 +524,10 @@ abstract class LocaleKeys {
   static const String _whoUs = 'who_us';
   static String get whoUs => _whoUs.tr();
 
-  static const String _contactRequestSendSuccessfully = 'contact_request_send_successfully';
-  static String get contactRequestSendSuccessfully => _contactRequestSendSuccessfully.tr();
+  static const String _contactRequestSendSuccessfully =
+      'contact_request_send_successfully';
+  static String get contactRequestSendSuccessfully =>
+      _contactRequestSendSuccessfully.tr();
 
   static const String _messageLabel = 'message_label';
   static String get messageLabel => _messageLabel.tr();
@@ -589,14 +619,18 @@ abstract class LocaleKeys {
   static const String _settingsEditProfile = 'settings_edit_profile';
   static String get settingsEditProfile => _settingsEditProfile.tr();
 
-  static const String _settingsEditProfileSubtitle = 'settings_edit_profile_subtitle';
-  static String get settingsEditProfileSubtitle => _settingsEditProfileSubtitle.tr();
+  static const String _settingsEditProfileSubtitle =
+      'settings_edit_profile_subtitle';
+  static String get settingsEditProfileSubtitle =>
+      _settingsEditProfileSubtitle.tr();
 
   static const String _settingsChangePhone = 'settings_change_phone';
   static String get settingsChangePhone => _settingsChangePhone.tr();
 
-  static const String _settingsChangePhoneSubtitle = 'settings_change_phone_subtitle';
-  static String get settingsChangePhoneSubtitle => _settingsChangePhoneSubtitle.tr();
+  static const String _settingsChangePhoneSubtitle =
+      'settings_change_phone_subtitle';
+  static String get settingsChangePhoneSubtitle =>
+      _settingsChangePhoneSubtitle.tr();
 
   static const String _settingsChangeEmail = 'settings_change_email';
   static String get settingsChangeEmail => _settingsChangeEmail.tr();
@@ -607,8 +641,10 @@ abstract class LocaleKeys {
   static const String _settingsNotifications = 'settings_notifications';
   static String get settingsNotifications => _settingsNotifications.tr();
 
-  static const String _settingsNotificationsAvailable = 'settings_notifications_available';
-  static String get settingsNotificationsAvailable => _settingsNotificationsAvailable.tr();
+  static const String _settingsNotificationsAvailable =
+      'settings_notifications_available';
+  static String get settingsNotificationsAvailable =>
+      _settingsNotificationsAvailable.tr();
 
   static const String _settingsLanguages = 'settings_languages';
   static String get settingsLanguages => _settingsLanguages.tr();
@@ -652,8 +688,10 @@ abstract class LocaleKeys {
   static const String _moreGeneralSettings = 'more_general_settings';
   static String get moreGeneralSettings => _moreGeneralSettings.tr();
 
-  static const String _moreGeneralSettingsSubtitle = 'more_general_settings_subtitle';
-  static String get moreGeneralSettingsSubtitle => _moreGeneralSettingsSubtitle.tr();
+  static const String _moreGeneralSettingsSubtitle =
+      'more_general_settings_subtitle';
+  static String get moreGeneralSettingsSubtitle =>
+      _moreGeneralSettingsSubtitle.tr();
 
   static const String _moreMyTeam = 'more_my_team';
   static String get moreMyTeam => _moreMyTeam.tr();
@@ -684,6 +722,9 @@ abstract class LocaleKeys {
 
   static const String _deliveryStaff = 'delivery_staff';
   static String get deliveryStaff => _deliveryStaff.tr();
+
+  static const String _employees = 'employees';
+  static String get employees => _employees.tr();
 
   static const String _sales = 'sales';
   static String get sales => _sales.tr();
@@ -727,8 +768,10 @@ abstract class LocaleKeys {
   static const String _notificationsTitle = 'notifications_title';
   static String get notificationsTitle => _notificationsTitle.tr();
 
-  static const String _notificationsNoNotifications = 'notifications_no_notifications';
-  static String get notificationsNoNotifications => _notificationsNoNotifications.tr();
+  static const String _notificationsNoNotifications =
+      'notifications_no_notifications';
+  static String get notificationsNoNotifications =>
+      _notificationsNoNotifications.tr();
 
   static const String _notificationsMarkRead = 'notifications_mark_read';
   static String get notificationsMarkRead => _notificationsMarkRead.tr();
@@ -736,13 +779,16 @@ abstract class LocaleKeys {
   static const String _notificationsClearAll = 'notifications_clear_all';
   static String get notificationsClearAll => _notificationsClearAll.tr();
 
-  static const String _notificationsDeleteAllNotifications = 'notifications_delete_all_notifications';
-  static String get notificationsDeleteAllNotifications => _notificationsDeleteAllNotifications.tr();
+  static const String _notificationsDeleteAllNotifications =
+      'notifications_delete_all_notifications';
+  static String get notificationsDeleteAllNotifications =>
+      _notificationsDeleteAllNotifications.tr();
 
   static const String _deleteNotification = 'delete_notification';
   static String get deleteNotification => _deleteNotification.tr();
 
-  static const String _dataUpdatingNowComeLater = 'data_updating_now_come_later';
+  static const String _dataUpdatingNowComeLater =
+      'data_updating_now_come_later';
   static String get dataUpdatingNowComeLater => _dataUpdatingNowComeLater.tr();
 
   static const String _selectAnOption = 'select_an_option';
@@ -772,7 +818,8 @@ abstract class LocaleKeys {
   static const String _signUpTermsRequired = 'sign_up_terms_required';
   static String get signUpTermsRequired => _signUpTermsRequired.tr();
 
-  static const String _signUpAlreadyHaveAccount = 'sign_up_already_have_account';
+  static const String _signUpAlreadyHaveAccount =
+      'sign_up_already_have_account';
   static String get signUpAlreadyHaveAccount => _signUpAlreadyHaveAccount.tr();
 
   static const String _signUpSelectDistrict = 'sign_up_select_district';
@@ -802,8 +849,12 @@ abstract class LocaleKeys {
   static const String _addOrder = 'add_order';
   static String get addOrder => _addOrder.tr();
 
-  static const String _addDelivery = 'add_delivery';
-  static String get addDelivery => _addDelivery.tr();
+  static const String _addEmployee = 'add_employee';
+  static String get addEmployee => _addEmployee.tr();
+  static const String _employeeAddedSuccessfully =
+      'employee_added_successfully';
+  static String get employeeAddedSuccessfully =>
+      _employeeAddedSuccessfully.tr();
 
   static const String _orderDetails = 'order_details';
   static String get orderDetails => _orderDetails.tr();
@@ -822,6 +873,8 @@ abstract class LocaleKeys {
 
   static const String _orderPending = 'order_pending';
   static String get orderPending => _orderPending.tr();
+  static const String _orderOnHolding = 'order_on_holding';
+  static String get orderOnHolding => _orderOnHolding.tr();
 
   static const String _orderCreated = 'order_created';
   static String get orderCreated => _orderCreated.tr();
@@ -835,11 +888,26 @@ abstract class LocaleKeys {
   static const String _orderCancelled = 'order_cancelled';
   static String get orderCancelled => _orderCancelled.tr();
 
+  static const String _cancelOrder = 'cancel_order';
+  static String get cancelOrder => _cancelOrder.tr();
+
+  static const String _resendOrder = 'resend_order';
+  static String get resendOrder => _resendOrder.tr();
+
+  static const String _trackOrder = 'track_order';
+  static String get trackOrder => _trackOrder.tr();
+
+  static const String _markAsDelivered = 'mark_as_delivered';
+  static String get markAsDelivered => _markAsDelivered.tr();
+
+  static const String _startDelivery = 'start_delivery';
+  static String get startDelivery => _startDelivery.tr();
+
   static const String _orderCount = 'order_count';
   static String get orderCount => _orderCount.tr();
 
-  static const String _deliveryCount = 'delivery_count';
-  static String get deliveryCount => _deliveryCount.tr();
+  static const String _employeesCount = 'employees_count';
+  static String get employeesCount => _employeesCount.tr();
 
   static const String _orderNumber = 'order_number';
   static String get orderNumber => _orderNumber.tr();
@@ -898,14 +966,18 @@ abstract class LocaleKeys {
   static const String _locationServicesDisabled = 'location_services_disabled';
   static String get locationServicesDisabled => _locationServicesDisabled.tr();
 
-  static const String _pleaseEnableLocationServicesInSettings = 'please_enable_location_services_in_settings';
-  static String get pleaseEnableLocationServicesInSettings => _pleaseEnableLocationServicesInSettings.tr();
+  static const String _pleaseEnableLocationServicesInSettings =
+      'please_enable_location_services_in_settings';
+  static String get pleaseEnableLocationServicesInSettings =>
+      _pleaseEnableLocationServicesInSettings.tr();
 
   static const String _openSettings = 'open_settings';
   static String get openSettings => _openSettings.tr();
 
-  static const String _theMobilePhoneNumberHasBeenUpdatedSuccessfully = 'the_mobile_phone_number_has_been_updated_successfully';
-  static String get theMobilePhoneNumberHasBeenUpdatedSuccessfully => _theMobilePhoneNumberHasBeenUpdatedSuccessfully.tr();
+  static const String _theMobilePhoneNumberHasBeenUpdatedSuccessfully =
+      'the_mobile_phone_number_has_been_updated_successfully';
+  static String get theMobilePhoneNumberHasBeenUpdatedSuccessfully =>
+      _theMobilePhoneNumberHasBeenUpdatedSuccessfully.tr();
 
   static const String _or = 'or';
   static String get or => _or.tr();
@@ -946,6 +1018,9 @@ abstract class LocaleKeys {
   static const String _amount = 'amount';
   static String get amount => _amount.tr();
 
+  static const String _addDelivery = 'add_delivery';
+  static String get addDelivery => _addDelivery.tr();
+
   static const String _phoneNumberOrEmail = 'phone_number_or_email';
   static String get phoneNumberOrEmail => _phoneNumberOrEmail.tr();
 
@@ -961,23 +1036,23 @@ abstract class LocaleKeys {
   static const String _inactive = 'inactive';
   static String get inactive => _inactive.tr();
 
-  static const String _deliveryDetails = 'delivery_details';
-  static String get deliveryDetails => _deliveryDetails.tr();
+  static const String _employeeDetails = 'employee_details';
+  static String get employeeDetails => _employeeDetails.tr();
 
-  static const String _editDeliveryData = 'edit_delivery_data';
-  static String get editDeliveryData => _editDeliveryData.tr();
+  static const String _editEmployeeData = 'edit_employee_data';
+  static String get editEmployeeData => _editEmployeeData.tr();
 
   static const String _disableAccount = 'disable_account';
   static String get disableAccount => _disableAccount.tr();
 
-  static const String _deleteDelivery = 'delete_delivery';
-  static String get deleteDelivery => _deleteDelivery.tr();
+  static const String _deleteEmployee = 'delete_employee';
+  static String get deleteEmployee => _deleteEmployee.tr();
 
   static const String _deliveryId = 'delivery_id';
   static String get deliveryId => _deliveryId.tr();
 
-  static const String _salesFilter = 'sales_filter';
-  static String get salesFilter => _salesFilter.tr();
+  static const String _filter = 'filter';
+  static String get filter => _filter.tr();
 
   static const String _totalSales = 'total_sales';
   static String get totalSales => _totalSales.tr();
@@ -1009,11 +1084,13 @@ abstract class LocaleKeys {
   static const String _applyFilter = 'apply_filter';
   static String get applyFilter => _applyFilter.tr();
 
-  static const String _editDeliveryProfile = 'edit_delivery_profile';
-  static String get editDeliveryProfile => _editDeliveryProfile.tr();
+  static const String _editEmployeeProfile = 'edit_employee_profile';
+  static String get editEmployeeProfile => _editEmployeeProfile.tr();
 
-  static const String _deliveryProfilePhotoOptional = 'delivery_profile_photo_optional';
-  static String get deliveryProfilePhotoOptional => _deliveryProfilePhotoOptional.tr();
+  static const String _deliveryProfilePhotoOptional =
+      'delivery_profile_photo_optional';
+  static String get deliveryProfilePhotoOptional =>
+      _deliveryProfilePhotoOptional.tr();
 
   static const String _uploadPhoto = 'upload_photo';
   static String get uploadPhoto => _uploadPhoto.tr();
@@ -1021,171 +1098,361 @@ abstract class LocaleKeys {
   static const String _orderCreatedSuccessfully = 'order_created_successfully';
   static String get orderCreatedSuccessfully => _orderCreatedSuccessfully.tr();
 
-  static String get workflowBuyer => 'workflow.buyer'.tr();
+  static const String _resendCode = 'resend_code';
+  static String get resendCode => _resendCode.tr();
 
-  static String get workflowBuyerOrder => 'workflow.buyer_order'.tr();
+  static const String _continueButton = 'continue_button';
+  static String get continueButton => _continueButton.tr();
 
-  static String get workflowBuyerApprovals => 'workflow.buyer_approvals'.tr();
+  static const String _resetPassword = 'reset_password';
+  static String get resetPassword => _resetPassword.tr();
 
-  static String get workflowChooseAction => 'workflow.choose_action'.tr();
+  static const String _enterNewPassword = 'enter_new_password';
+  static String get enterNewPassword => _enterNewPassword.tr();
 
-  static String get workflowSeparateRequests => 'workflow.separate_requests'.tr();
+  static const String _passwordResetSuccess = 'password_reset_success';
+  static String get passwordResetSuccess => _passwordResetSuccess.tr();
 
-  static String get workflowCategoryOrder => 'workflow.category_order'.tr();
+  static const String _a5PrintPreview = 'a5_print_preview';
+  static String get a5PrintPreview => _a5PrintPreview.tr();
 
-  static String get workflowCategoryOrderSubtitle => 'workflow.category_order_subtitle'.tr();
+  static const String _print = 'print';
+  static String get print => _print.tr();
 
-  static String get workflowLive => 'workflow.live'.tr();
+  static const String _products = 'products';
+  static String get products => _products.tr();
 
-  static String get workflowLiveSubtitle => 'workflow.live_subtitle'.tr();
+  static const String _quantity = 'quantity';
+  static String get quantity => _quantity.tr();
 
-  static String get workflowClientName => 'workflow.client_name'.tr();
+  static const String _notes = 'notes';
+  static String get notes => _notes.tr();
 
-  static String get workflowCategories => 'workflow.categories'.tr();
+  static const String _noNotes = 'no_notes';
+  static String get noNotes => _noNotes.tr();
 
-  static String get workflowAddCategory => 'workflow.add_category'.tr();
+  static const String _subtotal = 'subtotal';
+  static String get subtotal => _subtotal.tr();
 
-  static String workflowCategoryNumber(Object number) =>
-      'workflow.category_number'.tr(namedArgs: {'number': '$number'});
+  static const String _grandTotal = 'grand_total';
+  static String get grandTotal => _grandTotal.tr();
 
-  static String get workflowCategoryName => 'workflow.category_name'.tr();
+  static const String _deliveryOrderManagement = 'delivery_order_management';
+  static String get deliveryOrderManagement => _deliveryOrderManagement.tr();
 
-  static String get workflowCount => 'workflow.count'.tr();
+  static const String _wasalny = 'wasalny';
+  static String get wasalny => _wasalny.tr();
 
-  static String get workflowUnitPrice => 'workflow.unit_price'.tr();
+  static const String _printA5 = 'print_a5';
+  static String get printA5 => _printA5.tr();
 
-  static String get workflowTotalPrice => 'workflow.total_price'.tr();
+  static const String _orderCycle = 'order_cycle';
+  static String get orderCycle => _orderCycle.tr();
 
-  static String workflowAmountEgp(Object amount) =>
-      'workflow.amount_egp'.tr(namedArgs: {'amount': '$amount'});
+  static const String _cycleOne = 'cycle_one';
+  static String get cycleOne => _cycleOne.tr();
 
-  static String get workflowRequired => 'workflow.required'.tr();
+  static const String _cycleTwo = 'cycle_two';
+  static String get cycleTwo => _cycleTwo.tr();
 
-  static String get workflowInvalid => 'workflow.invalid'.tr();
+  static const String _seller = 'seller';
+  static String get seller => _seller.tr();
 
-  static String get workflowSendOrder => 'workflow.send_order'.tr();
+  static const String _selectSeller = 'select_seller';
+  static String get selectSeller => _selectSeller.tr();
 
-  static String get workflowOrderSent => 'workflow.order_sent'.tr();
+  static const String _sellerOne = 'seller_one';
+  static String get sellerOne => _sellerOne.tr();
 
-  static String get workflowLiveRequest => 'workflow.live_request'.tr();
+  static const String _sellerTwo = 'seller_two';
+  static String get sellerTwo => _sellerTwo.tr();
 
-  static String get workflowLiveApprovalNotice => 'workflow.live_approval_notice'.tr();
+  static const String _sellerThree = 'seller_three';
+  static String get sellerThree => _sellerThree.tr();
 
-  static String get workflowLiveDetails => 'workflow.live_details'.tr();
+  static const String _partnerPrice = 'partner_price';
+  static String get partnerPrice => _partnerPrice.tr();
 
-  static String get workflowLiveDetailsHint => 'workflow.live_details_hint'.tr();
+  static const String _employeeType = 'employee_type';
+  static String get employeeType => _employeeType.tr();
 
-  static String get workflowAskAdminLive => 'workflow.ask_admin_live'.tr();
+  static const String _selectEmployeeType = 'select_employee_type';
+  static String get selectEmployeeType => _selectEmployeeType.tr();
 
-  static String get workflowLiveStarted => 'workflow.live_started'.tr();
+  static const String _employeeDelivery = 'employee_delivery';
+  static String get employeeDelivery => _employeeDelivery.tr();
 
-  static String get workflowApprovedReady => 'workflow.approved_ready'.tr();
+  static const String _employeeBuyer = 'employee_buyer';
+  static String get employeeBuyer => _employeeBuyer.tr();
 
-  static String get workflowWaitingAdmin => 'workflow.waiting_admin'.tr();
+  static const String _employeePacker = 'employee_packer';
+  static String get employeePacker => _employeePacker.tr();
 
-  static String get workflowNewSessionNotice => 'workflow.new_session_notice'.tr();
+  static const String _employeeAliaa = 'employee_aliaa';
+  static String get employeeAliaa => _employeeAliaa.tr();
 
-  static String get workflowAdminApprovedSession => 'workflow.admin_approved_session'.tr();
+  static const String _workflowBuyer = 'workflow_buyer';
+  static String get workflowBuyer => _workflowBuyer.tr();
 
-  static String get workflowStartUnlockNotice => 'workflow.start_unlock_notice'.tr();
+  static const String _workflowBuyerOrder = 'workflow_buyer_order';
+  static String get workflowBuyerOrder => _workflowBuyerOrder.tr();
 
-  static String get workflowStartLive => 'workflow.start_live'.tr();
+  static const String _workflowBuyerApprovals = 'workflow_buyer_approvals';
+  static String get workflowBuyerApprovals => _workflowBuyerApprovals.tr();
 
-  static String get workflowLiveActive => 'workflow.live_active'.tr();
+  static const String _workflowChooseAction = 'workflow_choose_action';
+  static String get workflowChooseAction => _workflowChooseAction.tr();
 
-  static String get workflowRequestAnotherLive => 'workflow.request_another_live'.tr();
+  static const String _workflowSeparateRequests = 'workflow_separate_requests';
+  static String get workflowSeparateRequests => _workflowSeparateRequests.tr();
 
-  static String get workflowNoRequests => 'workflow.no_requests'.tr();
+  static const String _workflowCategoryOrder = 'workflow_category_order';
+  static String get workflowCategoryOrder => _workflowCategoryOrder.tr();
 
-  static String get workflowCategoryOrders => 'workflow.category_orders'.tr();
+  static const String _workflowCategoryOrderSubtitle =
+      'workflow_category_order_subtitle';
+  static String get workflowCategoryOrderSubtitle =>
+      _workflowCategoryOrderSubtitle.tr();
 
-  static String get workflowLiveRequests => 'workflow.live_requests'.tr();
+  static const String _workflowLive = 'workflow_live';
+  static String get workflowLive => _workflowLive.tr();
 
-  static String get workflowApproveOrder => 'workflow.approve_order'.tr();
+  static const String _workflowLiveSubtitle = 'workflow_live_subtitle';
+  static String get workflowLiveSubtitle => _workflowLiveSubtitle.tr();
 
-  static String get workflowOrderApproved => 'workflow.order_approved'.tr();
+  static const String _workflowClientName = 'workflow_client_name';
+  static String get workflowClientName => _workflowClientName.tr();
 
-  static String get workflowApproveLive => 'workflow.approve_live'.tr();
+  static const String _workflowCategories = 'workflow_categories';
+  static String get workflowCategories => _workflowCategories.tr();
 
-  static String get workflowLiveApproved => 'workflow.live_approved'.tr();
+  static const String _workflowAddCategory = 'workflow_add_category';
+  static String get workflowAddCategory => _workflowAddCategory.tr();
 
-  static String get workflowPacking => 'workflow.packing'.tr();
+  static const String _workflowCategoryNumber = 'workflow_category_number';
+  static String workflowCategoryNumber({required String number}) =>
+      _workflowCategoryNumber.tr(namedArgs: {'number': number});
 
-  static String get workflowNoPackingOrders => 'workflow.no_packing_orders'.tr();
+  static const String _workflowCategoryName = 'workflow_category_name';
+  static String get workflowCategoryName => _workflowCategoryName.tr();
 
-  static String get workflowPrint => 'workflow.print'.tr();
+  static const String _workflowCount = 'workflow_count';
+  static String get workflowCount => _workflowCount.tr();
 
-  static String get workflowSendToAliaa => 'workflow.send_to_aliaa'.tr();
+  static const String _workflowUnitPrice = 'workflow_unit_price';
+  static String get workflowUnitPrice => _workflowUnitPrice.tr();
 
-  static String get workflowSentToAliaa => 'workflow.sent_to_aliaa'.tr();
+  static const String _workflowTotalPrice = 'workflow_total_price';
+  static String get workflowTotalPrice => _workflowTotalPrice.tr();
 
-  static String get workflowPackingSlip => 'workflow.packing_slip'.tr();
+  static const String _workflowAmountEgp = 'workflow_amount_egp';
+  static String workflowAmountEgp({required String amount}) =>
+      _workflowAmountEgp.tr(namedArgs: {'amount': amount});
 
-  static String workflowOrderNumber(Object number) =>
-      'workflow.order_number'.tr(namedArgs: {'number': '$number'});
+  static const String _workflowRequired = 'workflow_required';
+  static String get workflowRequired => _workflowRequired.tr();
 
-  static String workflowClientValue(Object name) =>
-      'workflow.client_value'.tr(namedArgs: {'name': '$name'});
+  static const String _workflowInvalid = 'workflow_invalid';
+  static String get workflowInvalid => _workflowInvalid.tr();
 
-  static String workflowItemCount(Object name, Object count) =>
-      'workflow.item_count'.tr(namedArgs: {'name': '$name', 'count': '$count'});
+  static const String _workflowSendOrder = 'workflow_send_order';
+  static String get workflowSendOrder => _workflowSendOrder.tr();
 
-  static String workflowTotalValue(Object amount) =>
-      'workflow.total_value'.tr(namedArgs: {'amount': '$amount'});
+  static const String _workflowOrderSent = 'workflow_order_sent';
+  static String get workflowOrderSent => _workflowOrderSent.tr();
 
-  static String get workflowDone => 'workflow.done'.tr();
+  static const String _workflowLiveRequest = 'workflow_live_request';
+  static String get workflowLiveRequest => _workflowLiveRequest.tr();
 
-  static String get workflowAliaaNumbers => 'workflow.aliaa_numbers'.tr();
+  static const String _workflowLiveApprovalNotice =
+      'workflow_live_approval_notice';
+  static String get workflowLiveApprovalNotice =>
+      _workflowLiveApprovalNotice.tr();
 
-  static String get workflowNoClientNumbers => 'workflow.no_client_numbers'.tr();
+  static const String _workflowLiveDetails = 'workflow_live_details';
+  static String get workflowLiveDetails => _workflowLiveDetails.tr();
 
-  static String get workflowAddClientNumber => 'workflow.add_client_number'.tr();
+  static const String _workflowLiveDetailsHint = 'workflow_live_details_hint';
+  static String get workflowLiveDetailsHint => _workflowLiveDetailsHint.tr();
 
-  static String workflowClientNumberTitle(Object name) =>
-      'workflow.client_number_title'.tr(namedArgs: {'name': '$name'});
+  static const String _workflowAskAdminLive = 'workflow_ask_admin_live';
+  static String get workflowAskAdminLive => _workflowAskAdminLive.tr();
 
-  static String get workflowClientPhoneNumber => 'workflow.client_phone_number'.tr();
+  static const String _workflowLiveStarted = 'workflow_live_started';
+  static String get workflowLiveStarted => _workflowLiveStarted.tr();
 
-  static String get workflowValidNumber => 'workflow.valid_number'.tr();
+  static const String _workflowApprovedReady = 'workflow_approved_ready';
+  static String get workflowApprovedReady => _workflowApprovedReady.tr();
 
-  static String get workflowSaveComplete => 'workflow.save_complete'.tr();
+  static const String _workflowWaitingAdmin = 'workflow_waiting_admin';
+  static String get workflowWaitingAdmin => _workflowWaitingAdmin.tr();
 
-  static String get workflowClientNumberAdded => 'workflow.client_number_added'.tr();
+  static const String _workflowNewSessionNotice = 'workflow_new_session_notice';
+  static String get workflowNewSessionNotice => _workflowNewSessionNotice.tr();
 
-  static String get workflowChooseTestCycle => 'workflow.choose_test_cycle'.tr();
+  static const String _workflowAdminApprovedSession =
+      'workflow_admin_approved_session';
+  static String get workflowAdminApprovedSession =>
+      _workflowAdminApprovedSession.tr();
 
-  static String get workflowSelectRoleNotice => 'workflow.select_role_notice'.tr();
+  static const String _workflowStartUnlockNotice =
+      'workflow_start_unlock_notice';
+  static String get workflowStartUnlockNotice =>
+      _workflowStartUnlockNotice.tr();
 
-  static String get workflowAdmin => 'workflow.admin'.tr();
+  static const String _workflowStartLive = 'workflow_start_live';
+  static String get workflowStartLive => _workflowStartLive.tr();
 
-  static String get workflowAdminSubtitle => 'workflow.admin_subtitle'.tr();
+  static const String _workflowLiveActive = 'workflow_live_active';
+  static String get workflowLiveActive => _workflowLiveActive.tr();
 
-  static String get workflowDelivery => 'workflow.delivery'.tr();
+  static const String _workflowRequestAnotherLive =
+      'workflow_request_another_live';
+  static String get workflowRequestAnotherLive =>
+      _workflowRequestAnotherLive.tr();
 
-  static String get workflowDeliverySubtitle => 'workflow.delivery_subtitle'.tr();
+  static const String _workflowNoRequests = 'workflow_no_requests';
+  static String get workflowNoRequests => _workflowNoRequests.tr();
 
-  static String get workflowBuyerSubtitle => 'workflow.buyer_subtitle'.tr();
+  static const String _workflowCategoryOrders = 'workflow_category_orders';
+  static String get workflowCategoryOrders => _workflowCategoryOrders.tr();
 
-  static String get workflowPackingSubtitle => 'workflow.packing_subtitle'.tr();
+  static const String _workflowLiveRequests = 'workflow_live_requests';
+  static String get workflowLiveRequests => _workflowLiveRequests.tr();
 
-  static String get workflowAliaa => 'workflow.aliaa'.tr();
+  static const String _workflowApproveOrder = 'workflow_approve_order';
+  static String get workflowApproveOrder => _workflowApproveOrder.tr();
 
-  static String get workflowAliaaSubtitle => 'workflow.aliaa_subtitle'.tr();
+  static const String _workflowOrderApproved = 'workflow_order_approved';
+  static String get workflowOrderApproved => _workflowOrderApproved.tr();
 
-  static String get workflowOpenAdminCycle => 'workflow.open_admin_cycle'.tr();
+  static const String _workflowApproveLive = 'workflow_approve_live';
+  static String get workflowApproveLive => _workflowApproveLive.tr();
 
-  static String get workflowApproveBuyerRequests => 'workflow.approve_buyer_requests'.tr();
+  static const String _workflowLiveApproved = 'workflow_live_approved';
+  static String get workflowLiveApproved => _workflowLiveApproved.tr();
 
-  static String get workflowCancel => 'workflow.cancel'.tr();
+  static const String _workflowPacking = 'workflow_packing';
+  static String get workflowPacking => _workflowPacking.tr();
 
-  static String workflowPackingQueue(Object count) =>
-      'workflow.packing_queue'.tr(namedArgs: {'count': '$count'});
+  static const String _workflowNoPackingOrders = 'workflow_no_packing_orders';
+  static String get workflowNoPackingOrders => _workflowNoPackingOrders.tr();
 
-  static String workflowAliaaQueue(Object count) =>
-      'workflow.aliaa_queue'.tr(namedArgs: {'count': '$count'});
+  static const String _workflowPrint = 'workflow_print';
+  static String get workflowPrint => _workflowPrint.tr();
 
-  static String get workflowFirstScenario => 'workflow.first_scenario'.tr();
+  static const String _workflowSendToAliaa = 'workflow_send_to_aliaa';
+  static String get workflowSendToAliaa => _workflowSendToAliaa.tr();
 
-  static String get workflowSecondScenario => 'workflow.second_scenario'.tr();
+  static const String _workflowSentToAliaa = 'workflow_sent_to_aliaa';
+  static String get workflowSentToAliaa => _workflowSentToAliaa.tr();
 
+  static const String _workflowPackingSlip = 'workflow_packing_slip';
+  static String get workflowPackingSlip => _workflowPackingSlip.tr();
+
+  static const String _workflowOrderNumber = 'workflow_order_number';
+  static String workflowOrderNumber({required String number}) =>
+      _workflowOrderNumber.tr(namedArgs: {'number': number});
+
+  static const String _workflowClientValue = 'workflow_client_value';
+  static String workflowClientValue({required String name}) =>
+      _workflowClientValue.tr(namedArgs: {'name': name});
+
+  static const String _workflowItemCount = 'workflow_item_count';
+  static String workflowItemCount({
+    required String name,
+    required String count,
+  }) => _workflowItemCount.tr(namedArgs: {'name': name, 'count': count});
+
+  static const String _workflowTotalValue = 'workflow_total_value';
+  static String workflowTotalValue({required String amount}) =>
+      _workflowTotalValue.tr(namedArgs: {'amount': amount});
+
+  static const String _workflowDone = 'workflow_done';
+  static String get workflowDone => _workflowDone.tr();
+
+  static const String _workflowAliaaNumbers = 'workflow_aliaa_numbers';
+  static String get workflowAliaaNumbers => _workflowAliaaNumbers.tr();
+
+  static const String _workflowNoClientNumbers = 'workflow_no_client_numbers';
+  static String get workflowNoClientNumbers => _workflowNoClientNumbers.tr();
+
+  static const String _workflowAddClientNumber = 'workflow_add_client_number';
+  static String get workflowAddClientNumber => _workflowAddClientNumber.tr();
+
+  static const String _workflowClientNumberTitle =
+      'workflow_client_number_title';
+  static String workflowClientNumberTitle({required String name}) =>
+      _workflowClientNumberTitle.tr(namedArgs: {'name': name});
+
+  static const String _workflowClientPhoneNumber =
+      'workflow_client_phone_number';
+  static String get workflowClientPhoneNumber =>
+      _workflowClientPhoneNumber.tr();
+
+  static const String _workflowValidNumber = 'workflow_valid_number';
+  static String get workflowValidNumber => _workflowValidNumber.tr();
+
+  static const String _workflowSaveComplete = 'workflow_save_complete';
+  static String get workflowSaveComplete => _workflowSaveComplete.tr();
+
+  static const String _workflowClientNumberAdded =
+      'workflow_client_number_added';
+  static String get workflowClientNumberAdded =>
+      _workflowClientNumberAdded.tr();
+
+  static const String _workflowChooseTestCycle = 'workflow_choose_test_cycle';
+  static String get workflowChooseTestCycle => _workflowChooseTestCycle.tr();
+
+  static const String _workflowSelectRoleNotice = 'workflow_select_role_notice';
+  static String get workflowSelectRoleNotice => _workflowSelectRoleNotice.tr();
+
+  static const String _workflowAdmin = 'workflow_admin';
+  static String get workflowAdmin => _workflowAdmin.tr();
+
+  static const String _workflowAdminSubtitle = 'workflow_admin_subtitle';
+  static String get workflowAdminSubtitle => _workflowAdminSubtitle.tr();
+
+  static const String _workflowDelivery = 'workflow_delivery';
+  static String get workflowDelivery => _workflowDelivery.tr();
+
+  static const String _workflowDeliverySubtitle = 'workflow_delivery_subtitle';
+  static String get workflowDeliverySubtitle => _workflowDeliverySubtitle.tr();
+
+  static const String _workflowBuyerSubtitle = 'workflow_buyer_subtitle';
+  static String get workflowBuyerSubtitle => _workflowBuyerSubtitle.tr();
+
+  static const String _workflowPackingSubtitle = 'workflow_packing_subtitle';
+  static String get workflowPackingSubtitle => _workflowPackingSubtitle.tr();
+
+  static const String _workflowAliaa = 'workflow_aliaa';
+  static String get workflowAliaa => _workflowAliaa.tr();
+
+  static const String _workflowAliaaSubtitle = 'workflow_aliaa_subtitle';
+  static String get workflowAliaaSubtitle => _workflowAliaaSubtitle.tr();
+
+  static const String _workflowOpenAdminCycle = 'workflow_open_admin_cycle';
+  static String get workflowOpenAdminCycle => _workflowOpenAdminCycle.tr();
+
+  static const String _workflowApproveBuyerRequests =
+      'workflow_approve_buyer_requests';
+  static String get workflowApproveBuyerRequests =>
+      _workflowApproveBuyerRequests.tr();
+
+  static const String _workflowCancel = 'workflow_cancel';
+  static String get workflowCancel => _workflowCancel.tr();
+
+  static const String _workflowPackingQueue = 'workflow_packing_queue';
+  static String workflowPackingQueue({required String count}) =>
+      _workflowPackingQueue.tr(namedArgs: {'count': count});
+
+  static const String _workflowAliaaQueue = 'workflow_aliaa_queue';
+  static String workflowAliaaQueue({required String count}) =>
+      _workflowAliaaQueue.tr(namedArgs: {'count': count});
+
+  static const String _workflowFirstScenario = 'workflow_first_scenario';
+  static String get workflowFirstScenario => _workflowFirstScenario.tr();
+
+  static const String _workflowSecondScenario = 'workflow_second_scenario';
+  static String get workflowSecondScenario => _workflowSecondScenario.tr();
 }

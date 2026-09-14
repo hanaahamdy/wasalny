@@ -23,50 +23,48 @@ class _ClientNumberDialogState extends State<_ClientNumberDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-        title: Text(
-          LocaleKeys.workflowClientNumberTitle(widget.order.clientName),
+      title: Text(
+        LocaleKeys.workflowClientNumberTitle(name: widget.order.clientName),
+      ),
+      content: Form(
+        key: _formKey,
+        child: TextFormField(
+          controller: _controller,
+          autofocus: true,
+          keyboardType: TextInputType.phone,
+          inputFormatters: [
+            FilteringTextInputFormatter.allow(RegExp(r'[0-9+]')),
+          ],
+          decoration: InputDecoration(
+            labelText: LocaleKeys.workflowClientPhoneNumber,
+            border: const OutlineInputBorder(),
+          ),
+          validator: (value) => value == null || value.trim().length < 7
+              ? LocaleKeys.workflowValidNumber
+              : null,
         ),
-        content: Form(
-          key: _formKey,
-          child: TextFormField(
-            controller: _controller,
-            autofocus: true,
-            keyboardType: TextInputType.phone,
-            inputFormatters: [
-              FilteringTextInputFormatter.allow(RegExp(r'[0-9+]')),
-            ],
-            decoration: InputDecoration(
-              labelText: LocaleKeys.workflowClientPhoneNumber,
-              border: const OutlineInputBorder(),
-            ),
-            validator: (value) => value == null || value.trim().length < 7
-                ? LocaleKeys.workflowValidNumber
-                : null,
-          ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: Text(LocaleKeys.workflowCancel),
         ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text(LocaleKeys.workflowCancel),
-          ),
-          FilledButton(
-            onPressed: () {
-              if (!_formKey.currentState!.validate()) return;
-              final messenger = ScaffoldMessenger.of(context);
-              widget.viewModel.completeOrder(
-                widget.order.id,
-                _controller.text.trim(),
-              );
-              Navigator.pop(context);
-              messenger.showSnackBar(
-                SnackBar(
-                  content: Text(LocaleKeys.workflowClientNumberAdded),
-                ),
-              );
-            },
-            child: Text(LocaleKeys.workflowSaveComplete),
-          ),
-        ],
-      );
+        FilledButton(
+          onPressed: () {
+            if (!_formKey.currentState!.validate()) return;
+            final messenger = ScaffoldMessenger.of(context);
+            widget.viewModel.completeOrder(
+              widget.order.id,
+              _controller.text.trim(),
+            );
+            Navigator.pop(context);
+            messenger.showSnackBar(
+              SnackBar(content: Text(LocaleKeys.workflowClientNumberAdded)),
+            );
+          },
+          child: Text(LocaleKeys.workflowSaveComplete),
+        ),
+      ],
+    );
   }
 }

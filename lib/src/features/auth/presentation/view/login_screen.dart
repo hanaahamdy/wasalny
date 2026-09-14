@@ -22,9 +22,13 @@ class LoginScreen extends StatelessWidget {
                   message: state.errorMessage!,
                 );
               } else if (state.isSuccess) {
-                Go.offAll(
-                  RoleSelectionScreen(email: cubit.emailController.text.trim()),
-                );
+                final destination = switch (UserCubit.instance.user.role) {
+                  UserRole.buyer => const BuyerScreen(),
+                  UserRole.packing => const PackingScreen(),
+                  UserRole.aliaa => const AliaaScreen(),
+                  UserRole.admin || UserRole.delivery => const HomeScreen(),
+                };
+                Go.offAll(destination);
               }
             },
             builder: (context, state) => AuthShell(
@@ -65,13 +69,6 @@ class LoginScreen extends StatelessWidget {
                     hint: LocaleKeys.pleaseEnterYourPassword,
                     textInputType: TextInputType.text,
                     textInputAction: TextInputAction.done,
-                  ),
-                  Align(
-                    alignment: AlignmentDirectional.centerEnd,
-                    child: TextButton(
-                      onPressed: () => Go.to(const ForgotPasswordScreen()),
-                      child: Text(LocaleKeys.forgotPassword),
-                    ),
                   ),
                 ],
                 buttonTitle: LocaleKeys.login,

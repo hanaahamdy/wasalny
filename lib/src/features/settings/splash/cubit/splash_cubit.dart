@@ -17,6 +17,17 @@ class SplashCubit extends Cubit<SplashState> {
     await minimumSplashDuration;
 
     if (!context.mounted) return;
-    Go.offAll(isLoggedIn ? const HomeScreen() : const LoginScreen());
+    if (!isLoggedIn) {
+      Go.offAll(const LoginScreen());
+      return;
+    }
+
+    final destination = switch (UserCubit.instance.user.role) {
+      UserRole.buyer => const BuyerScreen(),
+      UserRole.packing => const PackingScreen(),
+      UserRole.aliaa => const AliaaScreen(),
+      UserRole.admin || UserRole.delivery => const HomeScreen(),
+    };
+    Go.offAll(destination);
   }
 }

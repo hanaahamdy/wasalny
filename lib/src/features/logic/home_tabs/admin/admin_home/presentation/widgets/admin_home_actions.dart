@@ -21,10 +21,10 @@ class AdminHomeActions extends StatelessWidget {
         SizedBox(width: AppSize.sW8),
         Expanded(
           child: _AdminActionButton(
-            title: LocaleKeys.addDelivery,
+            title: LocaleKeys.addEmployee,
             onTap: () async {
-              final createdDelivery = await Go.to(const CreateDeliveryScreen());
-              if (createdDelivery != null && context.mounted) {
+              final createdEmployee = await Go.to(const CreateEmployeeScreen());
+              if (createdEmployee != null && context.mounted) {
                 context.read<AdminHomeCubit>().fetchHome();
               }
             },

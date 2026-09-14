@@ -151,8 +151,7 @@ class _BuyerLiveRequestScreenState extends State<BuyerLiveRequestScreen> {
                     width: double.infinity,
                     child: FilledButton.icon(
                       onPressed: approved
-                          ? () =>
-                                _viewModel.startLive(request.id)
+                          ? () => _viewModel.startLive(request.id)
                           : null,
                       icon: const Icon(Icons.live_tv_outlined),
                       label: Text(

@@ -6,11 +6,12 @@ import '../../../../core/navigation/navigator.dart';
 import '../../../../core/shared/cubits/user_cubit/user_cubit.dart';
 import '../../../../core/shared/models/user_model.dart';
 import '../../../../core/widgets/buttons/default_button.dart';
+import '../../../../core/widgets/custom_appbar.dart';
 import '../../../auth/presentation/imports/view_imports.dart';
 import '../../../language/presentation/widgets/language_picker_sheet.dart';
 import '../../admin_sales/presentation/imports/presentation_imports.dart';
 import '../../customers/presentation/imports/presentation_imports.dart';
-import '../../deliveries/presentation/imports/presentation_imports.dart';
+import '../../employees/presentation/imports/presentation_imports.dart';
 import '../../profile/presentation/imports/view_imports.dart';
 import '../../static_pages/entity/static_pages_enum.dart';
 import '../../static_pages/presentation/imports/view_imports.dart';
@@ -33,16 +34,9 @@ class MoreScreen extends StatelessWidget {
       color: AppColors.scenarioBackground,
       child: Column(
         children: [
-          Container(
-            height: MediaQuery.viewPaddingOf(context).top,
-            decoration: BoxDecoration(gradient: AppColors.scenarioGradient),
-          ),
-          AppBar(
-            primary: false,
-            backgroundColor: AppColors.transparent,
-            surfaceTintColor: AppColors.transparent,
+          CustomAppBar(
             automaticallyImplyLeading: false,
-            title: Text(LocaleKeys.more),
+            title: LocaleKeys.more,
           ),
           Expanded(
             child: ListView(
@@ -70,9 +64,9 @@ class MoreScreen extends StatelessWidget {
           onTap: () => Go.to(const CustomersScreen()),
         ),
         _MoreItem(
-          title: LocaleKeys.deliveryStaff,
-          icon: Icons.local_shipping_outlined,
-          onTap: () => Go.to(const DeliveriesScreen()),
+          title: LocaleKeys.employees,
+          icon: Icons.badge_outlined,
+          onTap: () => Go.to(const EmployeeTypeScreen()),
         ),
         _MoreItem(
           title: LocaleKeys.sales,
@@ -98,6 +92,11 @@ class MoreScreen extends StatelessWidget {
           icon: Icons.lock_outline,
           onTap: () => showChangePasswordBottomSheet(context: context),
         ),
+        _MoreItem(
+          title: LocaleKeys.forgotPassword,
+          icon: Icons.lock_reset_outlined,
+          onTap: () => Go.to(const ForgotPasswordScreen()),
+        ),
       ],
     ),
     _legalSection(context),
@@ -118,6 +117,11 @@ class MoreScreen extends StatelessWidget {
           title: LocaleKeys.changePassword,
           icon: Icons.lock_outline,
           onTap: () => showChangePasswordBottomSheet(context: context),
+        ),
+        _MoreItem(
+          title: LocaleKeys.forgotPassword,
+          icon: Icons.lock_reset_outlined,
+          onTap: () => Go.to(const ForgotPasswordScreen()),
         ),
         _MoreItem(
           title: LocaleKeys.language,

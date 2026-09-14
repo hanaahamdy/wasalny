@@ -14,7 +14,7 @@ class ContactUsScreen extends StatelessWidget {
           statusBarBrightness: Brightness.dark,
         ),
         child: Scaffold(
-          appBar: CustomAppbar(title: LocaleKeys.contactUs),
+          appBar: CustomAppBar(title: LocaleKeys.contactUs),
           backgroundColor: AppColors.scaffoldBackground,
           body: const _ContactUsBody(),
         ),

@@ -1,10 +1,14 @@
+import '../../../shared/feature/orders/entity/order_model.dart';
+
 class AdminHomeModel {
-  final int createdOrders;
-  final int deliveredOrders;
+  final int ordersCount;
+  final int deliveryCount;
+  final List<OrderModel> latestOrders;
 
   const AdminHomeModel({
-    required this.createdOrders,
-    required this.deliveredOrders,
+    required this.ordersCount,
+    required this.deliveryCount,
+    required this.latestOrders,
   });
 
   factory AdminHomeModel.fromJson(Map<String, dynamic> json) {
@@ -12,8 +16,17 @@ class AdminHomeModel {
         value is num ? value.toInt() : int.tryParse('$value') ?? 0;
 
     return AdminHomeModel(
-      createdOrders: parseCount(json['created_orders']),
-      deliveredOrders: parseCount(json['delivered_orders']),
+      ordersCount: parseCount(json['orders_count']),
+      deliveryCount: parseCount(json['delivery_count']),
+      latestOrders: json['latest_orders'] is List
+          ? (json['latest_orders'] as List)
+                .whereType<Map>()
+                .map(
+                  (order) =>
+                      OrderModel.fromJson(Map<String, dynamic>.from(order)),
+                )
+                .toList()
+          : const [],
     );
   }
 }

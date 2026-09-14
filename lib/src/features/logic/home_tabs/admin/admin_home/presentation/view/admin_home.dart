@@ -54,6 +54,8 @@ class _AdminHomeView extends StatelessWidget {
                       const _AdminHomeStats(),
                       SizedBox(height: AppSize.sH14),
                       const AdminHomeActions(),
+                      SizedBox(height: AppSize.sH14),
+                      const _LatestOrders(),
                     ],
                   ),
                 ),
@@ -62,6 +64,38 @@ class _AdminHomeView extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _LatestOrders extends StatelessWidget {
+  const _LatestOrders();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<AdminHomeCubit, RequestState<AdminHomeModel?>>(
+      builder: (context, state) {
+        if (state.status.isInitial || state.isLoading) {
+          return const AdminLatestOrdersShimmer();
+        }
+
+        final orders = state.data?.latestOrders ?? const <OrderModel>[];
+        if (orders.isEmpty) return const SizedBox.shrink();
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            ViewAllOrdersWidget(title: LocaleKeys.latestOrders),
+            SizedBox(height: AppSize.sH10),
+            ...orders.map(
+              (order) => Padding(
+                padding: EdgeInsets.only(bottom: AppPadding.pH10),
+                child: OrderCard(order: order),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }
@@ -80,7 +114,7 @@ class _AdminHomeStats extends StatelessWidget {
           children: [
             Expanded(
               child: HomeOrderSummaryCard(
-                value: loadingValue ?? (data?.createdOrders ?? 0).toString(),
+                value: loadingValue ?? (data?.ordersCount ?? 0).toString(),
                 label: LocaleKeys.orderCount,
                 icon: Icons.inventory_2_outlined,
                 iconBackground: AppColors.settingsLanguageIconBackground,
@@ -90,8 +124,8 @@ class _AdminHomeStats extends StatelessWidget {
             SizedBox(width: AppSize.sW8),
             Expanded(
               child: HomeOrderSummaryCard(
-                value: loadingValue ?? (data?.deliveredOrders ?? 0).toString(),
-                label: LocaleKeys.delivered,
+                value: loadingValue ?? (data?.deliveryCount ?? 0).toString(),
+                label: LocaleKeys.employeesCount,
                 icon: Icons.local_shipping_outlined,
                 iconBackground: AppColors.moreProfileIconBackground,
                 iconColor: AppColors.authTabSelected,

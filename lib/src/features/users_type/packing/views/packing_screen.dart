@@ -38,49 +38,49 @@ class _PackingScreenState extends State<PackingScreen> {
               WorkflowQueueHeader(
                 icon: Icons.inventory_2_outlined,
                 title: LocaleKeys.workflowPacking,
-                subtitle: LocaleKeys.workflowPackingQueue(orders.length),
+                subtitle: LocaleKeys.workflowPackingQueue(
+                  count: orders.length.toString(),
+                ),
                 count: orders.length,
               ),
               ...orders.map(
-                  (order) => WorkflowOrderCard(
-                    order: order,
-                    action: Row(
-                      children: [
-                        Expanded(
-                          child: OutlinedButton.icon(
-                            onPressed: () => _showPackingSlip(context, order),
-                            icon: const Icon(Icons.print_outlined),
-                            label: Text(LocaleKeys.workflowPrint),
-                          ),
+                (order) => WorkflowOrderCard(
+                  order: order,
+                  action: Row(
+                    children: [
+                      Expanded(
+                        child: OutlinedButton.icon(
+                          onPressed: () => _showPackingSlip(context, order),
+                          icon: const Icon(Icons.print_outlined),
+                          label: Text(LocaleKeys.workflowPrint),
                         ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: FilledButton.icon(
-                            onPressed: () {
-                              _viewModel.sendToAliaa(order.id);
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    LocaleKeys.workflowSentToAliaa,
-                                  ),
-                                ),
-                              );
-                            },
-                            icon: const Icon(Icons.forward_to_inbox_outlined),
-                            label: FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: Text(
-                                LocaleKeys.workflowSendToAliaa,
-                                maxLines: 1,
-                                softWrap: false,
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: FilledButton.icon(
+                          onPressed: () {
+                            _viewModel.sendToAliaa(order.id);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(LocaleKeys.workflowSentToAliaa),
                               ),
+                            );
+                          },
+                          icon: const Icon(Icons.forward_to_inbox_outlined),
+                          label: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              LocaleKeys.workflowSendToAliaa,
+                              maxLines: 1,
+                              softWrap: false,
                             ),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
+              ),
             ],
           );
         },

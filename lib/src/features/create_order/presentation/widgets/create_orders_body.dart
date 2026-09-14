@@ -31,6 +31,45 @@ class CreateOrdersBody extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    BlocBuilder<CreateOrdersCubit, CreateOrdersState>(
+                      buildWhen: (previous, current) =>
+                          previous.seller != current.seller,
+                      builder: (context, state) => Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            LocaleKeys.seller,
+                            style:
+                                const TextStyle().setMainTextColor.s13.medium,
+                          ),
+                          SizedBox(height: AppSize.sH8),
+                          DropdownButtonFormField<String>(
+                            initialValue: state.seller,
+                            decoration: InputDecoration(
+                              hintText: LocaleKeys.selectSeller,
+                              prefixIcon: const Icon(Icons.storefront_outlined),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(
+                                  AppCircular.r10,
+                                ),
+                              ),
+                            ),
+                            items: CreateOrdersCubit.sellerOptions
+                                .map(
+                                  (seller) => DropdownMenuItem<String>(
+                                    value: seller,
+                                    child: Text(_sellerLabel(seller)),
+                                  ),
+                                )
+                                .toList(),
+                            onChanged: cubit.selectSeller,
+                            validator: (value) =>
+                                value == null ? LocaleKeys.fillField : null,
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: AppSize.sH14),
                     CustomTextFiled(
                       textInputAction: TextInputAction.next,
                       textInputType: TextInputType.name,
@@ -65,28 +104,35 @@ class CreateOrdersBody extends StatelessWidget {
                     ),
                     SizedBox(height: AppSize.sH14),
                     CustomTextFiled(
-                      hint: LocaleKeys.orderTotal,
-                      title: LocaleKeys.totalCost,
-                      controller: cubit.totalController,
-                      textInputType: TextInputType.number,
-                      prefixIcon: const Icon(Icons.payments_outlined),
-                      validator: (value) => Validators.validatePositiveInteger(
-                        value,
-                        fieldTitle: LocaleKeys.orderTotal,
-                      ),
-                      textInputAction: TextInputAction.next,
-                    ),
-                    SizedBox(height: AppSize.sH14),
-                    CustomTextFiled(
                       hint: LocaleKeys.deliveryPrice,
                       title: LocaleKeys.deliveryPrice,
                       controller: cubit.deliveryPriceController,
                       textInputType: TextInputType.number,
                       prefixIcon: const Icon(Icons.payments_outlined),
-                      validator: (value) => Validators.validatePositiveInteger(
-                        value,
-                        fieldTitle: LocaleKeys.orderTotal,
-                      ),
+                      validator: null,
+                      readOnly: true,
+                      textInputAction: TextInputAction.next,
+                    ),
+                    SizedBox(height: AppSize.sH14),
+                    CustomTextFiled(
+                      hint: LocaleKeys.partnerPrice,
+                      title: LocaleKeys.partnerPrice,
+                      controller: cubit.partnerPriceController,
+                      textInputType: TextInputType.number,
+                      prefixIcon: const Icon(Icons.handshake_outlined),
+                      validator: null,
+                      readOnly: true,
+                      textInputAction: TextInputAction.next,
+                    ),
+                    SizedBox(height: AppSize.sH14),
+                    CustomTextFiled(
+                      hint: LocaleKeys.orderTotal,
+                      title: LocaleKeys.totalCost,
+                      controller: cubit.totalController,
+                      textInputType: TextInputType.number,
+                      prefixIcon: const Icon(Icons.calculate_outlined),
+                      validator: null,
+                      readOnly: true,
                       textInputAction: TextInputAction.done,
                     ),
                     SizedBox(height: AppSize.sH24),
@@ -114,6 +160,12 @@ class CreateOrdersBody extends StatelessWidget {
       ),
     );
   }
+
+  String _sellerLabel(String seller) => switch (seller) {
+    'seller_one' => LocaleKeys.sellerOne,
+    'seller_two' => LocaleKeys.sellerTwo,
+    _ => LocaleKeys.sellerThree,
+  };
 }
 
 class _OrderItemsSection extends StatelessWidget {

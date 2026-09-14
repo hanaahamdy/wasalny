@@ -22,7 +22,10 @@ class PackingViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  static WorkflowOrder _order(String clientName, List<WorkflowCategory> categories) {
+  static WorkflowOrder _order(
+    String clientName,
+    List<WorkflowCategory> categories,
+  ) {
     return WorkflowOrder(
       id: DateTime.now().microsecondsSinceEpoch + clientName.hashCode,
       clientName: clientName,

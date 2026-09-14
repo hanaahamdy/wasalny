@@ -11,6 +11,7 @@ class ApiConstants {
   static String stadiumSlots(int stadiumId) => 'stadiums/$stadiumId/slots';
   static const String bookings = 'bookings';
   static const String orders = 'orders';
+  static String orderDetails(int orderId) => 'orders/$orderId';
   static const String bookingCancelReasons = 'booking-cancel-reasons';
   static const String bookingOpponents = 'bookings/opponents';
   static String bookingDetails(int bookingId) => 'bookings/$bookingId';
