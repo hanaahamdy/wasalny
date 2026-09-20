@@ -1,6 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 
 abstract class LocaleKeys {
+  static const String _retry = 'retry';
+  static String get retry => _retry.tr();
+
   static const String _areYouSureYouWantToDeleteAccount =
       'are_you_sure_you_want_to_delete_account';
   static String get areYouSureYouWantToDeleteAccount =>

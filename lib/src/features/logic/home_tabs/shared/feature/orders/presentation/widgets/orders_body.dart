@@ -5,7 +5,7 @@ class OrdersBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<OrdersCubit, int>(
+    return BlocBuilder<OrdersCubit, OrdersState>(
       builder: (context, state) {
         final cubit = context.read<OrdersCubit>();
         final orders = cubit.orders;
@@ -20,12 +20,18 @@ class OrdersBody extends StatelessWidget {
               children: [
                 OrdersTabs(
                   tabs: cubit.tabs,
-                  selectedIndex: state,
+                  selectedIndex: state.selectedIndex,
                   onChanged: cubit.selectTab,
                 ),
                 SizedBox(height: AppSize.sH20),
                 Expanded(
-                  child: orders.isEmpty
+                  child: state.status.isLoading
+                      ? Center(
+                          child: CircularProgressIndicator(
+                            color: AppColors.scenarioPrimary,
+                          ),
+                        )
+                      : orders.isEmpty
                       ? Center(
                           child: Text(
                             LocaleKeys.noItemsFound,

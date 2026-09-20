@@ -1,6 +1,7 @@
 import 'dart:ui' as ui;
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/services.dart';
@@ -14,10 +15,16 @@ import '../../../../../../../../core/widgets/buttons/default_button.dart';
 import '../../../../../../../../core/widgets/custom_appbar.dart';
 import '../../../../../admin/admin_home/presentation/cubits/admin_order_details_cubit.dart';
 import '../../../../../../../../core/shared/models/request_state.dart';
+import '../../../../../../../../core/extensions/base_state.dart';
+import '../../../../../../../../core/network/network_service.dart';
+import '../../data/datasources/orders_remote_data_source.dart';
+import '../../data/repositories/orders_repository_impl.dart';
+import '../../domain/repositories/orders_repository.dart';
 import '../../entity/order_model.dart';
 import '../../entity/order_tabs.dart';
 
 part '../cubits/orders_cubit.dart';
+part '../cubits/orders_state.dart';
 part '../view/admin_order_details_screen.dart';
 part '../view/delivery_order_details_screen.dart';
 part '../view/a5_invoice_screen.dart';

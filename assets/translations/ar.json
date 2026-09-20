@@ -1,4 +1,5 @@
 {
+  "retry": "إعادة المحاولة",
   "are_you_sure_you_want_to_delete_account": "هل أنت متأكد أنك تريد حذف حسابك؟",
   "bad_request": "طلب خاطئ، الرجاء المحاولة مرة أخرى",
   "camera": "الكاميرا",

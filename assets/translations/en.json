@@ -1,4 +1,5 @@
 {
+  "retry": "Retry",
   "are_you_sure_you_want_to_delete_account": "Are you sure you want to delete your account?",
   "bad_request": "Bad request, please try again",
   "camera": "Camera",

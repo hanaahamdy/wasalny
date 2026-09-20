@@ -39,18 +39,4 @@ class ProfileCubit extends Cubit<RequestState<UserModel?>> {
       },
     );
   }
-
-  Future<void> fetchProfile() async {
-    emit(state.copyWith(status: BaseStatus.loading, clearError: true));
-    final result = await _repository.fetchProfile();
-    result.when(
-      (user) {
-        emit(state.copyWith(status: BaseStatus.success, data: user));
-        if (user != null) UserCubit.instance.updateUser(user);
-      },
-      (failure) => emit(
-        state.copyWith(status: BaseStatus.error, errorMessage: failure.message),
-      ),
-    );
-  }
 }

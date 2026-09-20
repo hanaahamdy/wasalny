@@ -6,7 +6,6 @@ import '../../../../../core/shared/models/user_model.dart';
 import '../../entity/update_profile_params.dart';
 
 abstract interface class ProfileRepository {
-  Future<Result<UserModel?, Failure>> fetchProfile();
   Future<Result<UserModel?, Failure>> updateProfile(
     UpdateProfileParams params,
     UserModel fallback,

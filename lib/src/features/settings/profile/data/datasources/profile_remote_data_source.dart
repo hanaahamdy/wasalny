@@ -8,7 +8,6 @@ import '../../../../../core/shared/models/user_model.dart';
 import '../../entity/update_profile_params.dart';
 
 abstract interface class ProfileRemoteDataSource {
-  Future<UserModel?> fetchProfile();
   Future<UserModel?> updateProfile(
     UpdateProfileParams params,
     UserModel fallback,
@@ -21,15 +20,6 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   final NetworkService _networkService;
 
   ProfileRemoteDataSourceImpl(this._networkService);
-
-  @override
-  Future<UserModel?> fetchProfile() async {
-    final response = await _networkService.callApi<UserModel?>(
-      NetworkRequest(path: ApiConstants.profile, method: RequestMethod.get),
-      mapper: _mapUser,
-    );
-    return response.data;
-  }
 
   @override
   Future<UserModel?> updateProfile(

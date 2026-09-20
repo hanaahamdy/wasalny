@@ -11,6 +11,7 @@ class ApiConstants {
   static String stadiumSlots(int stadiumId) => 'stadiums/$stadiumId/slots';
   static const String bookings = 'bookings';
   static const String orders = 'orders';
+  static const String deliveryOrders = 'deliveries/orders';
   static String orderDetails(int orderId) => 'orders/$orderId';
   static const String bookingCancelReasons = 'booking-cancel-reasons';
   static const String bookingOpponents = 'bookings/opponents';
@@ -57,7 +58,6 @@ class ApiConstants {
   // ---------------------- Settings -----------------------------------
   static const String switchNotification = 'profile/notifications';
   static const String updateProfile = 'profile';
-  static const String profile = 'profile';
   static const String changePhoneCurrentSend = 'profile/phone/current/send';
   static const String changePhoneCurrentVerify = 'profile/phone/current/verify';
   static const String changePhoneCurrentResend = 'profile/phone/current/resend';
@@ -88,4 +88,6 @@ class ApiConstants {
   static const String addComplain = 'user/complaints/send';
   static const String complainDetails = 'user/complaints/';
   static const String logOut = 'auth/logout';
+  static const String employees = 'customers';
+  static String employeeDetails(int employeeId) => 'customers/$employeeId';
 }

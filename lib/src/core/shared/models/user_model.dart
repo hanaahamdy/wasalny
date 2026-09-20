@@ -16,9 +16,9 @@ enum UserRole {
     return switch (normalizedValue) {
       'admin' => UserRole.admin,
       'delivery' => UserRole.delivery,
-      'buyer' => UserRole.buyer,
-      'picking' || 'packing' => UserRole.packing,
-      'alia' || 'aliaa' => UserRole.aliaa,
+      'buyer' || 'supervisor' => UserRole.buyer,
+      'picking' || 'packing' || 'packin' => UserRole.packing,
+      'alia' || 'aliaa' || 'sales' => UserRole.aliaa,
       _ => UserRole.delivery,
     };
   }

@@ -16,11 +16,6 @@ class ProfileRepositoryImpl implements ProfileRepository {
   ProfileRepositoryImpl(this._remoteDataSource);
 
   @override
-  Future<Result<UserModel?, Failure>> fetchProfile() {
-    return _remoteDataSource.fetchProfile().handleCallbackWithFailure();
-  }
-
-  @override
   Future<Result<UserModel?, Failure>> updateProfile(
     UpdateProfileParams params,
     UserModel fallback,

@@ -7,7 +7,7 @@ class OrdersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     context.locale;
     return BlocProvider(
-      create: (_) => OrdersCubit(),
+      create: (_) => OrdersCubit()..fetchOrders(),
       child: AnnotatedRegion<SystemUiOverlayStyle>(
         value: AppColors.systemUiOverlayStyle,
         child: Scaffold(

@@ -28,6 +28,7 @@ class UserCubit extends Cubit<UserState> with UserUtils {
   }
 
   Future<void> logout() async {
+    await injector<UserRepository>().logout();
     await Future.wait([
       CacheStorage.delete(_userKey),
       SecureStorage.delete(_tokenKey),
@@ -43,18 +44,6 @@ class UserCubit extends Cubit<UserState> with UserUtils {
   Future<void> updateUser(UserModel user) async {
     await _saveUser(user);
     emit(state.copyWith(userModel: user));
-  }
-
-  Future<UserModel?> refreshProfile() async {
-    try {
-      final result = await injector<UserRepository>().fetchProfile();
-      final user = result.tryGetSuccess();
-      if (user == null) return null;
-      await updateUser(user.copyWith(accessToken: state.userModel.accessToken));
-      return user;
-    } catch (_) {
-      return null;
-    }
   }
 
   Future<bool> init() async {
