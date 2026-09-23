@@ -7,11 +7,12 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => LoginCubit(),
-      child: Builder(
-        builder: (context) {
+      child: BlocBuilder<LoginCubit, AuthFormState>(
+        builder: (context, state) {
           final cubit = context.read<LoginCubit>();
           return AuthShell(
             child: AuthFormCard(
+              isLoading: state.status.isLoading,
               formKey: cubit.formKey,
               title: LocaleKeys.login,
               subtitle: LocaleKeys.loginSubtitle,

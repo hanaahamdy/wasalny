@@ -10,6 +10,7 @@ class AuthFormCard extends StatelessWidget {
   final String? secondaryButtonTitle;
   final VoidCallback? onSecondarySubmit;
   final Widget footer;
+  final bool isLoading;
 
   const AuthFormCard({
     super.key,
@@ -22,6 +23,7 @@ class AuthFormCard extends StatelessWidget {
     this.secondaryButtonTitle,
     this.onSecondarySubmit,
     required this.footer,
+    this.isLoading = false,
   });
 
   @override
@@ -50,7 +52,17 @@ class AuthFormCard extends StatelessWidget {
               SizedBox(height: AppSize.sH24),
               DefaultButton(
                 title: buttonTitle,
-                onTap: onSubmit,
+                onTap: isLoading ? null : onSubmit,
+                disabled: isLoading,
+                customChild: isLoading
+                    ? SizedBox.square(
+                        dimension: AppSize.sH20,
+                        child: const CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: AppColors.white,
+                        ),
+                      )
+                    : null,
                 gradient: AppColors.scenarioGradient,
                 height: AppSize.sH48,
                 borderRadius: BorderRadius.circular(AppCircular.r8),

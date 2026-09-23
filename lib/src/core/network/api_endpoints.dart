@@ -1,48 +1,8 @@
 class ApiConstants {
-  // ---------------------- Settings -----------------------------------
-  static const String intro = 'get-intros';
-  static const String countries = 'countries';
-  static const String uploadFiles = 'upload-files';
-  // ---------------------- Player home -----------------------------------
-  static const String home = 'home';
-  static const String sports = 'sports';
-  static const String stadiums = 'stadiums';
-  static String stadiumDetails(int stadiumId) => 'stadiums/$stadiumId';
-  static String stadiumSlots(int stadiumId) => 'stadiums/$stadiumId/slots';
-  static const String bookings = 'bookings';
-  static const String bookingCancelReasons = 'booking-cancel-reasons';
-  static const String bookingOpponents = 'bookings/opponents';
-  static String bookingDetails(int bookingId) => 'bookings/$bookingId';
-  static String cancelBooking(int bookingId) => 'bookings/$bookingId/cancel';
-  static String reviewBooking(int bookingId) => 'bookings/$bookingId/review';
-  static String payBookingPlayer(int playerId) =>
-      'bookings/players/$playerId/pay';
-  static String respondToBookingMatch(int matchId) =>
-      'bookings/matches/$matchId/respond';
-  static const String teams = 'teams';
-  static const String myTeam = 'teams/my';
-  static String teamDetails(int teamId) => 'teams/$teamId';
-  static String teamMembers(int teamId) => 'teams/$teamId/members';
-  static String teamRequests(int teamId) => 'teams/my/requests';
-  static String substituteTeamMember(int teamId) => 'teams/$teamId/substitute';
-  static String acceptTeamRequest(int requestId) =>
-      'requests/$requestId/accept';
-  static String rejectTeamRequest(int requestId) =>
-      'requests/$requestId/reject';
-  // ---------------------- Auth -----------------------------------
+ // new
   static const String login = 'auth/login';
-  static const String register = 'auth/register';
-  static const String verifyOtp = 'auth/otp/verify';
-  static const String resendOtp = 'auth/otp/resend';
-  static const String cities = 'cities';
-  static String districts(int cityId) => 'cities/$cityId/districts';
-  static const String registerContent = 'user/get-register-data';
-  static const String verifyAccountResendCode =
-      'user/auth/verify-account-resend-code';
-  static const String forgetSendCode = 'auth/forgot-password/request-code';
-  static const String forgetReSendCode = 'auth/forgot-password/request-code';
-  static const String forgetCheckCode = 'auth/forgot-password/verify-code';
-  static const String resetPassword = 'auth/forgot-password/reset-password';
+
+
 
   // ---------------------- Notifications -----------------------------------
   static const String notifications = 'notifications';
@@ -50,9 +10,7 @@ class ApiConstants {
   static const String deleteNotification = 'user/notifications/delete/';
   static const String deleteAllNotifications = 'user/notifications/delete-all';
 
-  // ---------------------- Wallet -----------------------------------
-  static const String wallet = 'wallet';
-  static const String chargeWallet = 'wallet/topup';
+
 
   // ---------------------- Settings -----------------------------------
   static const String switchNotification = 'profile/notifications';

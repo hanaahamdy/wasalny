@@ -62,7 +62,7 @@ class BaseUrlCubit extends AsyncCubit<String?> {
     await remoteConfig.setConfigSettings(
       RemoteConfigSettings(
         fetchTimeout: const Duration(seconds: 10),
-        minimumFetchInterval: const Duration(hours: 1),
+        minimumFetchInterval: const Duration(seconds: 2),
       ),
     );
 

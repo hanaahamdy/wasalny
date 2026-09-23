@@ -1,6 +1,9 @@
 enum UserType {
   delivery('delivery'),
-  admin('admin');
+  admin('admin'),
+  buyer('buyer'),
+  packing('packing'),
+  aliaa('aliaa');
 
   final String value;
 
@@ -13,6 +16,9 @@ enum UserType {
     return switch (normalizedValue) {
       'admin' || '1' => UserType.admin,
       'delivery' || 'driver' || '0' => UserType.delivery,
+      'buyer' => UserType.buyer,
+      'packing' => UserType.packing,
+      'aliaa' => UserType.aliaa,
       _ => UserType.delivery,
     };
   }
@@ -29,6 +35,13 @@ class UserModel {
   final String gender;
   final String birthDate;
   final String location;
+  final String address;
+  final double? latitude;
+  final double? longitude;
+  final String systemType;
+  final bool isActive;
+  final String createdAt;
+  final String updatedAt;
   final UserType userType;
   final bool allowNotify;
   final String? token;
@@ -44,6 +57,13 @@ class UserModel {
     required this.gender,
     required this.birthDate,
     required this.location,
+    required this.address,
+    required this.latitude,
+    required this.longitude,
+    required this.systemType,
+    required this.isActive,
+    required this.createdAt,
+    required this.updatedAt,
     required this.userType,
     required this.allowNotify,
     required this.token,
@@ -60,6 +80,13 @@ class UserModel {
     gender: '',
     birthDate: '',
     location: '',
+    address: '',
+    latitude: null,
+    longitude: null,
+    systemType: '',
+    isActive: false,
+    createdAt: '',
+    updatedAt: '',
     userType: UserType.delivery,
     allowNotify: false,
     token: '',
@@ -76,6 +103,13 @@ class UserModel {
     String? gender,
     String? birthDate,
     String? location,
+    String? address,
+    double? latitude,
+    double? longitude,
+    String? systemType,
+    bool? isActive,
+    String? createdAt,
+    String? updatedAt,
     UserType? userType,
     bool? allowNotify,
     String? token,
@@ -91,6 +125,13 @@ class UserModel {
       gender: gender ?? this.gender,
       birthDate: birthDate ?? this.birthDate,
       location: location ?? this.location,
+      address: address ?? this.address,
+      latitude: latitude ?? this.latitude,
+      longitude: longitude ?? this.longitude,
+      systemType: systemType ?? this.systemType,
+      isActive: isActive ?? this.isActive,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
       userType: userType ?? this.userType,
       allowNotify: allowNotify ?? this.allowNotify,
       token: token ?? this.token,
@@ -103,7 +144,8 @@ class UserModel {
     final genderData = json['gender'];
     final locationData = json['location'];
     final typeData = json['type'];
-    final userTypeData = json['userType'] ?? json['user_type'] ?? typeData;
+    final userTypeData =
+        json['userType'] ?? json['user_type'] ?? json['role'] ?? typeData;
 
     return UserModel(
       id: json['id']?.toString() ?? '',
@@ -124,6 +166,13 @@ class UserModel {
       location: locationData is Map
           ? locationData['map_desc']?.toString() ?? ''
           : locationData?.toString() ?? '',
+      address: json['address']?.toString() ?? '',
+      latitude: _toDouble(json['latitude']),
+      longitude: _toDouble(json['longitude']),
+      systemType: (json['systemType'] ?? json['system_type'])?.toString() ?? '',
+      isActive: _toBool(json['isActive'] ?? json['is_active']),
+      createdAt: (json['createdAt'] ?? json['created_at'])?.toString() ?? '',
+      updatedAt: (json['updatedAt'] ?? json['updated_at'])?.toString() ?? '',
       userType: UserType.fromJson(userTypeData),
       allowNotify: (json['allowNotify'] ?? json['is_notify']) == true,
       token: json['token']?.toString(),
@@ -141,7 +190,23 @@ class UserModel {
     'gender': gender,
     'birthDate': birthDate,
     'location': location,
+    'address': address,
+    'latitude': latitude,
+    'longitude': longitude,
+    'systemType': systemType,
+    'isActive': isActive,
+    'createdAt': createdAt,
+    'updatedAt': updatedAt,
     'userType': userType.value,
     'allowNotify': allowNotify,
   };
+
+  static double? _toDouble(dynamic value) {
+    if (value is num) return value.toDouble();
+    return double.tryParse(value?.toString() ?? '');
+  }
+
+  static bool _toBool(dynamic value) {
+    return value == true || value == 1 || value?.toString() == '1';
+  }
 }

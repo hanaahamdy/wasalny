@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyCMJ-5fX-_qAsLhgvJse5SKVVTEWuvrEzE</string>
+	<string>AIzaSyDiHXPuLH9wjJkMpIHmaX8I7p29mR1CFMI</string>
 	<key>GCM_SENDER_ID</key>
-	<string>194862880924</string>
+	<string>1005189420550</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.aait.arenza</string>
 	<key>PROJECT_ID</key>
-	<string>arenza-cbbb1</string>
+	<string>ma-online-store</string>
 	<key>STORAGE_BUCKET</key>
-	<string>arenza-cbbb1.firebasestorage.app</string>
+	<string>ma-online-store.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:194862880924:ios:dc85fcfc770111548a3559</string>
+	<string>1:1005189420550:ios:5d6575405dd0baec495587</string>
 </dict>
 </plist>

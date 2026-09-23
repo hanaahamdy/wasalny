@@ -1,11 +1,11 @@
 part of '../imports/view_imports.dart';
 
 final class AuthFormState {
-  final bool isLoading;
+  final BaseStatus status;
 
-  const AuthFormState({this.isLoading = false});
+  const AuthFormState({this.status = BaseStatus.initial});
 
-  AuthFormState copyWith({bool? isLoading}) {
-    return AuthFormState(isLoading: isLoading ?? this.isLoading);
+  AuthFormState copyWith({BaseStatus? status}) {
+    return AuthFormState(status: status ?? this.status);
   }
 }
