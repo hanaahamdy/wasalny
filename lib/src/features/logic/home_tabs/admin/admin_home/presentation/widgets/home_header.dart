@@ -29,7 +29,7 @@ class HomeHeader extends StatelessWidget {
                     ),
                     SizedBox(height: AppSize.sH2),
                     Text(
-                      LocaleKeys.adminHome,
+                      UserCubit.instance.user.fullName??'',
                       style: TextStyle(
                         color: AppColors.white,
                         fontSize: FontSizeManager.s15,

@@ -30,7 +30,7 @@ class OrderDetailsBody extends StatelessWidget {
                         children: [
                           OrderDetailsRow(
                             label: LocaleKeys.orderNumber,
-                            value: '${order.id.replaceFirst('#', 'ORD-')}#',
+                            value: order.displayOrderNumber,
                           ),
                           OrderDetailsRow(
                             label: LocaleKeys.orderDate,

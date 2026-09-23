@@ -1,7 +1,9 @@
 part of '../imports/presentation_imports.dart';
 
 class DeliveryHomeOrderSummaryCards extends StatelessWidget {
-  const DeliveryHomeOrderSummaryCards({super.key});
+  final HomeModel data;
+
+  const DeliveryHomeOrderSummaryCards({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -9,7 +11,7 @@ class DeliveryHomeOrderSummaryCards extends StatelessWidget {
       children: [
         Expanded(
           child: HomeOrderSummaryCard(
-            value: OrderModel.samples.length.toString(),
+            value: data.createdOrders.toString(),
             label: LocaleKeys.createdOrders,
             icon: Icons.calculate_rounded,
             iconBackground: AppColors.settingsLanguageIconBackground,
@@ -19,7 +21,7 @@ class DeliveryHomeOrderSummaryCards extends StatelessWidget {
         SizedBox(width: AppSize.sW8),
         Expanded(
           child: HomeOrderSummaryCard(
-            value: '4',
+            value: data.deliveredOrders.toString(),
             label: LocaleKeys.delivered,
             icon: Icons.check_circle_outline,
             iconBackground: AppColors.moreProfileIconBackground,

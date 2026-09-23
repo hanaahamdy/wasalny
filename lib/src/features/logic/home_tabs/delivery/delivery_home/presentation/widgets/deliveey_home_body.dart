@@ -1,7 +1,9 @@
 part of '../imports/presentation_imports.dart';
 
 class DeliveryHomeBody extends StatelessWidget {
-  const DeliveryHomeBody({super.key});
+  final HomeModel data;
+
+  const DeliveryHomeBody({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +19,11 @@ class DeliveryHomeBody extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const DeliveryHomeOrderSummaryCards(),
+                DeliveryHomeOrderSummaryCards(data: data),
                 12.szH,
                 ViewAllOrdersWidget(title: LocaleKeys.createdOrders),
                 SizedBox(height: AppSize.sH10),
-                ...OrderModel.samples.map(
+                ...data.latestOrders.map(
                   (order) => Padding(
                     padding: EdgeInsets.only(bottom: AppPadding.pH10),
                     child: OrderCard(order: order),

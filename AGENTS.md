@@ -8,6 +8,31 @@
 - Keep one reusable widget per file. A `StatefulWidget` and its associated `State` class may remain together because they form one Flutter component.
 - Views render state and forward user actions. ViewModels own mutable UI state and actions. Models contain data only.
 
+## API Integration
+
+- Follow MVVM when integrating every new endpoint. Keep request execution and response mapping outside views and Cubits.
+- Put typed request/response data classes in the feature's `models` directory. Models contain data and JSON mapping only.
+- Put endpoint calls in a dedicated feature service file, such as `services/auth_service.dart`. The service receives `NetworkService`, builds the `NetworkRequest`, calls the endpoint, validates the response, and returns a typed model.
+- Add endpoint paths to `lib/src/core/network/api_endpoints.dart`; do not hard-code endpoint strings inside views or Cubits.
+- Treat Cubits as ViewModels. They own form keys, text controllers, mutable UI state, user actions, persistence coordination, palette changes, and navigation decisions.
+- Do not use presentation mixins for endpoint actions. Implement the action directly in its Cubit/ViewModel and dispose controllers in `close()`.
+- Views must only render Cubit state and forward user actions. Do not call `NetworkService`, parse API responses, persist authentication, or decide role routes in a view.
+- Use `BaseStatus` from `lib/src/core/extensions/base_state.dart` for request state. Emit `BaseStatus.loading` before the request, `BaseStatus.success` after success, and `BaseStatus.error` after failure. Read loading through `state.status.isLoading`.
+- While a request is loading, show a progress indicator in the action button and disable the button. Keep a loading guard in the Cubit when needed to prevent duplicate requests.
+- Use the project `Result` flow through `handleCallbackWithFailure()` and handle outcomes with `result.when(...)`. Do not add local `try`/`catch` blocks to Cubits for normal API handling.
+- Show API failures using the existing localized message/snackbar utilities. Do not add hard-coded error messages.
+- For authenticated responses, persist the typed user and access token through `UserCubit`; do not write authentication cache values directly from a view.
+- Keep role-based navigation functions in the responsible Cubit/ViewModel. Use `Go.offAll` after authentication or startup so users cannot return to authentication screens through Back.
+- When a response includes `system_type`, apply it through `AppColors.selectedScenario` before navigating to the role cycle.
+
+## Startup and Notifications
+
+- Initialize `NotificationNavigator` and `NotificationService` from the splash startup flow, not from a home screen.
+- Splash must restore the base URL and cached authentication before selecting the initial route.
+- When no initial notification exists, Splash routes to Login for signed-out users or to the cached user's role cycle for signed-in users.
+- When the app opens from a terminated-state notification, establish the authenticated user's base role route before applying `NotificationRoutes.navigateByType`.
+- Guard the splash flow against duplicate initial navigation.
+
 ## Scenario State
 
 - Buyer, Admin approval, Packing, and Aliaa are isolated UI scenarios until backend integration is requested.

@@ -1,7 +1,9 @@
 part of '../../../../../home/presentation/imports/view_imports.dart';
 
 class AdminHome extends StatelessWidget {
-  const AdminHome({super.key});
+  final HomeModel data;
+
+  const AdminHome({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class AdminHome extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const _AdminHomeStats(),
+                  _AdminHomeStats(data: data),
                   SizedBox(height: AppSize.sH14),
                   const AdminHomeActions(),
                   SizedBox(height: AppSize.sH16),
@@ -53,7 +55,7 @@ class AdminHome extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: AppSize.sH10),
-                  ...OrderModel.samples.map(
+                  ...data.latestOrders.map(
                     (order) => Padding(
                       padding: EdgeInsets.only(bottom: AppPadding.pH10),
                       child: OrderCard(order: order),
@@ -70,7 +72,9 @@ class AdminHome extends StatelessWidget {
 }
 
 class _AdminHomeStats extends StatelessWidget {
-  const _AdminHomeStats();
+  final HomeModel data;
+
+  const _AdminHomeStats({required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +82,7 @@ class _AdminHomeStats extends StatelessWidget {
       children: [
         Expanded(
           child: HomeOrderSummaryCard(
-            value: OrderModel.samples.length.toString(),
+            value: data.ordersCount.toString(),
             label: LocaleKeys.orderCount,
             icon: Icons.inventory_2_outlined,
             iconBackground: AppColors.settingsLanguageIconBackground,
@@ -88,7 +92,7 @@ class _AdminHomeStats extends StatelessWidget {
         SizedBox(width: AppSize.sW8),
         Expanded(
           child: HomeOrderSummaryCard(
-            value: '4',
+            value: data.deliveryCount.toString(),
             label: LocaleKeys.deliveryCount,
             icon: Icons.local_shipping_outlined,
             iconBackground: AppColors.moreProfileIconBackground,

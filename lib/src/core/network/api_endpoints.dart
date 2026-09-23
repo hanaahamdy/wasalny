@@ -1,16 +1,13 @@
 class ApiConstants {
- // new
+  // new
   static const String login = 'auth/login';
-
-
+  static const String home = 'home';
 
   // ---------------------- Notifications -----------------------------------
   static const String notifications = 'notifications';
   static const String unReadNotifications = 'user/notifications/count-unread';
   static const String deleteNotification = 'user/notifications/delete/';
   static const String deleteAllNotifications = 'user/notifications/delete-all';
-
-
 
   // ---------------------- Settings -----------------------------------
   static const String switchNotification = 'profile/notifications';

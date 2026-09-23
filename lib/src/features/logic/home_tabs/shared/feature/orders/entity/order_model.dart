@@ -33,6 +33,70 @@ class OrderModel {
     required this.items,
   });
 
+  factory OrderModel.fromJson(Map<String, dynamic> json) {
+    final customer = json['customer'];
+    final customerJson = customer is Map
+        ? Map<String, dynamic>.from(customer)
+        : <String, dynamic>{};
+    final rawItems = json['items'];
+    final itemMaps = rawItems is List
+        ? rawItems.whereType<Map>().map(Map<String, dynamic>.from).toList()
+        : <Map<String, dynamic>>[];
+    final status = json['status']?.toString().trim().toLowerCase() ?? '';
+
+    return OrderModel(
+      id: (json['order_number'] ?? json['id'])?.toString() ?? '',
+      customerName: customerJson['name']?.toString() ?? '',
+      phone: customerJson['phone']?.toString() ?? '',
+      address: customerJson['address']?.toString() ?? '',
+      createdAt: json['created_at']?.toString() ?? '',
+      date: json['created_at']?.toString() ?? '',
+      total: json['total_amount']?.toString() ?? '',
+      paymentMethod: json['payment_method']?.toString() ?? '',
+      productName: itemMaps.isNotEmpty
+          ? itemMaps.first['product_name']?.toString() ?? ''
+          : '',
+      piecesCount: itemMaps
+          .fold<int>(
+            0,
+            (count, item) =>
+                count + (int.tryParse(item['quantity']?.toString() ?? '') ?? 0),
+          )
+          .toString(),
+      deliveryFee: json['delivery_fee']?.toString() ?? '',
+      adminTab: _adminTabFromStatus(status),
+      deliveryTab: _deliveryTabFromStatus(status),
+      items: itemMaps
+          .map((item) => item['product_name']?.toString() ?? '')
+          .where((name) => name.isNotEmpty)
+          .toList(),
+    );
+  }
+
+  String get displayOrderNumber {
+    if (id.startsWith('#')) return id;
+    return '#$id';
+  }
+
+  static AdminOrderTab _adminTabFromStatus(String status) {
+    return switch (status) {
+      'created' => AdminOrderTab.created,
+      'in_delivery' || 'delivering' => AdminOrderTab.delivering,
+      'delivered' || 'received' => AdminOrderTab.received,
+      'cancelled' || 'canceled' => AdminOrderTab.cancelled,
+      _ => AdminOrderTab.pending,
+    };
+  }
+
+  static DeliveryOrderTab _deliveryTabFromStatus(String status) {
+    return switch (status) {
+      'in_delivery' || 'delivering' => DeliveryOrderTab.delivering,
+      'delivered' => DeliveryOrderTab.delivered,
+      'received' => DeliveryOrderTab.recieved,
+      _ => DeliveryOrderTab.created,
+    };
+  }
+
   static const samples = [
     OrderModel(
       id: '#1024',

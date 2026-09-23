@@ -340,13 +340,20 @@ class NotificationService {
 }
 
 class NotificationNavigator {
-  NotificationNavigator._({this.onNoInitialMessage});
+  NotificationNavigator._({
+    this.onRoutingInitialMessage,
+    this.onNoInitialMessage,
+  });
 
   static NotificationNavigator? _instance;
   RemoteMessage? _message;
 
-  factory NotificationNavigator({void Function()? onNoInitialMessage}) {
+  factory NotificationNavigator({
+    void Function(RemoteMessage message)? onRoutingMessage,
+    void Function()? onNoInitialMessage,
+  }) {
     return _instance ??= NotificationNavigator._(
+      onRoutingInitialMessage: onRoutingMessage,
       onNoInitialMessage: onNoInitialMessage,
     );
   }
@@ -365,9 +372,15 @@ class NotificationNavigator {
   void onRoutingMessage(RemoteMessage? message) {
     if (message == null) return;
     log('🧭 Routing notification...');
+    final initialMessageCallback = onRoutingInitialMessage;
+    if (initialMessageCallback != null) {
+      initialMessageCallback(message);
+      return;
+    }
     NotificationRoutes.navigateByType(message.data);
   }
 
+  final void Function(RemoteMessage message)? onRoutingInitialMessage;
   final void Function()? onNoInitialMessage;
 }
 
