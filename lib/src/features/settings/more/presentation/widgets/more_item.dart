@@ -16,7 +16,6 @@ class _MoreItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = isDestructive ? AppColors.error : AppColors.main;
-    final isRtl = Directionality.of(context) == TextDirection.rtl;
 
     return InkWell(
       onTap: onTap,
@@ -51,7 +50,7 @@ class _MoreItem extends StatelessWidget {
               ),
             ),
             Icon(
-              isRtl ? Icons.chevron_left : Icons.chevron_right,
+                Icons.chevron_right,
               color: isDestructive ? AppColors.error : AppColors.grey2,
               size: AppSize.sH16,
             ),

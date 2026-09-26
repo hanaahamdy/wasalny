@@ -27,6 +27,7 @@ class _AliaaScreenState extends State<AliaaScreen> {
   Widget build(BuildContext context) {
     return WorkflowPage(
       title: LocaleKeys.workflowAliaaNumbers,
+      automaticallyImplyLeading: false,
       child: ListenableBuilder(
         listenable: _viewModel,
         builder: (context, _) {

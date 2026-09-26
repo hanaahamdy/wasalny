@@ -6,5 +6,6 @@ import '../../entity/order_model.dart';
 abstract interface class OrdersRepository {
   Future<Result<List<OrderModel>, Failure>> fetchOrders({
     required bool isAdmin,
+    String? status,
   });
 }

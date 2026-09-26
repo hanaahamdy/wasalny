@@ -12,6 +12,7 @@ class OrdersCubit extends Cubit<OrdersState> {
 
   final UserRole userRole;
   final OrdersRepository _repository;
+  int _requestId = 0;
 
   bool get isAdmin => userRole == UserRole.admin;
 
@@ -34,8 +35,16 @@ class OrdersCubit extends Cubit<OrdersState> {
   }
 
   Future<void> fetchOrders() async {
+    final requestId = ++_requestId;
+    final status = isAdmin
+        ? null
+        : DeliveryOrderTab.values[state.selectedIndex].apiValue;
     emit(state.copyWith(status: BaseStatus.loading, clearError: true));
-    final result = await _repository.fetchOrders(isAdmin: isAdmin);
+    final result = await _repository.fetchOrders(
+      isAdmin: isAdmin,
+      status: status,
+    );
+    if (requestId != _requestId) return;
     result.when(
       (orders) =>
           emit(state.copyWith(status: BaseStatus.success, orders: orders)),
@@ -45,5 +54,9 @@ class OrdersCubit extends Cubit<OrdersState> {
     );
   }
 
-  void selectTab(int index) => emit(state.copyWith(selectedIndex: index));
+  Future<void> selectTab(int index) async {
+    if (index == state.selectedIndex) return;
+    emit(state.copyWith(selectedIndex: index));
+    if (!isAdmin) await fetchOrders();
+  }
 }

@@ -2,8 +2,9 @@ part of '../imports/view_imports.dart';
 
 class AuthShell extends StatelessWidget {
   final Widget child;
+  final bool fullScreen;
 
-  const AuthShell({super.key, required this.child});
+  const AuthShell({super.key, required this.child, this.fullScreen = false});
 
   @override
   Widget build(BuildContext context) {
@@ -17,22 +18,33 @@ class AuthShell extends StatelessWidget {
         body: DecoratedBox(
           decoration: BoxDecoration(gradient: AppColors.scenarioGradient),
           child: SafeArea(
-            child: Center(
-              child: SingleChildScrollView(
-                padding: EdgeInsets.symmetric(
-                  horizontal: AppPadding.pW20,
-                  vertical: AppPadding.pH28,
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const AuthBrand(),
-                    SizedBox(height: AppSize.sH28),
-                    child,
-                  ],
-                ),
-              ),
-            ),
+            child: fullScreen
+                ? LayoutBuilder(
+                    builder: (context, constraints) => SingleChildScrollView(
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          minHeight: constraints.maxHeight,
+                        ),
+                        child: IntrinsicHeight(child: child),
+                      ),
+                    ),
+                  )
+                : Center(
+                    child: SingleChildScrollView(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: AppPadding.pW20,
+                        vertical: AppPadding.pH28,
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const AuthBrand(),
+                          SizedBox(height: AppSize.sH28),
+                          child,
+                        ],
+                      ),
+                    ),
+                  ),
           ),
         ),
       ),

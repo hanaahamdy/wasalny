@@ -43,9 +43,7 @@ class EmployeeTypeCard extends StatelessWidget {
                 ),
               ),
               Icon(
-                Directionality.of(context) == TextDirection.rtl
-                    ? Icons.chevron_left
-                    : Icons.chevron_right,
+               context.locale.countryCode=="en"?Icons.chevron_left: Icons.chevron_right,
                 color: AppColors.scenarioMuted,
               ),
             ],

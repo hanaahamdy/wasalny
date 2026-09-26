@@ -62,6 +62,6 @@ class DefaultFirebaseOptions {
     messagingSenderId: '622895000556',
     projectId: 'wasalny-5de8d',
     storageBucket: 'wasalny-5de8d.firebasestorage.app',
-    iosBundleId: 'com.aait.arenza',
+    iosBundleId: 'com.aait.waslny',
   );
 }

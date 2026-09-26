@@ -1,4 +1,4 @@
-package com.aait.arenza
+package com.aait.waslny
 
 import io.flutter.embedding.android.FlutterActivity
 

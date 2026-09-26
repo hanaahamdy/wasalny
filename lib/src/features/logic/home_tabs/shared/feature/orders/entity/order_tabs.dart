@@ -20,15 +20,22 @@ enum AdminOrderTab {
 
 enum DeliveryOrderTab {
   created,
-  delivered,
+  received,
   delivering,
-  recieved;
+  delivered;
 
   String get label => switch (this) {
     DeliveryOrderTab.created => LocaleKeys.orderCreated,
-    DeliveryOrderTab.delivered => LocaleKeys.orderReceived,
+    DeliveryOrderTab.received => LocaleKeys.orderReceived,
     DeliveryOrderTab.delivering => LocaleKeys.orderDelivering,
-    DeliveryOrderTab.recieved => LocaleKeys.delivered,
+    DeliveryOrderTab.delivered => LocaleKeys.delivered,
+  };
+
+  String get apiValue => switch (this) {
+    DeliveryOrderTab.created => 'created',
+    DeliveryOrderTab.received => 'received',
+    DeliveryOrderTab.delivering => 'in_delivery',
+    DeliveryOrderTab.delivered => 'delivered',
   };
 }
 

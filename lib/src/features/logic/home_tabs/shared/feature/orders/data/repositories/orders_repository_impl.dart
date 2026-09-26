@@ -14,9 +14,10 @@ class OrdersRepositoryImpl implements OrdersRepository {
   @override
   Future<Result<List<OrderModel>, Failure>> fetchOrders({
     required bool isAdmin,
+    String? status,
   }) {
     return _remoteDataSource
-        .fetchOrders(isAdmin: isAdmin)
+        .fetchOrders(isAdmin: isAdmin, status: status)
         .handleCallbackWithFailure();
   }
 }

@@ -8,8 +8,14 @@ import '../../../../config/language/locale_keys.g.dart';
 class WorkflowPage extends StatelessWidget {
   final String title;
   final Widget child;
+  final bool automaticallyImplyLeading;
 
-  const WorkflowPage({super.key, required this.title, required this.child});
+  const WorkflowPage({
+    super.key,
+    required this.title,
+    required this.child,
+    this.automaticallyImplyLeading = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +39,10 @@ class WorkflowPage extends StatelessWidget {
           statusBarBrightness: Brightness.dark,
         ),
         child: Scaffold(
-          appBar: CustomAppBar(title: title),
+          appBar: CustomAppBar(
+            title: title,
+            automaticallyImplyLeading: automaticallyImplyLeading,
+          ),
           body: SafeArea(
             top: false,
             child: Center(
@@ -57,6 +66,11 @@ class WorkflowOrderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final orderId = order.id.toString();
+    final displayOrderId = orderId.length > 6
+        ? orderId.substring(orderId.length - 6)
+        : orderId;
+
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
       color: AppColors.white,
@@ -75,7 +89,7 @@ class WorkflowOrderCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                Text('#${order.id.toString().substring(7)}'),
+                Text('#$displayOrderId'),
               ],
             ),
             const SizedBox(height: 10),

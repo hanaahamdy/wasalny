@@ -11,6 +11,7 @@ class AuthFormCard extends StatelessWidget {
   final VoidCallback? onSecondarySubmit;
   final Widget footer;
   final bool isLoading;
+  final bool fullScreen;
 
   const AuthFormCard({
     super.key,
@@ -24,10 +25,85 @@ class AuthFormCard extends StatelessWidget {
     this.onSecondarySubmit,
     required this.footer,
     this.isLoading = false,
+    this.fullScreen = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    final form = Form(
+      key: formKey,
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: AppPadding.pW20,
+          vertical: AppPadding.pH28,
+        ),
+        child: Column(
+          mainAxisSize: fullScreen ? MainAxisSize.max : MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            if (fullScreen) ...[
+              const Center(child: AuthBrand()),
+              SizedBox(height: AppSize.sH28),
+            ],
+            AuthHeader(title: title, subtitle: subtitle),
+            SizedBox(height: AppSize.sH28),
+            ...fields,
+            SizedBox(height: AppSize.sH24),
+            DefaultButton(
+              title: buttonTitle,
+              onTap: isLoading ? null : onSubmit,
+              disabled: isLoading,
+              gradient: AppColors.scenarioGradient,
+              customChild: isLoading
+                  ? SizedBox.square(
+                      dimension: AppSize.sH20,
+                      child: const CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: AppColors.white,
+                      ),
+                    )
+                  : null,
+              height: AppSize.sH48,
+              borderRadius: BorderRadius.circular(AppCircular.r8),
+            ),
+            if (secondaryButtonTitle != null) ...[
+              SizedBox(height: AppSize.sH6),
+              Row(
+                children: [
+                  Expanded(
+                    child: Divider(color: AppColors.grey1, endIndent: 10.w),
+                  ),
+                  Text(
+                    LocaleKeys.or,
+                    style: const TextStyle(color: AppColors.grey2).s12.medium,
+                  ),
+                  Expanded(
+                    child: Divider(color: AppColors.grey1, indent: 10.w),
+                  ),
+                ],
+              ),
+              SizedBox(height: AppSize.sH6),
+              DefaultButton(
+                title: secondaryButtonTitle,
+                onTap: onSecondarySubmit,
+                height: AppSize.sH48,
+                color: AppColors.white,
+                borderColor: AppColors.authTabSelected,
+                textColor: AppColors.authLinkText,
+                borderRadius: BorderRadius.circular(AppCircular.r8),
+              ),
+            ],
+            SizedBox(height: AppSize.sH18),
+            footer,
+          ],
+        ),
+      ),
+    );
+
+    if (fullScreen) {
+      return ColoredBox(color: AppColors.white, child: form);
+    }
+
     return DecoratedBox(
       decoration: BoxDecoration(
         color: AppColors.white,
@@ -35,71 +111,7 @@ class AuthFormCard extends StatelessWidget {
         border: Border.all(color: AppColors.inputBorder),
         boxShadow: [AppColors.containerShadow],
       ),
-      child: Form(
-        key: formKey,
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: AppPadding.pW20,
-            vertical: AppPadding.pH28,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              AuthHeader(title: title, subtitle: subtitle),
-              SizedBox(height: AppSize.sH28),
-              ...fields,
-              SizedBox(height: AppSize.sH24),
-              DefaultButton(
-                title: buttonTitle,
-                onTap: isLoading ? null : onSubmit,
-                disabled: isLoading,
-                gradient: AppColors.scenarioGradient,
-                customChild: isLoading
-                    ? SizedBox.square(
-                        dimension: AppSize.sH20,
-                        child: const CircularProgressIndicator(
-                          strokeWidth: 2,
-                          color: AppColors.white,
-                        ),
-                      )
-                    : null,
-                height: AppSize.sH48,
-                borderRadius: BorderRadius.circular(AppCircular.r8),
-              ),
-              if (secondaryButtonTitle != null) ...[
-                SizedBox(height: AppSize.sH6),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Divider(color: AppColors.grey1, endIndent: 10.w),
-                    ),
-                    Text(
-                      LocaleKeys.or,
-                      style: const TextStyle(color: AppColors.grey2).s12.medium,
-                    ),
-                    Expanded(
-                      child: Divider(color: AppColors.grey1, indent: 10.w),
-                    ),
-                  ],
-                ),
-                SizedBox(height: AppSize.sH6),
-                DefaultButton(
-                  title: secondaryButtonTitle,
-                  onTap: onSecondarySubmit,
-                  height: AppSize.sH48,
-                  color: AppColors.white,
-                  borderColor: AppColors.authTabSelected,
-                  textColor: AppColors.authLinkText,
-                  borderRadius: BorderRadius.circular(AppCircular.r8),
-                ),
-              ],
-              SizedBox(height: AppSize.sH18),
-              footer,
-            ],
-          ),
-        ),
-      ),
+      child: form,
     );
   }
 }

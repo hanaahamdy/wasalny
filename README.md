@@ -38,7 +38,7 @@
 
 ## App Bundle :
 
--com.aait.arenza
+-com.aait.waslny
 or
 
 - com.cs.flutter_base

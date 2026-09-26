@@ -73,6 +73,7 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
         color: AppColors.scenarioPrimary,
         onTap: () => Go.to(const AliaaScreen()),
       ),
+
     ];
     return Scaffold(
       body: SafeArea(

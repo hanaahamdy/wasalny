@@ -32,19 +32,33 @@ class HomeOrderSummaryCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Align(
-            alignment: AlignmentDirectional.topCenter,
-            child: Container(
-              width: AppSize.sW50,
-              height: AppSize.sW50,
-              decoration: BoxDecoration(
-                color: iconBackground,
-                borderRadius: BorderRadius.circular(AppCircular.r8),
+          Expanded(
+            child: Center(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth: AppSize.sW50,
+                  maxHeight: AppSize.sW50,
+                ),
+                child: AspectRatio(
+                  aspectRatio: 1,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: iconBackground,
+                      borderRadius: BorderRadius.circular(AppCircular.r8),
+                    ),
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Icon(
+                        icon,
+                        color: iconColor,
+                        size: AppSize.sH30,
+                      ),
+                    ),
+                  ),
+                ),
               ),
-              child: Icon(icon, color: iconColor, size: AppSize.sH30),
             ),
           ),
-          const Spacer(),
           Text(
             value,
             textAlign: TextAlign.center,
@@ -54,7 +68,6 @@ class HomeOrderSummaryCard extends StatelessWidget {
               fontWeight: FontWeightManager.bold,
             ),
           ),
-
           Text(
             label,
             textAlign: TextAlign.center,

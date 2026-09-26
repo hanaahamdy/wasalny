@@ -25,6 +25,7 @@ class _PackingScreenState extends State<PackingScreen> {
   Widget build(BuildContext context) {
     return WorkflowPage(
       title: LocaleKeys.workflowPacking,
+      automaticallyImplyLeading: false,
       child: ListenableBuilder(
         listenable: _viewModel,
         builder: (context, _) {

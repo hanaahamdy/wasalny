@@ -58,7 +58,8 @@ class OrderModel {
 
     final deliveryTab = switch (status) {
       'delivering' || 'in_delivery' => DeliveryOrderTab.delivering,
-      'received' || 'delivered' => DeliveryOrderTab.delivered,
+      'received' => DeliveryOrderTab.received,
+      'delivered' => DeliveryOrderTab.delivered,
       _ => DeliveryOrderTab.created,
     };
 

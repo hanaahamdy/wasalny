@@ -487,6 +487,142 @@
         ]
       }
     },
+    "/deliveries/orders/2": {
+      "get": {
+        "summary": "deliveries  order By Id ",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "application/json",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "status": "success",
+                  "message": "Completed successfully.",
+                  "data": {
+                    "id": 2,
+                    "order_number": "ORD-6A8C33135481D",
+                    "customer": {
+                      "id": 2,
+                      "name": "Yosra",
+                      "phone": "01015873254"
+                    },
+                    "total_amount": "0.00",
+                    "delivery_fee": "0.00",
+                    "status": "pending",
+                    "items": [],
+                    "created_at": "24 أغسطس 2026"
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/deliveries/orders/2/status": {
+      "patch": {
+        "summary": "change Delivery Order Status",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "description": "in:received,in_delivery,delivered",
+            "required": false,
+            "example": "in_delivery",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "application/json",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {}
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "status": "success",
+                  "message": "messages.updated_success",
+                  "data": {
+                    "id": 2,
+                    "order_number": "ORD-6A8C33135481D",
+                    "customer": {
+                      "id": 2,
+                      "name": "Yosra",
+                      "phone": "01015873254"
+                    },
+                    "total_amount": "0.00",
+                    "delivery_fee": "0.00",
+                    "status": "in_delivery",
+                    "items": [],
+                    "created_at": "24 أغسطس 2026"
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
     "/orders/5/delivery-location": {
       "get": {
         "summary": "get delivery location",
@@ -1048,7 +1184,7 @@
       }
     },
     "/customers/11": {
-      "patch": {
+      "post": {
         "summary": "update customer",
         "deprecated": false,
         "description": "",
@@ -1063,11 +1199,48 @@
                   "name": {
                     "example": "sales1@hotmail.com",
                     "type": "string"
+                  },
+                  "email": {
+                    "example": "",
+                    "type": "string"
+                  },
+                  "role": {
+                    "description": "in| 'admin', 'supervisor', 'sales', 'delivery', 'packing', 'customer",
+                    "example": "",
+                    "type": "string"
+                  },
+                  "address": {
+                    "example": "",
+                    "type": "string"
+                  },
+                  "latitude": {
+                    "example": "",
+                    "type": "string"
+                  },
+                  "longitude": {
+                    "example": "",
+                    "type": "string"
+                  },
+                  "system_type": {
+                    "description": "in|system_one|system_two",
+                    "example": "",
+                    "type": "string"
+                  },
+                  "image": {
+                    "example": "",
+                    "type": "string"
                   }
                 }
               },
               "example": {
-                "name": "sales1@hotmail.com"
+                "name": "sales1@hotmail.com",
+                "email": "",
+                "role": "",
+                "address": "",
+                "latitude": "",
+                "longitude": "",
+                "system_type": "",
+                "image": ""
               }
             }
           },
@@ -1102,7 +1275,76 @@
                   }
                 }
               }
+            },
+            "headers": {}
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/customers/11/status": {
+      "patch": {
+        "summary": "Activate and Deactivate Customer",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "is_active",
+            "in": "query",
+            "description": "in | 0|1",
+            "required": false,
+            "example": "1",
+            "schema": {
+              "type": "string"
             }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "application/json",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "example": {
+                  "status": "success",
+                  "message": "Account deactivated successfully.",
+                  "data": {
+                    "id": 11,
+                    "name": "sales1@hotmail.com",
+                    "email": "sales@hotmail.com",
+                    "phone": "01015873233",
+                    "role": "sales",
+                    "system_type": "system_one",
+                    "image": null,
+                    "latitude": null,
+                    "longitude": null,
+                    "address": null,
+                    "is_active": 0,
+                    "created_at": "2026-09-14T22:59:17.000000Z",
+                    "updated_at": "2026-09-20T21:51:40.000000Z"
+                  }
+                }
+              }
+            },
+            "headers": {}
           }
         },
         "security": [

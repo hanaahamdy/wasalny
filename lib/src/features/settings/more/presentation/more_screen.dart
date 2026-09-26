@@ -9,6 +9,7 @@ import '../../../../core/widgets/buttons/default_button.dart';
 import '../../../../core/widgets/custom_appbar.dart';
 import '../../../auth/presentation/imports/view_imports.dart';
 import '../../../language/presentation/widgets/language_picker_sheet.dart';
+import '../../../users_type/buyer/views/buyer_screen.dart';
 import '../../admin_sales/presentation/imports/presentation_imports.dart';
 import '../../customers/presentation/imports/presentation_imports.dart';
 import '../../employees/presentation/imports/presentation_imports.dart';
@@ -28,7 +29,6 @@ class MoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = UserCubit.instance.user;
-    final isAdmin = user.role == UserRole.admin;
 
     return ColoredBox(
       color: AppColors.scenarioBackground,
@@ -44,9 +44,13 @@ class MoreScreen extends StatelessWidget {
                 horizontal: AppPadding.pW8,
                 vertical: AppPadding.pH12,
               ),
-              children: isAdmin
-                  ? _adminSections(context)
-                  : _deliverySections(context, user),
+              children: switch (user.role) {
+                UserRole.admin => _adminSections(context),
+                UserRole.delivery => _deliverySections(context, user),
+                UserRole.packing ||
+                UserRole.aliaa => _workflowSections(context),
+                UserRole.buyer => _deliverySections(context, user),
+              },
             ),
           ),
         ],
@@ -76,6 +80,7 @@ class MoreScreen extends StatelessWidget {
         _MoreItem(
           title: LocaleKeys.liveBroadcast,
           icon: Icons.videocam_outlined,
+          onTap: () => Go.to(const BuyerLiveRequestScreen()),
         ),
       ],
     ),
@@ -89,11 +94,6 @@ class MoreScreen extends StatelessWidget {
         ),
         _MoreItem(
           title: LocaleKeys.changePassword,
-          icon: Icons.lock_outline,
-          onTap: () => showChangePasswordBottomSheet(context: context),
-        ),
-        _MoreItem(
-          title: LocaleKeys.forgotPassword,
           icon: Icons.lock_reset_outlined,
           onTap: () => Go.to(const ForgotPasswordScreen()),
         ),
@@ -115,11 +115,6 @@ class MoreScreen extends StatelessWidget {
         ),
         _MoreItem(
           title: LocaleKeys.changePassword,
-          icon: Icons.lock_outline,
-          onTap: () => showChangePasswordBottomSheet(context: context),
-        ),
-        _MoreItem(
-          title: LocaleKeys.forgotPassword,
           icon: Icons.lock_reset_outlined,
           onTap: () => Go.to(const ForgotPasswordScreen()),
         ),
@@ -151,6 +146,11 @@ class MoreScreen extends StatelessWidget {
         ),
       ],
     ),
+    _logoutSection(context),
+  ];
+
+  List<Widget> _workflowSections(BuildContext context) => [
+    _legalSection(context),
     _logoutSection(context),
   ];
 
