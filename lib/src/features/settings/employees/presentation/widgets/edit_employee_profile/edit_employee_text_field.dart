@@ -6,6 +6,8 @@ class EditEmployeeTextField extends StatelessWidget {
   final IconData icon;
   final TextInputType keyboardType;
   final bool obscureText;
+  final TextInputAction textInputAction;
+  final FormFieldValidator<String>? validator;
 
   const EditEmployeeTextField({
     super.key,
@@ -14,6 +16,8 @@ class EditEmployeeTextField extends StatelessWidget {
     required this.icon,
     required this.keyboardType,
     this.obscureText = false,
+    this.textInputAction = TextInputAction.next,
+    this.validator,
   });
 
   @override
@@ -34,6 +38,8 @@ class EditEmployeeTextField extends StatelessWidget {
           controller: controller,
           keyboardType: keyboardType,
           obscureText: obscureText,
+          textInputAction: textInputAction,
+          validator: validator,
           style: TextStyle(
             color: AppColors.main,
             fontSize: FontSizeManager.s11,

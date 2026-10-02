@@ -1,7 +1,7 @@
 part of '../imports/presentation_imports.dart';
 
 class _CustomerCard extends StatelessWidget {
-  final _Customer customer;
+  final Customer customer;
 
   const _CustomerCard({required this.customer});
 
@@ -24,7 +24,9 @@ class _CustomerCard extends StatelessWidget {
             radius: AppSize.sW20,
             backgroundColor: AppColors.moreIconBackground,
             child: Text(
-              customer.name.characters.first.toUpperCase(),
+              customer.name.isEmpty
+                  ? '?'
+                  : customer.name.characters.first.toUpperCase(),
               style: TextStyle(
                 color: AppColors.primary,
                 fontSize: FontSizeManager.s14,
@@ -48,13 +50,9 @@ class _CustomerCard extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: AppSize.sH2),
-                Text(
-                  customer.phone,
-                  style: TextStyle(
-                    color: AppColors.hintText,
-                    fontSize: FontSizeManager.s10,
-                    fontWeight: FontWeightManager.regular,
-                  ),
+                _CustomerContactLine(
+                  icon: Icons.phone_outlined,
+                  value: customer.phone,
                 ),
               ],
             ),

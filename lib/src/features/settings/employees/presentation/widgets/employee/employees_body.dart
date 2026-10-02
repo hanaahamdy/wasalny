@@ -36,36 +36,53 @@ class EmployeesBody extends StatelessWidget {
           ),
           SizedBox(height: AppSize.sH14),
           Expanded(
-            child: viewModel.isLoading
-                ? const Center(child: CircularProgressIndicator())
-                : viewModel.errorMessage != null
-                ? Center(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(viewModel.errorMessage!),
-                        SizedBox(height: AppSize.sH10),
-                        TextButton(
-                          onPressed: viewModel.load,
-                          child: Text(LocaleKeys.retry),
-                        ),
-                      ],
+            child: RefreshIndicator(
+              onRefresh: viewModel.load,
+              child: viewModel.isLoading
+                  ? _scrollableState(const CircularProgressIndicator())
+                  : viewModel.errorMessage != null
+                  ? _scrollableState(
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(viewModel.errorMessage!),
+                          SizedBox(height: AppSize.sH10),
+                          TextButton(
+                            onPressed: viewModel.load,
+                            child: Text(LocaleKeys.retry),
+                          ),
+                        ],
+                      ),
+                    )
+                  : employees.isEmpty
+                  ? _scrollableState(Text(LocaleKeys.noResultFound))
+                  : ListView.separated(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      keyboardDismissBehavior:
+                          ScrollViewKeyboardDismissBehavior.onDrag,
+                      itemCount: employees.length,
+                      separatorBuilder: (_, _) =>
+                          SizedBox(height: AppSize.sH10),
+                      itemBuilder: (_, index) => EmployeeCard(
+                        employee: employees[index],
+                        onChanged: viewModel.load,
+                      ),
                     ),
-                  )
-                : employees.isEmpty
-                ? Center(child: Text(LocaleKeys.noResultFound))
-                : ListView.separated(
-                    keyboardDismissBehavior:
-                        ScrollViewKeyboardDismissBehavior.onDrag,
-                    itemCount: employees.length,
-                    separatorBuilder: (_, _) => SizedBox(height: AppSize.sH10),
-                    itemBuilder: (_, index) => EmployeeCard(
-                      employee: employees[index],
-                      onChanged: viewModel.load,
-                    ),
-                  ),
+            ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _scrollableState(Widget child) {
+    return LayoutBuilder(
+      builder: (context, constraints) => SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        child: SizedBox(
+          height: constraints.maxHeight,
+          child: Center(child: child),
+        ),
       ),
     );
   }

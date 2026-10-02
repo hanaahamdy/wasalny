@@ -3,8 +3,14 @@ part of '../imports/view_imports.dart';
 class OrderDetailsBody extends StatelessWidget {
   final OrderModel order;
   final Widget? actions;
+  final String? statusLabel;
 
-  const OrderDetailsBody({super.key, required this.order, this.actions});
+  const OrderDetailsBody({
+    super.key,
+    required this.order,
+    this.actions,
+    this.statusLabel,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +46,7 @@ class OrderDetailsBody extends StatelessWidget {
                           OrderDetailsRow(
                             label: LocaleKeys.orderStatus,
                             customValue: _DetailsChip(
-                              label: AdminOrderTab.created.label,
+                              label: statusLabel ?? order.adminTab.label,
                               background:
                                   AppColors.settingsProfileIconBackground,
                               textColor: AppColors.scenarioPrimary,

@@ -31,7 +31,6 @@ class CreateEmployeeCubit extends Cubit<CreateEmployeeState>
     final result = await _repository.createEmployee(
       CreateEmployeeParams(
         name: fullNameController.text.trim(),
-        phone: phoneController.text.trim(),
         email: emailController.text.trim(),
         password: passwordController.text,
         employeeType: state.employeeType!,

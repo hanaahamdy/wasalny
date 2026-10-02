@@ -9,6 +9,15 @@ abstract interface class EmployeesRepository {
     EmployeeType type,
   );
   Future<Result<EmployeeModel, Failure>> fetchEmployee(int id);
-  Future<Result<EmployeeModel, Failure>> updateEmployee(int id, String name);
+  Future<Result<EmployeeModel, Failure>> updateEmployee(
+    int id, {
+    required String name,
+    required String email,
+    required String password,
+  });
+  Future<Result<EmployeeModel, Failure>> updateEmployeeStatus(
+    int id,
+    bool isActive,
+  );
   Future<Result<void, Failure>> deleteEmployee(int id);
 }

@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../../../../core/widgets/buttons/default_button.dart';
+import '../../../../core/widgets/dialogs/success_dialog.dart';
+import '../../../../core/network/network_service.dart';
+import '../../../../config/res/config_imports.dart';
+import '../../../settings/more/presentation/more_screen.dart';
 import '../../../workflow/models/workflow_order.dart';
 import '../../../workflow/views/widgets/workflow_widgets.dart';
 import '../../../../config/language/locale_keys.g.dart';
@@ -15,7 +20,14 @@ class AliaaScreen extends StatefulWidget {
 }
 
 class _AliaaScreenState extends State<AliaaScreen> {
-  final _viewModel = AliaaViewModel();
+  late final AliaaViewModel _viewModel;
+
+  @override
+  void initState() {
+    super.initState();
+    _viewModel = AliaaViewModel(injector<NetworkService>());
+    _viewModel.loadOrders();
+  }
 
   @override
   void dispose() {
@@ -26,42 +38,86 @@ class _AliaaScreenState extends State<AliaaScreen> {
   @override
   Widget build(BuildContext context) {
     return WorkflowPage(
-      title: LocaleKeys.workflowAliaaNumbers,
+      title: LocaleKeys.workflowAliaa,
       automaticallyImplyLeading: false,
-      child: ListenableBuilder(
-        listenable: _viewModel,
-        builder: (context, _) {
-          final orders = _viewModel.orders;
-          if (orders.isEmpty) {
-            return EmptyWorkflow(LocaleKeys.workflowNoClientNumbers);
-          }
-          return ListView(
-            padding: const EdgeInsets.all(16),
-            children: [
-              WorkflowQueueHeader(
-                icon: Icons.contact_phone_outlined,
-                title: LocaleKeys.workflowAliaa,
-                subtitle: LocaleKeys.workflowAliaaQueue(
-                  count: orders.length.toString(),
-                ),
-                count: orders.length,
-              ),
-              ...orders.map(
-                (order) => WorkflowOrderCard(
-                  order: order,
-                  action: SizedBox(
-                    width: double.infinity,
-                    child: FilledButton.icon(
-                      onPressed: () => _addClientNumber(context, order),
-                      icon: const Icon(Icons.add_call),
-                      label: Text(LocaleKeys.workflowAddClientNumber),
+      child: Column(
+        children: [
+          Expanded(
+            child: ListenableBuilder(
+              listenable: _viewModel,
+              builder: (context, _) {
+                final orders = _viewModel.orders;
+                if (_viewModel.isLoading && orders.isEmpty) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                if (_viewModel.errorMessage != null && orders.isEmpty) {
+                  return Center(
+                    child: FilledButton(
+                      onPressed: _viewModel.loadOrders,
+                      child: Text(LocaleKeys.retry),
                     ),
+                  );
+                }
+                if (orders.isEmpty) {
+                  return RefreshIndicator(
+                    onRefresh: _viewModel.loadOrders,
+                    child: ListView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      children: [
+                        SizedBox(
+                          height: MediaQuery.sizeOf(context).height * .3,
+                        ),
+                        EmptyWorkflow(LocaleKeys.workflowNoClientNumbers),
+                      ],
+                    ),
+                  );
+                }
+                return RefreshIndicator(
+                  onRefresh: _viewModel.loadOrders,
+                  child: ListView(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: AppPadding.pW16,
+                      vertical: AppPadding.pH16,
+                    ),
+                    children: [
+                      WorkflowQueueHeader(
+                        icon: Icons.contact_phone_outlined,
+                        title: LocaleKeys.workflowAliaa,
+                        subtitle: LocaleKeys.workflowAliaaQueue(
+                          count: orders.length.toString(),
+                        ),
+                        count: orders.length,
+                      ),
+                      ...orders.map(
+                        (order) => WorkflowOrderCard(
+                          order: order,
+                          action: SizedBox(
+                            width: double.infinity,
+                            child: FilledButton.icon(
+                              onPressed: () => _addClientNumber(context, order),
+                              icon: const Icon(Icons.add_call),
+                              label: Text(LocaleKeys.workflowAddClientNumber),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ),
-            ],
-          );
-        },
+                );
+              },
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(
+              AppPadding.pW16,
+              AppPadding.pH8,
+              AppPadding.pW16,
+              AppPadding.pH20,
+            ),
+            child: DefaultButton(title: LocaleKeys.logout, onTap: _logout),
+          ),
+        ],
       ),
     );
   }
@@ -72,4 +128,6 @@ class _AliaaScreenState extends State<AliaaScreen> {
       builder: (_) => _ClientNumberDialog(order: order, viewModel: _viewModel),
     );
   }
+
+  void _logout() => MoreScreen.showLogoutDialog(context);
 }

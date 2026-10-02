@@ -13,6 +13,7 @@ class _ClientNumberDialog extends StatefulWidget {
 class _ClientNumberDialogState extends State<_ClientNumberDialog> {
   final _controller = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  bool _isSubmitting = false;
 
   @override
   void dispose() {
@@ -46,25 +47,49 @@ class _ClientNumberDialogState extends State<_ClientNumberDialog> {
       ),
       actions: [
         TextButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: _isSubmitting ? null : () => Navigator.pop(context),
           child: Text(LocaleKeys.workflowCancel),
         ),
         FilledButton(
-          onPressed: () {
-            if (!_formKey.currentState!.validate()) return;
-            final messenger = ScaffoldMessenger.of(context);
-            widget.viewModel.completeOrder(
-              widget.order.id,
-              _controller.text.trim(),
-            );
-            Navigator.pop(context);
-            messenger.showSnackBar(
-              SnackBar(content: Text(LocaleKeys.workflowClientNumberAdded)),
-            );
-          },
-          child: Text(LocaleKeys.workflowSaveComplete),
+          onPressed: _isSubmitting ? null : _sendToCustomer,
+          child: _isSubmitting
+              ? SizedBox.square(
+                  dimension: AppSize.sH18,
+                  child: CircularProgressIndicator(strokeWidth: AppSize.sH2),
+                )
+              : Text(LocaleKeys.workflowSaveComplete),
         ),
       ],
     );
+  }
+
+  Future<void> _sendToCustomer() async {
+    if (!_formKey.currentState!.validate()) return;
+    setState(() => _isSubmitting = true);
+    final messenger = ScaffoldMessenger.of(context);
+    final sent = await widget.viewModel.sendToCustomer(
+      widget.order.id,
+      _controller.text,
+    );
+    if (!mounted) return;
+    if (sent) {
+      final navigator = Navigator.of(context);
+      final successContext = navigator.context;
+      navigator.pop();
+      if (!successContext.mounted) return;
+      await successDialog(
+        context: successContext,
+        title: LocaleKeys.workflowClientNumberAdded,
+      );
+    } else {
+      setState(() => _isSubmitting = false);
+      messenger.showSnackBar(
+        SnackBar(
+          content: Text(
+            widget.viewModel.errorMessage ?? LocaleKeys.exceptionError,
+          ),
+        ),
+      );
+    }
   }
 }

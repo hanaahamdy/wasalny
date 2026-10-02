@@ -169,6 +169,9 @@ abstract class LocaleKeys {
   static const String _exceptionError = 'exception_error';
   static String get exceptionError => _exceptionError.tr();
 
+  static const String _errorDialogClose = 'error_dialog_close';
+  static String get errorDialogClose => _errorDialogClose.tr();
+
   static const String _excpetionErrorDesc = 'excpetion_error_desc';
   static String get excpetionErrorDesc => _excpetionErrorDesc.tr();
 
@@ -900,6 +903,12 @@ abstract class LocaleKeys {
   static const String _trackOrder = 'track_order';
   static String get trackOrder => _trackOrder.tr();
 
+  static const String _trackDelivery = 'track_delivery';
+  static String get trackDelivery => _trackDelivery.tr();
+
+  static const String _openTracking = 'open_tracking';
+  static String get openTracking => _openTracking.tr();
+
   static const String _markAsDelivered = 'mark_as_delivered';
   static String get markAsDelivered => _markAsDelivered.tr();
 
@@ -1047,6 +1056,9 @@ abstract class LocaleKeys {
 
   static const String _disableAccount = 'disable_account';
   static String get disableAccount => _disableAccount.tr();
+
+  static const String _activateAccount = 'activate_account';
+  static String get activateAccount => _activateAccount.tr();
 
   static const String _deleteEmployee = 'delete_employee';
   static String get deleteEmployee => _deleteEmployee.tr();
@@ -1226,6 +1238,9 @@ abstract class LocaleKeys {
   static const String _workflowClientName = 'workflow_client_name';
   static String get workflowClientName => _workflowClientName.tr();
 
+  static const String _workflowLiveTitle = 'workflow_live_title';
+  static String get workflowLiveTitle => _workflowLiveTitle.tr();
+
   static const String _workflowCategories = 'workflow_categories';
   static String get workflowCategories => _workflowCategories.tr();
 
@@ -1247,6 +1262,9 @@ abstract class LocaleKeys {
 
   static const String _workflowTotalPrice = 'workflow_total_price';
   static String get workflowTotalPrice => _workflowTotalPrice.tr();
+
+  static const String _workflowCreatedAt = 'workflow_created_at';
+  static String get workflowCreatedAt => _workflowCreatedAt.tr();
 
   static const String _workflowAmountEgp = 'workflow_amount_egp';
   static String workflowAmountEgp({required String amount}) =>
@@ -1322,6 +1340,40 @@ abstract class LocaleKeys {
 
   static const String _workflowLiveRequests = 'workflow_live_requests';
   static String get workflowLiveRequests => _workflowLiveRequests.tr();
+
+  static const String _adminLiveAccept = 'admin_live_accept';
+  static String get adminLiveAccept => _adminLiveAccept.tr();
+
+  static const String _adminLiveReject = 'admin_live_reject';
+  static String get adminLiveReject => _adminLiveReject.tr();
+
+  static const String _adminLiveRejectionNotesHint =
+      'admin_live_rejection_notes_hint';
+  static String get adminLiveRejectionNotesHint =>
+      _adminLiveRejectionNotesHint.tr();
+
+  static const String _adminLiveAccepted = 'admin_live_accepted';
+  static String get adminLiveAccepted => _adminLiveAccepted.tr();
+
+  static const String _adminLiveRejected = 'admin_live_rejected';
+  static String get adminLiveRejected => _adminLiveRejected.tr();
+
+  static const String _adminLiveBroadcastName = 'admin_live_broadcast_name';
+  static String get adminLiveBroadcastName => _adminLiveBroadcastName.tr();
+
+  static const String _adminLiveDescription = 'admin_live_description';
+  static String get adminLiveDescription => _adminLiveDescription.tr();
+
+  static const String _adminLiveSellerName = 'admin_live_seller_name';
+  static String get adminLiveSellerName => _adminLiveSellerName.tr();
+
+  static const String _adminLiveSellerEmail = 'admin_live_seller_email';
+  static String get adminLiveSellerEmail => _adminLiveSellerEmail.tr();
+
+  static const String _adminLiveRejectConfirmation =
+      'admin_live_reject_confirmation';
+  static String get adminLiveRejectConfirmation =>
+      _adminLiveRejectConfirmation.tr();
 
   static const String _workflowApproveOrder = 'workflow_approve_order';
   static String get workflowApproveOrder => _workflowApproveOrder.tr();

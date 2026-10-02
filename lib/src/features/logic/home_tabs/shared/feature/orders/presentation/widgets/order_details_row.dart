@@ -30,27 +30,34 @@ class OrderDetailsRow extends StatelessWidget {
           vertical: AppPadding.pH12,
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              label,
-              style: TextStyle(
-                color: AppColors.secondaryHintText,
-                fontSize: FontSizeManager.s10,
-                fontWeight: FontWeightManager.regular,
+            Expanded(
+              child: Text(
+                label,
+                style: TextStyle(
+                  color: AppColors.secondaryHintText,
+                  fontSize: FontSizeManager.s10,
+                  fontWeight: FontWeightManager.regular,
+                ),
               ),
             ),
-            const Spacer(),
-            customValue ?? const SizedBox.shrink(),
             SizedBox(width: AppSize.sW10),
-            Text(
-              value ?? '',
-              textAlign: TextAlign.start,
-              style: TextStyle(
-                color: AppColors.main,
-                fontSize: FontSizeManager.s11,
-                fontWeight: FontWeightManager.medium,
+            Expanded(
+              flex: 2,
+              child: Align(
+                alignment: AlignmentDirectional.centerEnd,
+                child:
+                    customValue ??
+                    Text(
+                      value ?? '',
+                      textAlign: TextAlign.end,
+                      style: TextStyle(
+                        color: AppColors.main,
+                        fontSize: FontSizeManager.s11,
+                        fontWeight: FontWeightManager.medium,
+                      ),
+                    ),
               ),
             ),
           ],

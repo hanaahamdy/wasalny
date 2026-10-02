@@ -66,10 +66,9 @@ class WorkflowOrderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final orderId = order.id.toString();
-    final displayOrderId = orderId.length > 6
-        ? orderId.substring(orderId.length - 6)
-        : orderId;
+    final displayOrderNumber = order.orderNumber.isNotEmpty
+        ? order.orderNumber
+        : order.id.toString();
 
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
@@ -79,19 +78,26 @@ class WorkflowOrderCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    order.clientName,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                Text('#$displayOrderId'),
-              ],
+            _OrderDetailRow(
+              label: LocaleKeys.orderNumber,
+              value: displayOrderNumber,
             ),
+            if (order.createdAt.isNotEmpty) ...[
+              const SizedBox(height: 8),
+              _OrderDetailRow(
+                label: LocaleKeys.workflowCreatedAt,
+                value: order.createdAt,
+              ),
+            ],
+            if (order.clientName.isNotEmpty) ...[
+              const SizedBox(height: 8),
+              Text(
+                order.clientName,
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+              ),
+            ],
             const SizedBox(height: 10),
             ...order.categories.map(
               (item) => Padding(
@@ -116,6 +122,13 @@ class WorkflowOrderCard extends StatelessWidget {
               ),
             ),
             const Divider(),
+            _OrderDetailRow(
+              label: LocaleKeys.deliveryFee,
+              value: LocaleKeys.workflowAmountEgp(
+                amount: order.deliveryFee.toStringAsFixed(2),
+              ),
+            ),
+            const SizedBox(height: 8),
             Row(
               children: [
                 Expanded(
@@ -156,6 +169,30 @@ class WorkflowOrderCard extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _OrderDetailRow extends StatelessWidget {
+  final String label;
+  final String value;
+
+  const _OrderDetailRow({required this.label, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Text(
+            label,
+            style: const TextStyle(fontWeight: FontWeight.w600),
+          ),
+        ),
+        const SizedBox(width: 12),
+        Expanded(child: Text(value, textAlign: TextAlign.end)),
+      ],
     );
   }
 }

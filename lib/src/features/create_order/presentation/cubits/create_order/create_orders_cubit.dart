@@ -10,13 +10,6 @@ class CreateOrdersCubit extends Cubit<CreateOrdersState>
     initializeOrderItems();
   }
 
-  static const sellerOptions = ['seller_one', 'seller_two', 'seller_three'];
-
-  void selectSeller(String? seller) {
-    if (seller == null) return;
-    emit(state.copyWith(seller: seller));
-  }
-
   void prefillCustomer({required String name, required String phone}) {
     customerNameController.text = name;
     phoneController.text = phone;
@@ -50,7 +43,6 @@ class CreateOrdersCubit extends Cubit<CreateOrdersState>
       totalAmount: totalController.text.trim(),
       deliveryFee: deliveryPriceController.text.trim(),
       partnerPrice: partnerPriceController.text.trim(),
-      seller: state.seller!,
       products: orderItems
           .map(
             (item) => CreateOrderProductParams(

@@ -26,13 +26,15 @@ class ProfileRepositoryImpl implements ProfileRepository {
   }
 
   @override
-  Future<Result<BaseModel?, Failure>> changePassword({
-    required String currentPassword,
+  Future<Result<BaseModel?, Failure>> updateAdminPassword({
+    required int customerId,
+    required String email,
     required String password,
     required String confirmPassword,
   }) {
-    return _remoteDataSource.changePassword({
-      'current_password': currentPassword,
+    return _remoteDataSource.updateAdminPassword(customerId, {
+      'role': 'admin',
+      'email': email,
       'password': password,
       'password_confirmation': confirmPassword,
     }).handleCallbackWithFailure();

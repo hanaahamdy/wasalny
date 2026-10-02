@@ -1,9 +1,9 @@
 enum UserRole {
   delivery('delivery'),
   admin('admin'),
-  buyer('buyer'),
+  buyer('sales'),
   packing('packing'),
-  aliaa('alia');
+  aliaa('supervisor');
 
   final String value;
 
@@ -16,9 +16,9 @@ enum UserRole {
     return switch (normalizedValue) {
       'admin' => UserRole.admin,
       'delivery' => UserRole.delivery,
-      'buyer' || 'supervisor' => UserRole.buyer,
-      'picking' || 'packing' || 'packin' => UserRole.packing,
-      'alia' || 'aliaa' || 'sales' => UserRole.aliaa,
+      'sales'  => UserRole.buyer,
+       'packing'  => UserRole.packing,
+    "supervisor"=> UserRole.aliaa,
       _ => UserRole.delivery,
     };
   }

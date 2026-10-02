@@ -26,14 +26,26 @@ class EmployeeDetailsViewModel extends ChangeNotifier {
     );
   }
 
-  Future<EmployeeModel?> updateName(String name) async {
+  Future<EmployeeModel?> updateProfile({
+    required String name,
+    required String email,
+    required String password,
+  }) async {
     final id = int.tryParse(employee.id);
     if (id == null) return null;
     EmployeeModel? updated;
-    await _run<EmployeeModel>(() => _repository.updateEmployee(id, name), (value) {
-      employee = value;
-      updated = value;
-    });
+    await _run<EmployeeModel>(
+      () => _repository.updateEmployee(
+        id,
+        name: name,
+        email: email,
+        password: password,
+      ),
+      (value) {
+        employee = value;
+        updated = value;
+      },
+    );
     return updated;
   }
 
@@ -41,8 +53,20 @@ class EmployeeDetailsViewModel extends ChangeNotifier {
     final id = int.tryParse(employee.id);
     if (id == null) return false;
     var deleted = false;
-    await _run<void>(() => _repository.deleteEmployee(id), (_) => deleted = true);
+    await _run<void>(
+      () => _repository.deleteEmployee(id),
+      (_) => deleted = true,
+    );
     return deleted;
+  }
+
+  Future<void> updateAccountStatus() async {
+    final id = int.tryParse(employee.id);
+    if (id == null) return;
+    await _run<EmployeeModel>(
+      () => _repository.updateEmployeeStatus(id, !employee.isActive),
+      (value) => employee = value,
+    );
   }
 
   void replace(EmployeeModel value) {
@@ -58,10 +82,7 @@ class EmployeeDetailsViewModel extends ChangeNotifier {
     _errorMessage = null;
     notifyListeners();
     final result = await request();
-    result.when(
-      onSuccess,
-      (failure) => _errorMessage = failure.message,
-    );
+    result.when(onSuccess, (failure) => _errorMessage = failure.message);
     _isLoading = false;
     notifyListeners();
   }

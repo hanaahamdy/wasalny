@@ -59,7 +59,7 @@ class EmployeeCard extends StatelessWidget {
                     ),
                     SizedBox(height: AppSize.sH4),
                     Text(
-                      employee.phone,
+                      employee.email,
                       style: TextStyle(
                         color: AppColors.hintText,
                         fontSize: FontSizeManager.s11,

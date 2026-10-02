@@ -18,7 +18,6 @@ import '../../../logic/home/presentation/imports/view_imports.dart';
 import '../../../users_type/aliaa/views/aliaa_screen.dart';
 import '../../../users_type/buyer/views/buyer_screen.dart';
 import '../../../users_type/packing/views/packing_screen.dart';
-import '../../../workflow/views/widgets/workflow_role_tabs_screen.dart';
 
 part '../cubit/splash_state.dart';
 part '../cubit/splash_cubit.dart';

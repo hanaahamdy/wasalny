@@ -44,18 +44,6 @@ class CreateEmployeeBody extends StatelessWidget {
                 controller: cubit.fullNameController,
               ),
               CustomTextFiled(
-                prefixIcon: const Icon(Icons.phone_outlined),
-                title: LocaleKeys.phoneNumber,
-                hint: LocaleKeys.pleaseEnterYourPhoneNumber,
-                textInputType: TextInputType.phone,
-                textInputAction: TextInputAction.next,
-                validator: (value) => Validators.validatePhone(
-                  value,
-                  fieldTitle: LocaleKeys.phoneNumber,
-                ),
-                controller: cubit.phoneController,
-              ),
-              CustomTextFiled(
                 prefixIcon: const Icon(Icons.email_outlined),
                 title: LocaleKeys.email,
                 hint: LocaleKeys.enterTheEmail,

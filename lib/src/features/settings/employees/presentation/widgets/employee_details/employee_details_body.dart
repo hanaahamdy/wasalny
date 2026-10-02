@@ -57,11 +57,15 @@ class EmployeeDetailsBody extends StatelessWidget {
           DefaultButton(
             width: double.infinity,
             height: AppSize.sH45,
-            title: LocaleKeys.disableAccount,
-            color: AppColors.white,
-            textColor: AppColors.main,
-            borderColor: AppColors.inputBorder,
-            onTap: null,
+            title: employee.isActive
+                ? LocaleKeys.disableAccount
+                : LocaleKeys.activateAccount,
+            color: employee.isActive ? AppColors.white : AppColors.successGreen,
+            textColor: employee.isActive ? AppColors.main : AppColors.white,
+            borderColor: employee.isActive
+                ? AppColors.inputBorder
+                : AppColors.successGreen,
+            onTap: viewModel.updateAccountStatus,
           ),
           SizedBox(height: AppSize.sH10),
           DefaultButton(

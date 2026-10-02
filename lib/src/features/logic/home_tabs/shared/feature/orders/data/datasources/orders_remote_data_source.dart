@@ -1,11 +1,16 @@
 import '../../../../../../../../core/network/api_endpoints.dart';
 import '../../../../../../../../core/network/network_request.dart';
 import '../../../../../../../../core/network/network_service.dart';
+import '../../../../../../../../core/shared/models/base_model.dart';
 
 import '../../entity/order_model.dart';
 
 abstract interface class OrdersRemoteDataSource {
   Future<List<OrderModel>> fetchOrders({required bool isAdmin, String? status});
+  Future<BaseModel?> updateDeliveryOrderStatus({
+    required int orderId,
+    required String status,
+  });
 }
 
 class OrdersRemoteDataSourceImpl implements OrdersRemoteDataSource {
@@ -35,6 +40,24 @@ class OrdersRemoteDataSourceImpl implements OrdersRemoteDataSource {
             )
             .toList();
       },
+    );
+    return response.data;
+  }
+
+  @override
+  Future<BaseModel?> updateDeliveryOrderStatus({
+    required int orderId,
+    required String status,
+  }) async {
+    final response = await _networkService.callApi<BaseModel?>(
+      NetworkRequest(
+        path: ApiConstants.deliveryOrderStatus(orderId),
+        method: RequestMethod.patch,
+        queryParameters: {'status': status},
+        body: const {},
+        isFormData: true,
+      ),
+      mapper: (json) => BaseModel.fromJson(json),
     );
     return response.data;
   }

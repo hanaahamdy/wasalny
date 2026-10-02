@@ -58,13 +58,15 @@ class _ChangePasswordBottomSheet extends StatefulWidget {
 class _ChangePasswordBottomSheetState
     extends State<_ChangePasswordBottomSheet> {
   final _formKey = GlobalKey<FormState>();
-  final _currentPasswordController = TextEditingController();
+  final _emailController = TextEditingController(
+    text: UserCubit.instance.user.email,
+  );
   final _newPasswordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
 
   @override
   void dispose() {
-    _currentPasswordController.dispose();
+    _emailController.dispose();
     _newPasswordController.dispose();
     _confirmPasswordController.dispose();
     super.dispose();
@@ -73,8 +75,8 @@ class _ChangePasswordBottomSheetState
   Future<void> _confirm() async {
     if (!(_formKey.currentState?.validate() ?? false)) return;
 
-    await context.read<ProfileChangePasswordCubit>().changePassword(
-      currentPassword: _currentPasswordController.text,
+    await context.read<ProfileChangePasswordCubit>().updateAdminPassword(
+      email: _emailController.text.trim(),
       password: _newPasswordController.text,
       confirmPassword: _confirmPasswordController.text,
     );
@@ -118,22 +120,17 @@ class _ChangePasswordBottomSheetState
               child: Column(
                 children: [
                   CustomTextFiled(
-                    controller: _currentPasswordController,
-                    title: LocaleKeys.currentPassword,
-                    hint: LocaleKeys.pleaseEnterYourPassword,
+                    controller: _emailController,
+                    title: LocaleKeys.email,
+                    hint: LocaleKeys.enterTheEmail,
                     isOptional: true,
-                    isPassword: true,
-                    textInputType: TextInputType.visiblePassword,
+                    textInputType: TextInputType.emailAddress,
                     textInputAction: TextInputAction.next,
                     fillColor: AppColors.fieldFillColor,
                     borderRadius: BorderRadius.circular(24.r),
-                    suffixIcon: AppAssets.svg.baseSvg.circlePassword.svg(
-                      width: 24.r,
-                      height: 24.r,
-                    ),
-                    validator: (value) => Validators.validateEmpty(
+                    validator: (value) => Validators.validateEmail(
                       value,
-                      fieldTitle: LocaleKeys.currentPassword,
+                      fieldTitle: LocaleKeys.email,
                     ),
                   ),
                   SizedBox(height: 20.h),

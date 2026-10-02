@@ -16,7 +16,6 @@ class CreateOrderParams {
   final String totalAmount;
   final String deliveryFee;
   final String partnerPrice;
-  final String seller;
   final List<CreateOrderProductParams> products;
 
   const CreateOrderParams({
@@ -25,7 +24,6 @@ class CreateOrderParams {
     required this.totalAmount,
     required this.deliveryFee,
     required this.partnerPrice,
-    required this.seller,
     required this.products,
   });
 
@@ -36,7 +34,6 @@ class CreateOrderParams {
       'total_amount': totalAmount,
       'delivery_fee': deliveryFee,
       'partner_price': partnerPrice,
-      'seller': seller,
     };
     for (var index = 0; index < products.length; index++) {
       final product = products[index];

@@ -9,7 +9,13 @@ import '../../entity/employee_model.dart';
 abstract interface class EmployeesRemoteDataSource {
   Future<List<EmployeeModel>> fetchEmployees(EmployeeType type);
   Future<EmployeeModel> fetchEmployee(int id);
-  Future<EmployeeModel> updateEmployee(int id, String name);
+  Future<EmployeeModel> updateEmployee(
+    int id, {
+    required String name,
+    required String email,
+    required String password,
+  });
+  Future<EmployeeModel> updateEmployeeStatus(int id, bool isActive);
   Future<void> deleteEmployee(int id);
 }
 
@@ -60,13 +66,33 @@ class EmployeesRemoteDataSourceImpl implements EmployeesRemoteDataSource {
   }
 
   @override
-  Future<EmployeeModel> updateEmployee(int id, String name) async {
+  Future<EmployeeModel> updateEmployee(
+    int id, {
+    required String name,
+    required String email,
+    required String password,
+  }) async {
     final response = await _networkService.callApi<EmployeeModel>(
       NetworkRequest(
         path: ApiConstants.employeeDetails(id),
         method: RequestMethod.patch,
-        body: {'name': name},
+        body: {'name': name, 'email': email, 'password': password},
         isFormData: true,
+      ),
+      mapper: (json) => EmployeeModel.fromJson(
+        Map<String, dynamic>.from(_responseData(json) as Map),
+      ),
+    );
+    return response.data;
+  }
+
+  @override
+  Future<EmployeeModel> updateEmployeeStatus(int id, bool isActive) async {
+    final response = await _networkService.callApi<EmployeeModel>(
+      NetworkRequest(
+        path: ApiConstants.employeeStatus(id),
+        method: RequestMethod.patch,
+        queryParameters: {'is_active': isActive ? 1 : 0},
       ),
       mapper: (json) => EmployeeModel.fromJson(
         Map<String, dynamic>.from(_responseData(json) as Map),

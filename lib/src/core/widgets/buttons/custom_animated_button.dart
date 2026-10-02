@@ -95,7 +95,7 @@ class CustomButtonState extends State<CustomAnimatedButton>
     );
 
     _animation.addStatusListener((status) {
-      if (status == AnimationStatus.dismissed) {
+      if (status == AnimationStatus.dismissed && mounted) {
         setState(() {
           buttonStatus = ButtonStatus.idle;
         });
@@ -113,6 +113,7 @@ class CustomButtonState extends State<CustomAnimatedButton>
   }
 
   void startLoading() {
+    if (!mounted) return;
     setState(() {
       buttonStatus = ButtonStatus.loading;
     });
@@ -120,6 +121,7 @@ class CustomButtonState extends State<CustomAnimatedButton>
   }
 
   void stopLoading() {
+    if (!mounted) return;
     _controller.reverse();
   }
 

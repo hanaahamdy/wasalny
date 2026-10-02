@@ -20,23 +20,17 @@ import '../../../features/auth/data/repositories/auth_repository_impl.dart'
 import '../../../features/auth/domain/repositories/auth_repository.dart'
     as _i234;
 import '../../../features/create_employee/data/datasources/create_employee_remote_data_source.dart'
-    as _i343;
+    as _i1028;
 import '../../../features/create_employee/data/repositories/create_employee_repository_impl.dart'
-    as _i330;
+    as _i902;
 import '../../../features/create_employee/domain/repositories/create_employee_repository.dart'
-    as _i431;
+    as _i673;
 import '../../../features/create_order/data/datasources/create_order_remote_data_source.dart'
     as _i206;
 import '../../../features/create_order/data/repositories/create_order_repository_impl.dart'
     as _i931;
 import '../../../features/create_order/domain/repositories/create_order_repository.dart'
     as _i478;
-import '../../../features/settings/employees/data/datasources/employees_remote_data_source.dart'
-    as _i701;
-import '../../../features/settings/employees/data/repositories/employees_repository_impl.dart'
-    as _i702;
-import '../../../features/settings/employees/domain/repositories/employees_repository.dart'
-    as _i703;
 import '../../../features/logic/home_tabs/admin/admin_home/data/datasources/admin_home_remote_data_source.dart'
     as _i141;
 import '../../../features/logic/home_tabs/admin/admin_home/data/repositories/admin_home_repository_impl.dart'
@@ -44,11 +38,11 @@ import '../../../features/logic/home_tabs/admin/admin_home/data/repositories/adm
 import '../../../features/logic/home_tabs/admin/admin_home/domain/repositories/admin_home_repository.dart'
     as _i981;
 import '../../../features/logic/home_tabs/delivery/delivery_home/data/datasources/delivery_home_remote_data_source.dart'
-    as _i1001;
+    as _i851;
 import '../../../features/logic/home_tabs/delivery/delivery_home/data/repositories/delivery_home_repository_impl.dart'
-    as _i1002;
+    as _i1025;
 import '../../../features/logic/home_tabs/delivery/delivery_home/domain/repositories/delivery_home_repository.dart'
-    as _i1003;
+    as _i1034;
 import '../../../features/settings/contact_us/data/datasources/contact_us_remote_data_source.dart'
     as _i208;
 import '../../../features/settings/contact_us/data/repositories/contact_us_repository_impl.dart'
@@ -57,6 +51,18 @@ import '../../../features/settings/contact_us/domain/repositories/contact_us_rep
     as _i564;
 import '../../../features/settings/contact_us/presentation/imports/contact_us_imports.dart'
     as _i550;
+import '../../../features/settings/customers/data/datasources/customers_remote_data_source.dart'
+    as _i316;
+import '../../../features/settings/customers/data/repositories/customers_repository_impl.dart'
+    as _i211;
+import '../../../features/settings/customers/domain/repositories/customers_repository.dart'
+    as _i929;
+import '../../../features/settings/employees/data/datasources/employees_remote_data_source.dart'
+    as _i807;
+import '../../../features/settings/employees/data/repositories/employees_repository_impl.dart'
+    as _i1002;
+import '../../../features/settings/employees/domain/repositories/employees_repository.dart'
+    as _i1073;
 import '../../../features/settings/notifications/data/datasources/notifications_remote_data_source.dart'
     as _i129;
 import '../../../features/settings/notifications/data/repositories/notifications_repository_impl.dart'
@@ -110,8 +116,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i141.AdminHomeRemoteDataSource>(
       () => _i141.AdminHomeRemoteDataSourceImpl(gh<_i632.NetworkService>()),
     );
-    gh.lazySingleton<_i1001.DeliveryHomeRemoteDataSource>(
-      () => _i1001.DeliveryHomeRemoteDataSourceImpl(gh<_i632.NetworkService>()),
+    gh.lazySingleton<_i316.CustomersRemoteDataSource>(
+      () => _i316.CustomersRemoteDataSourceImpl(gh<_i632.NetworkService>()),
     );
     gh.lazySingleton<_i777.ProfileRemoteDataSource>(
       () => _i777.ProfileRemoteDataSourceImpl(gh<_i632.NetworkService>()),
@@ -119,15 +125,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i233.StaticPagesRemoteDataSource>(
       () => _i233.StaticPagesRemoteDataSourceImpl(gh<_i632.NetworkService>()),
     );
+    gh.lazySingleton<_i851.DeliveryHomeRemoteDataSource>(
+      () => _i851.DeliveryHomeRemoteDataSourceImpl(gh<_i632.NetworkService>()),
+    );
+    gh.lazySingleton<_i807.EmployeesRemoteDataSource>(
+      () => _i807.EmployeesRemoteDataSourceImpl(gh<_i632.NetworkService>()),
+    );
     gh.lazySingleton<_i129.NotificationsRemoteDataSource>(
       () => _i129.NotificationsRemoteDataSourceImpl(gh<_i632.NetworkService>()),
-    );
-    gh.lazySingleton<_i343.CreateEmployeeRemoteDataSource>(
-      () =>
-          _i343.CreateEmployeeRemoteDataSourceImpl(gh<_i632.NetworkService>()),
-    );
-    gh.lazySingleton<_i701.EmployeesRemoteDataSource>(
-      () => _i701.EmployeesRemoteDataSourceImpl(gh<_i632.NetworkService>()),
     );
     gh.lazySingleton<_i56.UserRemoteDataSource>(
       () => _i56.UserRemoteDataSourceImpl(gh<_i632.NetworkService>()),
@@ -140,8 +145,21 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i208.ContactUsRemoteDataSource>(
       () => _i208.ContactUsRemoteDataSourceImpl(gh<_i632.NetworkService>()),
     );
+    gh.lazySingleton<_i1073.EmployeesRepository>(
+      () =>
+          _i1002.EmployeesRepositoryImpl(gh<_i807.EmployeesRemoteDataSource>()),
+    );
+    gh.lazySingleton<_i1028.CreateEmployeeRemoteDataSource>(
+      () =>
+          _i1028.CreateEmployeeRemoteDataSourceImpl(gh<_i632.NetworkService>()),
+    );
     gh.lazySingleton<_i436.AuthRemoteDataSource>(
       () => _i436.AuthRemoteDataSourceImpl(gh<_i632.NetworkService>()),
+    );
+    gh.lazySingleton<_i1034.DeliveryHomeRepository>(
+      () => _i1025.DeliveryHomeRepositoryImpl(
+        gh<_i851.DeliveryHomeRemoteDataSource>(),
+      ),
     );
     gh.lazySingleton<_i478.CreateOrderRepository>(
       () => _i931.CreateOrderRepositoryImpl(
@@ -152,29 +170,23 @@ extension GetItInjectableX on _i174.GetIt {
       () =>
           _i837.AdminHomeRepositoryImpl(gh<_i141.AdminHomeRemoteDataSource>()),
     );
-    gh.lazySingleton<_i1003.DeliveryHomeRepository>(
-      () => _i1002.DeliveryHomeRepositoryImpl(
-        gh<_i1001.DeliveryHomeRemoteDataSource>(),
-      ),
-    );
-    gh.lazySingleton<_i431.CreateEmployeeRepository>(
-      () => _i330.CreateEmployeeRepositoryImpl(
-        gh<_i343.CreateEmployeeRemoteDataSource>(),
-      ),
-    );
-    gh.lazySingleton<_i703.EmployeesRepository>(
-      () => _i702.EmployeesRepositoryImpl(
-        gh<_i701.EmployeesRemoteDataSource>(),
-      ),
-    );
     gh.lazySingleton<_i544.UserRepository>(
       () => _i223.UserRepositoryImpl(gh<_i56.UserRemoteDataSource>()),
+    );
+    gh.lazySingleton<_i673.CreateEmployeeRepository>(
+      () => _i902.CreateEmployeeRepositoryImpl(
+        gh<_i1028.CreateEmployeeRemoteDataSource>(),
+      ),
     );
     gh.lazySingleton<_i234.AuthRepository>(
       () => _i365.AuthRepositoryImpl(gh<_i436.AuthRemoteDataSource>()),
     );
     gh.lazySingleton<_i51.ProfileRepository>(
       () => _i444.ProfileRepositoryImpl(gh<_i777.ProfileRemoteDataSource>()),
+    );
+    gh.lazySingleton<_i929.CustomersRepository>(
+      () =>
+          _i211.CustomersRepositoryImpl(gh<_i316.CustomersRemoteDataSource>()),
     );
     gh.lazySingleton<_i308.StaticPagesRepository>(
       () => _i558.StaticPagesRepositoryImpl(

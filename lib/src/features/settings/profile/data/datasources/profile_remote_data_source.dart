@@ -12,7 +12,10 @@ abstract interface class ProfileRemoteDataSource {
     UpdateProfileParams params,
     UserModel fallback,
   );
-  Future<BaseModel?> changePassword(Map<String, dynamic> body);
+  Future<BaseModel?> updateAdminPassword(
+    int customerId,
+    Map<String, dynamic> body,
+  );
 }
 
 @LazySingleton(as: ProfileRemoteDataSource)
@@ -39,10 +42,13 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   }
 
   @override
-  Future<BaseModel?> changePassword(Map<String, dynamic> body) async {
+  Future<BaseModel?> updateAdminPassword(
+    int customerId,
+    Map<String, dynamic> body,
+  ) async {
     final response = await _networkService.callApi<BaseModel?>(
       NetworkRequest(
-        path: ApiConstants.changePassword,
+        path: ApiConstants.updateCustomer(customerId),
         method: RequestMethod.post,
         body: body,
         isFormData: true,

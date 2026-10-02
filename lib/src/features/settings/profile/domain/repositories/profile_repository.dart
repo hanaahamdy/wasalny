@@ -10,8 +10,9 @@ abstract interface class ProfileRepository {
     UpdateProfileParams params,
     UserModel fallback,
   );
-  Future<Result<BaseModel?, Failure>> changePassword({
-    required String currentPassword,
+  Future<Result<BaseModel?, Failure>> updateAdminPassword({
+    required int customerId,
+    required String email,
     required String password,
     required String confirmPassword,
   });

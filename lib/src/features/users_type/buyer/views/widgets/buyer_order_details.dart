@@ -8,11 +8,17 @@ class BuyerOrderDetailsScreen extends StatefulWidget {
 }
 
 class _BuyerOrderDetailsScreenState extends State<BuyerOrderDetailsScreen> {
-  final _viewModel = BuyerViewModel();
+  late final BuyerViewModel _viewModel;
   final _formKey = GlobalKey<FormState>();
   final _clientController = TextEditingController();
   final List<_CategoryInput> _categories = [_CategoryInput()];
   double get _total => _categories.fold(0, (sum, item) => sum + item.total);
+
+  @override
+  void initState() {
+    super.initState();
+    _viewModel = BuyerViewModel(injector<NetworkService>());
+  }
 
   @override
   void dispose() {
@@ -29,10 +35,11 @@ class _BuyerOrderDetailsScreenState extends State<BuyerOrderDetailsScreen> {
     setState(() => _categories.removeAt(index).dispose());
   }
 
-  void _submit() {
+  Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
-    _viewModel.addOrder(
+    final order = await _viewModel.addOrder(
       clientName: _clientController.text.trim(),
+      clientPhone: UserCubit.instance.user.phone,
       categories: _categories
           .map(
             (item) => WorkflowCategory(
@@ -43,10 +50,20 @@ class _BuyerOrderDetailsScreenState extends State<BuyerOrderDetailsScreen> {
           )
           .toList(),
     );
-    Navigator.pop(context);
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text(LocaleKeys.workflowOrderSent)));
+    if (!mounted) return;
+    if (order == null) {
+      await showAppErrorDialog(
+        context: context,
+        message: _viewModel.orderError ?? LocaleKeys.exceptionError,
+      );
+      return;
+    }
+    await successDialog(
+      context: context,
+      title: LocaleKeys.workflowOrderSent,
+    );
+    if (!mounted) return;
+    Go.back();
   }
 
   @override
@@ -125,11 +142,23 @@ class _BuyerOrderDetailsScreenState extends State<BuyerOrderDetailsScreen> {
                   ),
                 ),
                 SizedBox(height: AppSize.sH24),
-                DefaultButton(
-                  title: LocaleKeys.workflowSendOrder,
-                  onTap: _submit,
-                  gradient: AppColors.scenarioGradient,
-                  height: AppSize.sH48,
+                ListenableBuilder(
+                  listenable: _viewModel,
+                  builder: (context, _) => DefaultButton(
+                    title: LocaleKeys.workflowSendOrder,
+                    onTap: _viewModel.isSubmittingOrder ? null : _submit,
+                    gradient: AppColors.scenarioGradient,
+                    height: AppSize.sH48,
+                    customChild: _viewModel.isSubmittingOrder
+                        ? const SizedBox.square(
+                            dimension: 20,
+                            child: CircularProgressIndicator(
+                              color: AppColors.white,
+                              strokeWidth: 2,
+                            ),
+                          )
+                        : null,
+                  ),
                 ),
               ],
             ),

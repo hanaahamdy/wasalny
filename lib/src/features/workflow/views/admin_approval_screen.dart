@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../config/res/config_imports.dart';
+import '../../../core/network/network_service.dart';
 import '../../users_type/admin/view_models/admin_approval_view_model.dart';
 import '../models/workflow_order.dart';
 import '../../../config/language/locale_keys.g.dart';
@@ -13,7 +14,14 @@ class AdminApprovalScreen extends StatefulWidget {
 }
 
 class _AdminApprovalScreenState extends State<AdminApprovalScreen> {
-  final _viewModel = AdminApprovalViewModel();
+  late final AdminApprovalViewModel _viewModel;
+
+  @override
+  void initState() {
+    super.initState();
+    _viewModel = AdminApprovalViewModel(injector<NetworkService>())
+      ..loadOrders();
+  }
 
   @override
   void dispose() {
@@ -30,6 +38,24 @@ class _AdminApprovalScreenState extends State<AdminApprovalScreen> {
         builder: (context, _) {
           final orders = _viewModel.orders;
           final liveRequests = _viewModel.liveRequests;
+          if (_viewModel.isLoading && orders.isEmpty) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (_viewModel.errorMessage != null && orders.isEmpty) {
+            return Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(_viewModel.errorMessage!),
+                  const SizedBox(height: 12),
+                  FilledButton(
+                    onPressed: _viewModel.loadOrders,
+                    child: Text(LocaleKeys.retry),
+                  ),
+                ],
+              ),
+            );
+          }
           if (orders.isEmpty && liveRequests.isEmpty) {
             return EmptyWorkflow(LocaleKeys.workflowNoRequests);
           }

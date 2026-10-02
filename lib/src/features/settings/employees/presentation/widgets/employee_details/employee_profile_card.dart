@@ -51,23 +51,12 @@ class EmployeeProfileCard extends StatelessWidget {
             ),
           ),
           SizedBox(height: AppSize.sH4),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                Icons.location_on_outlined,
-                color: AppColors.hintText,
-                size: AppSize.sH12,
-              ),
-              SizedBox(width: AppSize.sW2),
-              Text(
-                employee.location,
-                style: TextStyle(
-                  color: AppColors.hintText,
-                  fontSize: FontSizeManager.s10,
-                ),
-              ),
-            ],
+          Text(
+            employee.location,
+            style: TextStyle(
+              color: AppColors.hintText,
+              fontSize: FontSizeManager.s10,
+            ),
           ),
           SizedBox(height: AppSize.sH6),
           Container(

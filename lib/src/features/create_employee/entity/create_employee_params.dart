@@ -2,7 +2,6 @@ import '../../../core/shared/models/employee_type.dart';
 
 class CreateEmployeeParams {
   final String name;
-  final String phone;
   final String email;
   final String password;
   final EmployeeType employeeType;
@@ -10,7 +9,6 @@ class CreateEmployeeParams {
 
   const CreateEmployeeParams({
     required this.name,
-    required this.phone,
     required this.email,
     required this.password,
     required this.employeeType,
@@ -19,7 +17,6 @@ class CreateEmployeeParams {
 
   Map<String, dynamic> toJson() => {
     'name': name,
-    'phone': phone,
     'email': email,
     'password': password,
     'password_confirmation': password,

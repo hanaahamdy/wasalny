@@ -45,7 +45,10 @@ class AdminOrderDetailsActions extends StatelessWidget {
     if (status == AdminOrderTab.delivering && onTrackOrder != null) {
       return Padding(
         padding: EdgeInsets.only(top: AppSize.sH18),
-        child: DefaultButton(title: LocaleKeys.trackOrder, onTap: onTrackOrder),
+        child: DefaultButton(
+          title: LocaleKeys.trackDelivery,
+          onTap: onTrackOrder,
+        ),
       );
     }
 

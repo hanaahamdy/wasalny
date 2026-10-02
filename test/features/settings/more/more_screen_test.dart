@@ -14,8 +14,8 @@ import 'package:flutterbase/src/features/users_type/buyer/views/buyer_screen.dar
 void main() {
   setUpAll(setUpServiceLocator);
 
-  for (final role in [UserRole.admin, UserRole.delivery]) {
-    testWidgets('shows one reset-flow change password item for ${role.name}', (
+  for (final role in [UserRole.admin, UserRole.buyer]) {
+    testWidgets('shows one change password item for ${role.name}', (
       tester,
     ) async {
       final userCubit = UserCubit();
@@ -44,6 +44,28 @@ void main() {
       expect(find.byType(ForgotPasswordScreen), findsOneWidget);
     });
   }
+
+  testWidgets('hides profile actions for delivery users', (tester) async {
+    final userCubit = UserCubit();
+    userCubit.emit(
+      UserState(
+        userModel: UserModel.initial().copyWith(role: UserRole.delivery),
+        userStatus: UserStatus.loggedIn,
+      ),
+    );
+    await injector.unregister<UserCubit>();
+    injector.registerSingleton<UserCubit>(userCubit);
+
+    await tester.pumpWidget(
+      ScreenUtilInit(
+        designSize: const Size(360, 690),
+        builder: (_, _) => const MaterialApp(home: MoreScreen()),
+      ),
+    );
+
+    expect(find.text(LocaleKeys.editProfile), findsNothing);
+    expect(find.text(LocaleKeys.changePassword), findsNothing);
+  });
 
   testWidgets('opens the live flow from the admin More screen', (tester) async {
     tester.view.physicalSize = const Size(1200, 1920);

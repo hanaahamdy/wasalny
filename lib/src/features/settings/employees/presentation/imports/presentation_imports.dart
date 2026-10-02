@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../config/language/locale_keys.g.dart';
 import '../../../../../config/res/config_imports.dart';
+import '../../../../../core/helpers/validators.dart';
 import '../../../../../core/navigation/navigator.dart';
 import '../../../../../core/shared/models/employee_type.dart';
 import '../../../../../core/widgets/buttons/default_button.dart';

@@ -18,7 +18,10 @@ class StaticPagesRemoteDataSourceImpl implements StaticPagesRemoteDataSource {
   Future<String> fetch(StaticPageTypeEnum pageType) async {
     final response = await _networkService.callApi<String>(
       NetworkRequest(path: pageType.apiEndpoint, method: RequestMethod.get),
-      mapper: (json) => json['data']['content'] as String,
+      mapper: (json) {
+        final data = json['data'] as Map<String, dynamic>;
+        return (data['value'] ?? data['content']) as String? ?? '';
+      },
     );
     return response.data;
   }

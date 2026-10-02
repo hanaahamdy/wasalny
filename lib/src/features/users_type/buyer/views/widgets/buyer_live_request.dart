@@ -7,26 +7,40 @@ class BuyerLiveRequestScreen extends StatefulWidget {
 }
 
 class _BuyerLiveRequestScreenState extends State<BuyerLiveRequestScreen> {
-  final _viewModel = BuyerViewModel();
+  late final BuyerViewModel _viewModel;
   final _formKey = GlobalKey<FormState>();
-  final _clientController = TextEditingController();
+  final _broadcastTitleController = TextEditingController();
   final _detailsController = TextEditingController();
   int? _requestId;
 
   @override
+  void initState() {
+    super.initState();
+    _viewModel = BuyerViewModel(injector<NetworkService>());
+  }
+
+  @override
   void dispose() {
     _viewModel.dispose();
-    _clientController.dispose();
+    _broadcastTitleController.dispose();
     _detailsController.dispose();
     super.dispose();
   }
 
-  void _requestLive() {
+  Future<void> _requestLive() async {
     if (!_formKey.currentState!.validate()) return;
-    final request = _viewModel.addLiveRequest(
-      clientName: _clientController.text.trim(),
+    final request = await _viewModel.addLiveRequest(
+      broadcastTitle: _broadcastTitleController.text.trim(),
       details: _detailsController.text.trim(),
     );
+    if (!mounted) return;
+    if (request == null) {
+      await showAppErrorDialog(
+        context: context,
+        message: _viewModel.liveRequestError ?? LocaleKeys.exceptionError,
+      );
+      return;
+    }
     setState(() => _requestId = request.id);
   }
 
@@ -60,9 +74,9 @@ class _BuyerLiveRequestScreenState extends State<BuyerLiveRequestScreen> {
         ),
         const SizedBox(height: 20),
         TextFormField(
-          controller: _clientController,
+          controller: _broadcastTitleController,
           decoration: InputDecoration(
-            labelText: LocaleKeys.workflowClientName,
+            labelText: LocaleKeys.workflowLiveTitle,
             border: const OutlineInputBorder(),
           ),
           validator: _required,
@@ -79,12 +93,20 @@ class _BuyerLiveRequestScreenState extends State<BuyerLiveRequestScreen> {
           validator: _required,
         ),
         const SizedBox(height: 20),
-        FilledButton.icon(
-          onPressed: _requestLive,
-          icon: const Icon(Icons.send_outlined),
-          label: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 14),
-            child: Text(LocaleKeys.workflowAskAdminLive),
+        ListenableBuilder(
+          listenable: _viewModel,
+          builder: (context, _) => FilledButton.icon(
+            onPressed: _viewModel.isSubmittingLiveRequest ? null : _requestLive,
+            icon: _viewModel.isSubmittingLiveRequest
+                ? const SizedBox.square(
+                    dimension: 18,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  )
+                : const Icon(Icons.send_outlined),
+            label: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 14),
+              child: Text(LocaleKeys.workflowAskAdminLive),
+            ),
           ),
         ),
       ],

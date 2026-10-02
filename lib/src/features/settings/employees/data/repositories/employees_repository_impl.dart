@@ -24,8 +24,22 @@ class EmployeesRepositoryImpl implements EmployeesRepository {
       _remoteDataSource.fetchEmployee(id).handleCallbackWithFailure();
 
   @override
-  Future<Result<EmployeeModel, Failure>> updateEmployee(int id, String name) =>
-      _remoteDataSource.updateEmployee(id, name).handleCallbackWithFailure();
+  Future<Result<EmployeeModel, Failure>> updateEmployee(
+    int id, {
+    required String name,
+    required String email,
+    required String password,
+  }) => _remoteDataSource
+      .updateEmployee(id, name: name, email: email, password: password)
+      .handleCallbackWithFailure();
+
+  @override
+  Future<Result<EmployeeModel, Failure>> updateEmployeeStatus(
+    int id,
+    bool isActive,
+  ) => _remoteDataSource
+      .updateEmployeeStatus(id, isActive)
+      .handleCallbackWithFailure();
 
   @override
   Future<Result<void, Failure>> deleteEmployee(int id) =>

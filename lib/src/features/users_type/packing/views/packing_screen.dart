@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import '../../../../core/widgets/buttons/default_button.dart';
+import '../../../../core/widgets/dialogs/success_dialog.dart';
+import '../../../../core/network/network_service.dart';
+import '../../../../config/res/config_imports.dart';
+import '../../../settings/more/presentation/more_screen.dart';
 import '../../../workflow/models/workflow_order.dart';
 import '../../../workflow/views/widgets/workflow_widgets.dart';
 import '../../../../config/language/locale_keys.g.dart';
@@ -13,7 +18,14 @@ class PackingScreen extends StatefulWidget {
 }
 
 class _PackingScreenState extends State<PackingScreen> {
-  final _viewModel = PackingViewModel();
+  late final PackingViewModel _viewModel;
+
+  @override
+  void initState() {
+    super.initState();
+    _viewModel = PackingViewModel(injector<NetworkService>());
+    _viewModel.loadOrders();
+  }
 
   @override
   void dispose() {
@@ -26,65 +38,111 @@ class _PackingScreenState extends State<PackingScreen> {
     return WorkflowPage(
       title: LocaleKeys.workflowPacking,
       automaticallyImplyLeading: false,
-      child: ListenableBuilder(
-        listenable: _viewModel,
-        builder: (context, _) {
-          final orders = _viewModel.orders;
-          if (orders.isEmpty) {
-            return EmptyWorkflow(LocaleKeys.workflowNoPackingOrders);
-          }
-          return ListView(
-            padding: const EdgeInsets.all(16),
-            children: [
-              WorkflowQueueHeader(
-                icon: Icons.inventory_2_outlined,
-                title: LocaleKeys.workflowPacking,
-                subtitle: LocaleKeys.workflowPackingQueue(
-                  count: orders.length.toString(),
-                ),
-                count: orders.length,
-              ),
-              ...orders.map(
-                (order) => WorkflowOrderCard(
-                  order: order,
-                  action: Row(
-                    children: [
-                      Expanded(
-                        child: OutlinedButton.icon(
-                          onPressed: () => _showPackingSlip(context, order),
-                          icon: const Icon(Icons.print_outlined),
-                          label: Text(LocaleKeys.workflowPrint),
+      child: Column(
+        children: [
+          Expanded(
+            child: ListenableBuilder(
+              listenable: _viewModel,
+              builder: (context, _) {
+                final orders = _viewModel.orders;
+                if (_viewModel.isLoading && orders.isEmpty) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                if (_viewModel.errorMessage != null && orders.isEmpty) {
+                  return Center(
+                    child: FilledButton(
+                      onPressed: _viewModel.loadOrders,
+                      child: Text(LocaleKeys.retry),
+                    ),
+                  );
+                }
+                if (orders.isEmpty) {
+                  return RefreshIndicator(
+                    onRefresh: _viewModel.loadOrders,
+                    child: ListView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      children: [
+                        SizedBox(
+                          height: MediaQuery.sizeOf(context).height * .3,
                         ),
+                        EmptyWorkflow(LocaleKeys.workflowNoPackingOrders),
+                      ],
+                    ),
+                  );
+                }
+                return RefreshIndicator(
+                  onRefresh: _viewModel.loadOrders,
+                  child: ListView(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    padding: const EdgeInsets.all(16),
+                    children: [
+                      WorkflowQueueHeader(
+                        icon: Icons.inventory_2_outlined,
+                        title: LocaleKeys.workflowPacking,
+                        subtitle: LocaleKeys.workflowPackingQueue(
+                          count: orders.length.toString(),
+                        ),
+                        count: orders.length,
                       ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: FilledButton.icon(
-                          onPressed: () {
-                            _viewModel.sendToAliaa(order.id);
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(LocaleKeys.workflowSentToAliaa),
+                      ...orders.map(
+                        (order) => WorkflowOrderCard(
+                          order: order,
+                          action: Row(
+                            children: [
+                              Expanded(
+                                child: OutlinedButton.icon(
+                                  onPressed: () =>
+                                      _showPackingSlip(context, order),
+                                  icon: const Icon(Icons.print_outlined),
+                                  label: Text(LocaleKeys.workflowPrint),
+                                ),
                               ),
-                            );
-                          },
-                          icon: const Icon(Icons.forward_to_inbox_outlined),
-                          label: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              LocaleKeys.workflowSendToAliaa,
-                              maxLines: 1,
-                              softWrap: false,
-                            ),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                child: FilledButton.icon(
+                                  onPressed: _viewModel.isSending(order.id)
+                                      ? null
+                                      : () => _sendToAliaa(order.id),
+                                  icon: _viewModel.isSending(order.id)
+                                      ? const SizedBox.square(
+                                          dimension: 18,
+                                          child: CircularProgressIndicator(
+                                            strokeWidth: 2,
+                                          ),
+                                        )
+                                      : const Icon(
+                                          Icons.forward_to_inbox_outlined,
+                                        ),
+                                  label: FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Text(
+                                      LocaleKeys.workflowSendToAliaa,
+                                      maxLines: 1,
+                                      softWrap: false,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
                     ],
                   ),
-                ),
-              ),
-            ],
-          );
-        },
+                );
+              },
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(
+              AppPadding.pW16,
+              AppPadding.pH8,
+              AppPadding.pW16,
+              AppPadding.pH20,
+            ),
+            child: DefaultButton(title: LocaleKeys.logout, onTap: _logout),
+          ),
+        ],
       ),
     );
   }
@@ -95,4 +153,23 @@ class _PackingScreenState extends State<PackingScreen> {
       builder: (_) => PackingSlipDialog(order: order),
     );
   }
+
+  Future<void> _sendToAliaa(int orderId) async {
+    final sent = await _viewModel.sendToAliaa(orderId);
+    if (!mounted) return;
+    if (sent) {
+      await successDialog(
+        context: context,
+        title: LocaleKeys.workflowSentToAliaa,
+      );
+      return;
+    }
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(_viewModel.errorMessage ?? LocaleKeys.exceptionError),
+      ),
+    );
+  }
+
+  void _logout() => MoreScreen.showLogoutDialog(context);
 }

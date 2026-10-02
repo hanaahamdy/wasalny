@@ -11,7 +11,21 @@ class ApiConstants {
   static String stadiumSlots(int stadiumId) => 'stadiums/$stadiumId/slots';
   static const String bookings = 'bookings';
   static const String orders = 'orders';
+  static const String salesOrders = 'sales/orders';
+  static const String packingOrders = 'orders/packing';
+  static String sendOrderToAliya(int orderId) =>
+      'orders/$orderId/send-to-aliya';
+  static const String supervisorOrders = 'orders/supervisor';
+  static String sendOrderToCustomer(int orderId) =>
+      'orders/$orderId/send-to-customer';
+  static const String liveRequests = 'live-requests';
+  static String acceptLiveRequest(int requestId) =>
+      '$liveRequests/$requestId/accept';
+  static String rejectLiveRequest(int requestId) =>
+      '$liveRequests/$requestId/reject';
   static const String deliveryOrders = 'deliveries/orders';
+  static String deliveryOrderStatus(int orderId) =>
+      'deliveries/orders/$orderId/status';
   static String orderDetails(int orderId) => 'orders/$orderId';
   static const String bookingCancelReasons = 'booking-cancel-reasons';
   static const String bookingOpponents = 'bookings/opponents';
@@ -64,7 +78,7 @@ class ApiConstants {
   static const String changePhoneNewSend = 'profile/phone/new/send';
   static const String changePhoneNewVerify = 'profile/phone/new/verify';
   static const String changePhoneNewResend = 'profile/phone/new/resend';
-  static const String changePassword = 'profile/change-password';
+  static String updateCustomer(int customerId) => 'customers/$customerId';
   static const String changeLang = 'user/change-lang';
   static const String deleteAccount = 'user/delete-account';
   static const String updateCountry = 'user/profile/change-currency-country';
@@ -81,13 +95,16 @@ class ApiConstants {
   // ---------------------- More -----------------------------------
   static const String faqs = 'get-faqs';
   static const String about = 'pages/about';
-  static const String terms = 'pages/terms';
-  static const String privacy = 'pages/privacy';
+  static const String terms = 'terms-and-conditions';
+  static const String privacy = 'privacy-policy';
   static const String contactUs = 'contact';
   static const String complain = 'user/complaints/get-complaint-data';
   static const String addComplain = 'user/complaints/send';
   static const String complainDetails = 'user/complaints/';
   static const String logOut = 'auth/logout';
   static const String employees = 'customers';
+  static const String clients = 'clients';
   static String employeeDetails(int employeeId) => 'customers/$employeeId';
+  static String employeeStatus(int employeeId) =>
+      'customers/$employeeId/status';
 }

@@ -25,6 +25,7 @@ import '../../entity/order_tabs.dart';
 
 part '../cubits/orders_cubit.dart';
 part '../cubits/orders_state.dart';
+part '../cubits/delivery_order_status_cubit.dart';
 part '../view/admin_order_details_screen.dart';
 part '../view/delivery_order_details_screen.dart';
 part '../view/a5_invoice_screen.dart';

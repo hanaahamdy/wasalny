@@ -50,14 +50,18 @@ class OrderModel {
     final adminTab = switch (status) {
       'on_hold' || 'on_holding' => AdminOrderTab.onHolding,
       'created' => AdminOrderTab.created,
-      'delivering' || 'in_delivery' => AdminOrderTab.delivering,
+      'delivering' ||
+      'in_delivery' ||
+      'قيد التوصيل' => AdminOrderTab.delivering,
       'received' || 'delivered' => AdminOrderTab.received,
       'cancelled' || 'canceled' => AdminOrderTab.cancelled,
       _ => AdminOrderTab.pending,
     };
 
     final deliveryTab = switch (status) {
-      'delivering' || 'in_delivery' => DeliveryOrderTab.delivering,
+      'delivering' ||
+      'in_delivery' ||
+      'قيد التوصيل' => DeliveryOrderTab.delivering,
       'received' => DeliveryOrderTab.received,
       'delivered' => DeliveryOrderTab.delivered,
       _ => DeliveryOrderTab.created,

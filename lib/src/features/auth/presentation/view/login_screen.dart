@@ -24,12 +24,8 @@ class LoginScreen extends StatelessWidget {
               } else if (state.isSuccess) {
                 final destination = switch (UserCubit.instance.user.role) {
                   UserRole.buyer => const BuyerScreen(),
-                  UserRole.packing => const WorkflowRoleTabsScreen(
-                    home: PackingScreen(),
-                  ),
-                  UserRole.aliaa => const WorkflowRoleTabsScreen(
-                    home: AliaaScreen(),
-                  ),
+                  UserRole.packing => const PackingScreen(),
+                  UserRole.aliaa => const AliaaScreen(),
                   UserRole.admin || UserRole.delivery => const HomeScreen(),
                 };
                 Go.offAll(destination);

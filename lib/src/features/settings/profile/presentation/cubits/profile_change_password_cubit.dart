@@ -7,14 +7,15 @@ class ProfileChangePasswordCubit extends Cubit<RequestState<BaseModel?>> {
     : _repository = repository ?? injector<ProfileRepository>(),
       super(const RequestState(data: null));
 
-  Future<void> changePassword({
-    required String currentPassword,
+  Future<void> updateAdminPassword({
+    required String email,
     required String password,
     required String confirmPassword,
   }) async {
     emit(state.copyWith(status: BaseStatus.loading, clearError: true));
-    final result = await _repository.changePassword(
-      currentPassword: currentPassword,
+    final result = await _repository.updateAdminPassword(
+      customerId: UserCubit.instance.user.id,
+      email: email,
       password: password,
       confirmPassword: confirmPassword,
     );
